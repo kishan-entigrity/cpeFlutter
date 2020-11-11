@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 const kLabelTitleTextStyle = TextStyle(
   fontFamily: 'Whitney Bold',
-  fontSize: 40.0,
+  fontSize: 35.0,
   color: Color(0xFF193F70),
 );
 
@@ -22,7 +22,7 @@ const lTextFlieldStylePass = InputDecoration(
 
 const kButtonLabelTextStyle = TextStyle(
   fontFamily: 'Whitney Bold',
-  fontSize: 40.0,
+  fontSize: 35.0,
   color: Colors.black,
 );
 
