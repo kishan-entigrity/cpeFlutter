@@ -11,7 +11,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   String _email;
-  String _password;
+  // String _password;
 
   @override
   void initState() {
@@ -59,10 +59,10 @@ class _SplashScreenState extends State<SplashScreen> {
     if (checkValue != null) {
       if (checkValue) {
         String eml = sharedPreferences.getString("username");
-        String pass = sharedPreferences.getString("password");
+        // String pass = sharedPreferences.getString("password");
 
         print('Email on Login Screen getCredential method is : $eml');
-        print('Password on Login Screen getCredential method is : $pass');
+        // print('Password on Login Screen getCredential method is : $pass');
         new Future.delayed(const Duration(seconds: 5), () {
           setState(() {
             /*Navigator.pushReplacement(

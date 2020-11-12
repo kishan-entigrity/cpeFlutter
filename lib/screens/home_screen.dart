@@ -12,12 +12,14 @@ class _HomeScreenState extends State<HomeScreen> {
   String _email;
   String _password;
 
+  String strEmail, strID, strFName, strLName, strContact, strProfilePic;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     // Here we take call for getting user data from SharedPrefs..
-    // getUserData();
+    getUserData();
   }
 
   @override
@@ -72,6 +74,38 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         (Route<dynamic> route) => false);
     // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: context) => , (route) => false);
+  }
+
+  void getUserData() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    bool checkValue = preferences.getBool("check");
+
+    if (checkValue != null) {
+      if (checkValue) {
+        strEmail = preferences.getString("spEmail");
+        strID = preferences.getString("spID");
+        strFName = preferences.getString("spFName");
+        strLName = preferences.getString("spLName");
+        strContact = preferences.getString("spContact");
+        strProfilePic = preferences.getString("spProfilePic");
+        // String pass = sharedPreferences.getString("password");
+
+        print('Email on home screen from SP is : $strEmail');
+        print('ID on home screen from SP is : $strID');
+        print('FName on home screen from SP is : $strFName');
+        print('LName on home screen from SP is : $strLName');
+        print('Contact on home screen from SP is : $strContact');
+        print('ProfilePic on home screen from SP is : $strProfilePic');
+      } else {
+        print('Check value : $checkValue');
+        // username.clear();
+        // password.clear();
+        preferences.clear();
+      }
+    } else {
+      print('Null value else part');
+      checkValue = false;
+    }
   }
 
   /*void getUserData() async {

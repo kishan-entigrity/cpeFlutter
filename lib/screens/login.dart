@@ -1,5 +1,7 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/round_icon_button.dart';
 import 'package:cpe_flutter/constant.dart';
+import 'package:cpe_flutter/rest_api.dart';
 import 'package:cpe_flutter/screens/forget_password.dart';
 import 'package:cpe_flutter/screens/home_screen.dart';
 import 'package:email_validator/email_validator.dart';
@@ -24,6 +26,13 @@ class _LoginState extends State<Login> {
   bool checkValue = false;
 
   SharedPreferences sharedPreferences;
+
+  var respStrId;
+  var respStrEmail;
+  var respStrFName;
+  var respStrLName;
+  var respStrContactNumber;
+  var respStrProfilePic;
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -224,12 +233,54 @@ class _LoginState extends State<Login> {
         ),
       );
       // Add data to shared prefs..
-      saveData();
+      // saveData();
+      takeLoginApi();
 
-      Navigator.push(
+      // Need to take redirection call once we are getting success on API call..
+      /*Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => HomeScreen(),
+        ),
+      );*/
+    }
+  }
+
+  void takeLoginApi() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    print('Connectivity Result is : $connectivityResult');
+    print('Connectivity Result is empty');
+
+    if ((connectivityResult == ConnectivityResult.mobile) ||
+        (connectivityResult == ConnectivityResult.wifi)) {
+      var resp = await loginUser(
+          _email, _password, 'android', 'ddddddddddddddddddddddddddddd', 'A');
+      print('Response is : $resp');
+      var respStrPayload = resp['payload'];
+      respStrId = resp['payload']['id'];
+      respStrEmail = resp['payload']['email'];
+      respStrFName = resp['payload']['first_name'];
+      respStrLName = resp['payload']['last_name'];
+      respStrContactNumber = resp['payload']['contact_no'];
+      respStrProfilePic = resp['payload']['profile_picture'];
+
+      print('Response id is : $respStrId');
+      print('Response email is : $respStrEmail');
+      print('Response FName is : $respStrFName');
+      print('Response LName is : $respStrLName');
+      print('Response contact is : $respStrContactNumber');
+      print('Response profile-pic is : $respStrProfilePic');
+
+      // Now we need to add these above data on shared prefs and then
+      // we can proceed for next screen.
+
+      saveData();
+    } else {
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          content:
+              Text("Please check your internet connectivity and try again"),
+          duration: Duration(seconds: 5),
         ),
       );
     }
@@ -242,20 +293,34 @@ class _LoginState extends State<Login> {
     // prefs.setString('logged_pass', _password);
     checkValue = true;
     sharedPreferences.setBool("check", checkValue);
-    sharedPreferences.setString("username", _email);
-    sharedPreferences.setString("password", _password);
+    sharedPreferences.setString("spID", respStrId);
+    sharedPreferences.setString("spEmail", respStrEmail);
+    sharedPreferences.setString("spFName", respStrFName);
+    sharedPreferences.setString("spLName", respStrLName);
+    sharedPreferences.setString("spContact", respStrContactNumber);
+    sharedPreferences.setString("spProfilePic", respStrProfilePic);
+    // sharedPreferences.setString("username", _email);
+    // sharedPreferences.setString("password", _password);
     sharedPreferences.commit();
-    getCredential();
+
+    // Take anvigation call from here..
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => HomeScreen(),
+      ),
+    );
+    // getCredential();
   }
 
   void getCredential() async {
     checkValue = sharedPreferences.getBool("check");
     if (checkValue != null) {
       if (checkValue) {
-        String eml = sharedPreferences.getString("username");
-        String pass = sharedPreferences.getString("password");
+        String eml = sharedPreferences.getString("spEmail");
+        String id = sharedPreferences.getString("spID");
         print('Email on Login Screen getCredential method is : $eml');
-        print('Password on Login Screen getCredential method is : $pass');
+        print('ID on Login Screen getCredential method is : $id');
         // username.text = sharedPreferences.getString("username");
         // password.text = sharedPreferences.getString("password");
       } else {
