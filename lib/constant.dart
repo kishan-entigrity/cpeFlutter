@@ -41,3 +41,8 @@ const kTextLableLoginUnderlineGray = TextStyle(
   fontSize: 17.0,
   letterSpacing: 1,
 );
+
+const kTextTitleFragc = TextStyle(
+  fontSize: 20.0,
+  color: Colors.black,
+);

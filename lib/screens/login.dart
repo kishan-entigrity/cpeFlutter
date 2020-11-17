@@ -293,7 +293,7 @@ class _LoginState extends State<Login> {
     // prefs.setString('logged_pass', _password);
     checkValue = true;
     sharedPreferences.setBool("check", checkValue);
-    sharedPreferences.setString("spID", respStrId);
+    sharedPreferences.setInt("spID", respStrId);
     sharedPreferences.setString("spEmail", respStrEmail);
     sharedPreferences.setString("spFName", respStrFName);
     sharedPreferences.setString("spLName", respStrLName);
