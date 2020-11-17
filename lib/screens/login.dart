@@ -33,6 +33,7 @@ class _LoginState extends State<Login> {
   var respStrLName;
   var respStrContactNumber;
   var respStrProfilePic;
+  var respToken;
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -263,6 +264,7 @@ class _LoginState extends State<Login> {
       respStrLName = resp['payload']['last_name'];
       respStrContactNumber = resp['payload']['contact_no'];
       respStrProfilePic = resp['payload']['profile_picture'];
+      respToken = resp['payload']['token'];
 
       print('Response id is : $respStrId');
       print('Response email is : $respStrEmail');
@@ -299,6 +301,7 @@ class _LoginState extends State<Login> {
     sharedPreferences.setString("spLName", respStrLName);
     sharedPreferences.setString("spContact", respStrContactNumber);
     sharedPreferences.setString("spProfilePic", respStrProfilePic);
+    sharedPreferences.setString("spToken", respToken);
     // sharedPreferences.setString("username", _email);
     // sharedPreferences.setString("password", _password);
     sharedPreferences.commit();

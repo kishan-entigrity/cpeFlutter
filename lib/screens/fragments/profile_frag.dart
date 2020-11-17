@@ -1,5 +1,13 @@
+import 'package:cpe_flutter/screens/change_password.dart';
+import 'package:cpe_flutter/screens/contact_us.dart';
 import 'package:cpe_flutter/screens/login.dart';
+import 'package:cpe_flutter/screens/my_credit.dart';
+import 'package:cpe_flutter/screens/my_transaction.dart';
+import 'package:cpe_flutter/screens/notification_settings.dart';
+import 'package:cpe_flutter/screens/privacy_policy.dart';
+import 'package:cpe_flutter/screens/terms_condition.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,254 +37,365 @@ class _ProfileFragState extends State<ProfileFrag> {
           style: kTextTitleFragc,
         ),
       ),*/
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
-            // crossAxisAlignment: CrossAxisAlignment.center,v
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Center(
-                  child: Text(
-                    'Profile',
-                    style: TextStyle(
-                      fontSize: 17.0,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1,
-                      fontFamily: 'Whitney Semi Bold',
+      body: new WillPopScope(
+          child: SingleChildScrollView(
+            child: SafeArea(
+              child: Column(
+                // mainAxisAlignment: MainAxisAlignment.center,
+                // crossAxisAlignment: CrossAxisAlignment.center,v
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Center(
+                      child: Text(
+                        'Profile',
+                        style: TextStyle(
+                          fontSize: 17.0,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1,
+                          fontFamily: 'Whitney Semi Bold',
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 0.0),
-                child: Center(
-                  child: CircleAvatar(
-                    radius: 50.0,
-                    backgroundImage: NetworkImage(strProfilePic),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Center(
-                  child: Text(
-                    '$strFName ' '$strLName',
-                    style: TextStyle(
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1,
-                      fontFamily: 'Whitney Bold',
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 0.0),
+                    child: Center(
+                      child: CircleAvatar(
+                        radius: 50.0,
+                        backgroundImage: NetworkImage(strProfilePic),
+                      ),
                     ),
                   ),
-                ),
-              ),
-              Container(
-                color: Colors.white,
-                child: Column(
-                  children: <Widget>[
-                    Card(
-                      margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-                      child: ListTile(
-                        leading: Icon(
-                          // Icons.phone,
-                          FontAwesomeIcons.solidBell,
-                          color: Colors.black,
-                        ),
-                        trailing: Icon(
-                          FontAwesomeIcons.angleRight,
-                          color: Colors.black,
-                        ),
-                        title: Text(
-                          'Notification Settings',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'Whitney Medium',
-                            fontSize: 20.0,
-                          ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Center(
+                      child: Text(
+                        '$strFName ' '$strLName',
+                        style: TextStyle(
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1,
+                          fontFamily: 'Whitney Bold',
                         ),
                       ),
                     ),
-                    Card(
-                      margin:
-                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
-                      child: ListTile(
-                        leading: Icon(
-                          // Icons.phone,
-                          FontAwesomeIcons.creditCard,
-                          color: Colors.black,
-                        ),
-                        trailing: Icon(
-                          FontAwesomeIcons.angleRight,
-                          color: Colors.black,
-                        ),
-                        title: Text(
-                          'My Transaction',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'Whitney Medium',
-                            fontSize: 20.0,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Card(
-                      margin:
-                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
-                      child: ListTile(
-                        leading: Icon(
-                          // Icons.phone,
-                          FontAwesomeIcons.creditCard,
-                          color: Colors.black,
-                        ),
-                        trailing: Icon(
-                          FontAwesomeIcons.angleRight,
-                          color: Colors.black,
-                        ),
-                        title: Text(
-                          'My Credit',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'Whitney Medium',
-                            fontSize: 20.0,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Card(
-                      margin:
-                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
-                      child: ListTile(
-                        leading: Icon(
-                          // Icons.phone,
-                          FontAwesomeIcons.solidFile,
-                          color: Colors.black,
-                        ),
-                        trailing: Icon(
-                          FontAwesomeIcons.angleRight,
-                          color: Colors.black,
-                        ),
-                        title: Text(
-                          'Privacy Policy',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'Whitney Medium',
-                            fontSize: 20.0,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Divider(
-                      height: 1.0,
-                      color: Colors.black,
-                    ),
-                    Card(
-                      margin:
-                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
-                      child: ListTile(
-                        leading: Icon(
-                          // Icons.phone,
-                          FontAwesomeIcons.solidFile,
-                          color: Colors.black,
-                        ),
-                        trailing: Icon(
-                          FontAwesomeIcons.angleRight,
-                          color: Colors.black,
-                        ),
-                        title: Text(
-                          'Terms & Condition',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'Whitney Medium',
-                            fontSize: 20.0,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Card(
-                      margin:
-                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
-                      child: ListTile(
-                        leading: Icon(
-                          // Icons.phone,
-                          FontAwesomeIcons.solidEnvelope,
-                          color: Colors.black,
-                        ),
-                        trailing: Icon(
-                          FontAwesomeIcons.angleRight,
-                          color: Colors.black,
-                        ),
-                        title: Text(
-                          'Contact Us',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'Whitney Medium',
-                            fontSize: 20.0,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Card(
-                      margin:
-                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
-                      child: ListTile(
-                        leading: Icon(
-                          // Icons.phone,
-                          FontAwesomeIcons.lock,
-                          color: Colors.black,
-                        ),
-                        trailing: Icon(
-                          FontAwesomeIcons.angleRight,
-                          color: Colors.black,
-                        ),
-                        title: Text(
-                          'Change Password',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'Whitney Medium',
-                            fontSize: 20.0,
-                          ),
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        // print('clicked on LogOut button');
-                        logoutUser();
-                      },
-                      child: Card(
-                        margin: EdgeInsets.symmetric(
-                            vertical: 0.0, horizontal: 0.0),
-                        child: ListTile(
-                          leading: Icon(
-                            // Icons.phone,
-                            FontAwesomeIcons.signOutAlt,
-                            color: Colors.black,
-                          ),
-                          trailing: Icon(
-                            FontAwesomeIcons.angleRight,
-                            color: Colors.black,
-                          ),
-                          title: Text(
-                            'Logout',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: 'Whitney Medium',
-                              fontSize: 20.0,
+                  ),
+                  Container(
+                    color: Colors.white,
+                    child: Column(
+                      children: <Widget>[
+                        // Notification settings controller..
+                        GestureDetector(
+                          onTap: () {
+                            // Navigator.push(context, MaterialPageRoute(context)=>NotificationSettings());
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => NotificationSettings(),
+                              ),
+                            );
+                          },
+                          child: Card(
+                            margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+                            child: ListTile(
+                              leading: Icon(
+                                // Icons.phone,
+                                FontAwesomeIcons.solidBell,
+                                color: Colors.black,
+                              ),
+                              trailing: Icon(
+                                FontAwesomeIcons.angleRight,
+                                color: Colors.black,
+                              ),
+                              title: Text(
+                                'Notification Settings',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: 'Whitney Medium',
+                                  fontSize: 20.0,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
+                        // My Transaction controller..
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MyTranscation(),
+                              ),
+                            );
+                          },
+                          child: Card(
+                            margin: EdgeInsets.symmetric(
+                                vertical: 0.0, horizontal: 0.0),
+                            child: ListTile(
+                              leading: Icon(
+                                // Icons.phone,
+                                FontAwesomeIcons.creditCard,
+                                color: Colors.black,
+                              ),
+                              trailing: Icon(
+                                FontAwesomeIcons.angleRight,
+                                color: Colors.black,
+                              ),
+                              title: Text(
+                                'My Transaction',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: 'Whitney Medium',
+                                  fontSize: 20.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        // My Credit controller..
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MyCredit(),
+                              ),
+                            );
+                          },
+                          child: Card(
+                            margin: EdgeInsets.symmetric(
+                                vertical: 0.0, horizontal: 0.0),
+                            child: ListTile(
+                              leading: Icon(
+                                // Icons.phone,
+                                FontAwesomeIcons.creditCard,
+                                color: Colors.black,
+                              ),
+                              trailing: Icon(
+                                FontAwesomeIcons.angleRight,
+                                color: Colors.black,
+                              ),
+                              title: Text(
+                                'My Credit',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: 'Whitney Medium',
+                                  fontSize: 20.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        // Provacy policy controller..
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PrivacyPolicy(),
+                              ),
+                            );
+                          },
+                          child: Card(
+                            margin: EdgeInsets.symmetric(
+                                vertical: 0.0, horizontal: 0.0),
+                            child: ListTile(
+                              leading: Icon(
+                                // Icons.phone,
+                                FontAwesomeIcons.solidFile,
+                                color: Colors.black,
+                              ),
+                              trailing: Icon(
+                                FontAwesomeIcons.angleRight,
+                                color: Colors.black,
+                              ),
+                              title: Text(
+                                'Privacy Policy',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: 'Whitney Medium',
+                                  fontSize: 20.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Divider(
+                          height: 1.0,
+                          color: Colors.black,
+                        ),
+                        // Terms and condition controller..
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => TermsCondition(),
+                              ),
+                            );
+                          },
+                          child: Card(
+                            margin: EdgeInsets.symmetric(
+                                vertical: 0.0, horizontal: 0.0),
+                            child: ListTile(
+                              leading: Icon(
+                                // Icons.phone,
+                                FontAwesomeIcons.solidFile,
+                                color: Colors.black,
+                              ),
+                              trailing: Icon(
+                                FontAwesomeIcons.angleRight,
+                                color: Colors.black,
+                              ),
+                              title: Text(
+                                'Terms & Condition',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: 'Whitney Medium',
+                                  fontSize: 20.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        // Contact us controller..
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ContactUs(),
+                              ),
+                            );
+                          },
+                          child: Card(
+                            margin: EdgeInsets.symmetric(
+                                vertical: 0.0, horizontal: 0.0),
+                            child: ListTile(
+                              leading: Icon(
+                                // Icons.phone,
+                                FontAwesomeIcons.solidEnvelope,
+                                color: Colors.black,
+                              ),
+                              trailing: Icon(
+                                FontAwesomeIcons.angleRight,
+                                color: Colors.black,
+                              ),
+                              title: Text(
+                                'Contact Us',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: 'Whitney Medium',
+                                  fontSize: 20.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        // Change password controller..
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ChangePassword(),
+                              ),
+                            );
+                          },
+                          child: Card(
+                            margin: EdgeInsets.symmetric(
+                                vertical: 0.0, horizontal: 0.0),
+                            child: ListTile(
+                              leading: Icon(
+                                // Icons.phone,
+                                FontAwesomeIcons.lock,
+                                color: Colors.black,
+                              ),
+                              trailing: Icon(
+                                FontAwesomeIcons.angleRight,
+                                color: Colors.black,
+                              ),
+                              title: Text(
+                                'Change Password',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: 'Whitney Medium',
+                                  fontSize: 20.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        // Logout controller..
+                        GestureDetector(
+                          onTap: () {
+                            // print('clicked on LogOut button');
+                            logoutUser();
+                          },
+                          child: Card(
+                            margin: EdgeInsets.symmetric(
+                                vertical: 0.0, horizontal: 0.0),
+                            child: ListTile(
+                              leading: Icon(
+                                // Icons.phone,
+                                FontAwesomeIcons.signOutAlt,
+                                color: Colors.black,
+                              ),
+                              trailing: Icon(
+                                FontAwesomeIcons.angleRight,
+                                color: Colors.black,
+                              ),
+                              title: Text(
+                                'Logout',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: 'Whitney Medium',
+                                  fontSize: 20.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 60.0,
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
+            ),
+          ),
+          onWillPop: _onWillPop),
+    );
+  }
+
+  Future<bool> _onWillPop() {
+    return showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text('Confirm Exit?',
+                style: new TextStyle(color: Colors.black, fontSize: 20.0)),
+            content: new Text('Are you sure you want to exit the app?'),
+            actions: <Widget>[
+              new FlatButton(
+                onPressed: () {
+                  // this line exits the app.
+                  SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+                },
+                child: new Text('Yes', style: new TextStyle(fontSize: 18.0)),
+              ),
+              new FlatButton(
+                onPressed: () =>
+                    Navigator.pop(context), // this line dismisses the dialog
+                child: new Text('No', style: new TextStyle(fontSize: 18.0)),
+              )
             ],
           ),
-        ),
-      ),
-    );
+        ) ??
+        false;
   }
 
   void getUserData() async {

@@ -23,3 +23,22 @@ Future loginUser(String email, String password, String device_id,
   var convertDataToJson = jsonDecode(response.body);
   return convertDataToJson;
 }
+
+Future changePassword(String current_password, String new_password,
+    String confirm_password) async {
+  String urls = URLs.BASE_URL + 'change-password';
+  final response = await http.post(
+    urls,
+    headers: {
+      'Accept': 'Application/json',
+      'Authorization': 'Auth Token from shared prefs'
+    },
+    body: {
+      'current_password': current_password,
+      'new_password': new_password,
+      'confirm_password': confirm_password
+    },
+  );
+  var convertDataToJson = jsonDecode(response.body);
+  return convertDataToJson;
+}

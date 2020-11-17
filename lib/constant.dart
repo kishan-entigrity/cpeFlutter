@@ -13,6 +13,27 @@ const lTextFlieldStyleEmail = InputDecoration(
   border: UnderlineInputBorder(),
 );
 
+const lTextFlieldStyleOldPass = InputDecoration(
+  hintText: 'Old Password',
+  contentPadding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 0.0),
+  // border: OutlineInputBorder(),
+  border: UnderlineInputBorder(),
+);
+
+const lTextFlieldStyleNewPass = InputDecoration(
+  hintText: 'New Password',
+  contentPadding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 0.0),
+  // border: OutlineInputBorder(),
+  border: UnderlineInputBorder(),
+);
+
+const lTextFlieldStyleConfirmPass = InputDecoration(
+  hintText: 'Confirm Password',
+  contentPadding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 0.0),
+  // border: OutlineInputBorder(),
+  border: UnderlineInputBorder(),
+);
+
 const lTextFlieldStylePass = InputDecoration(
   hintText: 'Password',
   contentPadding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 0.0),
