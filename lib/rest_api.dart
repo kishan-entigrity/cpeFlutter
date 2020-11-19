@@ -42,3 +42,15 @@ Future changePassword(String authToken, String current_password,
   var convertDataToJson = jsonDecode(response.body);
   return convertDataToJson;
 }
+
+Future getPrivacyPolicy() async {
+  String urls = URLs.BASE_URL + 'cms/privacy_policy';
+  final response = await http.get(
+    urls,
+    headers: {
+      'Accept': 'Application/json',
+    },
+  );
+  var convertDataToJson = jsonDecode(response.body);
+  return convertDataToJson;
+}

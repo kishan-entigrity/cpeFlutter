@@ -17,8 +17,12 @@ class ProfileFrag extends StatefulWidget {
 }
 
 class _ProfileFragState extends State<ProfileFrag> {
-  String strEmail, strFName, strLName, strContact, strProfilePic;
-  int strID;
+  String strEmail = '';
+  String strFName = '';
+  String strLName = '';
+  String strContact = '';
+  String strProfilePic = '';
+  int strID = 0;
 
   @override
   void initState() {
@@ -405,20 +409,22 @@ class _ProfileFragState extends State<ProfileFrag> {
     print('Status for checkValue is : $checkValue');
     if (checkValue != null) {
       if (checkValue) {
-        strEmail = preferences.getString("spEmail");
-        strID = preferences.getInt("spID");
-        strFName = preferences.getString("spFName");
-        strLName = preferences.getString("spLName");
-        strContact = preferences.getString("spContact");
-        strProfilePic = preferences.getString("spProfilePic");
-        // String pass = sharedPreferences.getString("password");
+        setState(() {
+          strEmail = preferences.getString("spEmail");
+          strID = preferences.getInt("spID");
+          strFName = preferences.getString("spFName");
+          strLName = preferences.getString("spLName");
+          strContact = preferences.getString("spContact");
+          strProfilePic = preferences.getString("spProfilePic");
+          // String pass = sharedPreferences.getString("password");
 
-        print('Email on home screen from SP is : $strEmail');
-        print('ID on home screen from SP is : $strID');
-        print('FName on home screen from SP is : $strFName');
-        print('LName on home screen from SP is : $strLName');
-        print('Contact on home screen from SP is : $strContact');
-        print('ProfilePic on home screen from SP is : $strProfilePic');
+          print('Email on home screen from SP is : $strEmail');
+          print('ID on home screen from SP is : $strID');
+          print('FName on home screen from SP is : $strFName');
+          print('LName on home screen from SP is : $strLName');
+          print('Contact on home screen from SP is : $strContact');
+          print('ProfilePic on home screen from SP is : $strProfilePic');
+        });
       } else {
         print('Check value : $checkValue');
         // username.clear();
