@@ -43,6 +43,47 @@ Future changePassword(String authToken, String current_password,
   return convertDataToJson;
 }
 
+Future homeWebinarList(
+    String authToken,
+    String start,
+    String limit,
+    String topic_of_interest,
+    String subject_area,
+    String webinar_key_text,
+    String webinar_type,
+    String date_filter,
+    String filter_price) async {
+  String urls = URLs.BASE_URL + 'webinar/list';
+
+  String updatedToken = '';
+  if (authToken.length == 0) {
+    // Considered as guest mode..
+    updatedToken = '';
+  } else {
+    // Consider as auth user..
+    updatedToken = 'Bearer $authToken';
+  }
+  final response = await http.post(
+    urls,
+    headers: {
+      'Accept': 'Application/json',
+      'Authorization': '$updatedToken',
+    },
+    body: {
+      'start': start,
+      'limit': limit,
+      'topic_of_interest': topic_of_interest,
+      'subject_area': subject_area,
+      'webinar_key_text': webinar_key_text,
+      'webinar_type': webinar_type,
+      'date_filter': date_filter,
+      'filter_price': filter_price,
+    },
+  );
+  var convertDataToJson = jsonDecode(response.body);
+  return convertDataToJson;
+}
+
 Future getPrivacyPolicy() async {
   String urls = URLs.BASE_URL + 'cms/privacy_policy';
   final response = await http.get(
