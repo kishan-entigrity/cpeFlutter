@@ -24,14 +24,14 @@ Future loginUser(String email, String password, String device_id,
   return convertDataToJson;
 }
 
-Future changePassword(String current_password, String new_password,
-    String confirm_password) async {
+Future changePassword(String authToken, String current_password,
+    String new_password, String confirm_password) async {
   String urls = URLs.BASE_URL + 'change-password';
   final response = await http.post(
     urls,
     headers: {
       'Accept': 'Application/json',
-      'Authorization': 'Auth Token from shared prefs'
+      'Authorization': 'Bearer $authToken',
     },
     body: {
       'current_password': current_password,

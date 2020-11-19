@@ -1,10 +1,13 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/round_icon_button.dart';
 import 'package:cpe_flutter/constant.dart';
-import 'package:cpe_flutter/rest_api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../rest_api.dart';
 
 class ChangePassword extends StatefulWidget {
   @override
@@ -21,6 +24,10 @@ class _ChangePasswordState extends State<ChangePassword> {
   String _oldPass;
   String _newPass;
   String _confirmPass;
+  String _authToken;
+
+  var respStatus;
+  var respMessage;
 
   @override
   void initState() {
@@ -227,18 +234,62 @@ class _ChangePasswordState extends State<ChangePassword> {
     var connectivityResult = await (Connectivity().checkConnectivity());
     print('Connectivity Result is : $connectivityResult');
 
-    if ((connectivityResult == ConnectivityResult.mobile) ||
-        (connectivityResult == ConnectivityResult.wifi)) {
-      var resp = await changePassword(_oldPass, _newPass, _confirmPass);
-      print('Response for change password api is : $resp');
-    } else {
-      _scaffoldKey.currentState.showSnackBar(
-        SnackBar(
-          content:
-              Text("Please check your internet connectivity and try again"),
-          duration: Duration(seconds: 3),
-        ),
-      );
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    bool checkValue = preferences.getBool("check");
+    print('Status for checkValue is : $checkValue');
+    if (checkValue != null) {
+      if (checkValue) {
+        _authToken = preferences.getString("spToken");
+        // String pass = sharedPreferences.getString("password");
+        print('Auth Token from SP is : $_authToken');
+      } else {
+        print('Check value : $checkValue');
+        // username.clear();
+        // password.clear();
+        preferences.clear();
+      }
+
+      if ((connectivityResult == ConnectivityResult.mobile) ||
+          (connectivityResult == ConnectivityResult.wifi)) {
+        var resp =
+            await changePassword(_authToken, _oldPass, _newPass, _confirmPass);
+        print('Response for change password api is : $resp');
+
+        respStatus = resp['success'];
+        respMessage = resp['message'];
+
+        if (respStatus) {
+          _scaffoldKey.currentState.showSnackBar(
+            SnackBar(
+              content: Text('$respMessage'),
+              duration: Duration(seconds: 3),
+            ),
+          );
+          // Have to redirect to main profile screen again..
+          Future.delayed(const Duration(seconds: 3), () {
+            if (Navigator.canPop(context)) {
+              Navigator.pop(context);
+            } else {
+              SystemNavigator.pop();
+            }
+          });
+        } else {
+          _scaffoldKey.currentState.showSnackBar(
+            SnackBar(
+              content: Text('$respMessage'),
+              duration: Duration(seconds: 3),
+            ),
+          );
+        }
+      } else {
+        _scaffoldKey.currentState.showSnackBar(
+          SnackBar(
+            content:
+                Text("Please check your internet connectivity and try again"),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
     }
   }
 }

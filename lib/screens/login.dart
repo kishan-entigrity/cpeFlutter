@@ -35,6 +35,9 @@ class _LoginState extends State<Login> {
   var respStrProfilePic;
   var respToken;
 
+  var respStatus;
+  var respMessage;
+
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -227,12 +230,12 @@ class _LoginState extends State<Login> {
         ),
       );
     } else {
-      _scaffoldKey.currentState.showSnackBar(
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text("Validation successful"),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
       // Add data to shared prefs..
       // saveData();
       takeLoginApi();
@@ -257,26 +260,38 @@ class _LoginState extends State<Login> {
       var resp = await loginUser(
           _email, _password, 'android', 'ddddddddddddddddddddddddddddd', 'A');
       print('Response is : $resp');
-      var respStrPayload = resp['payload'];
-      respStrId = resp['payload']['id'];
-      respStrEmail = resp['payload']['email'];
-      respStrFName = resp['payload']['first_name'];
-      respStrLName = resp['payload']['last_name'];
-      respStrContactNumber = resp['payload']['contact_no'];
-      respStrProfilePic = resp['payload']['profile_picture'];
-      respToken = resp['payload']['token'];
 
-      print('Response id is : $respStrId');
-      print('Response email is : $respStrEmail');
-      print('Response FName is : $respStrFName');
-      print('Response LName is : $respStrLName');
-      print('Response contact is : $respStrContactNumber');
-      print('Response profile-pic is : $respStrProfilePic');
+      respStatus = resp['success'];
+      respMessage = resp['message'];
 
       // Now we need to add these above data on shared prefs and then
       // we can proceed for next screen.
+      if (respStatus) {
+        var respStrPayload = resp['payload'];
+        respStrId = resp['payload']['id'];
+        respStrEmail = resp['payload']['email'];
+        respStrFName = resp['payload']['first_name'];
+        respStrLName = resp['payload']['last_name'];
+        respStrContactNumber = resp['payload']['contact_no'];
+        respStrProfilePic = resp['payload']['profile_picture'];
+        respToken = resp['payload']['token'];
 
-      saveData();
+        print('Response id is : $respStrId');
+        print('Response email is : $respStrEmail');
+        print('Response FName is : $respStrFName');
+        print('Response LName is : $respStrLName');
+        print('Response contact is : $respStrContactNumber');
+        print('Response profile-pic is : $respStrProfilePic');
+
+        saveData();
+      } else {
+        _scaffoldKey.currentState.showSnackBar(
+          SnackBar(
+            content: Text('$respMessage'),
+            duration: Duration(seconds: 5),
+          ),
+        );
+      }
     } else {
       _scaffoldKey.currentState.showSnackBar(
         SnackBar(
