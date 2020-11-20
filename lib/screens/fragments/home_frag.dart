@@ -1,9 +1,9 @@
 import 'package:connectivity/connectivity.dart';
+import 'package:cpe_flutter/model/home_webinar_list/webinar_list.dart';
+import 'package:cpe_flutter/rest_api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../rest_api.dart';
 
 class HomeFrag extends StatefulWidget {
   @override
@@ -28,12 +28,14 @@ class _HomeFragState extends State<HomeFrag> {
   var respMessage;
 
   var respArrayWebinar;
+  // List<String> arrWebTitles = <String> resp
+  List<Webinar> arrWebTitles;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getWebinarList();
+    // getWebinarList();
   }
 
   @override
@@ -60,66 +62,44 @@ class _HomeFragState extends State<HomeFrag> {
               ),
             ),
             // ListView.builder(itemCount: widget.steps.length,itemBuilder: (context, position) {
-            ListView.builder(
-              // itemCount: resp['payload']['webinar'],
-              // itemCount: respArrayWebinar.length(),
-              itemCount: 10,
-              itemBuilder: (context, index) => Container(
-                child: Column(
-                  children: <Widget>[
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Expanded(
-                          child: Text(
-                            "${respArrayWebinar[index]['webinar_title']}",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20.0,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            "${respArrayWebinar[index]['speaker_name']}",
-                            style: TextStyle(
-                              color: Colors.blue,
-                              fontSize: 15.0,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                          width: double.infinity,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            )
-            /*itemBuilder: (context, position) {
-                  return Column(
+            Expanded(
+              child: ListView.builder(
+                // itemCount: resp['payload']['webinar'],
+                // itemCount: respArrayWebinar.length(),
+                itemCount: 1,
+                itemBuilder: (context, index) => Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Text(
-                            'Title',
+                      Expanded(
+                        child: Text(
+                          // '${respArrayWebinar[index]['webinar_title']}',
+                          'Test Title',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20.0,
                           ),
-                          Text(
-                            'Speaker name',
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          // '${respArrayWebinar[index]['speaker_name']}',
+                          'Test Speaker Name}',
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 15.0,
                           ),
-                          SizedBox(
-                            height: 10.0,
-                            width: double.infinity,
-                          ),
-                        ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20.0,
+                        width: double.infinity,
                       ),
                     ],
-                  );
-                })*/
-            ,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -161,6 +141,7 @@ class _HomeFragState extends State<HomeFrag> {
         resp = await homeWebinarList(
             _authToken, '0', '10', '', '', '', 'self_study', '', '0');
         print('Response is : $resp');
+        // webinar_list
 
         respStatus = resp['success'];
         respMessage = resp['message'];
@@ -168,7 +149,10 @@ class _HomeFragState extends State<HomeFrag> {
         setState(() {
           if (respStatus) {
             print('Getting response as success : $resp');
-            respArrayWebinar = resp['payload']['webinar'];
+            // respArrayWebinar = resp['payload']['webinar'];
+            // arrWebTitles = resp['payload']['webinar'];
+            arrWebTitles = resp['payload']['webinar']['webinar_title'];
+            print('Data for arrWebTitles : $arrWebTitles');
           } else {
             _scaffoldKey.currentState.showSnackBar(
               SnackBar(
