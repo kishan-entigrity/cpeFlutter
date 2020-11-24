@@ -47,6 +47,36 @@ const kButtonLabelTextStyle = TextStyle(
   color: Colors.black,
 );
 
+const kWebinarTitleLabelTextStyle = TextStyle(
+  fontFamily: 'Whitney Bold',
+  fontSize: 20.0,
+  color: Colors.black,
+);
+
+const kWebinarButtonLabelTextStyleGreen = TextStyle(
+  fontFamily: 'Whitney Semi Bold',
+  fontSize: 15.0,
+  color: Color(0xFF00A81B),
+);
+
+const kWebinarButtonLabelTextStyle = TextStyle(
+  fontFamily: 'Whitney Semi Bold',
+  fontSize: 15.0,
+  color: Colors.black,
+);
+
+const kWebinarButtonLabelTextStyleWhite = TextStyle(
+  fontFamily: 'Whitney Semi Bold',
+  fontSize: 17.0,
+  color: Color(0xFFFFFFFF),
+);
+
+const kWebinarSpeakerNameLabelTextStyle = TextStyle(
+  fontFamily: 'Whitney Semi Bold',
+  fontSize: 17.0,
+  color: Colors.black,
+);
+
 const kTextLableLoginUnderline = TextStyle(
   fontFamily: 'Whitney Semi Bold',
   decoration: TextDecoration.underline,

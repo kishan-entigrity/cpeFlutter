@@ -1,11 +1,11 @@
+import 'dart:convert';
 import 'dart:ffi';
 
-import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/model/home_webinar_list/webinar_list.dart';
 import 'package:cpe_flutter/model/topics_of_interest/topic_of_interest.dart';
-import 'package:cpe_flutter/rest_api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class HomeFrag extends StatefulWidget {
   @override
@@ -37,14 +37,38 @@ class _HomeFragState extends State<HomeFrag> {
   List<DynamicLibrary> topics;
   // List<String> _topicsOfInterestName;
   List<int> tempInt = [1, 4, 5, 7];
-  int arrCount;
+  int arrCount = 0;
+
+  // List data;
+  var data;
+
+  Future<String> getData() async {
+    var response = await http.get(
+        Uri.encodeFull("https://my-cpe.com/api/v3/topic-of-interest/list"));
+
+    this.setState(() {
+      // data = JSON.decode(response.body);
+      data = jsonDecode(response.body);
+    });
+
+    // print(data[1]["title"]);
+    print('API response is : $data');
+    arrCount = data['payload']['topic_of_interests'].length;
+    print('Size for array is : $arrCount');
+
+    return "Success!";
+  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    print('Datatype for data is : ');
+    print(data.runtimeType);
     // getWebinarList();
-    getTopicsOfInterestAPI();
+    // getTopicsOfInterestAPI();
+    this.getData();
   }
 
   @override
@@ -53,65 +77,33 @@ class _HomeFragState extends State<HomeFrag> {
     return Scaffold(
       key: _scaffoldKey,
       resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Container(
-              height: 60.0,
-              width: double.infinity,
-              child: Center(
-                child: Text(
-                  'Home',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18.0,
-                    fontFamily: 'Whitney Semi Bold',
-                  ),
+      body: ListView.builder(
+          itemCount: arrCount, // the length
+          itemBuilder: (context, index) {
+            return Container(
+              child: Card(
+                // color: Colors.teal,
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      '${data['payload']['topic_of_interests'][index]['id']}',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20.0,
+                      ),
+                    ),
+                    Text(
+                      '${data['payload']['topic_of_interests'][index]['name']}',
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontSize: 25.0,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
-            // ListView.builder(itemCount: widget.steps.length,itemBuilder: (context, position) {
-            Expanded(
-              child: ListView.builder(
-                // itemCount: resp['payload']['webinar'],
-                // itemCount: respArrayWebinar.length(),
-                itemCount: arrCount,
-                itemBuilder: (context, index) => Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Expanded(
-                        child: Text(
-                          '${resp[index]['id']}',
-                          // 'Test Title',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20.0,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          '${resp[index]['name']}',
-                          // 'Test Speaker Name}',
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontSize: 15.0,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20.0,
-                        width: double.infinity,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+            );
+          }),
     );
   }
 
@@ -183,14 +175,14 @@ class _HomeFragState extends State<HomeFrag> {
     }
   }*/
 
-  void getTopicsOfInterestAPI() async {
+  /*void getTopicsOfInterestAPI() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     print('Connectivity Result is : $connectivityResult');
 
     if ((connectivityResult == ConnectivityResult.mobile) ||
         (connectivityResult == ConnectivityResult.wifi)) {
-      /*resp = await homeWebinarList(
-          _authToken, '0', '10', '', '', '', 'self_study', '', '0');*/
+      */ /*resp = await homeWebinarList(
+          _authToken, '0', '10', '', '', '', 'self_study', '', '0');*/ /*
 
       resp = await getTopicsOfInterest();
       // print('Response is : $resp');
@@ -250,5 +242,5 @@ class _HomeFragState extends State<HomeFrag> {
         ),
       );
     }
-  }
+  }*/
 }

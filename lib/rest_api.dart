@@ -98,7 +98,6 @@ Future getPrivacyPolicy() async {
 
 Future getTopicsOfInterest() async {
   String urls = URLs.BASE_URL + 'topic-of-interest/list';
-
   final response = await http.get(urls);
   var convertDataToJson = jsonDecode(response.body);
   return convertDataToJson;
