@@ -6,6 +6,12 @@ const kLabelTitleTextStyle = TextStyle(
   color: Color(0xFF193F70),
 );
 
+/*const lLabelTagSelected = BoxDecoration(
+  borderRadius: BorderRadius.circular(30.0),
+  border: Border.all(color: Color(0xFF000000), width: 1.0),
+  color: Color(0xFFFFFFFF),
+);*/
+
 const lTextFlieldStyleEmail = InputDecoration(
   hintText: 'Email',
   contentPadding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 0.0),
