@@ -122,28 +122,11 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                     const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
                 child: Row(
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 4.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(18.0),
-                          color: Color(0xFF607083),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 9.0,
-                            horizontal: 18.0,
-                          ),
-                          child: Text(
-                            'Hot Topics',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Whitney Medium',
-                            ),
-                          ),
-                        ),
-                      ),
+                    /*selectedFilterWidget(
+                      str: 'Test Filter',
+                    ),*/
+                    selectedFilterWidget(
+                      str: 'Hot Topics',
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
@@ -469,7 +452,8 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                                 horizontal: 10.0),
                                             child: Center(
                                               child: Text(
-                                                '\$ ${data['payload']['webinar'][index]['fee']}',
+                                                // '\$ ${data['payload']['webinar'][index]['fee']}',
+                                                '${checkForPrice(index)}',
                                                 style:
                                                     kWebinarButtonLabelTextStyle,
                                               ),
@@ -483,16 +467,19 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                 Padding(
                                   padding: const EdgeInsets.fromLTRB(
                                       18.0, 10.0, 30.0, 0),
-                                  child: Text(
-                                    '${data['payload']['webinar'][index]['webinar_title']}',
-                                    style: TextStyle(
-                                      fontFamily: 'Whitney Bold',
-                                      fontSize: 20.0,
-                                      color: index % 2 == 0
-                                          ? Colors.black
-                                          : Colors.white,
+                                  child: Flexible(
+                                    child: Text(
+                                      '${data['payload']['webinar'][index]['webinar_title']}',
+                                      style: TextStyle(
+                                        fontFamily: 'Whitney Bold',
+                                        fontSize: 20.0,
+                                        color: index % 2 == 0
+                                            ? Colors.black
+                                            : Colors.white,
+                                      ),
+                                      maxLines: 3,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                    maxLines: 3,
                                   ),
                                 ),
                                 Padding(
@@ -500,14 +487,18 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                       18.0, 5.0, 30.0, 0),
                                   child: Row(
                                     children: [
-                                      Text(
-                                        '${data['payload']['webinar'][index]['speaker_name']}',
-                                        style: TextStyle(
-                                          fontFamily: 'Whitney Semi Bold',
-                                          fontSize: 17.0,
-                                          color: index % 2 == 0
-                                              ? Colors.black
-                                              : Colors.white,
+                                      Flexible(
+                                        child: Text(
+                                          '${data['payload']['webinar'][index]['speaker_name']}',
+                                          style: TextStyle(
+                                            fontFamily: 'Whitney Semi Bold',
+                                            fontSize: 17.0,
+                                            color: index % 2 == 0
+                                                ? Colors.black
+                                                : Colors.white,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 2,
                                         ),
                                       ),
                                     ],
@@ -519,7 +510,8 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                   child: Row(
                                     children: [
                                       Text(
-                                        '${data['payload']['webinar'][index]['start_date']} - ${data['payload']['webinar'][index]['start_time']} - ${data['payload']['webinar'][index]['time_zone']}',
+                                        // '${data['payload']['webinar'][index]['start_date']} - ${data['payload']['webinar'][index]['start_time']} - ${data['payload']['webinar'][index]['time_zone']}',
+                                        '${displayDateCondition(index)}',
                                         style: TextStyle(
                                           fontFamily: 'Whitney Semi Bold',
                                           fontSize: 17.0,
@@ -686,5 +678,166 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
   void getIdWebinar(int index) {
     int webinarId = data['payload']['webinar'][index]['id'];
     print('Id for the webinar is : $webinarId');
+  }
+
+  checkForPrice(int index) {
+    String strFee = data['payload']['webinar'][index]['fee'];
+    String finalFee = "";
+    if (strFee == "FREE") {
+      finalFee = 'FREE';
+    } else {
+      // finalFee = 'data["payload']['webinar'][index]['fee"]';
+      finalFee = '\$ ${data['payload']['webinar'][index]['fee']}';
+    }
+
+    return finalFee;
+  }
+
+  displayDateCondition(int index) {
+    // '${data['payload']['webinar'][index]['start_date']} - ${data['payload']['webinar'][index]['start_time']} - ${data['payload']['webinar'][index]['time_zone']}',
+    String strStartDate = data['payload']['webinar'][index]['start_date'];
+    String day = "";
+    String month = "";
+    String year = "";
+
+    /*if (month == "01") {
+      month = "Jan";
+    } else if (month == "02") {
+    } else if (month == "03") {
+    } else if (month == "04") {
+    } else if (month == "05") {
+    } else if (month == "06") {
+    } else if (month == "07") {
+    } else if (month == "08") {
+    } else if (month == "09") {
+    } else if (month == "10") {
+    } else if (month == "11") {
+    } else {}*/
+    String updatedDate = "";
+    if (strStartDate == "") {
+      updatedDate = "";
+    } else {
+      var split = strStartDate.split('-');
+      day = split[2];
+      month = split[1];
+      year = split[0];
+
+      print('Day : $day');
+      print('Month : $month');
+      print('Year : $year');
+
+      switch (month) {
+        case "01":
+          {
+            month = "Jan";
+          }
+          break;
+
+        case "02":
+          {
+            month = "Feb";
+          }
+          break;
+
+        case "03":
+          {
+            month = "Mar";
+          }
+          break;
+
+        case "04":
+          {
+            month = "Apr";
+          }
+          break;
+
+        case "05":
+          {
+            month = "May";
+          }
+          break;
+
+        case "06":
+          {
+            month = "June";
+          }
+          break;
+
+        case "07":
+          {
+            month = "July";
+          }
+          break;
+
+        case "08":
+          {
+            month = "Aug";
+          }
+          break;
+
+        case "09":
+          {
+            month = "Sep";
+          }
+          break;
+
+        case "10":
+          {
+            month = "Oct";
+          }
+          break;
+
+        case "11":
+          {
+            month = "Nov";
+          }
+          break;
+
+        case "12":
+          {
+            month = "Dec";
+          }
+          break;
+      }
+
+      updatedDate =
+          '$day $month $year - ${data['payload']['webinar'][index]['start_time']} - ${data['payload']['webinar'][index]['time_zone']}';
+    }
+
+    return (updatedDate);
+  }
+}
+
+class selectedFilterWidget extends StatelessWidget {
+  selectedFilterWidget({this.str});
+
+  final String str;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      // padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+      padding: const EdgeInsets.fromLTRB(8.0, 8.0, 4.0, 8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(18.0),
+          color: Color(0xFF607083),
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: 9.0,
+            horizontal: 18.0,
+          ),
+          child: Text(
+            // 'Hot Topics',
+            str,
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'Whitney Medium',
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
