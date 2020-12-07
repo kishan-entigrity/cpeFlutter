@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../webinar_details.dart';
 
 class MyWebinarFrag extends StatefulWidget {
   @override
@@ -23,6 +26,8 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
   bool isFree = false;
   bool isCPD1 = false;
 
+  String _authToken = "";
+
   String strWebinarType = "live";
   String strFilterPrice = "";
 
@@ -39,19 +44,21 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
     // String urls = URLs.BASE_URL + 'webinar/list';
     String urls = 'https://my-cpe.com/api/v3/webinar/list';
 
-    String updatedToken = '';
+    /*String updatedToken = '';
     if (authToken.length == 0) {
       // Considered as guest mode..
       updatedToken = '';
+      print('Updated token found empty');
     } else {
       // Consider as auth user..
-      updatedToken = 'Bearer $authToken';
-    }
+      updatedToken = '$authToken';
+      print('Updated token on my webinar list screen is : $updatedToken');
+    }*/
     final response = await http.post(
       urls,
       headers: {
         'Accept': 'Application/json',
-        'Authorization': '$updatedToken',
+        'Authorization': '$authToken',
       },
       body: {
         'start': start,
@@ -82,16 +89,28 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    this.getDataWebinarList(
-        '', '0', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
+
+    checkForSP();
+
+    /*this.getDataWebinarList(
+        '', '0', '50', '', '', '', '$strWebinarType', '', '$strFilterPrice');
     print('init State isLive : $isLive');
-    print('init State isSelfStudy : $isSelfStudy');
+    print('init State isSelfStudy : $isSelfStudy');*/
     // this.getDataWebinarList('', '0', '10', '', '', '', 'self_study', '', '0');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      /*appBar: AppBar(
+        title: Text(
+          'My Webinar App Bar',
+          style: TextStyle(
+            fontSize: 30.0,
+            color: Colors.teal,
+          ),
+        ),
+      ),*/
       body: SafeArea(
         child: Column(
           children: <Widget>[
@@ -385,6 +404,161 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
+                                /*Padding(
+                                  padding: const EdgeInsets.only(top: 15.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 10.0),
+                                            margin: EdgeInsets.only(left: 15.0),
+                                            height: 27.0,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
+                                              color: Colors.white,
+                                            ),
+                                            child: Text(
+                                              'TestDataTest',
+                                              style:
+                                                  kWebinarButtonLabelTextStyleGreen,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 10.0),
+                                            height: 27.0,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
+                                              color: Colors.white,
+                                            ),
+                                            child: Text(
+                                              'Test',
+                                              style:
+                                                  kWebinarButtonLabelTextStyleGreen,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 10.0),
+                                            margin:
+                                                EdgeInsets.only(right: 15.0),
+                                            height: 27.0,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
+                                              color: Colors.white,
+                                            ),
+                                            child: Text(
+                                              'T',
+                                              style:
+                                                  kWebinarButtonLabelTextStyleGreen,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 15.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Container(
+                                            margin: EdgeInsets.only(left: 15.0),
+                                            height: 27.0,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
+                                              color: Colors.white,
+                                            ),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 0.0,
+                                                      horizontal: 10.0),
+                                              child: Center(
+                                                child: Text(
+                                                  'TestDataT',
+                                                  style:
+                                                      kWebinarButtonLabelTextStyleGreen,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Container(
+                                            height: 27.0,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
+                                              color: Colors.white,
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                'Test',
+                                                style:
+                                                    kWebinarButtonLabelTextStyleGreen,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Container(
+                                            margin:
+                                                EdgeInsets.only(right: 15.0),
+                                            height: 27.0,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
+                                              color: Colors.white,
+                                            ),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 0.0,
+                                                      horizontal: 10.0),
+                                              child: Text(
+                                                'T',
+                                                style:
+                                                    kWebinarButtonLabelTextStyleGreen,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),*/
                                 Padding(
                                   padding: const EdgeInsets.only(top: 15.0),
                                   child: Row(
@@ -394,45 +568,38 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                       Container(
                                         margin: EdgeInsets.only(left: 15.0),
                                         height: 27.0,
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(5.0),
-                                            color: Colors.white,
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 0.0,
-                                                horizontal: 10.0),
-                                            child: Center(
-                                              child: Text(
-                                                '${data['payload']['webinar'][index]['webinar_type']}',
-                                                style:
-                                                    kWebinarButtonLabelTextStyleGreen,
-                                              ),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(5.0),
+                                          color: Colors.white,
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 0.0, horizontal: 10.0),
+                                          child: Center(
+                                            child: Text(
+                                              '${data['payload']['webinar'][index]['webinar_type']}',
+                                              style:
+                                                  kWebinarButtonLabelTextStyleGreen,
                                             ),
                                           ),
                                         ),
                                       ),
                                       Container(
-                                        margin: EdgeInsets.only(left: 15.0),
                                         height: 27.0,
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(5.0),
-                                            color: Colors.white,
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 0.0,
-                                                horizontal: 10.0),
-                                            child: Center(
-                                              child: Text(
-                                                '${data['payload']['webinar'][index]['cpa_credit']}',
-                                                style:
-                                                    kWebinarButtonLabelTextStyle,
-                                              ),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(5.0),
+                                          color: Colors.white,
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 0.0, horizontal: 10.0),
+                                          child: Center(
+                                            child: Text(
+                                              '${data['payload']['webinar'][index]['cpa_credit']}',
+                                              style:
+                                                  kWebinarButtonLabelTextStyle,
                                             ),
                                           ),
                                         ),
@@ -440,23 +607,20 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                       Container(
                                         margin: EdgeInsets.only(right: 15.0),
                                         height: 27.0,
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(5.0),
-                                            color: Colors.white,
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 0.0,
-                                                horizontal: 10.0),
-                                            child: Center(
-                                              child: Text(
-                                                // '\$ ${data['payload']['webinar'][index]['fee']}',
-                                                '${checkForPrice(index)}',
-                                                style:
-                                                    kWebinarButtonLabelTextStyle,
-                                              ),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(5.0),
+                                          color: Colors.white,
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 0.0, horizontal: 10.0),
+                                          child: Center(
+                                            child: Text(
+                                              // '\$ ${data['payload']['webinar'][index]['fee']}',
+                                              '${checkForPrice(index)}',
+                                              style:
+                                                  kWebinarButtonLabelTextStyle,
                                             ),
                                           ),
                                         ),
@@ -604,7 +768,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       isSelfStudy = false;
 
       this.getDataWebinarList(
-          '', '0', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
+          '', '0', '50', '', '', '', '$strWebinarType', '', '$strFilterPrice');
     });
   }
 
@@ -615,7 +779,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       isSelfStudy = true;
 
       this.getDataWebinarList(
-          '', '0', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
+          '', '0', '50', '', '', '', '$strWebinarType', '', '$strFilterPrice');
     });
   }
 
@@ -638,7 +802,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       }
 
       this.getDataWebinarList(
-          '', '0', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
+          '', '0', '50', '', '', '', '$strWebinarType', '', '$strFilterPrice');
     });
   }
 
@@ -661,7 +825,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       }
 
       this.getDataWebinarList(
-          '', '0', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
+          '', '0', '50', '', '', '', '$strWebinarType', '', '$strFilterPrice');
     });
   }
 
@@ -677,7 +841,15 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
 
   void getIdWebinar(int index) {
     int webinarId = data['payload']['webinar'][index]['id'];
+    String strWebinarId = webinarId.toString();
     print('Id for the webinar is : $webinarId');
+    // Now redirect to webinar details from here..
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => WebinarDetails(),
+      ),
+    );
   }
 
   checkForPrice(int index) {
@@ -805,6 +977,31 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
     }
 
     return (updatedDate);
+  }
+
+  void checkForSP() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    bool checkValue = preferences.getBool("check");
+
+    if (checkValue != null) {
+      if (checkValue) {
+        String token = preferences.getString("spToken");
+        _authToken = 'Bearer $token';
+        print('Auth Token from SP is : $_authToken');
+
+        this.getDataWebinarList('$_authToken', '0', '50', '', '', '',
+            '$strWebinarType', '', '$strFilterPrice');
+        // print('init State isLive : $isLive');
+        // print('init State isSelfStudy : $isSelfStudy');
+      } else {
+        this.getDataWebinarList('$_authToken', '0', '50', '', '', '',
+            '$strWebinarType', '', '$strFilterPrice');
+        // print('init State isLive : $isLive');
+        // print('init State isSelfStudy : $isSelfStudy');
+        print('Check value : $checkValue');
+        preferences.clear();
+      }
+    }
   }
 }
 

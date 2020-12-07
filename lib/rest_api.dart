@@ -43,6 +43,23 @@ Future changePassword(String authToken, String current_password,
   return convertDataToJson;
 }
 
+Future contactUs(String email, String subject) async {
+  String urls = URLs.BASE_URL + 'contact-us/query';
+  final response = await http.post(
+    urls,
+    headers: {
+      'Accept': 'Application/json',
+      // 'Authorization': 'Bearer $authToken',
+    },
+    body: {
+      'Message': email,
+      'Subject': subject,
+    },
+  );
+  var convertDataToJson = jsonDecode(response.body);
+  return convertDataToJson;
+}
+
 Future homeWebinarList(
     String authToken,
     String start,
@@ -86,6 +103,18 @@ Future homeWebinarList(
 
 Future getPrivacyPolicy() async {
   String urls = URLs.BASE_URL + 'cms/privacy_policy';
+  final response = await http.get(
+    urls,
+    headers: {
+      'Accept': 'Application/json',
+    },
+  );
+  var convertDataToJson = jsonDecode(response.body);
+  return convertDataToJson;
+}
+
+Future getTermsAndConditions() async {
+  String urls = URLs.BASE_URL + 'cms/terms_condition';
   final response = await http.get(
     urls,
     headers: {
