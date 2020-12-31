@@ -131,3 +131,17 @@ Future getTopicsOfInterest() async {
   var convertDataToJson = jsonDecode(response.body);
   return convertDataToJson;
 }
+
+Future getWebinarDetails(String authToken, String webinar_id) async {
+  String urls = URLs.BASE_URL + 'webinar/detail';
+  final response = await http.post(
+    urls,
+    headers: {
+      'Accept': 'Application/json',
+      'Authorization': 'Bearer $authToken',
+    },
+    body: {'webinar_id': webinar_id},
+  );
+  var convertDataToJson = jsonDecode(response.body);
+  return convertDataToJson;
+}

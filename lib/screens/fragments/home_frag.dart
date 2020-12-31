@@ -5,6 +5,7 @@ import 'package:cpe_flutter/model/home_webinar_list/webinar_list.dart';
 import 'package:cpe_flutter/model/topics_of_interest/topic_of_interest.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tags/flutter_tags.dart';
 import 'package:http/http.dart' as http;
 
 class HomeFrag extends StatefulWidget {
@@ -15,6 +16,7 @@ class HomeFrag extends StatefulWidget {
 class _HomeFragState extends State<HomeFrag> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   var _authToken = '';
+
   // Request params..
   var _start = '';
   var _limit = '';
@@ -30,11 +32,14 @@ class _HomeFragState extends State<HomeFrag> {
   var respMessage;
 
   var respArrayWebinar;
+
   // List<String> arrWebTitles = <String> resp
   List<Webinar> arrWebTitles;
   List<Topic_of_interests> _topicOfInterests;
+
   // List _topicOfInterests;
   List<DynamicLibrary> topics;
+
   // List<String> _topicsOfInterestName;
   List<int> tempInt = [1, 4, 5, 7];
   int arrCount = 0;
@@ -77,37 +82,58 @@ class _HomeFragState extends State<HomeFrag> {
     return Scaffold(
       key: _scaffoldKey,
       resizeToAvoidBottomInset: false,
-      body: ListView.builder(
-          itemCount: arrCount, // the length
-          itemBuilder: (context, index) {
-            return Container(
-              child: Card(
-                // color: Colors.teal,
-                child: Column(
-                  children: <Widget>[
-                    Text(
-                      '${data['payload']['topic_of_interests'][index]['id']}',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20.0,
-                      ),
-                    ),
-                    Text(
-                      '${data['payload']['topic_of_interests'][index]['name']}',
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 25.0,
-                      ),
-                    ),
-                  ],
+      body: SafeArea(
+        child: Column(
+          children: <Widget>[
+            Tags(),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 20.0,
+              ),
+              child: Text(
+                'Tags',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            );
-          }),
+            ),
+            Expanded(
+              child: ListView.builder(
+                  itemCount: arrCount, // the length
+                  itemBuilder: (context, index) {
+                    return Container(
+                      child: Card(
+                        // color: Colors.teal,
+                        child: Column(
+                          children: <Widget>[
+                            Text(
+                              '${data['payload']['topic_of_interests'][index]['id']}',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20.0,
+                              ),
+                            ),
+                            Text(
+                              '${data['payload']['topic_of_interests'][index]['name']}',
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 25.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
-  /*void getWebinarList() async {
+/*void getWebinarList() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     print('Connectivity Result is : $connectivityResult');
     print('Connectivity Result is empty');
@@ -175,7 +201,7 @@ class _HomeFragState extends State<HomeFrag> {
     }
   }*/
 
-  /*void getTopicsOfInterestAPI() async {
+/*void getTopicsOfInterestAPI() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     print('Connectivity Result is : $connectivityResult');
 

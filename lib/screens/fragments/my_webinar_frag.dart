@@ -713,6 +713,8 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
     int webinarId = data['payload']['webinar'][index]['id'];
     String strWebinarId = webinarId.toString();
     print('Id for the webinar is : $webinarId');
+    print('String for strWebinarID : $strWebinarId');
+    String sampleIntnent = 'HelloWorld';
     // Now redirect to webinar details from here..
     /*Navigator.push(
       context,
@@ -720,15 +722,20 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
         builder: (context) => WebinarDetails(),
       ),
     );*/
-    Navigator.push(
+    /*Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => WebinarDetails(
           // builder: (context) => ProgressExample(
-          webinarId,
+          // webinarId,
         ),
       ),
-    );
+    );*/
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                WebinarDetails('resultText Sender', webinarId)));
   }
 
   checkForPrice(int index) {
