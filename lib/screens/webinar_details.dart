@@ -212,18 +212,18 @@ class _WebinarDetailsState extends State<WebinarDetails> {
           webinar_thumb =
               resp['payload']['webinar_detail']['webinar_thumbnail'];
           video_url = resp['payload']['webinar_detail']['webinar_video_url'];
-          webinar_title = resp['payload']['webinar_details']['webinar_title'];
-          webinar_type = resp['payload']['webinar_details']['webinar_type'];
-          webinar_date = resp['payload']['webinar_details']['webinar_date'];
-          webinar_status = resp['payload']['webinar_details']['webinar_status'];
-          start_date = resp['payload']['webinar_details']['start_date'];
-          start_time = resp['payload']['webinar_details']['start_time'];
-          is_card_save = resp['payload']['webinar_details']['is_card_save'];
-          credit = resp['payload']['webinar_details']['credit'];
-          ce_credit = resp['payload']['webinar_details']['ce_credit'];
-          cfp_credit = resp['payload']['webinar_details']['cfp_credit'];
-          cpd_credit = resp['payload']['webinar_details']['cpd_credit'];
-          duration = resp['payload']['webinar_details']['duration'];
+          webinar_title = resp['payload']['webinar_detail']['webinar_title'];
+          webinar_type = resp['payload']['webinar_detail']['webinar_type'];
+          webinar_date = resp['payload']['webinar_detail']['webinar_date'];
+          webinar_status = resp['payload']['webinar_detail']['webinar_status'];
+          start_date = resp['payload']['webinar_detail']['start_date'];
+          start_time = resp['payload']['webinar_detail']['start_time'];
+          is_card_save = resp['payload']['webinar_detail']['is_card_save'];
+          credit = resp['payload']['webinar_detail']['credit'];
+          ce_credit = resp['payload']['webinar_detail']['ce_credit'];
+          cfp_credit = resp['payload']['webinar_detail']['cfp_credit'];
+          cpd_credit = resp['payload']['webinar_detail']['cpd_credit'];
+          duration = resp['payload']['webinar_detail']['duration'];
 
           _controller = VideoPlayerController.network(
             // 'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',

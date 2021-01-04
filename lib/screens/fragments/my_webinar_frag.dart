@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constant.dart';
-import '../webinar_details.dart';
+import '../webinar_details_new.dart';
 
 class MyWebinarFrag extends StatefulWidget {
   @override
@@ -31,6 +31,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
 
   String strWebinarType = "live";
   String strFilterPrice = "";
+  String strWebinarTypeIntent = "";
 
   bool isProgressShowing = false;
   bool isLoaderShowing = false;
@@ -712,6 +713,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
   void getIdWebinar(int index) {
     int webinarId = data['payload']['webinar'][index]['id'];
     String strWebinarId = webinarId.toString();
+    strWebinarTypeIntent = data['payload']['webinar'][index]['webinar_type'];
     print('Id for the webinar is : $webinarId');
     print('String for strWebinarID : $strWebinarId');
     String sampleIntnent = 'HelloWorld';
@@ -735,7 +737,8 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
         context,
         MaterialPageRoute(
             builder: (context) =>
-                WebinarDetails('resultText Sender', webinarId)));
+                // WebinarDetails('resultText Sender', webinarId)));
+                WebinarDetailsNew(strWebinarTypeIntent, webinarId)));
   }
 
   checkForPrice(int index) {
