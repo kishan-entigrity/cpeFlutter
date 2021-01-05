@@ -244,100 +244,17 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                         ),
                       ],
                     ),
-                    SingleChildScrollView(
-                      child: Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              'Test1',
-                              style: TextStyle(
-                                fontSize: 20.0,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              'Test1',
-                              style: TextStyle(
-                                fontSize: 20.0,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              'Test1',
-                              style: TextStyle(
-                                fontSize: 20.0,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              'Test1',
-                              style: TextStyle(
-                                fontSize: 20.0,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              'Test1',
-                              style: TextStyle(
-                                fontSize: 20.0,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              'Test1',
-                              style: TextStyle(
-                                fontSize: 20.0,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              'Test1',
-                              style: TextStyle(
-                                fontSize: 20.0,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              'Test1',
-                              style: TextStyle(
-                                fontSize: 20.0,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              'Test1',
-                              style: TextStyle(
-                                fontSize: 20.0,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              'Test1',
-                              style: TextStyle(
-                                fontSize: 20.0,
-                              ),
-                            ),
-                          ),
-                        ],
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: <Widget>[
+                            TestText('Text'),
+                            TestText('Text1'),
+                            TestText('Text2'),
+                            TestText('Text3'),
+                            TestText('Text4'),
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -345,6 +262,33 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class TestText extends StatelessWidget {
+  TestText(this.strTitle);
+
+  final String strTitle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(10.0),
+      margin: EdgeInsets.only(left: 10.0, top: 10.0, right: 10.0),
+      height: 100.0,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        color: Colors.white,
+      ),
+      // child: Center(
+      child: Text(
+        strTitle,
+        style: TextStyle(
+          fontSize: 20.0,
         ),
       ),
     );
