@@ -51,6 +51,12 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
 
   var isPlaying = false;
 
+  bool isDetails = false;
+  bool isDetails1 = false;
+  bool isDetails2 = false;
+  bool isDetails3 = false;
+  bool isDetails4 = false;
+
   @override
   void initState() {
     super.initState();
@@ -248,11 +254,47 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: <Widget>[
-                            TestText('Text'),
-                            TestText('Text1'),
-                            TestText('Text2'),
-                            TestText('Text3'),
-                            TestText('Text4'),
+                            TestText(
+                                // onPress: clickEvent(),
+                                onPress: () {
+                                  clickEvent();
+                                },
+                                strTitle: 'Text',
+                                cardChild:
+                                    childCardDetail1('Description Data 1'),
+                                flagExpand: isDetails),
+                            TestText(
+                                onPress: () {
+                                  clickEvent1();
+                                },
+                                strTitle: 'Text 1',
+                                cardChild:
+                                    childCardDetail1('Description Data 1'),
+                                flagExpand: isDetails1),
+                            TestText(
+                                onPress: () {
+                                  clickEvent2();
+                                },
+                                strTitle: 'Text 2',
+                                cardChild:
+                                    childCardDetail1('Description Data 2'),
+                                flagExpand: isDetails2),
+                            TestText(
+                                onPress: () {
+                                  clickEvent3();
+                                },
+                                strTitle: 'Text 3',
+                                cardChild:
+                                    childCardDetail1('Description Data 3'),
+                                flagExpand: isDetails3),
+                            TestText(
+                                onPress: () {
+                                  clickEvent4();
+                                },
+                                strTitle: 'Text 4',
+                                cardChild:
+                                    childCardDetail1('Description Data 4'),
+                                flagExpand: isDetails4),
                           ],
                         ),
                       ),
@@ -266,31 +308,167 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       ),
     );
   }
+
+  clickEvent() {
+    setState(() {
+      print('Clicked on controller 0');
+      if (isDetails) {
+        isDetails = false;
+        isDetails1 = false;
+        isDetails2 = false;
+        isDetails3 = false;
+        isDetails4 = false;
+      } else {
+        isDetails = true;
+        isDetails1 = false;
+        isDetails2 = false;
+        isDetails3 = false;
+        isDetails4 = false;
+      }
+    });
+  }
+
+  clickEvent1() {
+    setState(() {
+      print('Clicked on controller 1');
+      if (isDetails1) {
+        isDetails = false;
+        isDetails1 = false;
+        isDetails2 = false;
+        isDetails3 = false;
+        isDetails4 = false;
+      } else {
+        isDetails = false;
+        isDetails1 = true;
+        isDetails2 = false;
+        isDetails3 = false;
+        isDetails4 = false;
+      }
+    });
+  }
+
+  clickEvent2() {
+    setState(() {
+      print('Clicked on controller 2');
+      if (isDetails2) {
+        isDetails = false;
+        isDetails1 = false;
+        isDetails2 = false;
+        isDetails3 = false;
+        isDetails4 = false;
+      } else {
+        isDetails = false;
+        isDetails1 = false;
+        isDetails2 = true;
+        isDetails3 = false;
+        isDetails4 = false;
+      }
+    });
+  }
+
+  clickEvent3() {
+    setState(() {
+      print('Clicked on controller 3');
+      if (isDetails3) {
+        isDetails = false;
+        isDetails1 = false;
+        isDetails2 = false;
+        isDetails3 = false;
+        isDetails4 = false;
+      } else {
+        isDetails = false;
+        isDetails1 = false;
+        isDetails2 = false;
+        isDetails3 = true;
+        isDetails4 = false;
+      }
+    });
+  }
+
+  clickEvent4() {
+    setState(() {
+      print('Clicked on controller 4');
+      if (isDetails4) {
+        isDetails = false;
+        isDetails1 = false;
+        isDetails2 = false;
+        isDetails3 = false;
+        isDetails4 = false;
+      } else {
+        isDetails = false;
+        isDetails1 = false;
+        isDetails2 = false;
+        isDetails3 = false;
+        isDetails4 = true;
+      }
+    });
+  }
 }
 
-class TestText extends StatelessWidget {
-  TestText(this.strTitle);
+class childCardDetail1 extends StatelessWidget {
+  childCardDetail1(this.strDetails);
 
-  final String strTitle;
+  final String strDetails;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(10.0),
-      margin: EdgeInsets.only(left: 10.0, top: 10.0, right: 10.0),
+      padding: EdgeInsets.symmetric(horizontal: 10.0),
+      margin: EdgeInsets.symmetric(horizontal: 10.0),
       height: 100.0,
       width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        color: Colors.white,
-      ),
-      // child: Center(
+      color: Colors.red,
       child: Text(
-        strTitle,
-        style: TextStyle(
-          fontSize: 20.0,
-        ),
+        strDetails,
       ),
+    );
+  }
+}
+
+class TestText extends StatelessWidget {
+  TestText(
+      {@required this.strTitle,
+      @required this.cardChild,
+      @required this.flagExpand,
+      @required this.onPress});
+
+  final String strTitle;
+  final Widget cardChild;
+  final bool flagExpand;
+  final Function onPress;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        GestureDetector(
+          onTap: onPress,
+          child: Container(
+            padding: const EdgeInsets.all(10.0),
+            margin: EdgeInsets.only(left: 10.0, top: 10.0, right: 10.0),
+            height: 50.0,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topRight: const Radius.circular(10.0),
+                topLeft: const Radius.circular(10.0),
+              ),
+              color: Colors.white,
+            ),
+            // child: Center(
+            child: Text(
+              strTitle,
+              style: TextStyle(
+                fontSize: 20.0,
+              ),
+            ),
+          ),
+        ),
+        Visibility(
+          visible: flagExpand ? true : false,
+          child: cardChild,
+        ),
+      ],
     );
   }
 }
