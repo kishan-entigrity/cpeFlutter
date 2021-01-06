@@ -1,0 +1,9 @@
+In this package(fragment) need to add following files
+
+1. HomeFrag,
+2. MyWebinarFrag screen,
+3. CertificateFrag,
+4. PremiumFrag,
+5. ProfileFrag,
+    - Here all the screens in the profile fragment are in the different package named profile.
+7. Subused common components of any above screens.

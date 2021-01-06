@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../rest_api.dart';
+import '../../rest_api.dart';
 
 class ChangePassword extends StatefulWidget {
   @override

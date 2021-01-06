@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constant.dart';
-import '../webinar_details_new.dart';
+import '../webinar_details/webinar_details_new.dart';
 
 class MyWebinarFrag extends StatefulWidget {
   @override

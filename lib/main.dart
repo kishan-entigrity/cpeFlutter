@@ -1,4 +1,4 @@
-import 'package:cpe_flutter/screens/splash_screen.dart';
+import 'package:cpe_flutter/screens/intro_login_signup/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {

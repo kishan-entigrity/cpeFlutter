@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import '../rest_api.dart';
+import '../../rest_api.dart';
 
-class TermsCondition extends StatefulWidget {
+class PrivacyPolicy extends StatefulWidget {
   @override
-  _TermsConditionState createState() => _TermsConditionState();
+  _PrivacyPolicyState createState() => _PrivacyPolicyState();
 }
 
-class _TermsConditionState extends State<TermsCondition> {
+class _PrivacyPolicyState extends State<PrivacyPolicy> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   var respStatus;
@@ -27,16 +27,17 @@ class _TermsConditionState extends State<TermsCondition> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // getTermsAndCondition();
+    // getPrivacyPolicyAPI();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.teal,
-      /*appBar: AppBar(
-        title: Text('Terms and condition'),
+      /*backgroundColor: Colors.teal,
+      appBar: AppBar(
+        title: Text('Privacy Policy'),
       ),*/
+      key: _scaffoldKey,
       body: SafeArea(
         child: Column(
           children: <Widget>[
@@ -63,7 +64,7 @@ class _TermsConditionState extends State<TermsCondition> {
                   Flexible(
                     child: Center(
                       child: Text(
-                        'Terms and conditions',
+                        'Privacy Policy',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 18.0,
@@ -94,9 +95,7 @@ class _TermsConditionState extends State<TermsCondition> {
                 child: WebView(
                   // initialUrl: '$respLink',
                   // initialUrl: getAPICallPrivacyPolicy(),
-                  // initialUrl: 'https://my-cpe.com/api/cms/terms_condition',
-                  initialUrl:
-                      'https://my-cpe.com/api/cms/get-terms-and-conditions',
+                  initialUrl: 'https://my-cpe.com/api/cms/get-privacy-policy',
                   javascriptMode: JavascriptMode.unrestricted,
                   onWebViewCreated: (WebViewController webViewController) {
                     _controller.complete(webViewController);
@@ -110,13 +109,13 @@ class _TermsConditionState extends State<TermsCondition> {
     );
   }
 
-  void getTermsAndCondition() async {
+  /*void getPrivacyPolicyAPI() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     print('Connectivity Result is : $connectivityResult');
 
     if ((connectivityResult == ConnectivityResult.mobile) ||
         (connectivityResult == ConnectivityResult.wifi)) {
-      var resp = await getTermsAndConditions();
+      var resp = await getPrivacyPolicy();
       print('Response for change password api is : $resp');
 
       respStatus = resp['success'];
@@ -152,5 +151,62 @@ class _TermsConditionState extends State<TermsCondition> {
         ),
       );
     }
+  }*/
+
+  /*void loadWebViewPrivacyPolicy() {
+    initialUrl:
+    '$respLink';
+    // initialUrl: 'https://my-cpe.com/api/cms/get-privacy-policy',
+    javascriptMode:
+    JavascriptMode.unrestricted;
+    onWebViewCreated:
+    (WebViewController webViewController) {
+      _controller.complete(webViewController);
+    };
+  }*/
+
+  getAPICallPrivacyPolicy() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    print('Connectivity Result is : $connectivityResult');
+
+    if ((connectivityResult == ConnectivityResult.mobile) ||
+        (connectivityResult == ConnectivityResult.wifi)) {
+      var resp = await getPrivacyPolicy();
+      print('Response for change password api is : $resp');
+
+      respStatus = resp['success'];
+      respMessage = resp['message'];
+      if (respStatus) {
+        _scaffoldKey.currentState.showSnackBar(
+          SnackBar(
+            content: Text('$respMessage'),
+            duration: Duration(seconds: 3),
+          ),
+        );
+
+        setState(() {
+          respLink = resp['payload']['link'];
+          print('Privacy policy link is : $respLink');
+          // loadWebViewPrivacyPolicy();
+        });
+      } else {
+        print('Entered in else part');
+        _scaffoldKey.currentState.showSnackBar(
+          SnackBar(
+            content: Text('$respMessage'),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+    } else {
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          content:
+              Text("Please check your internet connectivity and try again"),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    }
+    return respLink;
   }
 }

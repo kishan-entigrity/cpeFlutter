@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../constant.dart';
-import '../rest_api.dart';
+import '../../constant.dart';
+import '../../rest_api.dart';
 
 class ContactUs extends StatefulWidget {
   @override

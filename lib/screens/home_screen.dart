@@ -3,7 +3,7 @@ import 'package:cpe_flutter/screens/fragments/home_frag.dart';
 import 'package:cpe_flutter/screens/fragments/my_webinar_frag.dart';
 import 'package:cpe_flutter/screens/fragments/premium_frag.dart';
 import 'package:cpe_flutter/screens/fragments/profile_frag.dart';
-import 'package:cpe_flutter/screens/login.dart';
+import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';

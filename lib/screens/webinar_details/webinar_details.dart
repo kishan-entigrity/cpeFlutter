@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:video_player/video_player.dart';
 
-import '../rest_api.dart';
+import '../../rest_api.dart';
 
 class WebinarDetails extends StatefulWidget {
   // final int webinarId;
