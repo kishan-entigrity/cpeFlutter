@@ -1,8 +1,8 @@
 import 'dart:convert';
 
+import 'package:cpe_flutter/components/SpinKitSample1.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -927,20 +927,6 @@ class selectedFilterWidget extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class SpinKitSample1 extends StatelessWidget {
-  const SpinKitSample1({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SpinKitCircle(
-      size: 60.0,
-      color: Colors.black,
     );
   }
 }

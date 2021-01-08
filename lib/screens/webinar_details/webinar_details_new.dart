@@ -1,7 +1,9 @@
-import 'dart:ui';
-
 import 'package:connectivity/connectivity.dart';
+import 'package:cpe_flutter/components/SpinKitSample1.dart';
 import 'package:cpe_flutter/components/TopBar.dart';
+import 'package:cpe_flutter/screens/webinar_details/ExpandedCard.dart';
+import 'package:cpe_flutter/screens/webinar_details/WebinarSpeakerName_OnDemand.dart';
+import 'package:cpe_flutter/screens/webinar_details/WebinarTitleOnDemand.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -34,21 +36,21 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   var respStatus;
   var respMessage;
 
-  String webinar_thumb;
-  var video_url,
-      webinar_title,
-      webinar_type,
-      webinar_date,
-      webinar_status,
-      start_date,
-      start_time,
-      is_card_save,
-      credit,
-      ce_credit,
-      cfp_credit,
-      cpd_credit,
-      duration,
-      presenter_name;
+  String webinar_thumb = '';
+  var video_url = '',
+      webinar_title = '',
+      webinar_type = '',
+      webinar_date = '',
+      webinar_status = '',
+      start_date = '',
+      start_time = '',
+      is_card_save = false,
+      credit = '',
+      ce_credit = '',
+      cfp_credit = '',
+      cpd_credit = '',
+      duration = 0,
+      presenter_name = '';
 
   var isPlaying = false;
 
@@ -60,6 +62,10 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   bool isCompanyExpanded = false;
   bool isTestimonialsExpanded = false;
   bool isOthersExpanded = false;
+
+  var presenter_obj;
+
+  bool isLoaderShowing = false;
 
   @override
   void initState() {
@@ -79,6 +85,9 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       print('UserToken on checkForSP is : $userToken');
 
       // Take API call for webinar Details from here..
+      setState(() {
+        isLoaderShowing = true;
+      });
       webinarDetailsAPI();
     } else {
       // Chackvalue == false..
@@ -101,6 +110,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
 
       if (respStatus) {
         setState(() {
+          isLoaderShowing = false;
           webinar_thumb =
               resp['payload']['webinar_detail']['webinar_thumbnail'];
           video_url = resp['payload']['webinar_detail']['webinar_video_url'];
@@ -118,6 +128,9 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
           duration = resp['payload']['webinar_detail']['duration'];
           presenter_name =
               resp['payload']['webinar_detail']['about_presententer']['name'];
+          presenter_obj =
+              resp['payload']['webinar_detail']['about_presententer'];
+          print('Whole object for presenter is : $presenter_obj');
 
           /*_controller = VideoPlayerController.network(
             // 'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
@@ -144,6 +157,9 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
             duration: Duration(seconds: 3),
           ),
         );
+        setState(() {
+          isLoaderShowing = false;
+        });
       }
     } else {
       _scaffoldKey.currentState.showSnackBar(
@@ -153,6 +169,9 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
           duration: Duration(seconds: 3),
         ),
       );
+      setState(() {
+        isLoaderShowing = false;
+      });
     }
   }
 
@@ -208,15 +227,21 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                     height: 200.0,
                                     width: double.infinity,
                                     color: Colors.blue,
-                                    child: (webinar_thumb?.isEmpty
+                                    child: FadeInImage(
+                                      placeholder: AssetImage(
+                                          'assets/webinar_placeholder.jpg'),
+                                      image: NetworkImage(webinar_thumb),
+                                      fit: BoxFit.fill,
+                                    ),
+                                    /*child: (webinar_thumb?.isEmpty
                                         ? Image.asset(
-                                            'assets/avatar_bottom_right.png',
+                                            'assets/webinar_placeholder.jpg',
                                             fit: BoxFit.fill,
                                           )
                                         : Image.network(
                                             webinar_thumb,
                                             fit: BoxFit.fill,
-                                          )),
+                                          )),*/
                                   ),
                                   Positioned(
                                     top: 0.0,
@@ -236,7 +261,9 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                 ],
                               ),
                               WebinarTitle_OnDemand(webinar_title),
+                              // WebinarTitle_OnDemand('Test Title'),
                               WebinarSpeakerName_OnDemand(presenter_name),
+                              // WebinarSpeakerName_OnDemand('Test Presenter'),
                             ],
                           ),
                         ),
@@ -252,8 +279,11 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                 width: double.infinity,
                                 color: Colors.red,
                               ),
-                              WebinarTitle_OnDemand(webinar_title),
-                              WebinarSpeakerName_OnDemand(presenter_name),
+                              // WebinarTitle_OnDemand(webinar_title),
+                              WebinarTitle_OnDemand('strTestTitle'),
+                              // WebinarSpeakerName_OnDemand(presenter_name),
+                              WebinarSpeakerName_OnDemand(
+                                  'strTestPresenterName'),
                             ],
                           ),
                         ),
@@ -307,6 +337,17 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                     'Description Data Who should attend'),
                                 flagExpand: isWhoShouldAttenExpanded),
                             ExpandedCard(
+                              onPress: () {
+                                checkPresenterExpand();
+                              },
+                              strTitle: 'Presenter1',
+                              cardChild: childCardPresenter(
+                                'Description Dtat Presenter',
+                                presenter_obj,
+                              ),
+                              flagExpand: isPresenterExpanded,
+                            ),
+                            ExpandedCard(
                                 onPress: () {
                                   checkPresenterExpand();
                                 },
@@ -347,6 +388,16 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                     ),
                   ],
                 ),
+              ),
+            ),
+            Positioned(
+              bottom: 0.0,
+              right: 0.0,
+              left: 0.0,
+              top: 100.0,
+              child: Visibility(
+                visible: isLoaderShowing ? true : false,
+                child: SpinKitSample1(),
               ),
             ),
           ],
@@ -556,56 +607,6 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   }
 }
 
-class WebinarSpeakerName_OnDemand extends StatelessWidget {
-  WebinarSpeakerName_OnDemand(this.presenter_name);
-
-  final String presenter_name;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        top: 5.0,
-        left: 10.0,
-      ),
-      child: Text(
-        presenter_name,
-        maxLines: 2,
-        style: TextStyle(
-          fontFamily: 'Whitney Bold',
-          fontSize: 15.0,
-          color: Colors.black,
-        ),
-      ),
-    );
-  }
-}
-
-class WebinarTitle_OnDemand extends StatelessWidget {
-  WebinarTitle_OnDemand(this.webinar_title);
-
-  final String webinar_title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        top: 10.0,
-        left: 10.0,
-      ),
-      child: Text(
-        webinar_title,
-        maxLines: 2,
-        style: TextStyle(
-          fontFamily: 'Whitney Bold',
-          fontSize: 22.0,
-          color: Colors.black,
-        ),
-      ),
-    );
-  }
-}
-
 class childCardDetail1 extends StatelessWidget {
   childCardDetail1(this.strDetails);
 
@@ -626,67 +627,44 @@ class childCardDetail1 extends StatelessWidget {
   }
 }
 
-class ExpandedCard extends StatelessWidget {
-  ExpandedCard(
-      {@required this.strTitle,
-      @required this.cardChild,
-      @required this.flagExpand,
-      @required this.onPress});
+class childCardPresenter extends StatefulWidget {
+  childCardPresenter(this.strDetails, this.speakerObeject);
 
-  final String strTitle;
-  final Widget cardChild;
-  final bool flagExpand;
-  final Function onPress;
+  final String strDetails;
+  final Object speakerObeject;
+
+  @override
+  _childCardPresenterState createState() =>
+      _childCardPresenterState(strDetails, speakerObeject);
+}
+
+class _childCardPresenterState extends State<childCardPresenter> {
+  _childCardPresenterState(this.strDetails, this.speakerObject);
+
+  final String strDetails;
+  final Object speakerObject;
+
+  String strSpeakerEmail = '';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 10.0, top: 10.0, right: 10.0),
+      padding: EdgeInsets.symmetric(horizontal: 10.0),
+      margin: EdgeInsets.symmetric(horizontal: 10.0),
+      height: 100.0,
       width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        color: Color(0xFFF3F5F9),
-      ),
-      // child: Center(
-      child: Column(
-        children: <Widget>[
-          GestureDetector(
-            onTap: onPress,
-            child: Container(
-              padding: const EdgeInsets.all(10.0),
-              width: double.infinity,
-              height: 50.0,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                color: Color(0xFFF3F5F9),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    strTitle,
-                    style: TextStyle(
-                      fontFamily: 'Whitney Semi Bold',
-                      fontSize: 18.0,
-                      color: Colors.black,
-                    ),
-                  ),
-                  Icon(
-                    flagExpand
-                        ? FontAwesomeIcons.caretUp
-                        : FontAwesomeIcons.caretDown,
-                    color: Colors.black,
-                    size: 15.0,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Visibility(
-            visible: flagExpand ? true : false,
-            child: cardChild,
-          ),
-        ],
+      color: Colors.red,
+      child: Text(
+        // strDetails,
+        // speakerObeject.toString(),
+        // widget.speakerObeject['email_id'];
+        strSpeakerEmail,
       ),
     );
   }
