@@ -6,6 +6,7 @@ import 'package:cpe_flutter/screens/webinar_details/WebinarSpeakerName_OnDemand.
 import 'package:cpe_flutter/screens/webinar_details/WebinarTitleOnDemand.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -131,6 +132,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
           presenter_obj =
               resp['payload']['webinar_detail']['about_presententer'];
           print('Whole object for presenter is : $presenter_obj');
+          var strTempEmail = presenter_obj['email_id'];
+          print('Email Data from Object is : $strTempEmail');
 
           /*_controller = VideoPlayerController.network(
             // 'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
@@ -337,23 +340,18 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                     'Description Data Who should attend'),
                                 flagExpand: isWhoShouldAttenExpanded),
                             ExpandedCard(
-                              onPress: () {
-                                checkPresenterExpand();
-                              },
-                              strTitle: 'Presenter1',
-                              cardChild: childCardPresenter(
-                                'Description Dtat Presenter',
-                                presenter_obj,
-                              ),
-                              flagExpand: isPresenterExpanded,
-                            ),
-                            ExpandedCard(
                                 onPress: () {
                                   checkPresenterExpand();
                                 },
                                 strTitle: 'Presenter',
-                                cardChild: childCardDetail1(
-                                    'Description Data Presenter'),
+                                cardChild: childCardPresenterNew(
+                                  presenter_obj['presenter_image'],
+                                  presenter_obj['name'],
+                                  presenter_obj['qualification'],
+                                  presenter_obj['desgnination'],
+                                  presenter_obj['company_name'],
+                                  presenter_obj['speaker_desc'],
+                                ),
                                 flagExpand: isPresenterExpanded),
                             ExpandedCard(
                                 onPress: () {
@@ -627,6 +625,87 @@ class childCardDetail1 extends StatelessWidget {
   }
 }
 
+class childCardPresenterNew extends StatelessWidget {
+  childCardPresenterNew(
+      this.strPresenterPic,
+      this.strPresenterName,
+      this.strPresenterQualification,
+      this.strPresenterDesignation,
+      this.strPresenterCompany,
+      this.strPresenterDetails);
+
+  final String strPresenterPic;
+  final String strPresenterName;
+  final String strPresenterQualification;
+  final String strPresenterDesignation;
+  final String strPresenterCompany;
+  final String strPresenterDetails;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.all(10.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              CircleAvatar(
+                radius: 40.0,
+                backgroundImage: NetworkImage(strPresenterPic),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  left: 10.0,
+                  right: 10.0,
+                  top: 5.0,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      '$strPresenterName $strPresenterQualification',
+                      maxLines: 5,
+                      softWrap: true,
+                      style: TextStyle(
+                        fontFamily: 'Whitney Bold',
+                        fontSize: 18.0,
+                        color: Colors.black,
+                      ),
+                    ),
+                    Text(
+                      '$strPresenterDesignation, $strPresenterDesignation',
+                      style: TextStyle(
+                        fontFamily: 'Whitney Medium',
+                        fontSize: 17.0,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
+          margin: EdgeInsets.only(left: 10.0, right: 10.0),
+          width: double.infinity,
+          child: Html(
+            data: '$strPresenterDetails',
+            defaultTextStyle: TextStyle(
+              fontFamily: 'Whitney Medium',
+              fontSize: 18.0,
+              color: Colors.black,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class childCardPresenter extends StatefulWidget {
   childCardPresenter(this.strDetails, this.speakerObeject);
 
@@ -644,12 +723,21 @@ class _childCardPresenterState extends State<childCardPresenter> {
   final String strDetails;
   final Object speakerObject;
 
-  String strSpeakerEmail = '';
+  var strSpeakerEmail = '';
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    // strSpeakerEmail = speakerObject['email_id'];
+    print('Init State webinar details new is called');
+    if (speakerObject is Object) {
+      print('Data type for speakerObject is Object');
+    } else if (speakerObject is int) {
+      print('Data type for speakerObject is Int');
+    } else if (speakerObject is String) {
+      print('Data type for speakerObject is String');
+    }
   }
 
   @override
@@ -662,9 +750,9 @@ class _childCardPresenterState extends State<childCardPresenter> {
       color: Colors.red,
       child: Text(
         // strDetails,
-        // speakerObeject.toString(),
+        speakerObject.toString(),
         // widget.speakerObeject['email_id'];
-        strSpeakerEmail,
+        // strSpeakerEmail,
       ),
     );
   }

@@ -41,6 +41,7 @@ dependencies:
   video_player: ^1.0.1
   infinite_scroll_pagination: ^2.2.3
   flutter_tags: ^0.4.9+1
+  flutter_html: ^0.8.2
 
 dev_dependencies:
   flutter_test:
