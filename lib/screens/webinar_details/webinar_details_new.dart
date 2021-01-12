@@ -6,11 +6,13 @@ import 'package:cpe_flutter/screens/webinar_details/WebinarSpeakerName_OnDemand.
 import 'package:cpe_flutter/screens/webinar_details/WebinarTitleOnDemand.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../rest_api.dart';
+import 'childCardCompany.dart';
+import 'childCardDescription.dart';
+import 'childCardPresenter.dart';
 
 class WebinarDetailsNew extends StatefulWidget {
   WebinarDetailsNew(this.strWebinarTypeIntent, this.webinarId);
@@ -51,7 +53,9 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       cfp_credit = '',
       cpd_credit = '',
       duration = 0,
-      presenter_name = '';
+      presenter_name = '',
+      learning_objective = '',
+      program_description = '';
 
   var isPlaying = false;
 
@@ -127,6 +131,10 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
           cfp_credit = resp['payload']['webinar_detail']['cfp_credit'];
           cpd_credit = resp['payload']['webinar_detail']['cpd_credit'];
           duration = resp['payload']['webinar_detail']['duration'];
+          learning_objective =
+              resp['payload']['webinar_detail']['Learning_objective'];
+          program_description =
+              resp['payload']['webinar_detail']['program_description'];
           presenter_name =
               resp['payload']['webinar_detail']['about_presententer']['name'];
           presenter_obj =
@@ -320,8 +328,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                   checkDescriptionExpand();
                                 },
                                 strTitle: 'Description',
-                                cardChild: childCardDetail1(
-                                    'Description Data Description'),
+                                cardChild: childCardDescription(
+                                    program_description, learning_objective),
                                 flagExpand: isDescriptionExpanded),
                             ExpandedCard(
                                 onPress: () {
@@ -344,7 +352,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                   checkPresenterExpand();
                                 },
                                 strTitle: 'Presenter',
-                                cardChild: childCardPresenterNew(
+                                cardChild: childCardPresenter(
                                   presenter_obj['presenter_image'],
                                   presenter_obj['name'],
                                   presenter_obj['qualification'],
@@ -358,8 +366,12 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                   checkCompanyExpand();
                                 },
                                 strTitle: 'Company',
-                                cardChild: childCardDetail1(
-                                    'Description Data Company'),
+                                cardChild: childCardCompany(
+                                  presenter_obj['company_logo'],
+                                  presenter_obj['company_name'],
+                                  presenter_obj['company_website'],
+                                  presenter_obj['company_desc'],
+                                ),
                                 flagExpand: isCompanyExpanded),
                             ExpandedCard(
                                 onPress: () {
@@ -625,100 +637,19 @@ class childCardDetail1 extends StatelessWidget {
   }
 }
 
-class childCardPresenterNew extends StatelessWidget {
-  childCardPresenterNew(
-      this.strPresenterPic,
-      this.strPresenterName,
-      this.strPresenterQualification,
-      this.strPresenterDesignation,
-      this.strPresenterCompany,
-      this.strPresenterDetails);
-
-  final String strPresenterPic;
-  final String strPresenterName;
-  final String strPresenterQualification;
-  final String strPresenterDesignation;
-  final String strPresenterCompany;
-  final String strPresenterDetails;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.all(10.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              CircleAvatar(
-                radius: 40.0,
-                backgroundImage: NetworkImage(strPresenterPic),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  left: 10.0,
-                  right: 10.0,
-                  top: 5.0,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      '$strPresenterName $strPresenterQualification',
-                      maxLines: 5,
-                      softWrap: true,
-                      style: TextStyle(
-                        fontFamily: 'Whitney Bold',
-                        fontSize: 18.0,
-                        color: Colors.black,
-                      ),
-                    ),
-                    Text(
-                      '$strPresenterDesignation, $strPresenterDesignation',
-                      style: TextStyle(
-                        fontFamily: 'Whitney Medium',
-                        fontSize: 17.0,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
-          margin: EdgeInsets.only(left: 10.0, right: 10.0),
-          width: double.infinity,
-          child: Html(
-            data: '$strPresenterDetails',
-            defaultTextStyle: TextStyle(
-              fontFamily: 'Whitney Medium',
-              fontSize: 18.0,
-              color: Colors.black,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class childCardPresenter extends StatefulWidget {
-  childCardPresenter(this.strDetails, this.speakerObeject);
+class childCardPresenterTest extends StatefulWidget {
+  childCardPresenterTest(this.strDetails, this.speakerObeject);
 
   final String strDetails;
   final Object speakerObeject;
 
   @override
-  _childCardPresenterState createState() =>
-      _childCardPresenterState(strDetails, speakerObeject);
+  _childCardPresenterTestState createState() =>
+      _childCardPresenterTestState(strDetails, speakerObeject);
 }
 
-class _childCardPresenterState extends State<childCardPresenter> {
-  _childCardPresenterState(this.strDetails, this.speakerObject);
+class _childCardPresenterTestState extends State<childCardPresenterTest> {
+  _childCardPresenterTestState(this.strDetails, this.speakerObject);
 
   final String strDetails;
   final Object speakerObject;
