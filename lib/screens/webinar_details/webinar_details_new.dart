@@ -12,7 +12,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../rest_api.dart';
 import 'childCardCompany.dart';
 import 'childCardDescription.dart';
+import 'childCardOverviewofTopics.dart';
 import 'childCardPresenter.dart';
+import 'childCardWhyShouldAttend.dart';
 
 class WebinarDetailsNew extends StatefulWidget {
   WebinarDetailsNew(this.strWebinarTypeIntent, this.webinarId);
@@ -55,18 +57,23 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       duration = 0,
       presenter_name = '',
       learning_objective = '',
-      program_description = '';
+      program_description = '',
+      why_should_attend = '',
+      overview_of_topic = '';
 
   var isPlaying = false;
 
   bool isDetailsExpanded = false;
   bool isDescriptionExpanded = false;
   bool isOverviewOfTopicsExpanded = false;
-  bool isWhoShouldAttenExpanded = false;
+  bool isWhyShouldAttendExpanded = false;
   bool isPresenterExpanded = false;
   bool isCompanyExpanded = false;
   bool isTestimonialsExpanded = false;
   bool isOthersExpanded = false;
+
+  bool isOverViewOfTopicsVisible = false;
+  bool isWhySholdAttendVisible = false;
 
   var presenter_obj;
 
@@ -131,6 +138,10 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
           cfp_credit = resp['payload']['webinar_detail']['cfp_credit'];
           cpd_credit = resp['payload']['webinar_detail']['cpd_credit'];
           duration = resp['payload']['webinar_detail']['duration'];
+          why_should_attend =
+              resp['payload']['webinar_detail']['why_should_attend'];
+          overview_of_topic =
+              resp['payload']['webinar_detail']['overview_of_topic'];
           learning_objective =
               resp['payload']['webinar_detail']['Learning_objective'];
           program_description =
@@ -142,6 +153,29 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
           print('Whole object for presenter is : $presenter_obj');
           var strTempEmail = presenter_obj['email_id'];
           print('Email Data from Object is : $strTempEmail');
+
+          if (strWebinarTypeIntent == 'live') {
+            isOverViewOfTopicsVisible = false;
+            if (why_should_attend?.isEmpty) {
+              isWhySholdAttendVisible = false;
+            } else {
+              isWhySholdAttendVisible = true;
+            }
+          }
+
+          if (strWebinarTypeIntent == 'ON-DEMAND') {
+            if (why_should_attend?.isEmpty) {
+              isWhySholdAttendVisible = false;
+            } else {
+              isWhySholdAttendVisible = true;
+            }
+
+            if (overview_of_topic?.isEmpty) {
+              isOverViewOfTopicsVisible = false;
+            } else {
+              isOverViewOfTopicsVisible = true;
+            }
+          }
 
           /*_controller = VideoPlayerController.network(
             // 'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
@@ -212,7 +246,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
               left: 0.0,
               bottom: 50.0,
               child: Container(
-                color: Colors.yellow,
+                color: Colors.white,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -331,22 +365,28 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                 cardChild: childCardDescription(
                                     program_description, learning_objective),
                                 flagExpand: isDescriptionExpanded),
-                            ExpandedCard(
-                                onPress: () {
-                                  checkOverviewExpand();
-                                },
-                                strTitle: 'Overview of Topics',
-                                cardChild: childCardDetail1(
-                                    'Description Data Overview of Topics'),
-                                flagExpand: isOverviewOfTopicsExpanded),
-                            ExpandedCard(
-                                onPress: () {
-                                  checkWhoShouldAttendExpand();
-                                },
-                                strTitle: 'Who should attend',
-                                cardChild: childCardDetail1(
-                                    'Description Data Who should attend'),
-                                flagExpand: isWhoShouldAttenExpanded),
+                            Visibility(
+                              visible: isOverViewOfTopicsVisible ? true : false,
+                              child: ExpandedCard(
+                                  onPress: () {
+                                    checkOverviewExpand();
+                                  },
+                                  strTitle: 'Overview of Topics',
+                                  cardChild: childCardOverviewofTopics(
+                                      overview_of_topic),
+                                  flagExpand: isOverviewOfTopicsExpanded),
+                            ),
+                            Visibility(
+                              visible: isWhySholdAttendVisible ? true : false,
+                              child: ExpandedCard(
+                                  onPress: () {
+                                    checkWhoShouldAttendExpand();
+                                  },
+                                  strTitle: 'Why should attend',
+                                  cardChild: childCardWhyShouldAttend(
+                                      why_should_attend),
+                                  flagExpand: isWhyShouldAttendExpanded),
+                            ),
                             ExpandedCard(
                                 onPress: () {
                                   checkPresenterExpand();
@@ -423,7 +463,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         isDetailsExpanded = false;
         isDescriptionExpanded = false;
         isOverviewOfTopicsExpanded = false;
-        isWhoShouldAttenExpanded = false;
+        isWhyShouldAttendExpanded = false;
         isPresenterExpanded = false;
         isCompanyExpanded = false;
         isTestimonialsExpanded = false;
@@ -432,7 +472,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         isDetailsExpanded = true;
         isDescriptionExpanded = false;
         isOverviewOfTopicsExpanded = false;
-        isWhoShouldAttenExpanded = false;
+        isWhyShouldAttendExpanded = false;
         isPresenterExpanded = false;
         isCompanyExpanded = false;
         isTestimonialsExpanded = false;
@@ -448,7 +488,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         isDetailsExpanded = false;
         isDescriptionExpanded = false;
         isOverviewOfTopicsExpanded = false;
-        isWhoShouldAttenExpanded = false;
+        isWhyShouldAttendExpanded = false;
         isPresenterExpanded = false;
         isCompanyExpanded = false;
         isTestimonialsExpanded = false;
@@ -457,7 +497,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         isDetailsExpanded = false;
         isDescriptionExpanded = true;
         isOverviewOfTopicsExpanded = false;
-        isWhoShouldAttenExpanded = false;
+        isWhyShouldAttendExpanded = false;
         isPresenterExpanded = false;
         isCompanyExpanded = false;
         isTestimonialsExpanded = false;
@@ -473,7 +513,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         isDetailsExpanded = false;
         isDescriptionExpanded = false;
         isOverviewOfTopicsExpanded = false;
-        isWhoShouldAttenExpanded = false;
+        isWhyShouldAttendExpanded = false;
         isPresenterExpanded = false;
         isCompanyExpanded = false;
         isTestimonialsExpanded = false;
@@ -482,7 +522,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         isDetailsExpanded = false;
         isDescriptionExpanded = false;
         isOverviewOfTopicsExpanded = true;
-        isWhoShouldAttenExpanded = false;
+        isWhyShouldAttendExpanded = false;
         isPresenterExpanded = false;
         isCompanyExpanded = false;
         isTestimonialsExpanded = false;
@@ -494,11 +534,11 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   checkWhoShouldAttendExpand() {
     setState(() {
       print('Clicked on Whoshould attend');
-      if (isWhoShouldAttenExpanded) {
+      if (isWhyShouldAttendExpanded) {
         isDetailsExpanded = false;
         isDescriptionExpanded = false;
         isOverviewOfTopicsExpanded = false;
-        isWhoShouldAttenExpanded = false;
+        isWhyShouldAttendExpanded = false;
         isPresenterExpanded = false;
         isCompanyExpanded = false;
         isTestimonialsExpanded = false;
@@ -507,7 +547,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         isDetailsExpanded = false;
         isDescriptionExpanded = false;
         isOverviewOfTopicsExpanded = false;
-        isWhoShouldAttenExpanded = true;
+        isWhyShouldAttendExpanded = true;
         isPresenterExpanded = false;
         isCompanyExpanded = false;
         isTestimonialsExpanded = false;
@@ -523,7 +563,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         isDetailsExpanded = false;
         isDescriptionExpanded = false;
         isOverviewOfTopicsExpanded = false;
-        isWhoShouldAttenExpanded = false;
+        isWhyShouldAttendExpanded = false;
         isPresenterExpanded = false;
         isCompanyExpanded = false;
         isTestimonialsExpanded = false;
@@ -532,7 +572,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         isDetailsExpanded = false;
         isDescriptionExpanded = false;
         isOverviewOfTopicsExpanded = false;
-        isWhoShouldAttenExpanded = false;
+        isWhyShouldAttendExpanded = false;
         isPresenterExpanded = true;
         isCompanyExpanded = false;
         isTestimonialsExpanded = false;
@@ -548,7 +588,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         isDetailsExpanded = false;
         isDescriptionExpanded = false;
         isOverviewOfTopicsExpanded = false;
-        isWhoShouldAttenExpanded = false;
+        isWhyShouldAttendExpanded = false;
         isPresenterExpanded = false;
         isCompanyExpanded = false;
         isTestimonialsExpanded = false;
@@ -557,7 +597,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         isDetailsExpanded = false;
         isDescriptionExpanded = false;
         isOverviewOfTopicsExpanded = false;
-        isWhoShouldAttenExpanded = false;
+        isWhyShouldAttendExpanded = false;
         isPresenterExpanded = false;
         isCompanyExpanded = true;
         isTestimonialsExpanded = false;
@@ -573,7 +613,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         isDetailsExpanded = false;
         isDescriptionExpanded = false;
         isOverviewOfTopicsExpanded = false;
-        isWhoShouldAttenExpanded = false;
+        isWhyShouldAttendExpanded = false;
         isPresenterExpanded = false;
         isCompanyExpanded = false;
         isTestimonialsExpanded = false;
@@ -582,7 +622,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         isDetailsExpanded = false;
         isDescriptionExpanded = false;
         isOverviewOfTopicsExpanded = false;
-        isWhoShouldAttenExpanded = false;
+        isWhyShouldAttendExpanded = false;
         isPresenterExpanded = false;
         isCompanyExpanded = false;
         isTestimonialsExpanded = true;
@@ -598,7 +638,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         isDetailsExpanded = false;
         isDescriptionExpanded = false;
         isOverviewOfTopicsExpanded = false;
-        isWhoShouldAttenExpanded = false;
+        isWhyShouldAttendExpanded = false;
         isPresenterExpanded = false;
         isCompanyExpanded = false;
         isTestimonialsExpanded = false;
@@ -607,7 +647,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         isDetailsExpanded = false;
         isDescriptionExpanded = false;
         isOverviewOfTopicsExpanded = false;
-        isWhoShouldAttenExpanded = false;
+        isWhyShouldAttendExpanded = false;
         isPresenterExpanded = false;
         isCompanyExpanded = false;
         isTestimonialsExpanded = false;
