@@ -4,6 +4,7 @@ import 'package:cpe_flutter/components/TopBar.dart';
 import 'package:cpe_flutter/screens/webinar_details/ExpandedCard.dart';
 import 'package:cpe_flutter/screens/webinar_details/WebinarSpeakerName_OnDemand.dart';
 import 'package:cpe_flutter/screens/webinar_details/WebinarTitleOnDemand.dart';
+import 'package:cpe_flutter/screens/webinar_details/childCardDetails.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -38,30 +39,56 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   String userToken;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  var resp;
   var respStatus;
   var respMessage;
 
-  String webinar_thumb = '';
-  var video_url = '',
-      webinar_title = '',
-      webinar_type = '',
-      webinar_date = '',
-      webinar_status = '',
-      start_date = '',
-      start_time = '',
-      is_card_save = false,
+  String webinarThumb = '';
+  var cost,
       credit = '',
-      ce_credit = '',
-      cfp_credit = '',
-      cpd_credit = '',
+      ceCredit = '',
+      cpeCredit = '',
+      cfpCredit = '',
+      cpdCredit = '',
       duration = 0,
-      presenter_name = '',
-      learning_objective = '',
-      program_description = '',
-      why_should_attend = '',
-      overview_of_topic = '';
+      irsCourseId = '',
+      ctecCourseId = '',
+      subjectArea = '',
+      courseLevel = '',
+      insructionalMethod = '',
+      prerequisites = '',
+      advancePreparation = '',
+      recordDate = '',
+      publishedDate = '',
+      presentationHandsout = '',
+      keyTerms = '',
+      instructionalDocuments = '',
+      whoShouldAttend = '';
+
+  var videoUrl = '',
+      webinarTitle = '',
+      webinarType = '',
+      webinarDate = '',
+      webinarStatus = '',
+      startDate = '',
+      startTime = '',
+      isCardSave = false,
+      learningObjective = '',
+      programDescription = '',
+      whyShouldAttend = '',
+      overviewOfTopic = '';
 
   var isPlaying = false;
+
+  var presenterImage = '',
+      presenterName = '',
+      presenterQualification = '',
+      presenterDesgnination = '',
+      presenterDescription = '',
+      presenterCompanyName = '',
+      presenterCompanyLogo = '',
+      presenterCompanyWebsite = '',
+      presenterCompanyDesc = '';
 
   bool isDetailsExpanded = false;
   bool isDescriptionExpanded = false;
@@ -75,7 +102,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   bool isOverViewOfTopicsVisible = false;
   bool isWhySholdAttendVisible = false;
 
-  var presenter_obj;
+  var presenterObj;
+  var webDetailsObj;
 
   bool isLoaderShowing = false;
 
@@ -113,7 +141,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         (connectivityResult == ConnectivityResult.wifi)) {
       // Take API call from here..
       String strWebId = webinarId.toString();
-      var resp = await getWebinarDetails(userToken, strWebId);
+      resp = await getWebinarDetails(userToken, strWebId);
 
       respStatus = resp['success'];
       respMessage = resp['message'];
@@ -123,40 +151,58 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       if (respStatus) {
         setState(() {
           isLoaderShowing = false;
-          webinar_thumb =
-              resp['payload']['webinar_detail']['webinar_thumbnail'];
-          video_url = resp['payload']['webinar_detail']['webinar_video_url'];
-          webinar_title = resp['payload']['webinar_detail']['webinar_title'];
-          webinar_type = resp['payload']['webinar_detail']['webinar_type'];
-          webinar_date = resp['payload']['webinar_detail']['webinar_date'];
-          webinar_status = resp['payload']['webinar_detail']['webinar_status'];
-          start_date = resp['payload']['webinar_detail']['start_date'];
-          start_time = resp['payload']['webinar_detail']['start_time'];
-          is_card_save = resp['payload']['webinar_detail']['is_card_save'];
-          credit = resp['payload']['webinar_detail']['credit'];
-          ce_credit = resp['payload']['webinar_detail']['ce_credit'];
-          cfp_credit = resp['payload']['webinar_detail']['cfp_credit'];
-          cpd_credit = resp['payload']['webinar_detail']['cpd_credit'];
-          duration = resp['payload']['webinar_detail']['duration'];
-          why_should_attend =
-              resp['payload']['webinar_detail']['why_should_attend'];
-          overview_of_topic =
-              resp['payload']['webinar_detail']['overview_of_topic'];
-          learning_objective =
-              resp['payload']['webinar_detail']['Learning_objective'];
-          program_description =
-              resp['payload']['webinar_detail']['program_description'];
-          presenter_name =
-              resp['payload']['webinar_detail']['about_presententer']['name'];
-          presenter_obj =
-              resp['payload']['webinar_detail']['about_presententer'];
-          print('Whole object for presenter is : $presenter_obj');
-          var strTempEmail = presenter_obj['email_id'];
-          print('Email Data from Object is : $strTempEmail');
+          webDetailsObj = resp['payload']['webinar_detail'];
+          webinarThumb = webDetailsObj['webinar_thumbnail'];
+          videoUrl = webDetailsObj['webinar_video_url'];
+          webinarTitle = webDetailsObj['webinar_title'];
+          webinarType = webDetailsObj['webinar_type'];
+          webinarDate = webDetailsObj['webinar_date'];
+          webinarStatus = webDetailsObj['webinar_status'];
+          startDate = webDetailsObj['start_date'];
+          startTime = webDetailsObj['start_time'];
+          isCardSave = webDetailsObj['is_card_save'];
+          whyShouldAttend = webDetailsObj['why_should_attend'];
+          overviewOfTopic = webDetailsObj['overview_of_topic'];
+          learningObjective = webDetailsObj['Learning_objective'];
+          programDescription = webDetailsObj['program_description'];
+          presenterObj = webDetailsObj['about_presententer'];
+          print('Whole object for presenter is : $presenterObj');
+
+          // Presenter and company data..
+          presenterName = presenterObj['name'];
+          presenterImage = presenterObj['presenter_image'];
+          presenterQualification = presenterObj['qualification'];
+          presenterDesgnination = presenterObj['desgnination'];
+          presenterCompanyName = presenterObj['company_name'];
+          presenterDescription = presenterObj['speaker_desc'];
+          presenterCompanyLogo = presenterObj['company_logo'];
+          presenterCompanyWebsite = presenterObj['company_website'];
+          presenterCompanyDesc = presenterObj['company_desc'];
+
+          // webinar details data..
+          cost = webDetailsObj['cost'];
+          credit = webDetailsObj['credit'];
+          ceCredit = webDetailsObj['ce_credit'];
+          cfpCredit = webDetailsObj['cfp_credit'];
+          cpdCredit = webDetailsObj['cpd_credit'];
+          irsCourseId = webDetailsObj['course_id'];
+          ctecCourseId = webDetailsObj['ctec_course_id'];
+          duration = webDetailsObj['duration'];
+          subjectArea = webDetailsObj['subject_area'];
+          courseLevel = webDetailsObj['course_level'];
+          insructionalMethod = webDetailsObj['instructional_method'];
+          prerequisites = webDetailsObj['prerequisite'];
+          advancePreparation = webDetailsObj['advance_preparation'];
+          recordDate = webDetailsObj['recorded_date'];
+          publishedDate = webDetailsObj['published_date'];
+          // presentationHandsout = webDetailsObj['presentationHandsout'];
+          // keyTerms = webDetailsObj['key_terms'];
+          // instructionalDocuments = webDetailsObj['instructional_docuement'];
+          // whoShouldAttend = webDetailsObj['who_should_attend'];
 
           if (strWebinarTypeIntent == 'live') {
             isOverViewOfTopicsVisible = false;
-            if (why_should_attend?.isEmpty) {
+            if (whyShouldAttend?.isEmpty) {
               isWhySholdAttendVisible = false;
             } else {
               isWhySholdAttendVisible = true;
@@ -164,13 +210,13 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
           }
 
           if (strWebinarTypeIntent == 'ON-DEMAND') {
-            if (why_should_attend?.isEmpty) {
+            if (whyShouldAttend?.isEmpty) {
               isWhySholdAttendVisible = false;
             } else {
               isWhySholdAttendVisible = true;
             }
 
-            if (overview_of_topic?.isEmpty) {
+            if (overviewOfTopic?.isEmpty) {
               isOverViewOfTopicsVisible = false;
             } else {
               isOverViewOfTopicsVisible = true;
@@ -193,8 +239,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         });
 
         print(
-            'Webinar details response : Webinar thumbnail is : $webinar_thumb');
-        print('Webinar details response : Webinar video url is : $video_url');
+            'Webinar details response : Webinar thumbnail is : $webinarThumb');
+        print('Webinar details response : Webinar video url is : $videoUrl');
       } else {
         _scaffoldKey.currentState.showSnackBar(
           SnackBar(
@@ -275,7 +321,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                     child: FadeInImage(
                                       placeholder: AssetImage(
                                           'assets/webinar_placeholder.jpg'),
-                                      image: NetworkImage(webinar_thumb),
+                                      image: NetworkImage(webinarThumb),
                                       fit: BoxFit.fill,
                                     ),
                                     /*child: (webinar_thumb?.isEmpty
@@ -305,9 +351,9 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                   ),
                                 ],
                               ),
-                              WebinarTitle_OnDemand(webinar_title),
+                              WebinarTitle_OnDemand(webinarTitle),
                               // WebinarTitle_OnDemand('Test Title'),
-                              WebinarSpeakerName_OnDemand(presenter_name),
+                              WebinarSpeakerName_OnDemand(presenterName),
                               // WebinarSpeakerName_OnDemand('Test Presenter'),
                             ],
                           ),
@@ -354,8 +400,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                   checkDetailsExpand();
                                 },
                                 strTitle: 'Details',
-                                cardChild: childCardDetail1(
-                                    'Description Data Details'),
+                                cardChild: childCardDetails(resp),
                                 flagExpand: isDetailsExpanded),
                             ExpandedCard(
                                 onPress: () {
@@ -363,7 +408,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                 },
                                 strTitle: 'Description',
                                 cardChild: childCardDescription(
-                                    program_description, learning_objective),
+                                    programDescription, learningObjective),
                                 flagExpand: isDescriptionExpanded),
                             Visibility(
                               visible: isOverViewOfTopicsVisible ? true : false,
@@ -373,7 +418,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                   },
                                   strTitle: 'Overview of Topics',
                                   cardChild: childCardOverviewofTopics(
-                                      overview_of_topic),
+                                      overviewOfTopic),
                                   flagExpand: isOverviewOfTopicsExpanded),
                             ),
                             Visibility(
@@ -383,8 +428,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                     checkWhoShouldAttendExpand();
                                   },
                                   strTitle: 'Why should attend',
-                                  cardChild: childCardWhyShouldAttend(
-                                      why_should_attend),
+                                  cardChild:
+                                      childCardWhyShouldAttend(whyShouldAttend),
                                   flagExpand: isWhyShouldAttendExpanded),
                             ),
                             ExpandedCard(
@@ -393,12 +438,12 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                 },
                                 strTitle: 'Presenter',
                                 cardChild: childCardPresenter(
-                                  presenter_obj['presenter_image'],
-                                  presenter_obj['name'],
-                                  presenter_obj['qualification'],
-                                  presenter_obj['desgnination'],
-                                  presenter_obj['company_name'],
-                                  presenter_obj['speaker_desc'],
+                                  presenterImage,
+                                  presenterName,
+                                  presenterQualification,
+                                  presenterDesgnination,
+                                  presenterCompanyName,
+                                  presenterDescription,
                                 ),
                                 flagExpand: isPresenterExpanded),
                             ExpandedCard(
@@ -407,10 +452,10 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                 },
                                 strTitle: 'Company',
                                 cardChild: childCardCompany(
-                                  presenter_obj['company_logo'],
-                                  presenter_obj['company_name'],
-                                  presenter_obj['company_website'],
-                                  presenter_obj['company_desc'],
+                                  presenterCompanyLogo,
+                                  presenterCompanyName,
+                                  presenterCompanyWebsite,
+                                  presenterCompanyDesc,
                                 ),
                                 flagExpand: isCompanyExpanded),
                             ExpandedCard(

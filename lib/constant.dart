@@ -12,6 +12,24 @@ const kLabelTitleTextStyle = TextStyle(
   color: Color(0xFFFFFFFF),
 );*/
 
+const kKeyLableWebinarDetailExpand = TextStyle(
+  fontFamily: 'Whitney Medium',
+  fontSize: 17.0,
+  color: Color(0x501F2227),
+);
+
+const kValueLableWebinarDetailExpand = TextStyle(
+  fontFamily: 'Whitney Medium',
+  fontSize: 17.0,
+  color: Colors.black,
+);
+
+const kDownloadWebinarDetailExpand = TextStyle(
+  fontFamily: 'Whitney Medium',
+  fontSize: 16.0,
+  color: Colors.white,
+);
+
 const lTextFlieldStyleEmail = InputDecoration(
   hintText: 'Email',
   contentPadding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 0.0),
