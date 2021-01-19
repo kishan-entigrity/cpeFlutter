@@ -15,6 +15,7 @@ import 'childCardCompany.dart';
 import 'childCardDescription.dart';
 import 'childCardOverviewofTopics.dart';
 import 'childCardPresenter.dart';
+import 'childCardTestimonials.dart';
 import 'childCardWhyShouldAttend.dart';
 
 class WebinarDetailsNew extends StatefulWidget {
@@ -42,6 +43,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   var resp;
   var respStatus;
   var respMessage;
+  var respTestimonials;
 
   String webinarThumb = '';
   var cost,
@@ -199,6 +201,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
           // keyTerms = webDetailsObj['key_terms'];
           // instructionalDocuments = webDetailsObj['instructional_docuement'];
           // whoShouldAttend = webDetailsObj['who_should_attend'];
+
+          respTestimonials = webDetailsObj['webinar_testimonial'];
 
           if (strWebinarTypeIntent == 'live') {
             isOverViewOfTopicsVisible = false;
@@ -463,8 +467,9 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                   checkTestimonialsExpand();
                                 },
                                 strTitle: 'Testimonials',
-                                cardChild: childCardDetail1(
-                                    'Description Data Testimonials'),
+                                cardChild: childCardTestimonials(
+                                    'Description Data Testimonials',
+                                    respTestimonials),
                                 flagExpand: isTestimonialsExpanded),
                             ExpandedCard(
                                 onPress: () {

@@ -24,6 +24,24 @@ const kValueLableWebinarDetailExpand = TextStyle(
   color: Colors.black,
 );
 
+const kUserDataTestimonials = TextStyle(
+  fontFamily: 'Whitney Semi Bold',
+  fontSize: 17.0,
+  color: Colors.black,
+);
+
+const kUserDataBlueTestimonials = TextStyle(
+  fontFamily: 'Whitney Semi Bold',
+  fontSize: 19.0,
+  color: Color(0xFF08264c),
+);
+
+const kDateTestimonials = TextStyle(
+  fontFamily: 'Whitney Medium',
+  fontSize: 15.0,
+  color: Color(0x501F2227),
+);
+
 const kDownloadWebinarDetailExpand = TextStyle(
   fontFamily: 'Whitney Medium',
   fontSize: 16.0,
