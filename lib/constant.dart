@@ -42,6 +42,24 @@ const kDateTestimonials = TextStyle(
   color: Color(0x501F2227),
 );
 
+const kOthersTitle = TextStyle(
+  fontFamily: 'Whitney Semi Bold',
+  fontSize: 17.0,
+  color: Colors.black,
+);
+
+const kOthersAddress = TextStyle(
+  fontFamily: 'Whitney Medium',
+  fontSize: 16.0,
+  color: Color(0x801F2227),
+);
+
+const kOthersDescription = TextStyle(
+  fontFamily: 'Whitney Medium',
+  fontSize: 16.0,
+  color: Color(0x501F2227),
+);
+
 const kDownloadWebinarDetailExpand = TextStyle(
   fontFamily: 'Whitney Medium',
   fontSize: 16.0,

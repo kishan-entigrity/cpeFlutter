@@ -20,28 +20,6 @@ class _childCardTestimonialsState extends State<childCardTestimonials> {
   final respTestimonials;
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    setState(() {
-      var strUpdate = respTestimonials.toString();
-      print('InitState respTestimonials data is : $strUpdate');
-
-      // List<Object> respTestimo;
-
-      // var streetsFromJson = webDetailsObj['who_should_attend'];
-      // respTestimo = new List<Object>.from(streetsFromJson);
-      // respTestimo = new List<Object>.from(respTestimonials);
-      // var size = respTestimo.length;
-      // print('Size for the respTestimonials : $size');
-      // var data = respTestimo[0];
-      // var data1 = respTestimo[1];
-      var data2 = respTestimonials[0]['first_name'];
-      var data3 = respTestimonials[1]['first_name'];
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Container(
       /*child: Text(

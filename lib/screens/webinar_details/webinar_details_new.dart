@@ -5,6 +5,7 @@ import 'package:cpe_flutter/screens/webinar_details/ExpandedCard.dart';
 import 'package:cpe_flutter/screens/webinar_details/WebinarSpeakerName_OnDemand.dart';
 import 'package:cpe_flutter/screens/webinar_details/WebinarTitleOnDemand.dart';
 import 'package:cpe_flutter/screens/webinar_details/childCardDetails.dart';
+import 'package:cpe_flutter/screens/webinar_details/childCardOthers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -476,8 +477,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                   checkOthersExpand();
                                 },
                                 strTitle: 'Others',
-                                cardChild:
-                                    childCardDetail1('Description Data Others'),
+                                cardChild: childCardOthers(webDetailsObj),
                                 flagExpand: isOthersExpanded),
                             SizedBox(
                               height: 20.0,
