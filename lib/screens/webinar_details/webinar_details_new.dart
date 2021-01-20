@@ -1,6 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
 import 'package:cpe_flutter/components/TopBar.dart';
+import 'package:cpe_flutter/constant.dart';
 import 'package:cpe_flutter/screens/webinar_details/ExpandedCard.dart';
 import 'package:cpe_flutter/screens/webinar_details/WebinarSpeakerName_OnDemand.dart';
 import 'package:cpe_flutter/screens/webinar_details/WebinarTitleOnDemand.dart';
@@ -277,7 +278,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       key: _scaffoldKey,
-      backgroundColor: Colors.teal,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Stack(
           children: <Widget>[
@@ -285,17 +286,13 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
               bottom: 0.0,
               right: 0.0,
               left: 0.0,
-              child: Container(
-                height: 50.0,
-                width: double.infinity,
-                color: Colors.grey,
-              ),
+              child: childWebinarStatus(webDetailsObj),
             ),
             Positioned(
               top: 0.0,
               right: 0.0,
               left: 0.0,
-              bottom: 50.0,
+              bottom: 60.0,
               child: Container(
                 color: Colors.white,
                 child: Column(
@@ -430,7 +427,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                               visible: isWhySholdAttendVisible ? true : false,
                               child: ExpandedCard(
                                   onPress: () {
-                                    checkWhoShouldAttendExpand();
+                                    checkWhyShouldAttendExpand();
                                   },
                                   strTitle: 'Why should attend',
                                   cardChild:
@@ -510,23 +507,10 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
     setState(() {
       print('Clicked on Details');
       if (isDetailsExpanded) {
-        isDetailsExpanded = false;
-        isDescriptionExpanded = false;
-        isOverviewOfTopicsExpanded = false;
-        isWhyShouldAttendExpanded = false;
-        isPresenterExpanded = false;
-        isCompanyExpanded = false;
-        isTestimonialsExpanded = false;
-        isOthersExpanded = false;
+        setAllExpandedStateFalse();
       } else {
+        setAllExpandedStateFalse();
         isDetailsExpanded = true;
-        isDescriptionExpanded = false;
-        isOverviewOfTopicsExpanded = false;
-        isWhyShouldAttendExpanded = false;
-        isPresenterExpanded = false;
-        isCompanyExpanded = false;
-        isTestimonialsExpanded = false;
-        isOthersExpanded = false;
       }
     });
   }
@@ -535,23 +519,10 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
     setState(() {
       print('Clicked on Description');
       if (isDescriptionExpanded) {
-        isDetailsExpanded = false;
-        isDescriptionExpanded = false;
-        isOverviewOfTopicsExpanded = false;
-        isWhyShouldAttendExpanded = false;
-        isPresenterExpanded = false;
-        isCompanyExpanded = false;
-        isTestimonialsExpanded = false;
-        isOthersExpanded = false;
+        setAllExpandedStateFalse();
       } else {
-        isDetailsExpanded = false;
+        setAllExpandedStateFalse();
         isDescriptionExpanded = true;
-        isOverviewOfTopicsExpanded = false;
-        isWhyShouldAttendExpanded = false;
-        isPresenterExpanded = false;
-        isCompanyExpanded = false;
-        isTestimonialsExpanded = false;
-        isOthersExpanded = false;
       }
     });
   }
@@ -560,48 +531,22 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
     setState(() {
       print('Clicked on Overview');
       if (isOverviewOfTopicsExpanded) {
-        isDetailsExpanded = false;
-        isDescriptionExpanded = false;
-        isOverviewOfTopicsExpanded = false;
-        isWhyShouldAttendExpanded = false;
-        isPresenterExpanded = false;
-        isCompanyExpanded = false;
-        isTestimonialsExpanded = false;
-        isOthersExpanded = false;
+        setAllExpandedStateFalse();
       } else {
-        isDetailsExpanded = false;
-        isDescriptionExpanded = false;
+        setAllExpandedStateFalse();
         isOverviewOfTopicsExpanded = true;
-        isWhyShouldAttendExpanded = false;
-        isPresenterExpanded = false;
-        isCompanyExpanded = false;
-        isTestimonialsExpanded = false;
-        isOthersExpanded = false;
       }
     });
   }
 
-  checkWhoShouldAttendExpand() {
+  checkWhyShouldAttendExpand() {
     setState(() {
       print('Clicked on Whoshould attend');
       if (isWhyShouldAttendExpanded) {
-        isDetailsExpanded = false;
-        isDescriptionExpanded = false;
-        isOverviewOfTopicsExpanded = false;
-        isWhyShouldAttendExpanded = false;
-        isPresenterExpanded = false;
-        isCompanyExpanded = false;
-        isTestimonialsExpanded = false;
-        isOthersExpanded = false;
+        setAllExpandedStateFalse();
       } else {
-        isDetailsExpanded = false;
-        isDescriptionExpanded = false;
-        isOverviewOfTopicsExpanded = false;
+        setAllExpandedStateFalse();
         isWhyShouldAttendExpanded = true;
-        isPresenterExpanded = false;
-        isCompanyExpanded = false;
-        isTestimonialsExpanded = false;
-        isOthersExpanded = false;
       }
     });
   }
@@ -610,23 +555,10 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
     setState(() {
       print('Clicked on Presenter');
       if (isPresenterExpanded) {
-        isDetailsExpanded = false;
-        isDescriptionExpanded = false;
-        isOverviewOfTopicsExpanded = false;
-        isWhyShouldAttendExpanded = false;
-        isPresenterExpanded = false;
-        isCompanyExpanded = false;
-        isTestimonialsExpanded = false;
-        isOthersExpanded = false;
+        setAllExpandedStateFalse();
       } else {
-        isDetailsExpanded = false;
-        isDescriptionExpanded = false;
-        isOverviewOfTopicsExpanded = false;
-        isWhyShouldAttendExpanded = false;
+        setAllExpandedStateFalse();
         isPresenterExpanded = true;
-        isCompanyExpanded = false;
-        isTestimonialsExpanded = false;
-        isOthersExpanded = false;
       }
     });
   }
@@ -634,24 +566,11 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   checkCompanyExpand() {
     setState(() {
       print('Clicked on Details');
-      if (isPresenterExpanded) {
-        isDetailsExpanded = false;
-        isDescriptionExpanded = false;
-        isOverviewOfTopicsExpanded = false;
-        isWhyShouldAttendExpanded = false;
-        isPresenterExpanded = false;
-        isCompanyExpanded = false;
-        isTestimonialsExpanded = false;
-        isOthersExpanded = false;
+      if (isCompanyExpanded) {
+        setAllExpandedStateFalse();
       } else {
-        isDetailsExpanded = false;
-        isDescriptionExpanded = false;
-        isOverviewOfTopicsExpanded = false;
-        isWhyShouldAttendExpanded = false;
-        isPresenterExpanded = false;
+        setAllExpandedStateFalse();
         isCompanyExpanded = true;
-        isTestimonialsExpanded = false;
-        isOthersExpanded = false;
       }
     });
   }
@@ -659,24 +578,11 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   checkTestimonialsExpand() {
     setState(() {
       print('Clicked on Testimonials');
-      if (isPresenterExpanded) {
-        isDetailsExpanded = false;
-        isDescriptionExpanded = false;
-        isOverviewOfTopicsExpanded = false;
-        isWhyShouldAttendExpanded = false;
-        isPresenterExpanded = false;
-        isCompanyExpanded = false;
-        isTestimonialsExpanded = false;
-        isOthersExpanded = false;
+      if (isTestimonialsExpanded) {
+        setAllExpandedStateFalse();
       } else {
-        isDetailsExpanded = false;
-        isDescriptionExpanded = false;
-        isOverviewOfTopicsExpanded = false;
-        isWhyShouldAttendExpanded = false;
-        isPresenterExpanded = false;
-        isCompanyExpanded = false;
+        setAllExpandedStateFalse();
         isTestimonialsExpanded = true;
-        isOthersExpanded = false;
       }
     });
   }
@@ -684,96 +590,102 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   checkOthersExpand() {
     setState(() {
       print('Clicked on Others');
-      if (isPresenterExpanded) {
-        isDetailsExpanded = false;
-        isDescriptionExpanded = false;
-        isOverviewOfTopicsExpanded = false;
-        isWhyShouldAttendExpanded = false;
-        isPresenterExpanded = false;
-        isCompanyExpanded = false;
-        isTestimonialsExpanded = false;
-        isOthersExpanded = false;
+      if (isOthersExpanded) {
+        setAllExpandedStateFalse();
       } else {
-        isDetailsExpanded = false;
-        isDescriptionExpanded = false;
-        isOverviewOfTopicsExpanded = false;
-        isWhyShouldAttendExpanded = false;
-        isPresenterExpanded = false;
-        isCompanyExpanded = false;
-        isTestimonialsExpanded = false;
+        setAllExpandedStateFalse();
         isOthersExpanded = true;
       }
     });
   }
+
+  void setAllExpandedStateFalse() {
+    setState(() {
+      isDetailsExpanded = false;
+      isDescriptionExpanded = false;
+      isOverviewOfTopicsExpanded = false;
+      isWhyShouldAttendExpanded = false;
+      isPresenterExpanded = false;
+      isCompanyExpanded = false;
+      isTestimonialsExpanded = false;
+      isOthersExpanded = false;
+    });
+  }
 }
 
-class childCardDetail1 extends StatelessWidget {
-  childCardDetail1(this.strDetails);
+class childWebinarStatus extends StatelessWidget {
+  childWebinarStatus(this.webDetailsObj);
 
-  final String strDetails;
+  final webDetailsObj;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10.0),
-      margin: EdgeInsets.symmetric(horizontal: 10.0),
-      height: 100.0,
+      height: 60.0,
       width: double.infinity,
-      color: Colors.red,
-      child: Text(
-        strDetails,
-      ),
-    );
-  }
-}
-
-class childCardPresenterTest extends StatefulWidget {
-  childCardPresenterTest(this.strDetails, this.speakerObeject);
-
-  final String strDetails;
-  final Object speakerObeject;
-
-  @override
-  _childCardPresenterTestState createState() =>
-      _childCardPresenterTestState(strDetails, speakerObeject);
-}
-
-class _childCardPresenterTestState extends State<childCardPresenterTest> {
-  _childCardPresenterTestState(this.strDetails, this.speakerObject);
-
-  final String strDetails;
-  final Object speakerObject;
-
-  var strSpeakerEmail = '';
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // strSpeakerEmail = speakerObject['email_id'];
-    print('Init State webinar details new is called');
-    if (speakerObject is Object) {
-      print('Data type for speakerObject is Object');
-    } else if (speakerObject is int) {
-      print('Data type for speakerObject is Int');
-    } else if (speakerObject is String) {
-      print('Data type for speakerObject is String');
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10.0),
-      margin: EdgeInsets.symmetric(horizontal: 10.0),
-      height: 100.0,
-      width: double.infinity,
-      color: Colors.red,
-      child: Text(
-        // strDetails,
-        speakerObject.toString(),
-        // widget.speakerObeject['email_id'];
-        // strSpeakerEmail,
+      color: Colors.white,
+      child: Column(
+        children: <Widget>[
+          Visibility(
+            visible: false,
+            child: Container(
+              height: 40.0,
+              margin: EdgeInsets.all(10.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5.0),
+                color: Color(0xFFFBB42C),
+              ),
+              child: Center(
+                child: Text(
+                  webDetailsObj['status'],
+                  style: kWebinarStatusBig,
+                ),
+              ),
+            ),
+          ),
+          Visibility(
+            visible: true,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    height: 40.0,
+                    margin: EdgeInsets.only(
+                        top: 10.0, bottom: 10.0, left: 10.0, right: 5.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0),
+                      color: Color(0xFFFBB42C),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Watch Now',
+                        style: kWebinarStatusSmall,
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    height: 40.0,
+                    margin: EdgeInsets.only(
+                        top: 10.0, bottom: 10.0, right: 10.0, left: 5.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0),
+                      color: Color(0xFF193f70),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Review Question',
+                        style: kWebinarStatusSmall,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

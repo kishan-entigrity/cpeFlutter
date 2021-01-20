@@ -60,6 +60,19 @@ const kOthersDescription = TextStyle(
   color: Color(0x501F2227),
 );
 
+const kWebinarStatusBig = TextStyle(
+  fontFamily: 'Whitney Semi Bold',
+  fontSize: 21.0,
+  letterSpacing: 0.5,
+  color: Colors.white,
+);
+
+const kWebinarStatusSmall = TextStyle(
+  fontFamily: 'Whitney Semi Bold',
+  fontSize: 17.0,
+  color: Colors.white,
+);
+
 const kDownloadWebinarDetailExpand = TextStyle(
   fontFamily: 'Whitney Medium',
   fontSize: 16.0,
