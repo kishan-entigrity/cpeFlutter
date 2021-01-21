@@ -173,19 +173,25 @@ const kTextTitleFragc = TextStyle(
 
 convertCamelCase(String status) {
   var part = status.split(' ');
-  if (part.length > 1) {
-    String lowerCase = part[0].toLowerCase();
-    String lowerCase1 = part[1].toLowerCase();
-    String convert = lowerCase[0].toUpperCase() +
-        lowerCase.substring(1) +
-        " " +
-        lowerCase1[0].toUpperCase() +
-        lowerCase1.substring(1);
-    return "$convert";
+  int len = part.length;
+  print('Lenght for converCamelCase is : $len');
+  if (status.isEmpty) {
+    return " ";
   } else {
-    String lowerCase = part[0].toLowerCase();
-    String convert = lowerCase[0].toUpperCase() + lowerCase.substring(1);
-    return "$convert";
+    if (part.length > 1) {
+      String lowerCase = part[0].toLowerCase();
+      String lowerCase1 = part[1].toLowerCase();
+      String convert = lowerCase[0].toUpperCase() +
+          lowerCase.substring(1) +
+          " " +
+          lowerCase1[0].toUpperCase() +
+          lowerCase1.substring(1);
+      return "$convert";
+    } else {
+      String lowerCase = part[0].toLowerCase();
+      String convert = lowerCase[0].toUpperCase() + lowerCase.substring(1);
+      return "$convert";
+    }
   }
 }
 

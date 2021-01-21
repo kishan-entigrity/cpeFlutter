@@ -61,8 +61,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       learningObjective = '',
       programDescription = '',
       whyShouldAttend = '',
-      overviewOfTopic = '',
-      camelCaseStatus = '';
+      overviewOfTopic = '';
 
   var isPlaying = false;
   var reviewAnswered = false;
@@ -85,7 +84,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   var webDetailsObj;
 
   bool isLoaderShowing = false;
-  bool isSingleStatusRow = false;
+  bool isSingleStatusRow = true;
 
   @override
   void initState() {
