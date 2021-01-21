@@ -17,6 +17,7 @@ class _childCardOthersState extends State<childCardOthers> {
 
   bool isIrsVisible = false;
   bool isCtecVisible = false;
+  bool isNasbaVisible = false;
 
   @override
   void initState() {
@@ -25,10 +26,13 @@ class _childCardOthersState extends State<childCardOthers> {
     setState(() {
       if (webDetailsObj['webinar_type'] == 'CPE/CE') {
         isIrsVisible = true;
+        isNasbaVisible = true;
       } else if (webDetailsObj['webinar_type'] == 'CPE') {
         isIrsVisible = false;
+        isNasbaVisible = true;
       } else if (webDetailsObj['webinar_type'] == 'CE') {
         isIrsVisible = true;
+        isNasbaVisible = false;
       }
 
       if (webDetailsObj['ctec_course_id'].toString().isEmpty) {
@@ -52,7 +56,7 @@ class _childCardOthersState extends State<childCardOthers> {
           FaqContainer(webDetailsObj),
           SizedBox(height: 15.0),
           RefundCancelContainer(webDetailsObj),
-          NasbaContainer(webDetailsObj),
+          NasbaContainer(isNasbaVisible, webDetailsObj),
           IrsContainer(isIrsVisible, webDetailsObj),
           CtecContainer(isCtecVisible, webDetailsObj),
         ],
@@ -174,74 +178,79 @@ class IrsContainer extends StatelessWidget {
 }
 
 class NasbaContainer extends StatelessWidget {
-  NasbaContainer(this.webDetailsObj);
+  NasbaContainer(this.isNasbaVisible, this.webDetailsObj);
+  final bool isNasbaVisible;
   final webDetailsObj;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 15.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            'NASBA APPROVED',
-            style: kOthersTitle,
-          ),
-          SizedBox(height: 10.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Flexible(
-                child: Text(
-                  webDetailsObj['nasba_approved']['address'],
-                  style: kOthersAddress,
+      child: Visibility(
+        visible: isNasbaVisible ? true : false,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'NASBA APPROVED',
+              style: kOthersTitle,
+            ),
+            SizedBox(height: 10.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Flexible(
+                  child: Text(
+                    webDetailsObj['nasba_approved']['address'],
+                    style: kOthersAddress,
+                  ),
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 10.0),
-                child: Row(
-                  children: <Widget>[
-                    FadeInImage(
-                      height: 40.0,
-                      width: 40.0,
-                      placeholder: AssetImage('assets/webinar_placeholder.jpg'),
-                      image: NetworkImage(webDetailsObj['nasba_approved']
-                          ['nasba_profile_icon']),
-                      fit: BoxFit.fitWidth,
-                    ),
-                    Visibility(
-                      visible: (webDetailsObj['nasba_approved']
-                                  ['nasba_profile_icon_qas']
-                              .toString()
-                              .isEmpty
-                          ? false
-                          : true),
-                      child: Container(
-                        margin: EdgeInsets.only(left: 5.0),
-                        child: FadeInImage(
-                          height: 50.0,
-                          width: 50.0,
-                          placeholder:
-                              AssetImage('assets/webinar_placeholder.jpg'),
-                          image: NetworkImage(webDetailsObj['nasba_approved']
-                              ['nasba_profile_icon_qas']),
-                          fit: BoxFit.fitWidth,
+                Container(
+                  margin: EdgeInsets.only(left: 10.0),
+                  child: Row(
+                    children: <Widget>[
+                      FadeInImage(
+                        height: 40.0,
+                        width: 40.0,
+                        placeholder:
+                            AssetImage('assets/webinar_placeholder.jpg'),
+                        image: NetworkImage(webDetailsObj['nasba_approved']
+                            ['nasba_profile_icon']),
+                        fit: BoxFit.fitWidth,
+                      ),
+                      Visibility(
+                        visible: (webDetailsObj['nasba_approved']
+                                    ['nasba_profile_icon_qas']
+                                .toString()
+                                .isEmpty
+                            ? false
+                            : true),
+                        child: Container(
+                          margin: EdgeInsets.only(left: 5.0),
+                          child: FadeInImage(
+                            height: 50.0,
+                            width: 50.0,
+                            placeholder:
+                                AssetImage('assets/webinar_placeholder.jpg'),
+                            image: NetworkImage(webDetailsObj['nasba_approved']
+                                ['nasba_profile_icon_qas']),
+                            fit: BoxFit.fitWidth,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-          SizedBox(height: 10.0),
-          Html(
-            data: webDetailsObj['nasba_approved']['nasba_desc'],
-            defaultTextStyle: kOthersDescription,
-          ),
-        ],
+              ],
+            ),
+            SizedBox(height: 10.0),
+            Html(
+              data: webDetailsObj['nasba_approved']['nasba_desc'],
+              defaultTextStyle: kOthersDescription,
+            ),
+          ],
+        ),
       ),
     );
   }
