@@ -61,9 +61,11 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       learningObjective = '',
       programDescription = '',
       whyShouldAttend = '',
-      overviewOfTopic = '';
+      overviewOfTopic = '',
+      camelCaseStatus = '';
 
   var isPlaying = false;
+  var reviewAnswered = false;
 
   var presenterName = '';
 
@@ -83,6 +85,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   var webDetailsObj;
 
   bool isLoaderShowing = false;
+  bool isSingleStatusRow = false;
 
   @override
   void initState() {
@@ -146,6 +149,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
           presenterObj = webDetailsObj['about_presententer'];
           print('Whole object for presenter is : $presenterObj');
 
+          reviewAnswered = webDetailsObj['review_answered'];
+
           // Presenter and company data..
           presenterName = presenterObj['name'];
 
@@ -174,19 +179,25 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
             }
           }
 
-          /*_controller = VideoPlayerController.network(
-            // 'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
-            video_url,
-            // 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-            // 'https://player.vimeo.com//play//1624977747?s=359330135_1609206521_7d8ca704163f13f5a50fddb50b769445&loc=external&context=Vimeo%5CController%5CApi%5CResources%5CVideoController.&download=1&filename=DOES%2BYOUR%2BCLIENT%2BOWN%2BSHARES%2BIN%2BFOREIGN%2BCORPORATION%253F%2BIMPACT%2BOF%2BTJCA174.mp4',
-            // 'https://vimeo.com/76979871',
-
-            // Take an API call for getting webinar details..
-          );
-          print('Video Player playback URL is : $video_url');
-
-          _initializeVideoPlayerFuture = _controller.initialize();
-          _controller.setLooping(true); */
+          // Logic for showing webinar Status on Single button or with multiple buttons..
+          if (strWebinarTypeIntent == 'live') {
+            // webinar type as LIVE Webinar..
+          } else {
+            // Webinar type as ON-DEMAND webinar..
+            if (status.toLowerCase() == 'register') {
+              isSingleStatusRow = true;
+            } else if (status.toLowerCase() == 'watch now' ||
+                status.toLowerCase() == 'resume watching' ||
+                status.toLowerCase() == 'resume now') {
+              // Now here in this case we need to check for the isAnswered or not..
+              // isAnswered = webDetailsObj['review_answered']
+              if (reviewAnswered) {
+                isSingleStatusRow = true;
+              } else {
+                isSingleStatusRow = false;
+              }
+            }
+          }
         });
 
         print(
@@ -231,7 +242,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
               bottom: 0.0,
               right: 0.0,
               left: 0.0,
-              child: childWebinarStatus(status, webDetailsObj),
+              child:
+                  childWebinarStatus(status, isSingleStatusRow, webDetailsObj),
             ),
             Positioned(
               top: 0.0,
@@ -549,9 +561,10 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
 }
 
 class childWebinarStatus extends StatelessWidget {
-  childWebinarStatus(this.status, this.webDetailsObj);
+  childWebinarStatus(this.status, this.isSingleStatusRow, this.webDetailsObj);
 
   final String status;
+  final bool isSingleStatusRow;
   final webDetailsObj;
 
   @override
@@ -563,24 +576,24 @@ class childWebinarStatus extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Visibility(
-            visible: false,
+            visible: isSingleStatusRow ? true : false,
             child: Container(
               height: 40.0,
               margin: EdgeInsets.all(10.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5.0),
-                color: Color(0xFFFBB42C),
+                color: themeYellow,
               ),
               child: Center(
                 child: Text(
-                  status,
+                  convertCamelCase(status),
                   style: kWebinarStatusBig,
                 ),
               ),
             ),
           ),
           Visibility(
-            visible: true,
+            visible: isSingleStatusRow ? false : true,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
@@ -591,11 +604,11 @@ class childWebinarStatus extends StatelessWidget {
                         top: 10.0, bottom: 10.0, left: 10.0, right: 5.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5.0),
-                      color: Color(0xFFFBB42C),
+                      color: themeYellow,
                     ),
                     child: Center(
                       child: Text(
-                        'Watch Now',
+                        convertCamelCase(status),
                         style: kWebinarStatusSmall,
                       ),
                     ),
@@ -608,7 +621,7 @@ class childWebinarStatus extends StatelessWidget {
                         top: 10.0, bottom: 10.0, right: 10.0, left: 5.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5.0),
-                      color: Color(0xFF193f70),
+                      color: themeBlueLight,
                     ),
                     child: Center(
                       child: Text(

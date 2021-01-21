@@ -274,7 +274,7 @@ class whoShouldAttendCell extends StatelessWidget {
       height: 28.0,
       width: 160.0,
       decoration: BoxDecoration(
-        color: Color(0xFFFBB42C),
+        color: themeYellow,
         borderRadius: BorderRadius.circular(5.0),
       ),
       child: Center(
@@ -320,7 +320,7 @@ class detailsRowDownload extends StatelessWidget {
                     height: 28.0,
                     width: 110.0,
                     decoration: BoxDecoration(
-                      color: Color(0xFFFBB42C),
+                      color: themeYellow,
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                     child: Center(

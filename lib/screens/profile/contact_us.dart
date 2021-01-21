@@ -107,7 +107,7 @@ class _ContactUsState extends State<ContactUs> {
                       width: 32.0,
                       margin: EdgeInsets.only(left: 14.0),
                       decoration: BoxDecoration(
-                        color: Color(0xFFFBB42C),
+                        color: themeYellow,
                         borderRadius: BorderRadius.circular(5.0),
                       ),
                       child: Icon(
@@ -149,7 +149,7 @@ class _ContactUsState extends State<ContactUs> {
                       width: 32.0,
                       margin: EdgeInsets.only(left: 14.0),
                       decoration: BoxDecoration(
-                        color: Color(0xFFFBB42C),
+                        color: themeYellow,
                         borderRadius: BorderRadius.circular(5.0),
                       ),
                       child: Icon(

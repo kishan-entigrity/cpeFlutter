@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 const kLabelTitleTextStyle = TextStyle(
   fontFamily: 'Whitney Bold',
   fontSize: 35.0,
-  color: Color(0xFF193F70),
+  color: themeBlueLight,
 );
 
 /*const lLabelTagSelected = BoxDecoration(
@@ -15,7 +15,7 @@ const kLabelTitleTextStyle = TextStyle(
 const kKeyLableWebinarDetailExpand = TextStyle(
   fontFamily: 'Whitney Medium',
   fontSize: 17.0,
-  color: Color(0x501F2227),
+  color: black50,
 );
 
 const kValueLableWebinarDetailExpand = TextStyle(
@@ -33,13 +33,13 @@ const kUserDataTestimonials = TextStyle(
 const kUserDataBlueTestimonials = TextStyle(
   fontFamily: 'Whitney Semi Bold',
   fontSize: 19.0,
-  color: Color(0xFF08264c),
+  color: themeBlue,
 );
 
 const kDateTestimonials = TextStyle(
   fontFamily: 'Whitney Medium',
   fontSize: 15.0,
-  color: Color(0x501F2227),
+  color: black50,
 );
 
 const kOthersTitle = TextStyle(
@@ -51,13 +51,13 @@ const kOthersTitle = TextStyle(
 const kOthersAddress = TextStyle(
   fontFamily: 'Whitney Medium',
   fontSize: 16.0,
-  color: Color(0x801F2227),
+  color: black80,
 );
 
 const kOthersDescription = TextStyle(
   fontFamily: 'Whitney Medium',
   fontSize: 16.0,
-  color: Color(0x501F2227),
+  color: black50,
 );
 
 const kWebinarStatusBig = TextStyle(
@@ -141,7 +141,7 @@ const kWebinarButtonLabelTextStyle = TextStyle(
 const kWebinarButtonLabelTextStyleWhite = TextStyle(
   fontFamily: 'Whitney Semi Bold',
   fontSize: 17.0,
-  color: Color(0xFFFFFFFF),
+  color: Colors.white,
 );
 
 const kWebinarSpeakerNameLabelTextStyle = TextStyle(
@@ -153,7 +153,7 @@ const kWebinarSpeakerNameLabelTextStyle = TextStyle(
 const kTextLableLoginUnderline = TextStyle(
   fontFamily: 'Whitney Semi Bold',
   decoration: TextDecoration.underline,
-  color: Color(0xFF193F70),
+  color: themeBlueLight,
   fontSize: 17.0,
   letterSpacing: 1,
 );
@@ -161,7 +161,7 @@ const kTextLableLoginUnderline = TextStyle(
 const kTextLableLoginUnderlineGray = TextStyle(
   fontFamily: 'Whitney Semi Bold',
   decoration: TextDecoration.underline,
-  color: Color(0xFFA0A2B0),
+  color: underLineGray,
   fontSize: 17.0,
   letterSpacing: 1,
 );
@@ -170,3 +170,30 @@ const kTextTitleFragc = TextStyle(
   fontSize: 20.0,
   color: Colors.black,
 );
+
+convertCamelCase(String status) {
+  var part = status.split(' ');
+  if (part.length > 1) {
+    String lowerCase = part[0].toLowerCase();
+    String lowerCase1 = part[1].toLowerCase();
+    String convert = lowerCase[0].toUpperCase() +
+        lowerCase.substring(1) +
+        " " +
+        lowerCase1[0].toUpperCase() +
+        lowerCase1.substring(1);
+    return "$convert";
+  } else {
+    String lowerCase = part[0].toLowerCase();
+    String convert = lowerCase[0].toUpperCase() + lowerCase.substring(1);
+    return "$convert";
+  }
+}
+
+// ConstColor Files from here..
+const Color testColor = const Color(0xFFF3F5F9);
+const Color themeBlue = const Color(0xFF08264c);
+const Color themeYellow = const Color(0xFFFBB42C);
+const Color black50 = const Color(0x501F2227);
+const Color black80 = const Color(0x801F2227);
+const Color themeBlueLight = const Color(0xFF193F70);
+const Color underLineGray = const Color(0xFFA0A2B0);
