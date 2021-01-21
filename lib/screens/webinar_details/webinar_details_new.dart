@@ -48,32 +48,13 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   var respTestimonials;
 
   String webinarThumb = '';
-  var cost,
-      credit = '',
-      ceCredit = '',
-      cpeCredit = '',
-      cfpCredit = '',
-      cpdCredit = '',
-      duration = 0,
-      irsCourseId = '',
-      ctecCourseId = '',
-      subjectArea = '',
-      courseLevel = '',
-      insructionalMethod = '',
-      prerequisites = '',
-      advancePreparation = '',
-      recordDate = '',
-      publishedDate = '',
-      presentationHandsout = '',
-      keyTerms = '',
-      instructionalDocuments = '',
-      whoShouldAttend = '';
 
   var videoUrl = '',
       webinarTitle = '',
       webinarType = '',
       webinarDate = '',
       webinarStatus = '',
+      status = '',
       startDate = '',
       startTime = '',
       isCardSave = false,
@@ -84,15 +65,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
 
   var isPlaying = false;
 
-  var presenterImage = '',
-      presenterName = '',
-      presenterQualification = '',
-      presenterDesgnination = '',
-      presenterDescription = '',
-      presenterCompanyName = '',
-      presenterCompanyLogo = '',
-      presenterCompanyWebsite = '',
-      presenterCompanyDesc = '';
+  var presenterName = '';
 
   bool isDetailsExpanded = false;
   bool isDescriptionExpanded = false;
@@ -162,6 +135,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
           webinarType = webDetailsObj['webinar_type'];
           webinarDate = webDetailsObj['webinar_date'];
           webinarStatus = webDetailsObj['webinar_status'];
+          status = webDetailsObj['status'];
           startDate = webDetailsObj['start_date'];
           startTime = webDetailsObj['start_time'];
           isCardSave = webDetailsObj['is_card_save'];
@@ -174,35 +148,6 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
 
           // Presenter and company data..
           presenterName = presenterObj['name'];
-          presenterImage = presenterObj['presenter_image'];
-          presenterQualification = presenterObj['qualification'];
-          presenterDesgnination = presenterObj['desgnination'];
-          presenterCompanyName = presenterObj['company_name'];
-          presenterDescription = presenterObj['speaker_desc'];
-          presenterCompanyLogo = presenterObj['company_logo'];
-          presenterCompanyWebsite = presenterObj['company_website'];
-          presenterCompanyDesc = presenterObj['company_desc'];
-
-          // webinar details data..
-          cost = webDetailsObj['cost'];
-          credit = webDetailsObj['credit'];
-          ceCredit = webDetailsObj['ce_credit'];
-          cfpCredit = webDetailsObj['cfp_credit'];
-          cpdCredit = webDetailsObj['cpd_credit'];
-          irsCourseId = webDetailsObj['course_id'];
-          ctecCourseId = webDetailsObj['ctec_course_id'];
-          duration = webDetailsObj['duration'];
-          subjectArea = webDetailsObj['subject_area'];
-          courseLevel = webDetailsObj['course_level'];
-          insructionalMethod = webDetailsObj['instructional_method'];
-          prerequisites = webDetailsObj['prerequisite'];
-          advancePreparation = webDetailsObj['advance_preparation'];
-          recordDate = webDetailsObj['recorded_date'];
-          publishedDate = webDetailsObj['published_date'];
-          // presentationHandsout = webDetailsObj['presentationHandsout'];
-          // keyTerms = webDetailsObj['key_terms'];
-          // instructionalDocuments = webDetailsObj['instructional_docuement'];
-          // whoShouldAttend = webDetailsObj['who_should_attend'];
 
           respTestimonials = webDetailsObj['webinar_testimonial'];
 
@@ -286,7 +231,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
               bottom: 0.0,
               right: 0.0,
               left: 0.0,
-              child: childWebinarStatus(webDetailsObj),
+              child: childWebinarStatus(status, webDetailsObj),
             ),
             Positioned(
               top: 0.0,
@@ -440,12 +385,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                 },
                                 strTitle: 'Presenter',
                                 cardChild: childCardPresenter(
-                                  presenterImage,
-                                  presenterName,
-                                  presenterQualification,
-                                  presenterDesgnination,
-                                  presenterCompanyName,
-                                  presenterDescription,
+                                  presenterObj,
                                 ),
                                 flagExpand: isPresenterExpanded),
                             ExpandedCard(
@@ -453,12 +393,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                   checkCompanyExpand();
                                 },
                                 strTitle: 'Company',
-                                cardChild: childCardCompany(
-                                  presenterCompanyLogo,
-                                  presenterCompanyName,
-                                  presenterCompanyWebsite,
-                                  presenterCompanyDesc,
-                                ),
+                                cardChild: childCardCompany(presenterObj),
                                 flagExpand: isCompanyExpanded),
                             ExpandedCard(
                                 onPress: () {
@@ -614,8 +549,9 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
 }
 
 class childWebinarStatus extends StatelessWidget {
-  childWebinarStatus(this.webDetailsObj);
+  childWebinarStatus(this.status, this.webDetailsObj);
 
+  final String status;
   final webDetailsObj;
 
   @override
@@ -637,7 +573,7 @@ class childWebinarStatus extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  webDetailsObj['status'],
+                  status,
                   style: kWebinarStatusBig,
                 ),
               ),

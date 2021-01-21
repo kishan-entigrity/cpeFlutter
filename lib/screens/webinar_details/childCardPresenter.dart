@@ -3,20 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 class childCardPresenter extends StatelessWidget {
-  childCardPresenter(
-      this.strPresenterPic,
-      this.strPresenterName,
-      this.strPresenterQualification,
-      this.strPresenterDesignation,
-      this.strPresenterCompany,
-      this.strPresenterDetails);
+  childCardPresenter(this.presenterObj);
 
-  final String strPresenterPic;
-  final String strPresenterName;
-  final String strPresenterQualification;
-  final String strPresenterDesignation;
-  final String strPresenterCompany;
-  final String strPresenterDetails;
+  final presenterObj;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +18,7 @@ class childCardPresenter extends StatelessWidget {
             children: <Widget>[
               CircleAvatar(
                 radius: 40.0,
-                backgroundImage: NetworkImage(strPresenterPic),
+                backgroundImage: NetworkImage(presenterObj['presenter_image']),
               ),
               Padding(
                 padding: EdgeInsets.only(
@@ -42,7 +31,9 @@ class childCardPresenter extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      '$strPresenterName $strPresenterQualification',
+                      presenterObj['name'] +
+                          ' ' +
+                          presenterObj['qualification'],
                       // 'Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world',
                       // 'Hello world Hello',
                       style: TextStyle(
@@ -52,7 +43,9 @@ class childCardPresenter extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '$strPresenterCompany, $strPresenterDesignation',
+                      presenterObj['company_name'] +
+                          ' ' +
+                          presenterObj['desgnination'],
                       style: TextStyle(
                         fontFamily: 'Whitney Medium',
                         fontSize: 17.0,
@@ -71,7 +64,7 @@ class childCardPresenter extends StatelessWidget {
           margin: EdgeInsets.only(left: 10.0, right: 10.0),
           width: double.infinity,
           child: Html(
-            data: '$strPresenterDetails',
+            data: presenterObj['speaker_desc'],
             defaultTextStyle: TextStyle(
               fontFamily: 'Whitney Medium',
               fontSize: 18.0,

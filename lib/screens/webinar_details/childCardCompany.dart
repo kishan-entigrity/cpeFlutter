@@ -3,13 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 class childCardCompany extends StatelessWidget {
-  childCardCompany(this.strCompanyPic, this.strCompanyName, this.strCompanySite,
-      this.strCompanyDetails);
+  childCardCompany(this.presenterObj);
 
-  final String strCompanyPic;
-  final String strCompanyName;
-  final String strCompanySite;
-  final String strCompanyDetails;
+  final presenterObj;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +18,7 @@ class childCardCompany extends StatelessWidget {
             children: <Widget>[
               CircleAvatar(
                 radius: 40.0,
-                backgroundImage: NetworkImage(strCompanyPic),
+                backgroundImage: NetworkImage(presenterObj['company_logo']),
               ),
               Padding(
                 padding: EdgeInsets.only(
@@ -35,7 +31,7 @@ class childCardCompany extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      '$strCompanyName',
+                      presenterObj['company_name'],
                       maxLines: 5,
                       softWrap: true,
                       style: TextStyle(
@@ -45,7 +41,7 @@ class childCardCompany extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '$strCompanySite',
+                      presenterObj['company_website'],
                       style: TextStyle(
                         fontFamily: 'Whitney Medium',
                         fontSize: 17.0,
@@ -64,7 +60,7 @@ class childCardCompany extends StatelessWidget {
           margin: EdgeInsets.only(left: 10.0, right: 10.0),
           width: double.infinity,
           child: Html(
-            data: '$strCompanyDetails',
+            data: presenterObj['company_desc'],
             defaultTextStyle: TextStyle(
               fontFamily: 'Whitney Medium',
               fontSize: 18.0,
