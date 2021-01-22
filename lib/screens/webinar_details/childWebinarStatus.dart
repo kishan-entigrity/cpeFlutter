@@ -1,4 +1,5 @@
 import 'package:cpe_flutter/constant.dart';
+import 'package:cpe_flutter/screens/video_player/videoPlayer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -19,17 +20,28 @@ class childWebinarStatus extends StatelessWidget {
         children: <Widget>[
           Visibility(
             visible: isSingleStatusRow ? true : false,
-            child: Container(
-              height: 40.0,
-              margin: EdgeInsets.all(10.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5.0),
-                color: themeYellow,
-              ),
-              child: Center(
-                child: Text(
-                  convertCamelCase(status),
-                  style: kWebinarStatusBig,
+            child: GestureDetector(
+              onTap: () {
+                print('Clicked on large button status');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => VideoPlayerFlickker(webDetailsObj),
+                  ),
+                );
+              },
+              child: Container(
+                height: 40.0,
+                margin: EdgeInsets.all(10.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5.0),
+                  color: themeYellow,
+                ),
+                child: Center(
+                  child: Text(
+                    convertCamelCase(status),
+                    style: kWebinarStatusBig,
+                  ),
                 ),
               ),
             ),
@@ -40,18 +52,30 @@ class childWebinarStatus extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Expanded(
-                  child: Container(
-                    height: 40.0,
-                    margin: EdgeInsets.only(
-                        top: 10.0, bottom: 10.0, left: 10.0, right: 5.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                      color: themeYellow,
-                    ),
-                    child: Center(
-                      child: Text(
-                        convertCamelCase(status),
-                        style: kWebinarStatusSmall,
+                  child: GestureDetector(
+                    onTap: () {
+                      print('Clicked on small button status');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              VideoPlayerFlickker(webDetailsObj),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 40.0,
+                      margin: EdgeInsets.only(
+                          top: 10.0, bottom: 10.0, left: 10.0, right: 5.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: themeYellow,
+                      ),
+                      child: Center(
+                        child: Text(
+                          convertCamelCase(status),
+                          style: kWebinarStatusSmall,
+                        ),
                       ),
                     ),
                   ),

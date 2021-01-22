@@ -173,8 +173,6 @@ const kTextTitleFragc = TextStyle(
 
 convertCamelCase(String status) {
   var part = status.split(' ');
-  int len = part.length;
-  print('Lenght for converCamelCase is : $len');
   if (status.isEmpty) {
     return " ";
   } else {
