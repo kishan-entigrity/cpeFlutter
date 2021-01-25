@@ -6,8 +6,8 @@ import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sizer/sizer.dart';
 
-import '../../constant.dart';
 import '../webinar_details/webinar_details_new.dart';
 
 class MyWebinarFrag extends StatefulWidget {
@@ -165,6 +165,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                 'Topics',
                                 style: TextStyle(
                                   color: Colors.black,
+                                  fontSize: 11.0.sp,
                                   fontFamily: 'Whitney Medium',
                                 ),
                               ),
@@ -199,6 +200,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                   'Live Webinars',
                                   style: TextStyle(
                                     color: isLive ? Colors.white : Colors.black,
+                                    fontSize: 11.0.sp,
                                     fontFamily: 'Whitney Medium',
                                   ),
                                 ),
@@ -236,6 +238,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                     color: isSelfStudy
                                         ? Colors.white
                                         : Colors.black,
+                                    fontSize: 11.0.sp,
                                     fontFamily: 'Whitney Medium',
                                   ),
                                 ),
@@ -272,6 +275,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                   style: TextStyle(
                                     color:
                                         isPremium ? Colors.white : Colors.black,
+                                    fontSize: 11.0.sp,
                                     fontFamily: 'Whitney Medium',
                                   ),
                                 ),
@@ -307,6 +311,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                   'Free',
                                   style: TextStyle(
                                     color: isFree ? Colors.white : Colors.black,
+                                    fontSize: 11.0.sp,
                                     fontFamily: 'Whitney Medium',
                                   ),
                                 ),
@@ -333,6 +338,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                 'Date',
                                 style: TextStyle(
                                   color: Colors.black,
+                                  fontSize: 11.0.sp,
                                   fontFamily: 'Whitney Medium',
                                 ),
                               ),
@@ -365,6 +371,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                   'CPD',
                                   style: TextStyle(
                                     color: isCPD1 ? Colors.white : Colors.black,
+                                    fontSize: 11.0.sp,
                                     fontFamily: 'Whitney Medium',
                                   ),
                                 ),
@@ -386,7 +393,8 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                         },
                         child: Container(
                           // margin: EdgeInsets.only(top: 10.0),
-                          margin: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 15.0),
+                          margin:
+                              EdgeInsets.fromLTRB(3.5.w, 0.0.h, 3.5.w, 2.0.h),
                           decoration: BoxDecoration(
                             // color: Color(0xFFFFC803),
                             color: index % 2 == 0
@@ -396,7 +404,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                               Radius.circular(15.0),
                             ),
                           ),
-                          height: 270.0,
+                          height: 70.0.w,
                           child: Stack(
                             children: [
                               Positioned(
@@ -413,69 +421,98 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
-                                          Container(
-                                            margin: EdgeInsets.only(left: 15.0),
-                                            height: 27.0,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                              color: Colors.white,
-                                            ),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 0.0,
-                                                      horizontal: 10.0),
-                                              child: Center(
-                                                child: Text(
-                                                  '${data['payload']['webinar'][index]['webinar_type']}',
-                                                  style:
-                                                      kWebinarButtonLabelTextStyleGreen,
+                                          ConstrainedBox(
+                                            constraints: BoxConstraints(
+                                                minWidth: 28.0.w),
+                                            child: Container(
+                                              margin:
+                                                  EdgeInsets.only(left: 15.0),
+                                              height: 4.0.h,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                                color: Colors.white,
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 0.0,
+                                                        horizontal: 10.0),
+                                                child: Center(
+                                                  child: Text(
+                                                      '${data['payload']['webinar'][index]['webinar_type']}',
+                                                      style:
+                                                          // kWebinarButtonLabelTextStyleGreen,
+                                                          TextStyle(
+                                                        fontFamily:
+                                                            'Whitney Semi Bold',
+                                                        fontSize: 12.5.sp,
+                                                        color:
+                                                            Color(0xFF00A81B),
+                                                      )),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          Container(
-                                            height: 27.0,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                              color: Colors.white,
-                                            ),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 0.0,
-                                                      horizontal: 10.0),
-                                              child: Center(
-                                                child: Text(
-                                                  '${data['payload']['webinar'][index]['cpa_credit']}',
-                                                  style:
-                                                      kWebinarButtonLabelTextStyle,
+                                          ConstrainedBox(
+                                            constraints: BoxConstraints(
+                                                minWidth: 28.0.w),
+                                            child: Container(
+                                              height: 4.0.h,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                                color: Colors.white,
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 0.0,
+                                                        horizontal: 10.0),
+                                                child: Center(
+                                                  child: Text(
+                                                      '${data['payload']['webinar'][index]['cpa_credit']}',
+                                                      style:
+                                                          // kWebinarButtonLabelTextStyle,
+                                                          TextStyle(
+                                                        fontFamily:
+                                                            'Whitney Semi Bold',
+                                                        fontSize: 12.5.sp,
+                                                        color: Colors.black,
+                                                      )),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          Container(
-                                            margin:
-                                                EdgeInsets.only(right: 15.0),
-                                            height: 27.0,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                              color: Colors.white,
-                                            ),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 0.0,
-                                                      horizontal: 10.0),
-                                              child: Center(
-                                                child: Text(
-                                                  // '\$ ${data['payload']['webinar'][index]['fee']}',
-                                                  '${checkForPrice(index)}',
-                                                  style:
-                                                      kWebinarButtonLabelTextStyle,
+                                          ConstrainedBox(
+                                            constraints: BoxConstraints(
+                                                minWidth: 28.0.w),
+                                            child: Container(
+                                              margin:
+                                                  EdgeInsets.only(right: 15.0),
+                                              height: 4.0.h,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                                color: Colors.white,
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 0.0,
+                                                        horizontal: 10.0),
+                                                child: Center(
+                                                  child: Text(
+                                                      // '\$ ${data['payload']['webinar'][index]['fee']}',
+                                                      '${checkForPrice(index)}',
+                                                      style:
+                                                          // kWebinarButtonLabelTextStyle,
+                                                          TextStyle(
+                                                        fontFamily:
+                                                            'Whitney Semi Bold',
+                                                        fontSize: 12.5.sp,
+                                                        color: Colors.black,
+                                                      )),
                                                 ),
                                               ),
                                             ),
@@ -491,7 +528,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                           '${data['payload']['webinar'][index]['webinar_title']}',
                                           style: TextStyle(
                                             fontFamily: 'Whitney Bold',
-                                            fontSize: 20.0,
+                                            fontSize: 16.0.sp,
                                             color: index % 2 == 0
                                                 ? Colors.black
                                                 : Colors.white,
@@ -511,7 +548,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                               '${data['payload']['webinar'][index]['speaker_name']}',
                                               style: TextStyle(
                                                 fontFamily: 'Whitney Semi Bold',
-                                                fontSize: 17.0,
+                                                fontSize: 13.0.sp,
                                                 color: index % 2 == 0
                                                     ? Colors.black
                                                     : Colors.white,
@@ -533,7 +570,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                             '${displayDateCondition(index)}',
                                             style: TextStyle(
                                               fontFamily: 'Whitney Semi Bold',
-                                              fontSize: 17.0,
+                                              fontSize: 13.0.sp,
                                               color: index % 2 == 0
                                                   ? Colors.black
                                                   : Colors.white,
@@ -568,8 +605,8 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                         Radius.circular(5.0),
                                       ),
                                     ),
-                                    height: 40.0,
-                                    width: 170.0,
+                                    height: 12.0.w,
+                                    width: 35.0.w,
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -578,8 +615,11 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                           padding: const EdgeInsets.all(8.0),
                                           child: Text(
                                             '${data['payload']['webinar'][index]['status']}',
-                                            style:
-                                                kWebinarButtonLabelTextStyleWhite,
+                                            style: TextStyle(
+                                              fontFamily: 'Whitney Semi Bold',
+                                              fontSize: 15.0.sp,
+                                              color: Colors.white,
+                                            ),
                                           ),
                                         ),
                                         Padding(
@@ -599,8 +639,8 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                 right: 0,
                                 child: Image.asset(
                                   'assets/avatar_bottom_right.png',
-                                  height: 130.0,
-                                  width: 130.0,
+                                  height: 36.0.w,
+                                  width: 36.0.w,
                                 ),
                               ),
                             ],
@@ -922,6 +962,7 @@ class selectedFilterWidget extends StatelessWidget {
             str,
             style: TextStyle(
               color: Colors.white,
+              fontSize: 11.0.sp,
               fontFamily: 'Whitney Medium',
             ),
           ),

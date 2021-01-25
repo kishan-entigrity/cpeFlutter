@@ -1,4 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
+
+double text01 = 1.0.sp;
+double text02 = 2.0.sp;
+double text03 = 3.0.sp;
+double text04 = 4.0.sp;
+double text05 = 5.0.sp;
+double text17 = 17.0.sp;
 
 const kLabelTitleTextStyle = TextStyle(
   fontFamily: 'Whitney Bold',
@@ -142,6 +150,12 @@ const kWebinarButtonLabelTextStyleWhite = TextStyle(
   fontFamily: 'Whitney Semi Bold',
   fontSize: 17.0,
   color: Colors.white,
+);
+
+final kWebinarButtonLabelTextStyleWhiteTest = TextStyle(
+  fontFamily: 'Whitney Semi Bold',
+  fontSize: 15.0.sp,
+  color: Colors.teal,
 );
 
 const kWebinarSpeakerNameLabelTextStyle = TextStyle(

@@ -45,6 +45,7 @@ dependencies:
   rating_bar: 0.2.0
   flick_video_player: ^0.1.1
   video_player: ^0.10.8+1
+  sizer: ^1.1.8
 
 dev_dependencies:
   flutter_test:
