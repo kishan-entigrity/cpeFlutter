@@ -122,7 +122,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                       'My Webinar',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 18.0,
+                        fontSize: 15.0.sp,
                         fontFamily: 'Whitney Semi Bold',
                       ),
                     ),
@@ -533,7 +533,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                                 ? Colors.black
                                                 : Colors.white,
                                           ),
-                                          maxLines: 3,
+                                          maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                       ),
@@ -605,7 +605,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                         Radius.circular(5.0),
                                       ),
                                     ),
-                                    height: 12.0.w,
+                                    height: 11.5.w,
                                     width: 35.0.w,
                                     child: Row(
                                       mainAxisAlignment:
@@ -617,7 +617,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                             '${data['payload']['webinar'][index]['status']}',
                                             style: TextStyle(
                                               fontFamily: 'Whitney Semi Bold',
-                                              fontSize: 15.0.sp,
+                                              fontSize: 14.0.sp,
                                               color: Colors.white,
                                             ),
                                           ),

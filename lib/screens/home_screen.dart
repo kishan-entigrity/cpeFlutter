@@ -7,6 +7,7 @@ import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sizer/sizer.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -315,7 +316,7 @@ class _HomeScreenState extends State<HomeScreen> {
         // notchMargin: 10.0,
         child: Container(
           width: double.infinity,
-          height: 60.0,
+          height: 15.5.w,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
@@ -327,8 +328,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   });
                 },
                 child: Container(
-                  width: 60.0,
-                  height: 60.0,
+                  width: 15.5.w,
+                  height: 15.5.w,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -345,7 +346,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Text(
                         'Home',
                         style: TextStyle(
-                          fontSize: 13.0,
+                          fontSize: 10.0.sp,
                           fontFamily: 'Whitney Medium',
                           color: currentTab == 0
                               ? Color(0xFF193F70)
@@ -364,8 +365,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   });
                 },
                 child: Container(
-                  height: 60.0,
-                  width: 80.0,
+                  height: 15.5.w,
+                  width: 18.0.w,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -382,7 +383,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Text(
                         'My Webinar',
                         style: TextStyle(
-                          fontSize: 13.0,
+                          fontSize: 10.0.sp,
                           fontFamily: 'Whitney Medium',
                           color: currentTab == 1
                               ? Color(0xFF193F70)
@@ -401,8 +402,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   });
                 },
                 child: Container(
-                  height: 60.0,
-                  width: 60.0,
+                  height: 15.5.w,
+                  width: 15.5.w,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -419,7 +420,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Text(
                         'Certificate',
                         style: TextStyle(
-                          fontSize: 13.0,
+                          fontSize: 10.0.sp,
                           fontFamily: 'Whitney Medium',
                           color: currentTab == 2
                               ? Color(0xFF193F70)
@@ -438,8 +439,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   });
                 },
                 child: Container(
-                  height: 60.0,
-                  width: 60.0,
+                  height: 15.5.w,
+                  width: 15.5.w,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -456,7 +457,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Text(
                         'Premium',
                         style: TextStyle(
-                          fontSize: 13.0,
+                          fontSize: 10.0.sp,
                           fontFamily: 'Whitney Medium',
                           color: currentTab == 3
                               ? Color(0xFF193F70)
@@ -475,8 +476,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   });
                 },
                 child: Container(
-                  height: 60.0,
-                  width: 60.0,
+                  height: 15.5.w,
+                  width: 15.5.w,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -493,7 +494,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Text(
                         'Profile',
                         style: TextStyle(
-                          fontSize: 13.0,
+                          fontSize: 10.0.sp,
                           fontFamily: 'Whitney Medium',
                           color: currentTab == 4
                               ? Color(0xFF193F70)
