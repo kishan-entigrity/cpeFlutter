@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:sizer/sizer.dart';
 
 class childCardPresenter extends StatelessWidget {
   childCardPresenter(this.presenterObj);
@@ -17,42 +18,51 @@ class childCardPresenter extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               CircleAvatar(
-                radius: 40.0,
+                radius: 10.5.w,
                 backgroundImage: NetworkImage(presenterObj['presenter_image']),
               ),
-              Padding(
-                padding: EdgeInsets.only(
-                  left: 10.0,
-                  right: 10.0,
-                  top: 5.0,
-                ),
-                child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      presenterObj['name'] +
-                          ' ' +
-                          presenterObj['qualification'],
-                      // 'Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world',
-                      // 'Hello world Hello',
-                      style: TextStyle(
-                        fontFamily: 'Whitney Bold',
-                        fontSize: 18.0,
-                        color: Colors.black,
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    left: 10.0,
+                    right: 10.0,
+                    top: 5.0,
+                  ),
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        presenterObj['name'] +
+                            ' ' +
+                            presenterObj['qualification'],
+                        // 'Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world',
+                        // 'Hello world Hello',
+                        style: TextStyle(
+                          fontFamily: 'Whitney Bold',
+                          fontSize: 13.5.sp,
+                          color: Colors.black,
+                        ),
                       ),
-                    ),
-                    Text(
-                      presenterObj['company_name'] +
-                          ' ' +
-                          presenterObj['desgnination'],
-                      style: TextStyle(
-                        fontFamily: 'Whitney Medium',
-                        fontSize: 17.0,
-                        color: Colors.black,
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            presenterObj['company_name'] +
+                                ' ' +
+                                presenterObj['desgnination'],
+                            style: TextStyle(
+                              fontFamily: 'Whitney Medium',
+                              fontSize: 13.0.sp,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],

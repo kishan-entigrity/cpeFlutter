@@ -20,21 +20,21 @@ const kLabelTitleTextStyle = TextStyle(
   color: Color(0xFFFFFFFF),
 );*/
 
-const kKeyLableWebinarDetailExpand = TextStyle(
+final kKeyLableWebinarDetailExpand = TextStyle(
   fontFamily: 'Whitney Medium',
-  fontSize: 17.0,
+  fontSize: 12.0.sp,
   color: black50,
 );
 
-const kValueLableWebinarDetailExpand = TextStyle(
+final kValueLableWebinarDetailExpand = TextStyle(
   fontFamily: 'Whitney Medium',
-  fontSize: 17.0,
+  fontSize: 12.0.sp,
   color: Colors.black,
 );
 
-const kUserDataTestimonials = TextStyle(
+final kUserDataTestimonials = TextStyle(
   fontFamily: 'Whitney Semi Bold',
-  fontSize: 17.0,
+  fontSize: 13.2.sp,
   color: Colors.black,
 );
 
@@ -44,15 +44,15 @@ const kUserDataBlueTestimonials = TextStyle(
   color: themeBlue,
 );
 
-const kDateTestimonials = TextStyle(
+final kDateTestimonials = TextStyle(
   fontFamily: 'Whitney Medium',
-  fontSize: 15.0,
+  fontSize: 13.0.sp,
   color: black50,
 );
 
-const kOthersTitle = TextStyle(
+final kOthersTitle = TextStyle(
   fontFamily: 'Whitney Semi Bold',
-  fontSize: 17.0,
+  fontSize: 13.0.sp,
   color: Colors.black,
 );
 
@@ -62,9 +62,9 @@ const kOthersAddress = TextStyle(
   color: black80,
 );
 
-const kOthersDescription = TextStyle(
+final kOthersDescription = TextStyle(
   fontFamily: 'Whitney Medium',
-  fontSize: 16.0,
+  fontSize: 13.0.sp,
   color: black50,
 );
 
@@ -81,9 +81,9 @@ const kWebinarStatusSmall = TextStyle(
   color: Colors.white,
 );
 
-const kDownloadWebinarDetailExpand = TextStyle(
+final kDownloadWebinarDetailExpand = TextStyle(
   fontFamily: 'Whitney Medium',
-  fontSize: 16.0,
+  fontSize: 12.0.sp,
   color: Colors.white,
 );
 

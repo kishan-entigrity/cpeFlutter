@@ -2,6 +2,7 @@ import 'package:cpe_flutter/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:sizer/sizer.dart';
 
 class childCardOthers extends StatefulWidget {
   childCardOthers(this.webDetailsObj);
@@ -52,9 +53,9 @@ class _childCardOthersState extends State<childCardOthers> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(height: 10.0),
+          SizedBox(height: 10.0.sp),
           FaqContainer(webDetailsObj),
-          SizedBox(height: 15.0),
+          SizedBox(height: 15.0.sp),
           RefundCancelContainer(webDetailsObj),
           NasbaContainer(isNasbaVisible, webDetailsObj),
           IrsContainer(isIrsVisible, webDetailsObj),
@@ -195,7 +196,7 @@ class NasbaContainer extends StatelessWidget {
               'NASBA APPROVED',
               style: kOthersTitle,
             ),
-            SizedBox(height: 10.0),
+            SizedBox(height: 10.0.sp),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -271,7 +272,7 @@ class RefundCancelContainer extends StatelessWidget {
             'REFUND/CANCELLATION POLICY',
             style: kOthersTitle,
           ),
-          SizedBox(height: 10.0),
+          SizedBox(height: 10.0.sp),
           Html(
             data: webDetailsObj['refund_and_cancelation_policy'],
             defaultTextStyle: kOthersDescription,
@@ -297,7 +298,7 @@ class FaqContainer extends StatelessWidget {
             'FAQ',
             style: kOthersTitle,
           ),
-          SizedBox(height: 10.0),
+          SizedBox(height: 10.0.sp),
           Html(
             data: webDetailsObj['faq'],
             defaultTextStyle: kOthersDescription,

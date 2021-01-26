@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:sizer/sizer.dart';
 
 class childCardWhyShouldAttend extends StatelessWidget {
   childCardWhyShouldAttend(this.strWhyShouldAttend);
@@ -15,7 +16,7 @@ class childCardWhyShouldAttend extends StatelessWidget {
         strWhyShouldAttend,
         style: TextStyle(
           fontFamily: 'Whitney Medium',
-          fontSize: 18.0,
+          fontSize: 13.5.sp,
           color: Color(0x701F2227),
         ),
       ),

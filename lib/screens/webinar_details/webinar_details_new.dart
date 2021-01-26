@@ -11,6 +11,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../rest_api.dart';
 import 'childCardCompany.dart';
@@ -248,7 +249,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
               top: 0.0,
               right: 0.0,
               left: 0.0,
-              bottom: 60.0,
+              bottom: 15.5.w,
               child: Container(
                 color: Colors.white,
                 child: Column(

@@ -2,6 +2,7 @@ import 'package:cpe_flutter/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rating_bar/rating_bar.dart';
+import 'package:sizer/sizer.dart';
 
 class childCardTestimonials extends StatefulWidget {
   childCardTestimonials(this.strDetails, this.respTestimonials);
@@ -101,17 +102,22 @@ class TestimonialDataCell extends StatelessWidget {
               Container(
                 child: Text(
                   testimonialDate,
-                  style: kDateTestimonials,
+                  // style: kDateTestimonials,
+                  style: TextStyle(
+                    fontFamily: 'Whitney Medium',
+                    fontSize: 12.5.sp,
+                    color: black50,
+                  ),
                 ),
               ),
             ],
           ),
           Container(
             margin: EdgeInsets.only(top: 5.0),
-            width: 100.0,
+            width: 80.0.sp,
             child: RatingBar.readOnly(
               initialRating: double.parse(rating),
-              size: 20.0,
+              size: 16.0.sp,
               filledColor: Color(0xFFFFC803),
               halfFilledColor: Color(0xFFFFC803),
               emptyColor: Color(0xFFFFC803),

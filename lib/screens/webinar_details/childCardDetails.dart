@@ -1,6 +1,7 @@
 import 'package:cpe_flutter/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class childCardDetails extends StatefulWidget {
   childCardDetails(this.resp);
@@ -233,7 +234,7 @@ class detailsRowWhoShouldAttend extends StatelessWidget {
                 Flexible(
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: 5.0),
-                    width: 160.0,
+                    width: 165.0,
                     child: Text(
                       strKey,
                       style: kKeyLableWebinarDetailExpand,
@@ -308,7 +309,7 @@ class detailsRowDownload extends StatelessWidget {
                 Flexible(
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: 5.0),
-                    width: 160.0,
+                    width: 165.0,
                     child: Text(
                       strKey,
                       style: kKeyLableWebinarDetailExpand,
@@ -357,16 +358,21 @@ class detailsRowString extends StatelessWidget {
         children: <Widget>[
           ConstrainedBox(
             constraints:
-                BoxConstraints(minHeight: 40.0, minWidth: double.infinity),
+                BoxConstraints(minHeight: 11.0.w, minWidth: double.infinity),
             child: Row(
               children: <Widget>[
                 Flexible(
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: 5.0),
-                    width: 160.0,
+                    width: 165.0,
                     child: Text(
                       strKey,
                       style: kKeyLableWebinarDetailExpand,
+                      /*style: TextStyle(
+                        fontFamily: 'Whitney Medium',
+                        fontSize: 14.0.sp,
+                        color: black50,
+                      ),*/
                     ),
                   ),
                 ),

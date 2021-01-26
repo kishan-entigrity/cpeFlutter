@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:sizer/sizer.dart';
 
 class childCardDescription extends StatelessWidget {
   childCardDescription(this.strDescription, this.strLearningObjective);
@@ -22,7 +23,7 @@ class childCardDescription extends StatelessWidget {
             data: strDescription,
             defaultTextStyle: TextStyle(
               fontFamily: 'Whitney Medium',
-              fontSize: 18.0,
+              fontSize: 13.5.sp,
               color: Color(0x701F2227),
             ),
           ),
@@ -33,7 +34,7 @@ class childCardDescription extends StatelessWidget {
             'LEARNING OBJECTIVES',
             style: TextStyle(
               fontFamily: 'Whitney Semi Bold',
-              fontSize: 18.0,
+              fontSize: 13.5.sp,
               color: Colors.black,
             ),
           ),
@@ -44,7 +45,7 @@ class childCardDescription extends StatelessWidget {
             data: strLearningObjective,
             defaultTextStyle: TextStyle(
               fontFamily: 'Whitney Medium',
-              fontSize: 18.0,
+              fontSize: 13.5.sp,
               color: Color(0x701F2227),
             ),
           ),

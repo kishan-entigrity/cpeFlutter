@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:sizer/sizer.dart';
 
 class childCardCompany extends StatelessWidget {
   childCardCompany(this.presenterObj);
@@ -17,7 +18,7 @@ class childCardCompany extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               CircleAvatar(
-                radius: 40.0,
+                radius: 10.5.w,
                 backgroundImage: NetworkImage(presenterObj['company_logo']),
               ),
               Padding(
@@ -36,7 +37,7 @@ class childCardCompany extends StatelessWidget {
                       softWrap: true,
                       style: TextStyle(
                         fontFamily: 'Whitney Bold',
-                        fontSize: 18.0,
+                        fontSize: 13.5.sp,
                         color: Colors.black,
                       ),
                     ),
@@ -44,7 +45,7 @@ class childCardCompany extends StatelessWidget {
                       presenterObj['company_website'],
                       style: TextStyle(
                         fontFamily: 'Whitney Medium',
-                        fontSize: 17.0,
+                        fontSize: 13.0.sp,
                         color: Colors.black,
                       ),
                     ),

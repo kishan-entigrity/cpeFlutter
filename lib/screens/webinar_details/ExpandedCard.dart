@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sizer/sizer.dart';
 
 class ExpandedCard extends StatelessWidget {
   ExpandedCard(
@@ -31,7 +32,7 @@ class ExpandedCard extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(10.0),
               width: double.infinity,
-              height: 50.0,
+              height: 12.5.w,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
                 color: Color(0xFFF3F5F9),
@@ -43,7 +44,7 @@ class ExpandedCard extends StatelessWidget {
                     strTitle,
                     style: TextStyle(
                       fontFamily: 'Whitney Semi Bold',
-                      fontSize: 18.0,
+                      fontSize: 13.5.sp,
                       color: Colors.black,
                     ),
                   ),

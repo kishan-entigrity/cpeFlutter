@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:sizer/sizer.dart';
 
 class childCardOverviewofTopics extends StatelessWidget {
   childCardOverviewofTopics(this.strOverviewOfTopics);
@@ -16,7 +17,7 @@ class childCardOverviewofTopics extends StatelessWidget {
         data: strOverviewOfTopics,
         defaultTextStyle: TextStyle(
           fontFamily: 'Whitney Medium',
-          fontSize: 18.0,
+          fontSize: 13.5.sp,
           color: Color(0x701F2227),
         ),
       ),

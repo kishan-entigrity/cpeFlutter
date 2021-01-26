@@ -2,6 +2,7 @@ import 'package:cpe_flutter/constant.dart';
 import 'package:cpe_flutter/screens/video_player/videoPlayer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class childWebinarStatus extends StatelessWidget {
   childWebinarStatus(this.status, this.isSingleStatusRow, this.webDetailsObj);
@@ -13,7 +14,7 @@ class childWebinarStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60.0,
+      height: 15.5.w,
       width: double.infinity,
       color: Colors.white,
       child: Column(
@@ -31,7 +32,7 @@ class childWebinarStatus extends StatelessWidget {
                 );
               },
               child: Container(
-                height: 40.0,
+                height: 10.2.w,
                 margin: EdgeInsets.all(10.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5.0),
@@ -64,7 +65,7 @@ class childWebinarStatus extends StatelessWidget {
                       );
                     },
                     child: Container(
-                      height: 40.0,
+                      height: 10.2.w,
                       margin: EdgeInsets.only(
                           top: 10.0, bottom: 10.0, left: 10.0, right: 5.0),
                       decoration: BoxDecoration(
@@ -82,7 +83,7 @@ class childWebinarStatus extends StatelessWidget {
                 ),
                 Expanded(
                   child: Container(
-                    height: 40.0,
+                    height: 10.2.w,
                     margin: EdgeInsets.only(
                         top: 10.0, bottom: 10.0, right: 10.0, left: 5.0),
                     decoration: BoxDecoration(
