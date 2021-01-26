@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class WebinarTitle_OnDemand extends StatelessWidget {
   WebinarTitle_OnDemand(this.webinar_title);
@@ -18,7 +19,7 @@ class WebinarTitle_OnDemand extends StatelessWidget {
         maxLines: 2,
         style: TextStyle(
           fontFamily: 'Whitney Bold',
-          fontSize: 22.0,
+          fontSize: 17.0.sp,
           color: Colors.black,
         ),
       ),

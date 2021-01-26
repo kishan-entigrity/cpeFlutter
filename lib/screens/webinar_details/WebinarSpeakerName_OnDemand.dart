@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class WebinarSpeakerName_OnDemand extends StatelessWidget {
   WebinarSpeakerName_OnDemand(this.presenter_name);
@@ -18,7 +19,7 @@ class WebinarSpeakerName_OnDemand extends StatelessWidget {
         maxLines: 2,
         style: TextStyle(
           fontFamily: 'Whitney Bold',
-          fontSize: 15.0,
+          fontSize: 13.0.sp,
           color: Colors.black,
         ),
       ),
