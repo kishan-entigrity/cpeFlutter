@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sizer/sizer.dart';
 
 import 'file:///C:/Kishan/Projects/Flutter_Project/cpe_flutter/lib/screens/profile/change_password.dart';
 import 'file:///C:/Kishan/Projects/Flutter_Project/cpe_flutter/lib/screens/profile/contact_us.dart';
@@ -55,7 +56,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                       child: Text(
                         'Profile',
                         style: TextStyle(
-                          fontSize: 17.0,
+                          fontSize: 13.5.sp,
                           fontWeight: FontWeight.bold,
                           letterSpacing: 1,
                           fontFamily: 'Whitney Semi Bold',
@@ -67,7 +68,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                     padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 0.0),
                     child: Center(
                       child: CircleAvatar(
-                        radius: 50.0,
+                        radius: 14.0.w,
                         backgroundImage: NetworkImage(strProfilePic),
                       ),
                     ),
@@ -78,7 +79,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                       child: Text(
                         '$strFName ' '$strLName',
                         style: TextStyle(
-                          fontSize: 24.0,
+                          fontSize: 19.0.sp,
                           fontWeight: FontWeight.bold,
                           letterSpacing: 1,
                           fontFamily: 'Whitney Bold',
@@ -118,7 +119,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontFamily: 'Whitney Medium',
-                                  fontSize: 20.0,
+                                  fontSize: 15.0.sp,
                                 ),
                               ),
                             ),
@@ -152,7 +153,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontFamily: 'Whitney Medium',
-                                  fontSize: 20.0,
+                                  fontSize: 15.0.sp,
                                 ),
                               ),
                             ),
@@ -186,7 +187,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontFamily: 'Whitney Medium',
-                                  fontSize: 20.0,
+                                  fontSize: 15.0.sp,
                                 ),
                               ),
                             ),
@@ -220,7 +221,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontFamily: 'Whitney Medium',
-                                  fontSize: 20.0,
+                                  fontSize: 15.0.sp,
                                 ),
                               ),
                             ),
@@ -258,7 +259,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontFamily: 'Whitney Medium',
-                                  fontSize: 20.0,
+                                  fontSize: 15.0.sp,
                                 ),
                               ),
                             ),
@@ -292,7 +293,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontFamily: 'Whitney Medium',
-                                  fontSize: 20.0,
+                                  fontSize: 15.0.sp,
                                 ),
                               ),
                             ),
@@ -326,7 +327,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontFamily: 'Whitney Medium',
-                                  fontSize: 20.0,
+                                  fontSize: 15.0.sp,
                                 ),
                               ),
                             ),
@@ -356,7 +357,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontFamily: 'Whitney Medium',
-                                  fontSize: 20.0,
+                                  fontSize: 15.0.sp,
                                 ),
                               ),
                             ),
