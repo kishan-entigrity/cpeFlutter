@@ -106,6 +106,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   void dispose() {
     flickManager.dispose();
     _timer.cancel();
+    stopBasicTimer();
     super.dispose();
   }
 
