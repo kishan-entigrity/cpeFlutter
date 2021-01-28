@@ -43,6 +43,25 @@ Future changePassword(String authToken, String current_password,
   return convertDataToJson;
 }
 
+Future video_duration(String authToken, String webinar_id,
+    String play_time_duration, String presentation_length) async {
+  String urls = URLs.BASE_URL + 'webinar/video-duration';
+  final response = await http.post(
+    urls,
+    headers: {
+      'Accept': 'Application/json',
+      'Authorization': 'Bearer $authToken',
+    },
+    body: {
+      'webinar_id': webinar_id,
+      'play_time_duration': play_time_duration,
+      'presentation_length': presentation_length
+    },
+  );
+  var convertDataToJson = jsonDecode(response.body);
+  return convertDataToJson;
+}
+
 Future contactUs(String email, String subject) async {
   String urls = URLs.BASE_URL + 'contact-us/query';
   final response = await http.post(

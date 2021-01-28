@@ -31,6 +31,20 @@ class _VideoPlayerState extends State<VideoPlayerFlickker> {
       videoPlayerController: VideoPlayerController.network(videoUrl),
     );
 
+    flickManager.flickControlManager.addListener(() {
+      if (flickManager.flickVideoManager.isVideoInitialized) {
+        print('Video is initialized..');
+        if (flickManager.flickVideoManager.isPlaying) {
+          print('Video is Initialized and playing');
+        } else {
+          print('Video is Initialized and pause');
+        }
+      } else {
+        print('Video is not initialized..');
+      }
+    });
+    // flickManager.flickControlManager.seekTo(Duration(seconds: 300));
+    // flickManager.flickVideoManager.videoPlayerValue;
     // startBasicTimer();
   }
 
@@ -98,7 +112,8 @@ class _VideoPlayerState extends State<VideoPlayerFlickker> {
   }
 
   void startBasicTimer() {
-    _timer = new Timer.periodic(Duration(seconds: 5), (timer) {
+    // _timer = new Timer.periodic(Duration(seconds: 5), (timer) {
+    _timer = Timer.periodic(Duration(seconds: 5), (timer) {
       var timer = DateTime.now();
       print('Start Basic Timer is called.. $timer');
     });

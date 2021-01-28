@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
 import 'package:cpe_flutter/components/TopBar.dart';
@@ -7,11 +9,13 @@ import 'package:cpe_flutter/screens/webinar_details/WebinarTitleOnDemand.dart';
 import 'package:cpe_flutter/screens/webinar_details/childCardDetails.dart';
 import 'package:cpe_flutter/screens/webinar_details/childCardOthers.dart';
 import 'package:cpe_flutter/screens/webinar_details/childWebinarStatus.dart';
+import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../rest_api.dart';
 import 'childCardCompany.dart';
@@ -87,10 +91,22 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   bool isLoaderShowing = false;
   bool isSingleStatusRow = true;
 
+  FlickManager flickManager;
+  Timer _timer;
+
+  var watched = '';
+
   @override
   void initState() {
     super.initState();
     checkForSP();
+  }
+
+  @override
+  void dispose() {
+    flickManager.dispose();
+    _timer.cancel();
+    super.dispose();
   }
 
   void checkForSP() async {
@@ -274,7 +290,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                               Stack(
                                 children: <Widget>[
                                   Container(
-                                    height: 200.0,
+                                    height: 51.0.w,
                                     width: double.infinity,
                                     color: Colors.blue,
                                     child: FadeInImage(
@@ -283,15 +299,6 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                       image: NetworkImage(webinarThumb),
                                       fit: BoxFit.fill,
                                     ),
-                                    /*child: (webinar_thumb?.isEmpty
-                                        ? Image.asset(
-                                            'assets/webinar_placeholder.jpg',
-                                            fit: BoxFit.fill,
-                                          )
-                                        : Image.network(
-                                            webinar_thumb,
-                                            fit: BoxFit.fill,
-                                          )),*/
                                   ),
                                   Positioned(
                                     top: 0.0,
@@ -300,10 +307,21 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                     right: 0.0,
                                     child: GestureDetector(
                                       onTap: () {
-                                        print('Click event on play button..');
+                                        print(
+                                            'Click event on play button..: URL : $videoUrl');
+                                        setState(() {
+                                          isPlaying = true;
+                                          flickManager = FlickManager(
+                                            videoPlayerController:
+                                                VideoPlayerController.network(
+                                                    videoUrl),
+                                          );
+                                          checkForVideoPlayerListener();
+                                        });
                                       },
                                       child: Icon(
-                                        FontAwesomeIcons.playCircle,
+                                        FontAwesomeIcons.solidPlayCircle,
+                                        color: Colors.white,
                                         size: 80.0,
                                       ),
                                     ),
@@ -317,23 +335,26 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                             ],
                           ),
                         ),
-                        // Container SelfStudy Video
+                        // Container SelfStudy Video player..
                         Visibility(
                           visible: (strWebinarTypeIntent == 'ON-DEMAND'
                               ? (isPlaying ? true : false)
                               : false),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Container(
-                                height: 200.0,
+                                height: 51.0.w,
                                 width: double.infinity,
                                 color: Colors.red,
+                                child: FlickVideoPlayer(
+                                  flickManager: flickManager,
+                                ),
                               ),
                               // WebinarTitle_OnDemand(webinar_title),
-                              WebinarTitle_OnDemand('strTestTitle'),
+                              WebinarTitle_OnDemand(webinarTitle),
                               // WebinarSpeakerName_OnDemand(presenter_name),
-                              WebinarSpeakerName_OnDemand(
-                                  'strTestPresenterName'),
+                              WebinarSpeakerName_OnDemand(presenterName),
                             ],
                           ),
                         ),
@@ -342,7 +363,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                           visible:
                               (strWebinarTypeIntent == 'live' ? true : false),
                           child: Container(
-                            height: 200.0,
+                            height: 51.0.w,
                             width: double.infinity,
                             color: Colors.black,
                           ),
@@ -557,5 +578,108 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       isTestimonialsExpanded = false;
       isOthersExpanded = false;
     });
+  }
+
+  void checkForVideoPlayerListener() {
+    print('Method checkForVideoPlayerListener is called..');
+    flickManager.flickControlManager.addListener(() {
+      if (flickManager.flickVideoManager.isVideoInitialized) {
+        print('Video is initialized..');
+        // From here need to start the timer with condition that is video is playing or not??
+        bool state = flickManager.flickVideoManager.isPlaying;
+        if (flickManager.flickVideoManager.isPlaying) {
+          print('Video player is playing $state');
+          // stopBasicTimer();
+          startBasicTimer();
+        } else {
+          print('Video player is on pause state $state');
+          stopBasicTimer();
+        }
+      } else {
+        print('Video is not initialized..');
+        stopBasicTimer();
+        // From here need to pause/stop the timer..
+      }
+    });
+  }
+
+  void startBasicTimer() {
+    // _timer = new Timer.periodic(Duration(seconds: 5), (timer) {
+    if (_timer != null) {
+      // Do Nothing
+      print('_timer != null');
+    } else {
+      print('_timer == null');
+      _timer = Timer.periodic(Duration(seconds: 5), (timer) {
+        var timer = DateTime.now();
+        var currentWatchTime =
+            flickManager.flickVideoManager.videoPlayerValue.position;
+        var nSplit = currentWatchTime.toString().split(':');
+        var nSplitInt = nSplit[2].toString().split('.');
+        var sec = int.parse(nSplitInt[0].toString());
+        var min = int.parse(nSplit[1].toString());
+        var hr = int.parse(nSplit[0].toString());
+
+        var finalCurrentDuration = 0;
+        var d = Duration(hours: hr, minutes: min, seconds: sec);
+        finalCurrentDuration = d.abs().inSeconds;
+
+        var presentationDuration = webDetailsObj['duration'];
+        // print('Start Basic Timer is called.. $timer : $currentWatchTime : $nSplit :sec: $sec : min:$min  : hr:$hr : Final sec: $finalCurrentDuration : Presentation length: $presentationDuration');
+
+        // On Every time of tick take an API call for video-duration..
+        videoDurationAPICall(webinarId.toString(),
+            finalCurrentDuration.toString(), presentationDuration.toString());
+      });
+    }
+  }
+
+  void stopBasicTimer() {
+    _timer.cancel();
+    _timer = null;
+  }
+
+  void videoDurationAPICall(String webinarId, String finalCurrentDuration,
+      String presentationDuration) async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    /*SharedPreferences preferences = await SharedPreferences.getInstance();
+    bool checkValue = preferences.getBool("check");
+    print('Status for checkValue is : $checkValue');*/
+
+    if ((connectivityResult == ConnectivityResult.mobile) ||
+        (connectivityResult == ConnectivityResult.wifi)) {
+      var resp = await video_duration(
+          userToken, webinarId, finalCurrentDuration, presentationDuration);
+
+      print('Response for change password api is : $resp');
+
+      respStatus = resp['success'];
+      respMessage = resp['message'];
+
+      if (respStatus) {
+        if (resp['payload']['video_status']) {
+          stopBasicTimer();
+        } else {
+          setState(() {
+            watched = resp['payload']['watched'];
+          });
+        }
+      } else {
+        _scaffoldKey.currentState.showSnackBar(
+          SnackBar(
+            content: Text('$respMessage'),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+    } else {
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          content:
+              Text("Please check your internet connectivity and try again"),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    }
   }
 }
