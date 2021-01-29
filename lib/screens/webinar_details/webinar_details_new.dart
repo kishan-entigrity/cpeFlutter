@@ -95,6 +95,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   Timer _timer;
 
   var watched = '';
+  bool isOnCreate = true;
 
   @override
   void initState() {
@@ -583,6 +584,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
 
   void checkForVideoPlayerListener() {
     print('Method checkForVideoPlayerListener is called..');
+    // flickManager.flickControlManager.seekTo(Duration(seconds: webDetailsObj['play_time_duration']));
     flickManager.flickControlManager.addListener(() {
       if (flickManager.flickVideoManager.isVideoInitialized) {
         print('Video is initialized..');
@@ -590,6 +592,11 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         bool state = flickManager.flickVideoManager.isPlaying;
         if (flickManager.flickVideoManager.isPlaying) {
           print('Video player is playing $state');
+          if (isOnCreate) {
+            flickManager.flickControlManager
+                .seekTo(Duration(seconds: webDetailsObj['play_time_duration']));
+            isOnCreate = false;
+          }
           // stopBasicTimer();
           startBasicTimer();
         } else {
@@ -606,6 +613,18 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
 
   void startBasicTimer() {
     // _timer = new Timer.periodic(Duration(seconds: 5), (timer) {
+    // webDetailsObj['play_time_duration'] =
+    // flickManager.flickVideoManager.videoPlayerValue.position.toString();
+    // flickManager.flickVideoManager.videoPlayerValue.position;
+    // flickManager.flickVideoManager.videoPlayerValue.position.inSeconds;
+    // var valup =
+    //     flickManager.flickVideoManager.videoPlayerValue.position.inSeconds;
+    // print('startBasicTimer play_time_duration while update value is : $valup');
+    // var keyUP = webDetailsObj['play_time_duration'];
+    // print('startBasicTimer play_time_duration while update key is : $keyUP');
+    // webDetailsObj['play_time_duration'] = int.parse(
+    //     flickManager.flickVideoManager.videoPlayerValue.position.toString());
+    // .inSeconds.toString());
     if (_timer != null) {
       // Do Nothing
       print('_timer != null');
@@ -613,24 +632,29 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       print('_timer == null');
       _timer = Timer.periodic(Duration(seconds: 5), (timer) {
         var timer = DateTime.now();
-        var currentWatchTime =
-            flickManager.flickVideoManager.videoPlayerValue.position;
-        var nSplit = currentWatchTime.toString().split(':');
+        // var currentWatchTime = flickManager.flickVideoManager.videoPlayerValue.position.toString();
+        var currentWatchTime = flickManager
+            .flickVideoManager.videoPlayerValue.position.inSeconds
+            .toString();
+        /*var nSplit = currentWatchTime.toString().split(':');
         var nSplitInt = nSplit[2].toString().split('.');
         var sec = int.parse(nSplitInt[0].toString());
         var min = int.parse(nSplit[1].toString());
         var hr = int.parse(nSplit[0].toString());
 
-        var finalCurrentDuration = 0;
+        // var finalCurrentDuration;
         var d = Duration(hours: hr, minutes: min, seconds: sec);
-        finalCurrentDuration = d.abs().inSeconds;
+        var finalCurrentDuration = d.abs().inSeconds.toString();*/
 
         var presentationDuration = webDetailsObj['duration'];
         // print('Start Basic Timer is called.. $timer : $currentWatchTime : $nSplit :sec: $sec : min:$min  : hr:$hr : Final sec: $finalCurrentDuration : Presentation length: $presentationDuration');
 
         // On Every time of tick take an API call for video-duration..
-        videoDurationAPICall(webinarId.toString(),
-            finalCurrentDuration.toString(), presentationDuration.toString());
+        videoDurationAPICall(
+            webinarId.toString(),
+            // finalCurrentDuration.toString(), presentationDuration.toString());
+            currentWatchTime.toString(),
+            presentationDuration.toString());
       });
     }
   }

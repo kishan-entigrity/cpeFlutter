@@ -43,7 +43,7 @@ class _VideoPlayerState extends State<VideoPlayerFlickker> {
         print('Video is not initialized..');
       }
     });
-    // flickManager.flickControlManager.seekTo(Duration(seconds: 300));
+    flickManager.flickControlManager.seekTo(Duration(seconds: 300));
     // flickManager.flickVideoManager.videoPlayerValue;
     // startBasicTimer();
   }
