@@ -612,43 +612,17 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   }
 
   void startBasicTimer() {
-    // _timer = new Timer.periodic(Duration(seconds: 5), (timer) {
-    // webDetailsObj['play_time_duration'] =
-    // flickManager.flickVideoManager.videoPlayerValue.position.toString();
-    // flickManager.flickVideoManager.videoPlayerValue.position;
-    // flickManager.flickVideoManager.videoPlayerValue.position.inSeconds;
-    // var valup =
-    //     flickManager.flickVideoManager.videoPlayerValue.position.inSeconds;
-    // print('startBasicTimer play_time_duration while update value is : $valup');
-    // var keyUP = webDetailsObj['play_time_duration'];
-    // print('startBasicTimer play_time_duration while update key is : $keyUP');
-    // webDetailsObj['play_time_duration'] = int.parse(
-    //     flickManager.flickVideoManager.videoPlayerValue.position.toString());
-    // .inSeconds.toString());
     if (_timer != null) {
       // Do Nothing
       print('_timer != null');
     } else {
       print('_timer == null');
       _timer = Timer.periodic(Duration(seconds: 5), (timer) {
-        var timer = DateTime.now();
-        // var currentWatchTime = flickManager.flickVideoManager.videoPlayerValue.position.toString();
         var currentWatchTime = flickManager
             .flickVideoManager.videoPlayerValue.position.inSeconds
             .toString();
-        /*var nSplit = currentWatchTime.toString().split(':');
-        var nSplitInt = nSplit[2].toString().split('.');
-        var sec = int.parse(nSplitInt[0].toString());
-        var min = int.parse(nSplit[1].toString());
-        var hr = int.parse(nSplit[0].toString());
-
-        // var finalCurrentDuration;
-        var d = Duration(hours: hr, minutes: min, seconds: sec);
-        var finalCurrentDuration = d.abs().inSeconds.toString();*/
 
         var presentationDuration = webDetailsObj['duration'];
-        // print('Start Basic Timer is called.. $timer : $currentWatchTime : $nSplit :sec: $sec : min:$min  : hr:$hr : Final sec: $finalCurrentDuration : Presentation length: $presentationDuration');
-
         // On Every time of tick take an API call for video-duration..
         videoDurationAPICall(
             webinarId.toString(),
@@ -667,9 +641,6 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   void videoDurationAPICall(String webinarId, String finalCurrentDuration,
       String presentationDuration) async {
     var connectivityResult = await (Connectivity().checkConnectivity());
-    /*SharedPreferences preferences = await SharedPreferences.getInstance();
-    bool checkValue = preferences.getBool("check");
-    print('Status for checkValue is : $checkValue');*/
 
     if ((connectivityResult == ConnectivityResult.mobile) ||
         (connectivityResult == ConnectivityResult.wifi)) {
