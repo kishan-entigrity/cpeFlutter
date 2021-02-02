@@ -6,9 +6,9 @@ import 'package:sizer/sizer.dart';
 
 import '../../constant.dart';
 import 'login.dart';
-import 'slider_image_1.dart';
-import 'slider_image_2.dart';
-import 'slider_image_3.dart';
+import 'slider_layout_1.dart';
+import 'slider_layout_2.dart';
+import 'slider_layout_3.dart';
 
 class IntroScreen extends StatefulWidget {
   // Initialize the variables here..
@@ -48,9 +48,9 @@ class _IntroScreenState extends State<IntroScreen> {
                       controller: _controller,
                       onPageChanged: _onPageViewChange,
                       children: [
-                        SliderImage1(),
-                        SliderImage2(),
-                        SliderImage3(),
+                        SliderLayout1(),
+                        SliderLayout2(),
+                        SliderLayout3(),
                       ],
                     ),
                   ),

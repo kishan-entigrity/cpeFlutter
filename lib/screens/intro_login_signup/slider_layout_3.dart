@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-class SliderImage4 extends StatelessWidget {
+import '../../constant.dart';
+
+class SliderLayout3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -16,30 +18,28 @@ class SliderImage4 extends StatelessWidget {
               child: Container(
                 // color: Colors.red,
                 child: Padding(
-                  padding: EdgeInsets.all(1.0.w),
-                  child: Image.asset('assets/slider_1.png'),
+                  padding:
+                      EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0.w),
+                  child: Image.asset('assets/slider_3.png'),
                 ),
               ),
             ),
             Column(
               children: <Widget>[
                 Text(
-                  'FREE CPE/CE WEBNARS',
-                  style: TextStyle(
-                    fontFamily: 'Whitney Bold',
-                    fontSize: 17.0.sp,
-                    color: Color(0xFF013872),
-                  ),
+                  'Manage your CPE/CE Credits',
+                  style: kDataSliderTitle,
                 ),
                 SizedBox(
                   height: 3.0.w,
                 ),
-                Text(
-                  'Live & On-Demand courses for CPAs, Tax Pros, Auditors, Bookkeepers & Finance Pros.',
-                  style: TextStyle(
-                    fontFamily: 'Whitney Medium',
-                    fontSize: 12.0.sp,
-                    color: Color(0xFF0F2138),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0.w),
+                  child: Text(
+                    'Get your CPE/CE credits & certificates instantly.',
+                    textAlign: TextAlign.center,
+                    style: kDataSliderData,
                   ),
                 ),
               ],

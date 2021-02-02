@@ -4,7 +4,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../constant.dart';
 
-class SliderImage3 extends StatelessWidget {
+class SliderLayout2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -20,14 +20,14 @@ class SliderImage3 extends StatelessWidget {
                 child: Padding(
                   padding:
                       EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0.w),
-                  child: Image.asset('assets/slider_3.png'),
+                  child: Image.asset('assets/slider_2.png'),
                 ),
               ),
             ),
             Column(
               children: <Widget>[
                 Text(
-                  'Manage your CPE/CE Credits',
+                  'Updated Courses & Content',
                   style: kDataSliderTitle,
                 ),
                 SizedBox(
@@ -37,7 +37,7 @@ class SliderImage3 extends StatelessWidget {
                   padding:
                       EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0.w),
                   child: Text(
-                    'Get your CPE/CE credits & certificates instantly.',
+                    'Get latest tax updates & content via our Live & On-Demand Webinars.',
                     textAlign: TextAlign.center,
                     style: kDataSliderData,
                   ),

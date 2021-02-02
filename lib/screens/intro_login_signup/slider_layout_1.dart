@@ -6,7 +6,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../constant.dart';
 
-class SliderImage1 extends StatelessWidget {
+class SliderLayout1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
