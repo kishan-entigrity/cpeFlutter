@@ -1,4 +1,4 @@
-import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
+import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -445,7 +445,8 @@ class _ProfileFragState extends State<ProfileFrag> {
     // Navigator.pushAndRemoveUntil(context, newRoute, (route) => false)
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
-          builder: (context) => Login(),
+          // builder: (context) => Login(),
+          builder: (context) => IntroScreen(),
         ),
         (Route<dynamic> route) => false);
     // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: context) => , (route) => false);

@@ -11,8 +11,6 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'intro_screen.dart';
-
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -50,137 +48,119 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return new WillPopScope(
-        child: Scaffold(
-          key: _scaffoldKey,
-          resizeToAvoidBottomInset: false,
-          /*appBar: AppBar(
+    return Scaffold(
+      key: _scaffoldKey,
+      resizeToAvoidBottomInset: false,
+      /*appBar: AppBar(
         title: Text('Login Screen'),
       ),*/
-          body: SafeArea(
-            child: Column(
-              children: <Widget>[
-                Container(
-                  height: 300.0,
-                  width: double.infinity,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(25.0, 100.0, 0.0, 0.0),
-                    child: Text(
-                      'Welcome\nBack',
-                      style: kLabelTitleTextStyle,
-                    ),
-                  ),
+      body: SafeArea(
+        child: Column(
+          children: <Widget>[
+            Container(
+              height: 300.0,
+              width: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(25.0, 100.0, 0.0, 0.0),
+                child: Text(
+                  'Welcome\nBack',
+                  style: kLabelTitleTextStyle,
                 ),
-                Container(
-                  height: 30.0,
-                  width: double.infinity,
-                  margin: EdgeInsets.fromLTRB(25.0, 0.0, 25.0, 0.0),
-                  child: TextField(
-                    controller: emailController,
-                    obscureText: false,
-                    decoration: lTextFlieldStyleEmail,
-                    textInputAction: TextInputAction.next,
+              ),
+            ),
+            Container(
+              height: 30.0,
+              width: double.infinity,
+              margin: EdgeInsets.fromLTRB(25.0, 0.0, 25.0, 0.0),
+              child: TextField(
+                controller: emailController,
+                obscureText: false,
+                decoration: lTextFlieldStyleEmail,
+                textInputAction: TextInputAction.next,
+              ),
+            ),
+            Container(
+              height: 30.0,
+              width: double.infinity,
+              margin: EdgeInsets.fromLTRB(25.0, 50.0, 25.0, 0.0),
+              child: TextField(
+                controller: passController,
+                obscureText: true,
+                decoration: lTextFlieldStylePass,
+                textInputAction: TextInputAction.done,
+              ),
+            ),
+            Container(
+              height: 100.0,
+              width: double.infinity,
+              // color: Colors.teal,
+              margin: EdgeInsets.symmetric(vertical: 50.0, horizontal: 25.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    'Sign In',
+                    style: kButtonLabelTextStyle,
                   ),
-                ),
-                Container(
-                  height: 30.0,
-                  width: double.infinity,
-                  margin: EdgeInsets.fromLTRB(25.0, 50.0, 25.0, 0.0),
-                  child: TextField(
-                    controller: passController,
-                    obscureText: true,
-                    decoration: lTextFlieldStylePass,
-                    textInputAction: TextInputAction.done,
+                  RoundIconButton(
+                    icon: FontAwesomeIcons.arrowRight,
+                    onPressed: () async {
+                      getUserData();
+                    },
                   ),
-                ),
-                Container(
-                  height: 100.0,
-                  width: double.infinity,
-                  // color: Colors.teal,
-                  margin:
-                      EdgeInsets.symmetric(vertical: 50.0, horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        'Sign In',
-                        style: kButtonLabelTextStyle,
-                      ),
-                      RoundIconButton(
-                        icon: FontAwesomeIcons.arrowRight,
-                        onPressed: () async {
-                          getUserData();
-                        },
-                      ),
-                      /*FloatingActionButton(
+                  /*FloatingActionButton(
                     onPressed: null,
                     backgroundColor: Color(0xFFFBB42C),
                   ),*/
-                    ],
+                ],
+              ),
+            ),
+            Container(
+              height: 50.0,
+              width: double.infinity,
+              // color: Colors.teal,
+              margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 25.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    'Sign Up',
+                    style: kTextLableLoginUnderline,
                   ),
-                ),
-                Container(
-                  height: 50.0,
-                  width: double.infinity,
-                  // color: Colors.teal,
-                  margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        'Sign Up',
-                        style: kTextLableLoginUnderline,
-                      ),
-                      /*Text(
+                  /*Text(
                     'Forget Password',
                     style: kTextLableLoginUnderlineGray,
                   ),*/
-                      GestureDetector(
-                        child: Text(
-                          'Forget Password',
-                          style: kTextLableLoginUnderlineGray,
-                        ),
-                        // onTap: redirectToForgetPass(),
-                        onTap: () {
-                          // print('Temp Pressed');
-                          redirectToForgetPass();
-                        },
-                      ),
-                      /*RoundIconButton(
+                  GestureDetector(
+                    child: Text(
+                      'Forget Password',
+                      style: kTextLableLoginUnderlineGray,
+                    ),
+                    // onTap: redirectToForgetPass(),
+                    onTap: () {
+                      // print('Temp Pressed');
+                      redirectToForgetPass();
+                    },
+                  ),
+                  /*RoundIconButton(
                     icon: FontAwesomeIcons.arrowRight,
                   ),*/
-                      /*FloatingActionButton(
+                  /*FloatingActionButton(
                     onPressed: null,
                     backgroundColor: Color(0xFFFBB42C),
                   ),*/
-                    ],
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => IntroScreen(),
-                      ),
-                    );
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Text(
-                      'Intro Screen',
-                      style: kTextLableLoginUnderline,
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
+          ],
         ),
-        onWillPop: _onWillPop);
+      ),
+    );
+    // onWillPop: _onWillPop
+    // );
   }
 
-  Future<bool> _onWillPop() {
+  /*Future<bool> _onWillPop() {
     return showDialog(
           context: context,
           builder: (context) => new AlertDialog(
@@ -204,7 +184,7 @@ class _LoginState extends State<Login> {
           ),
         ) ??
         false;
-  }
+  }*/
 
   getUserData() {
     // setState(() {

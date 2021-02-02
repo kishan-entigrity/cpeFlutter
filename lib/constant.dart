@@ -26,6 +26,12 @@ final kDataSliderData = TextStyle(
   color: Color(0xFF0F2138),
 );
 
+final kDataLoginSignUpSlider = TextStyle(
+  fontFamily: 'Whitney Bold',
+  fontSize: 13.0.sp,
+  color: Colors.white,
+);
+
 /*const lLabelTagSelected = BoxDecoration(
   borderRadius: BorderRadius.circular(30.0),
   border: Border.all(color: Color(0xFF000000), width: 1.0),

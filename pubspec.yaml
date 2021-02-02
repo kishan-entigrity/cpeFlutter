@@ -46,6 +46,7 @@ dependencies:
   flick_video_player: ^0.1.1
   video_player: ^0.10.8+1
   sizer: ^1.1.8
+  dots_indicator: ^1.2.0
 
 dev_dependencies:
   flutter_test:
