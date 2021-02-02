@@ -1,3 +1,4 @@
+import 'package:cpe_flutter/screens/intro_login_signup/signup_screen_1.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -99,7 +100,7 @@ class _IntroScreenState extends State<IntroScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => Login(),
+                                  builder: (context) => SignUpScreen1(),
                                 ),
                               );
                             },
