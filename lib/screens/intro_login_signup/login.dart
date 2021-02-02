@@ -11,6 +11,8 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'intro_screen.dart';
+
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -152,6 +154,23 @@ class _LoginState extends State<Login> {
                     backgroundColor: Color(0xFFFBB42C),
                   ),*/
                     ],
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => IntroScreen(),
+                      ),
+                    );
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text(
+                      'Intro Screen',
+                      style: kTextLableLoginUnderline,
+                    ),
                   ),
                 ),
               ],

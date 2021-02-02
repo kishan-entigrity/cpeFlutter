@@ -14,6 +14,18 @@ const kLabelTitleTextStyle = TextStyle(
   color: themeBlueLight,
 );
 
+final kDataSliderTitle = TextStyle(
+  fontFamily: 'Whitney Bold',
+  fontSize: 17.0.sp,
+  color: Color(0xFF013872),
+);
+
+final kDataSliderData = TextStyle(
+  fontFamily: 'Whitney Medium',
+  fontSize: 12.0.sp,
+  color: Color(0xFF0F2138),
+);
+
 /*const lLabelTagSelected = BoxDecoration(
   borderRadius: BorderRadius.circular(30.0),
   border: Border.all(color: Color(0xFF000000), width: 1.0),
