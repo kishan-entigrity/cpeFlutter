@@ -17,11 +17,15 @@ class MyApp extends StatelessWidget {
           //return OrientationBuilder
           builder: (context, orientation) {
             //initialize SizerUtil()
+            /*SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+              statusBarColor:
+                  Color(0xF0F3F5F9), //or set color with: Color(0xFF0000FF)
+            ));*/
             SizerUtil().init(constraints, orientation); //initialize SizerUtil
             return MaterialApp(
               title: 'Flutter Demo',
               theme: ThemeData(
-                primarySwatch: Colors.blue,
+                primarySwatch: Colors.blueGrey,
                 visualDensity: VisualDensity.adaptivePlatformDensity,
               ),
               // home: MyHomePage(title: 'Flutter Demo Home Page'),

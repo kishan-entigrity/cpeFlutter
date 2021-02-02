@@ -1,5 +1,6 @@
 import 'package:cpe_flutter/components/TopBar.dart';
 import 'package:cpe_flutter/components/round_icon_button.dart';
+import 'package:cpe_flutter/screens/intro_login_signup/signup_screen_2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -358,7 +359,12 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                   RoundIconButton(
                                     icon: FontAwesomeIcons.arrowRight,
                                     onPressed: () async {
-                                      // getUserData();
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => SignUpScreen2(),
+                                        ),
+                                      );
                                     },
                                   ),
                                 ],
