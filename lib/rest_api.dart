@@ -164,3 +164,32 @@ Future getWebinarDetails(String authToken, String webinar_id) async {
   var convertDataToJson = jsonDecode(response.body);
   return convertDataToJson;
 }
+
+Future getCountryList() async {
+  String urls = URLs.BASE_URL + 'country';
+  final response = await http.get(urls);
+  var convertDataToJson = jsonDecode(response.body);
+  return convertDataToJson;
+}
+
+Future getStateList(String country_id) async {
+  String urls = URLs.BASE_URL + 'state';
+  final response = await http.post(
+    urls,
+    headers: {'Accept': 'Application/json'},
+    body: {'country_id': country_id},
+  );
+  var convertDataToJson = jsonDecode(response.body);
+  return convertDataToJson;
+}
+
+Future getCityList(String state_id) async {
+  String urls = URLs.BASE_URL + 'city';
+  final response = await http.post(
+    urls,
+    headers: {'Accept': 'Application/json'},
+    body: {'state_id': state_id},
+  );
+  var convertDataToJson = jsonDecode(response.body);
+  return convertDataToJson;
+}

@@ -14,6 +14,18 @@ const kLabelTitleTextStyle = TextStyle(
   color: themeBlueLight,
 );
 
+final kLableSignUpHintStyle = TextStyle(
+  fontFamily: 'Whitney Bold',
+  fontSize: 15.0.sp,
+  color: Color(0xFFBDBFCA),
+);
+
+final kLableSignUpTextStyle = TextStyle(
+  fontFamily: 'Whitney Bold',
+  fontSize: 15.0.sp,
+  color: Colors.black,
+);
+
 final kDataSliderTitle = TextStyle(
   fontFamily: 'Whitney Bold',
   fontSize: 17.0.sp,
@@ -30,6 +42,12 @@ final kDataLoginSignUpSlider = TextStyle(
   fontFamily: 'Whitney Bold',
   fontSize: 13.0.sp,
   color: Colors.white,
+);
+
+final kDataSingleSelectionBottomNav = TextStyle(
+  fontFamily: 'Whitney Medium',
+  fontSize: 14.0.sp,
+  color: Color(0xFF1F2227),
 );
 
 /*const lLabelTagSelected = BoxDecoration(
@@ -233,3 +251,22 @@ const Color black50 = const Color(0x501F2227);
 const Color black80 = const Color(0x801F2227);
 const Color themeBlueLight = const Color(0xFF193F70);
 const Color underLineGray = const Color(0xFFA0A2B0);
+
+// ConstString Files from here..const
+const String fnameEmptyMsg = 'Please enter first name';
+const String lnameEmptyMsg = 'Please enter last name';
+const String emailEmptyMsg = 'Please enter email';
+const String emailInValidMsg = 'Please enter valid email id';
+const String phoneEmptyMsg = 'Please enter phone number';
+const String phoneLengthMsg = 'Phone number must be 10 digits long';
+const String passEmptyMsg = 'Please enter password';
+const String confPassEmptyMsg = 'Please enter confirm password';
+const String passLengthMsg = 'Please enter password';
+const String confPassLengthMsg = 'Please enter confirm password';
+const String passValidLengthMsg = 'Password must be 6 characters';
+const String confPassValidLengthMsg = 'Confirm password must be 6 characters';
+const String passConfPassEqualMsg =
+    'Password and confirm password must be same';
+const String countryMsg = 'Please select country';
+const String stateMsg = 'Please select state';
+const String cityMsg = 'Please select city';
