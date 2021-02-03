@@ -1,4 +1,5 @@
 import 'package:connectivity/connectivity.dart';
+import 'package:cpe_flutter/components/SpinKitSample1.dart';
 import 'package:cpe_flutter/components/TopBar.dart';
 import 'package:cpe_flutter/components/round_icon_button.dart';
 import 'package:email_validator/email_validator.dart';
@@ -57,6 +58,8 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
   TextEditingController passController = TextEditingController();
   TextEditingController confPassController = TextEditingController();
 
+  bool isLoaderShowing = false;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -72,569 +75,614 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
         key: scaffoldState,
         resizeToAvoidBottomInset: false,
         body: SafeArea(
-          child: Container(
-            color: Colors.white,
-            child: Column(
-              children: <Widget>[
-                TopBar(Colors.white, 'Sign Up'),
-                Expanded(
-                  child: SingleChildScrollView(
-                    physics: ClampingScrollPhysics(),
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        minWidth: MediaQuery.of(context).size.width,
-                        minHeight: MediaQuery.of(context).size.height,
-                      ),
-                      child: IntrinsicHeight(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.max,
-                          children: <Widget>[
-                            Container(
-                              height: 200.0,
-                              width: double.infinity,
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    25.0, 50.0, 0.0, 0.0),
-                                child: Text(
-                                  'Register\nYourself',
-                                  style: kLabelTitleTextStyle,
-                                ),
-                              ),
+          child: Stack(
+            children: [
+              Positioned(
+                child: Container(
+                  color: Colors.white,
+                  child: Column(
+                    children: <Widget>[
+                      TopBar(Colors.white, 'Sign Up'),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          physics: ClampingScrollPhysics(),
+                          child: ConstrainedBox(
+                            constraints: BoxConstraints(
+                              minWidth: MediaQuery.of(context).size.width,
+                              minHeight: MediaQuery.of(context).size.height,
                             ),
-                            Container(
-                              margin: EdgeInsets.symmetric(
-                                  vertical: 0.0, horizontal: 6.0.w),
-                              child: TextField(
-                                controller: fnameController,
-                                style: kLableSignUpTextStyle,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'First Name',
-                                  hintStyle: kLableSignUpHintStyle,
-                                ),
-                                textInputAction: TextInputAction.next,
-                              ),
-                            ),
-                            Container(
-                              margin:
-                                  EdgeInsets.fromLTRB(6.0.w, 1.0.w, 6.0.w, 0),
-                              child: Divider(
-                                height: 5.0,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.symmetric(
-                                  vertical: 1.0.w, horizontal: 6.0.w),
-                              child: TextField(
-                                controller: lnameController,
-                                style: kLableSignUpTextStyle,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'Last Name',
-                                  hintStyle: kLableSignUpHintStyle,
-                                ),
-                                textInputAction: TextInputAction.next,
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                              child: Divider(
-                                height: 5.0,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.symmetric(
-                                  vertical: 1.0.w, horizontal: 6.0.w),
-                              child: TextField(
-                                controller: emailController,
-                                style: kLableSignUpTextStyle,
-                                keyboardType: TextInputType.emailAddress,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'Email ID',
-                                  hintStyle: kLableSignUpHintStyle,
-                                ),
-                                textInputAction: TextInputAction.next,
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                              child: Divider(
-                                height: 5.0,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.symmetric(
-                                  vertical: 1.0.w, horizontal: 6.0.w),
-                              child: TextField(
-                                controller: phoneController,
-                                style: kLableSignUpTextStyle,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'Phone Number',
-                                  hintStyle: kLableSignUpHintStyle,
-                                ),
-                                textInputAction: TextInputAction.next,
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                              child: Divider(
-                                height: 5.0,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.symmetric(
-                                  vertical: 1.0.w, horizontal: 6.0.w),
-                              child: TextField(
-                                controller: passController,
-                                style: kLableSignUpTextStyle,
-                                obscureText: obscurePass,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'Password',
-                                  hintStyle: kLableSignUpHintStyle,
-                                  suffixIcon: IconButton(
-                                    // onPressed: () => _controller.clear(),
-                                    onPressed: () {
-                                      setState(() {
-                                        if (obscurePass) {
-                                          obscurePass = false;
-                                        } else {
-                                          obscurePass = true;
-                                        }
-                                      });
-                                    },
-                                    icon: Icon(
-                                      FontAwesomeIcons.eye,
-                                      size: 15.0.sp,
+                            child: IntrinsicHeight(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.max,
+                                children: <Widget>[
+                                  Container(
+                                    height: 200.0,
+                                    width: double.infinity,
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          25.0, 50.0, 0.0, 0.0),
+                                      child: Text(
+                                        'Register\nYourself',
+                                        style: kLabelTitleTextStyle,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                textInputAction: TextInputAction.next,
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                              child: Divider(
-                                height: 5.0,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.symmetric(
-                                  vertical: 1.0.w, horizontal: 6.0.w),
-                              child: TextField(
-                                controller: confPassController,
-                                style: kLableSignUpTextStyle,
-                                obscureText: obscureConfPass,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'Confirm Password',
-                                  hintStyle: kLableSignUpHintStyle,
-                                  suffixIcon: IconButton(
-                                    // onPressed: () => _controller.clear(),
-                                    onPressed: () {
-                                      setState(() {
-                                        if (obscureConfPass) {
-                                          obscureConfPass = false;
-                                        } else {
-                                          obscureConfPass = true;
-                                        }
-                                      });
-                                    },
-                                    icon: Icon(
-                                      FontAwesomeIcons.eye,
-                                      size: 15.0.sp,
+                                  Container(
+                                    margin: EdgeInsets.symmetric(
+                                        vertical: 0.0, horizontal: 6.0.w),
+                                    child: TextField(
+                                      controller: fnameController,
+                                      style: kLableSignUpTextStyle,
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: 'First Name',
+                                        hintStyle: kLableSignUpHintStyle,
+                                      ),
+                                      textInputAction: TextInputAction.next,
                                     ),
                                   ),
-                                ),
-                                textInputAction: TextInputAction.done,
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                              child: Divider(
-                                height: 5.0,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                scaffoldState.currentState.showBottomSheet(
-                                  (context) => Container(
-                                    color: Colors.white,
-                                    height: 70.0.h,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        // color: Colors.grey[900],
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.only(
-                                          topRight: Radius.circular(30.0),
-                                          topLeft: Radius.circular(30.0),
+                                  Container(
+                                    margin: EdgeInsets.fromLTRB(
+                                        6.0.w, 1.0.w, 6.0.w, 0),
+                                    child: Divider(
+                                      height: 5.0,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.symmetric(
+                                        vertical: 1.0.w, horizontal: 6.0.w),
+                                    child: TextField(
+                                      controller: lnameController,
+                                      style: kLableSignUpTextStyle,
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: 'Last Name',
+                                        hintStyle: kLableSignUpHintStyle,
+                                      ),
+                                      textInputAction: TextInputAction.next,
+                                    ),
+                                  ),
+                                  Container(
+                                    margin:
+                                        EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                    child: Divider(
+                                      height: 5.0,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.symmetric(
+                                        vertical: 1.0.w, horizontal: 6.0.w),
+                                    child: TextField(
+                                      controller: emailController,
+                                      style: kLableSignUpTextStyle,
+                                      keyboardType: TextInputType.emailAddress,
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: 'Email ID',
+                                        hintStyle: kLableSignUpHintStyle,
+                                      ),
+                                      textInputAction: TextInputAction.next,
+                                    ),
+                                  ),
+                                  Container(
+                                    margin:
+                                        EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                    child: Divider(
+                                      height: 5.0,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.symmetric(
+                                        vertical: 1.0.w, horizontal: 6.0.w),
+                                    child: TextField(
+                                      controller: phoneController,
+                                      style: kLableSignUpTextStyle,
+                                      keyboardType: TextInputType.number,
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: 'Phone Number',
+                                        hintStyle: kLableSignUpHintStyle,
+                                      ),
+                                      textInputAction: TextInputAction.next,
+                                    ),
+                                  ),
+                                  Container(
+                                    margin:
+                                        EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                    child: Divider(
+                                      height: 5.0,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.symmetric(
+                                        vertical: 1.0.w, horizontal: 6.0.w),
+                                    child: TextField(
+                                      controller: passController,
+                                      style: kLableSignUpTextStyle,
+                                      obscureText: obscurePass,
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: 'Password',
+                                        hintStyle: kLableSignUpHintStyle,
+                                        suffixIcon: IconButton(
+                                          // onPressed: () => _controller.clear(),
+                                          onPressed: () {
+                                            setState(() {
+                                              if (obscurePass) {
+                                                obscurePass = false;
+                                              } else {
+                                                obscurePass = true;
+                                              }
+                                            });
+                                          },
+                                          icon: Icon(
+                                            FontAwesomeIcons.eye,
+                                            size: 15.0.sp,
+                                          ),
                                         ),
                                       ),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Container(
-                                            height: 17.0.w,
+                                      textInputAction: TextInputAction.next,
+                                    ),
+                                  ),
+                                  Container(
+                                    margin:
+                                        EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                    child: Divider(
+                                      height: 5.0,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.symmetric(
+                                        vertical: 1.0.w, horizontal: 6.0.w),
+                                    child: TextField(
+                                      controller: confPassController,
+                                      style: kLableSignUpTextStyle,
+                                      obscureText: obscureConfPass,
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: 'Confirm Password',
+                                        hintStyle: kLableSignUpHintStyle,
+                                        suffixIcon: IconButton(
+                                          // onPressed: () => _controller.clear(),
+                                          onPressed: () {
+                                            setState(() {
+                                              if (obscureConfPass) {
+                                                obscureConfPass = false;
+                                              } else {
+                                                obscureConfPass = true;
+                                              }
+                                            });
+                                          },
+                                          icon: Icon(
+                                            FontAwesomeIcons.eye,
+                                            size: 15.0.sp,
+                                          ),
+                                        ),
+                                      ),
+                                      textInputAction: TextInputAction.done,
+                                    ),
+                                  ),
+                                  Container(
+                                    margin:
+                                        EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                    child: Divider(
+                                      height: 5.0,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      scaffoldState.currentState
+                                          .showBottomSheet(
+                                        (context) => Container(
+                                          color: Colors.white,
+                                          height: 70.0.h,
+                                          child: Container(
                                             decoration: BoxDecoration(
-                                              color: Color(0xF0F3F5F9),
-                                              // color: Colors.blueGrey,
+                                              // color: Colors.grey[900],
+                                              color: Colors.white,
                                               borderRadius: BorderRadius.only(
                                                 topRight: Radius.circular(30.0),
                                                 topLeft: Radius.circular(30.0),
                                               ),
                                             ),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                            child: Column(
                                               children: <Widget>[
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: Container(
-                                                    width: 20.0.w,
-                                                    child: Center(
-                                                      child: Text(
-                                                        'Cancel',
-                                                        style:
-                                                            kDateTestimonials,
+                                                Container(
+                                                  height: 17.0.w,
+                                                  decoration: BoxDecoration(
+                                                    color: Color(0xF0F3F5F9),
+                                                    // color: Colors.blueGrey,
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                      topRight:
+                                                          Radius.circular(30.0),
+                                                      topLeft:
+                                                          Radius.circular(30.0),
+                                                    ),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: <Widget>[
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: Container(
+                                                          width: 20.0.w,
+                                                          child: Center(
+                                                            child: Text(
+                                                              'Cancel',
+                                                              style:
+                                                                  kDateTestimonials,
+                                                            ),
+                                                          ),
+                                                        ),
                                                       ),
-                                                    ),
+                                                      Container(
+                                                        width: 20.0.w,
+                                                        child: Center(
+                                                          child: Text(
+                                                            'Country',
+                                                            style: kOthersTitle,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        width: 20.0.w,
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
                                                 Container(
-                                                  width: 20.0.w,
-                                                  child: Center(
-                                                    child: Text(
-                                                      'Country',
-                                                      style: kOthersTitle,
-                                                    ),
-                                                  ),
+                                                  height: 0.5,
+                                                  color: Colors.black45,
                                                 ),
-                                                Container(
-                                                  width: 20.0.w,
+                                                // TopBar(Colors.white, 'Country'),
+                                                Expanded(
+                                                  child: ListView.builder(
+                                                    itemCount: arrCountCountry,
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      return GestureDetector(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            selectedCountryName =
+                                                                respCountry['payload']
+                                                                        [
+                                                                        'country']
+                                                                    [
+                                                                    index]['name'];
+                                                            selectedCountryId =
+                                                                respCountry['payload']
+                                                                        [
+                                                                        'country']
+                                                                    [
+                                                                    index]['id'];
+                                                            isCountrySelected =
+                                                                true;
+                                                            isStateSelected =
+                                                                false;
+                                                            isCitySelected =
+                                                                false;
+                                                            selectedStateName =
+                                                                '';
+                                                            selectedCityName =
+                                                                '';
+                                                            selectedStateId = 0;
+                                                            selectedCityId = 0;
+
+                                                            getStateNameApi(
+                                                                selectedCountryId);
+                                                            Navigator.pop(
+                                                                context);
+                                                          });
+                                                        },
+                                                        child: Container(
+                                                          margin: EdgeInsets
+                                                              .fromLTRB(
+                                                                  3.0.w,
+                                                                  3.0.w,
+                                                                  3.0.w,
+                                                                  0.0),
+                                                          height: 12.0.w,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        7.0),
+                                                            color: Color(
+                                                                0xF0F3F5F9),
+                                                            // color: Colors.blueGrey,
+                                                          ),
+                                                          child: Container(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    left: 3.5.w,
+                                                                    top: 3.5.w),
+                                                            child: Text(
+                                                              '${respCountry['payload']['country'][index]['name']}',
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .start,
+                                                              style:
+                                                                  kDataSingleSelectionBottomNav,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
                                                 ),
                                               ],
                                             ),
                                           ),
-                                          Container(
-                                            height: 0.5,
-                                            color: Colors.black45,
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                        color: Colors.white,
+                                        padding: EdgeInsets.fromLTRB(
+                                            6.0.w, 4.0.w, 8.5.w, 4.0.w),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Text(
+                                              selectedCountryName == ''
+                                                  ? 'Country'
+                                                  : selectedCountryName,
+                                              style: TextStyle(
+                                                fontFamily: 'Whitney Bold',
+                                                fontSize: 15.0.sp,
+                                                color: isCountrySelected
+                                                    ? Colors.black
+                                                    : Color(0xFFBDBFCA),
+                                              ),
+                                            ),
+                                            Icon(FontAwesomeIcons.caretDown),
+                                          ],
+                                        )),
+                                  ),
+                                  Container(
+                                    margin:
+                                        EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                    child: Divider(
+                                      height: 5.0,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      if (selectedCountryId == 0) {
+                                        scaffoldState.currentState.showSnackBar(
+                                          SnackBar(
+                                            content: Text(countryMsg),
+                                            duration: Duration(seconds: 5),
                                           ),
-                                          // TopBar(Colors.white, 'Country'),
-                                          Expanded(
-                                            child: ListView.builder(
-                                              itemCount: arrCountCountry,
-                                              itemBuilder: (context, index) {
-                                                return GestureDetector(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      selectedCountryName =
-                                                          respCountry['payload']
-                                                                  ['country']
-                                                              [index]['name'];
-                                                      selectedCountryId =
-                                                          respCountry['payload']
-                                                                  ['country']
-                                                              [index]['id'];
-                                                      isCountrySelected = true;
-                                                      isStateSelected = false;
-                                                      isCitySelected = false;
-                                                      selectedStateName = '';
-                                                      selectedCityName = '';
-                                                      selectedStateId = 0;
-                                                      selectedCityId = 0;
-
-                                                      getStateNameApi(
-                                                          selectedCountryId);
-                                                      Navigator.pop(context);
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                    margin: EdgeInsets.fromLTRB(
-                                                        3.0.w,
-                                                        3.0.w,
-                                                        3.0.w,
-                                                        0.0),
-                                                    height: 12.0.w,
+                                        );
+                                      } else {
+                                        scaffoldState.currentState
+                                            .showBottomSheet(
+                                          (context) => Container(
+                                            color: Colors.white,
+                                            height: 70.0.h,
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                // color: Colors.grey[900],
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.only(
+                                                  topRight:
+                                                      Radius.circular(30.0),
+                                                  topLeft:
+                                                      Radius.circular(30.0),
+                                                ),
+                                              ),
+                                              child: Column(
+                                                children: <Widget>[
+                                                  Container(
+                                                    height: 17.0.w,
                                                     decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              7.0),
                                                       color: Color(0xF0F3F5F9),
                                                       // color: Colors.blueGrey,
-                                                    ),
-                                                    child: Container(
-                                                      padding: EdgeInsets.only(
-                                                          left: 3.5.w,
-                                                          top: 3.5.w),
-                                                      child: Text(
-                                                        '${respCountry['payload']['country'][index]['name']}',
-                                                        textAlign:
-                                                            TextAlign.start,
-                                                        style:
-                                                            kDataSingleSelectionBottomNav,
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                        topRight:
+                                                            Radius.circular(
+                                                                30.0),
+                                                        topLeft:
+                                                            Radius.circular(
+                                                                30.0),
                                                       ),
                                                     ),
-                                                  ),
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                  color: Colors.white,
-                                  padding: EdgeInsets.fromLTRB(
-                                      6.0.w, 4.0.w, 8.5.w, 4.0.w),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Text(
-                                        selectedCountryName == ''
-                                            ? 'Country'
-                                            : selectedCountryName,
-                                        style: TextStyle(
-                                          fontFamily: 'Whitney Bold',
-                                          fontSize: 15.0.sp,
-                                          color: isCountrySelected
-                                              ? Colors.black
-                                              : Color(0xFFBDBFCA),
-                                        ),
-                                      ),
-                                      Icon(FontAwesomeIcons.caretDown),
-                                    ],
-                                  )),
-                            ),
-                            Container(
-                              margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                              child: Divider(
-                                height: 5.0,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                if (selectedCountryId == 0) {
-                                  scaffoldState.currentState.showSnackBar(
-                                    SnackBar(
-                                      content: Text(countryMsg),
-                                      duration: Duration(seconds: 5),
-                                    ),
-                                  );
-                                } else {
-                                  scaffoldState.currentState.showBottomSheet(
-                                    (context) => Container(
-                                      color: Colors.white,
-                                      height: 70.0.h,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          // color: Colors.grey[900],
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.only(
-                                            topRight: Radius.circular(30.0),
-                                            topLeft: Radius.circular(30.0),
-                                          ),
-                                        ),
-                                        child: Column(
-                                          children: <Widget>[
-                                            Container(
-                                              height: 17.0.w,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xF0F3F5F9),
-                                                // color: Colors.blueGrey,
-                                                borderRadius: BorderRadius.only(
-                                                  topRight:
-                                                      Radius.circular(30.0),
-                                                  topLeft:
-                                                      Radius.circular(30.0),
-                                                ),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: <Widget>[
-                                                  GestureDetector(
-                                                    onTap: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: Container(
-                                                      width: 20.0.w,
-                                                      child: Center(
-                                                        child: Text(
-                                                          'Cancel',
-                                                          style:
-                                                              kDateTestimonials,
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: <Widget>[
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: Container(
+                                                            width: 20.0.w,
+                                                            child: Center(
+                                                              child: Text(
+                                                                'Cancel',
+                                                                style:
+                                                                    kDateTestimonials,
+                                                              ),
+                                                            ),
+                                                          ),
                                                         ),
-                                                      ),
+                                                        Container(
+                                                          width: 20.0.w,
+                                                          child: Center(
+                                                            child: Text(
+                                                              'State',
+                                                              style:
+                                                                  kOthersTitle,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          width: 20.0.w,
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
                                                   Container(
-                                                    width: 20.0.w,
-                                                    child: Center(
-                                                      child: Text(
-                                                        'State',
-                                                        style: kOthersTitle,
-                                                      ),
-                                                    ),
+                                                    height: 0.5,
+                                                    color: Colors.black45,
                                                   ),
-                                                  Container(
-                                                    width: 20.0.w,
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Container(
-                                              height: 0.5,
-                                              color: Colors.black45,
-                                            ),
-                                            // TopBar(Colors.white, 'Country'),
-                                            Expanded(
-                                              child: ListView.builder(
-                                                itemCount: arrCountState,
-                                                itemBuilder: (context, index) {
-                                                  return GestureDetector(
-                                                    onTap: () {
-                                                      setState(() {
-                                                        selectedStateName =
-                                                            respState['payload']
-                                                                    ['state']
-                                                                [index]['name'];
-                                                        selectedStateId =
-                                                            respState['payload']
-                                                                    ['state']
-                                                                [index]['id'];
-                                                        isCountrySelected =
-                                                            true;
-                                                        isStateSelected = true;
-                                                        isCitySelected = false;
-                                                        selectedCityName = '';
-                                                        selectedCityId = 0;
+                                                  // TopBar(Colors.white, 'Country'),
+                                                  Expanded(
+                                                    child: ListView.builder(
+                                                      itemCount: arrCountState,
+                                                      itemBuilder:
+                                                          (context, index) {
+                                                        return GestureDetector(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              selectedStateName =
+                                                                  respState['payload']
+                                                                              [
+                                                                              'state']
+                                                                          [
+                                                                          index]
+                                                                      ['name'];
+                                                              selectedStateId =
+                                                                  respState['payload']
+                                                                          [
+                                                                          'state']
+                                                                      [
+                                                                      index]['id'];
+                                                              isCountrySelected =
+                                                                  true;
+                                                              isStateSelected =
+                                                                  true;
+                                                              isCitySelected =
+                                                                  false;
+                                                              selectedCityName =
+                                                                  '';
+                                                              selectedCityId =
+                                                                  0;
 
-                                                        getCityNameApi(
-                                                            selectedStateId);
-                                                        Navigator.pop(context);
-                                                      });
-                                                    },
-                                                    child: Container(
-                                                      margin:
-                                                          EdgeInsets.fromLTRB(
-                                                              3.0.w,
-                                                              3.0.w,
-                                                              3.0.w,
-                                                              0.0),
-                                                      height: 12.0.w,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(7.0),
-                                                        color:
-                                                            Color(0xF0F3F5F9),
-                                                        // color: Colors.blueGrey,
-                                                      ),
-                                                      child: Container(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                left: 3.5.w,
-                                                                top: 3.5.w),
-                                                        child: Text(
-                                                          '${respState['payload']['state'][index]['name']}',
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          style:
-                                                              kDataSingleSelectionBottomNav,
-                                                        ),
-                                                      ),
+                                                              getCityNameApi(
+                                                                  selectedStateId);
+                                                              Navigator.pop(
+                                                                  context);
+                                                            });
+                                                          },
+                                                          child: Container(
+                                                            margin: EdgeInsets
+                                                                .fromLTRB(
+                                                                    3.0.w,
+                                                                    3.0.w,
+                                                                    3.0.w,
+                                                                    0.0),
+                                                            height: 12.0.w,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          7.0),
+                                                              color: Color(
+                                                                  0xF0F3F5F9),
+                                                              // color: Colors.blueGrey,
+                                                            ),
+                                                            child: Container(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      left:
+                                                                          3.5.w,
+                                                                      top: 3.5
+                                                                          .w),
+                                                              child: Text(
+                                                                '${respState['payload']['state'][index]['name']}',
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                style:
+                                                                    kDataSingleSelectionBottomNav,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
                                                     ),
-                                                  );
-                                                },
+                                                  ),
+                                                ],
                                               ),
                                             ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                }
-                              },
-                              child: Container(
-                                  color: Colors.white,
-                                  padding: EdgeInsets.fromLTRB(
-                                      6.0.w, 4.0.w, 8.5.w, 4.0.w),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Text(
-                                        selectedStateName == ''
-                                            ? 'State'
-                                            : selectedStateName,
-                                        style: TextStyle(
-                                          fontFamily: 'Whitney Bold',
-                                          fontSize: 15.0.sp,
-                                          color: isStateSelected
-                                              ? Colors.black
-                                              : Color(0xFFBDBFCA),
-                                        ),
-                                      ),
-                                      Icon(FontAwesomeIcons.caretDown),
-                                    ],
-                                  )),
-                            ),
-                            Container(
-                              margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                              child: Divider(
-                                height: 5.0,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                if (selectedStateId == 0) {
-                                  scaffoldState.currentState.showSnackBar(
-                                    SnackBar(
-                                      content: Text(stateMsg),
-                                      duration: Duration(seconds: 5),
-                                    ),
-                                  );
-                                } else {
-                                  scaffoldState.currentState.showBottomSheet(
-                                    (context) => Container(
-                                      color: Colors.white,
-                                      height: 70.0.h,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          // color: Colors.grey[900],
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.only(
-                                            topRight: Radius.circular(30.0),
-                                            topLeft: Radius.circular(30.0),
                                           ),
-                                        ),
-                                        child: Column(
+                                        );
+                                      }
+                                    },
+                                    child: Container(
+                                        color: Colors.white,
+                                        padding: EdgeInsets.fromLTRB(
+                                            6.0.w, 4.0.w, 8.5.w, 4.0.w),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
-                                            Container(
-                                              height: 17.0.w,
+                                            Text(
+                                              selectedStateName == ''
+                                                  ? 'State'
+                                                  : selectedStateName,
+                                              style: TextStyle(
+                                                fontFamily: 'Whitney Bold',
+                                                fontSize: 15.0.sp,
+                                                color: isStateSelected
+                                                    ? Colors.black
+                                                    : Color(0xFFBDBFCA),
+                                              ),
+                                            ),
+                                            Icon(FontAwesomeIcons.caretDown),
+                                          ],
+                                        )),
+                                  ),
+                                  Container(
+                                    margin:
+                                        EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                    child: Divider(
+                                      height: 5.0,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      if (selectedStateId == 0) {
+                                        scaffoldState.currentState.showSnackBar(
+                                          SnackBar(
+                                            content: Text(stateMsg),
+                                            duration: Duration(seconds: 5),
+                                          ),
+                                        );
+                                      } else {
+                                        scaffoldState.currentState
+                                            .showBottomSheet(
+                                          (context) => Container(
+                                            color: Colors.white,
+                                            height: 70.0.h,
+                                            child: Container(
                                               decoration: BoxDecoration(
-                                                color: Color(0xF0F3F5F9),
-                                                // color: Colors.blueGrey,
+                                                // color: Colors.grey[900],
+                                                color: Colors.white,
                                                 borderRadius: BorderRadius.only(
                                                   topRight:
                                                       Radius.circular(30.0),
@@ -642,179 +690,227 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                                       Radius.circular(30.0),
                                                 ),
                                               ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
+                                              child: Column(
                                                 children: <Widget>[
-                                                  GestureDetector(
-                                                    onTap: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: Container(
-                                                      width: 20.0.w,
-                                                      child: Center(
-                                                        child: Text(
-                                                          'Cancel',
-                                                          style:
-                                                              kDateTestimonials,
+                                                  Container(
+                                                    height: 17.0.w,
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xF0F3F5F9),
+                                                      // color: Colors.blueGrey,
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                        topRight:
+                                                            Radius.circular(
+                                                                30.0),
+                                                        topLeft:
+                                                            Radius.circular(
+                                                                30.0),
+                                                      ),
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: <Widget>[
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: Container(
+                                                            width: 20.0.w,
+                                                            child: Center(
+                                                              child: Text(
+                                                                'Cancel',
+                                                                style:
+                                                                    kDateTestimonials,
+                                                              ),
+                                                            ),
+                                                          ),
                                                         ),
-                                                      ),
+                                                        Container(
+                                                          width: 20.0.w,
+                                                          child: Center(
+                                                            child: Text(
+                                                              'City',
+                                                              style:
+                                                                  kOthersTitle,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          width: 20.0.w,
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
                                                   Container(
-                                                    width: 20.0.w,
-                                                    child: Center(
-                                                      child: Text(
-                                                        'City',
-                                                        style: kOthersTitle,
-                                                      ),
-                                                    ),
+                                                    height: 0.5,
+                                                    color: Colors.black45,
                                                   ),
-                                                  Container(
-                                                    width: 20.0.w,
+                                                  // TopBar(Colors.white, 'Country'),
+                                                  Expanded(
+                                                    child: ListView.builder(
+                                                      itemCount: arrCountCity,
+                                                      itemBuilder:
+                                                          (context, index) {
+                                                        return GestureDetector(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              selectedCityName =
+                                                                  respCity['payload']
+                                                                              [
+                                                                              'city']
+                                                                          [
+                                                                          index]
+                                                                      ['name'];
+                                                              selectedCityId =
+                                                                  respCity['payload']
+                                                                          [
+                                                                          'city']
+                                                                      [
+                                                                      index]['id'];
+                                                              isCountrySelected =
+                                                                  true;
+                                                              isStateSelected =
+                                                                  true;
+                                                              isCitySelected =
+                                                                  true;
+                                                              Navigator.pop(
+                                                                  context);
+                                                            });
+                                                          },
+                                                          child: Container(
+                                                            margin: EdgeInsets
+                                                                .fromLTRB(
+                                                                    3.0.w,
+                                                                    3.0.w,
+                                                                    3.0.w,
+                                                                    0.0),
+                                                            height: 12.0.w,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          7.0),
+                                                              color: Color(
+                                                                  0xF0F3F5F9),
+                                                              // color: Colors.blueGrey,
+                                                            ),
+                                                            child: Container(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      left:
+                                                                          3.5.w,
+                                                                      top: 3.5
+                                                                          .w),
+                                                              child: Text(
+                                                                '${respCity['payload']['city'][index]['name']}',
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                style:
+                                                                    kDataSingleSelectionBottomNav,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                    ),
                                                   ),
                                                 ],
                                               ),
                                             ),
-                                            Container(
-                                              height: 0.5,
-                                              color: Colors.black45,
-                                            ),
-                                            // TopBar(Colors.white, 'Country'),
-                                            Expanded(
-                                              child: ListView.builder(
-                                                itemCount: arrCountCity,
-                                                itemBuilder: (context, index) {
-                                                  return GestureDetector(
-                                                    onTap: () {
-                                                      setState(() {
-                                                        selectedCityName =
-                                                            respCity['payload']
-                                                                    ['city']
-                                                                [index]['name'];
-                                                        selectedCityId =
-                                                            respCity['payload']
-                                                                    ['city']
-                                                                [index]['id'];
-                                                        isCountrySelected =
-                                                            true;
-                                                        isStateSelected = true;
-                                                        isCitySelected = true;
-                                                        Navigator.pop(context);
-                                                      });
-                                                    },
-                                                    child: Container(
-                                                      margin:
-                                                          EdgeInsets.fromLTRB(
-                                                              3.0.w,
-                                                              3.0.w,
-                                                              3.0.w,
-                                                              0.0),
-                                                      height: 12.0.w,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(7.0),
-                                                        color:
-                                                            Color(0xF0F3F5F9),
-                                                        // color: Colors.blueGrey,
-                                                      ),
-                                                      child: Container(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                left: 3.5.w,
-                                                                top: 3.5.w),
-                                                        child: Text(
-                                                          '${respCity['payload']['city'][index]['name']}',
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          style:
-                                                              kDataSingleSelectionBottomNav,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
+                                          ),
+                                        );
+                                      }
+                                    },
+                                    child: Container(
+                                        color: Colors.white,
+                                        padding: EdgeInsets.fromLTRB(
+                                            6.0.w, 4.0.w, 8.5.w, 4.0.w),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Text(
+                                              selectedCityName == ''
+                                                  ? 'City'
+                                                  : selectedCityName,
+                                              style: TextStyle(
+                                                fontFamily: 'Whitney Bold',
+                                                fontSize: 15.0.sp,
+                                                color: isCitySelected
+                                                    ? Colors.black
+                                                    : Color(0xFFBDBFCA),
                                               ),
                                             ),
+                                            Icon(FontAwesomeIcons.caretDown),
                                           ],
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                }
-                              },
-                              child: Container(
-                                  color: Colors.white,
-                                  padding: EdgeInsets.fromLTRB(
-                                      6.0.w, 4.0.w, 8.5.w, 4.0.w),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Text(
-                                        selectedCityName == ''
-                                            ? 'City'
-                                            : selectedCityName,
-                                        style: TextStyle(
-                                          fontFamily: 'Whitney Bold',
-                                          fontSize: 15.0.sp,
-                                          color: isCitySelected
-                                              ? Colors.black
-                                              : Color(0xFFBDBFCA),
-                                        ),
-                                      ),
-                                      Icon(FontAwesomeIcons.caretDown),
-                                    ],
-                                  )),
-                            ),
-                            Container(
-                              margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                              child: Divider(
-                                height: 5.0,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 20.0.w,
-                            ),
-                            Container(
-                              margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text(
-                                    'Next',
-                                    style: kButtonLabelTextStyle,
+                                        )),
                                   ),
-                                  RoundIconButton(
-                                    icon: FontAwesomeIcons.arrowRight,
-                                    onPressed: () async {
-                                      /*Navigator.push(
+                                  Container(
+                                    margin:
+                                        EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                    child: Divider(
+                                      height: 5.0,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 20.0.w,
+                                  ),
+                                  Container(
+                                    margin:
+                                        EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Text(
+                                          'Next',
+                                          style: kButtonLabelTextStyle,
+                                        ),
+                                        RoundIconButton(
+                                          icon: FontAwesomeIcons.arrowRight,
+                                          onPressed: () async {
+                                            /*Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => SignUpScreen2(),
                                         ),
                                       );*/
-                                      checkForValidations();
-                                    },
+                                            checkForValidations();
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 20.0.w,
                                   ),
                                 ],
                               ),
                             ),
-                            SizedBox(
-                              height: 20.0.w,
-                            ),
-                          ],
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+              Positioned(
+                bottom: 0.0,
+                right: 0.0,
+                left: 0.0,
+                top: 0.0,
+                child: Visibility(
+                  visible: isLoaderShowing ? true : false,
+                  child: SpinKitSample1(),
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -822,6 +918,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
   }
 
   void getCountryListAPI() async {
+    isLoaderShowing = true;
     var connectivityResult = await (Connectivity().checkConnectivity());
     print('Connectivity Result is : $connectivityResult');
 
@@ -832,7 +929,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
 
       respStatus = respCountry['success'];
       respMessage = respCountry['message'];
-
+      isLoaderShowing = false;
       if (respStatus) {
         // Do something to load data for country list from here..
         setState(() {
@@ -858,6 +955,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
   }
 
   void getStateNameApi(int selectedCountryId) async {
+    isLoaderShowing = true;
     print('Selected Country ID : $selectedCountryId');
 
     var connectivityResult = await (Connectivity().checkConnectivity());
@@ -868,6 +966,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
 
       respStatus = respState['success'];
       respMessage = respState['message'];
+      isLoaderShowing = false;
 
       if (respStatus) {
         // Do something to load data for country list from here..
@@ -894,6 +993,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
   }
 
   void getCityNameApi(int selectedStateId) async {
+    isLoaderShowing = true;
     var connectivityResult = await (Connectivity().checkConnectivity());
     if ((connectivityResult == ConnectivityResult.mobile) ||
         (connectivityResult == ConnectivityResult.wifi)) {
@@ -902,6 +1002,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
 
       respStatus = respCity['success'];
       respMessage = respCity['message'];
+      isLoaderShowing = false;
 
       if (respStatus) {
         // Do something to load data for country list from here..
