@@ -2,6 +2,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
 import 'package:cpe_flutter/components/TopBar.dart';
 import 'package:cpe_flutter/components/round_icon_button.dart';
+import 'package:cpe_flutter/screens/intro_login_signup/signup_screen_2.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,6 @@ import 'package:sizer/sizer.dart';
 
 import '../../constant.dart';
 import '../../rest_api.dart';
-import 'signup_screen_2.dart';
 
 class SignUpScreen1 extends StatefulWidget {
   @override
