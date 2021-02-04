@@ -164,6 +164,12 @@ const kButtonLabelTextStyle = TextStyle(
   color: Colors.black,
 );
 
+const kStepText = TextStyle(
+  fontFamily: 'Whitney Bold',
+  fontSize: 14.0,
+  color: Colors.black45,
+);
+
 const kWebinarTitleLabelTextStyle = TextStyle(
   fontFamily: 'Whitney Bold',
   fontSize: 20.0,
@@ -259,6 +265,7 @@ const String emailEmptyMsg = 'Please enter email';
 const String emailInValidMsg = 'Please enter valid email id';
 const String phoneEmptyMsg = 'Please enter phone number';
 const String phoneLengthMsg = 'Phone number must be 10 digits long';
+const String extLengthMsg = 'Phone extention must be 3 digits';
 const String passEmptyMsg = 'Please enter password';
 const String confPassEmptyMsg = 'Please enter confirm password';
 const String passLengthMsg = 'Please enter password';
@@ -270,3 +277,13 @@ const String passConfPassEqualMsg =
 const String countryMsg = 'Please select country';
 const String stateMsg = 'Please select state';
 const String cityMsg = 'Please select city';
+const String mobileInfoMsg =
+    'We encourage you provide professional email as it will help you managing in credits as all comunication related to CPE credits.';
+
+const String companyEmptyMsg = 'Please enter company name';
+const String selectOrganizationSizeMsg = 'Please select organization size';
+const String selectJobTitleMsg = 'Please select job title/designation';
+const String selectIndustryMsg = 'Please select industry';
+const String selectPrefCredsMsg = 'Please select professional credentials';
+const String selectAddiQualificationMsg =
+    'Please select additional qualifications';
