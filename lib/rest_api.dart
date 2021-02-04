@@ -193,3 +193,10 @@ Future getCityList(String state_id) async {
   var convertDataToJson = jsonDecode(response.body);
   return convertDataToJson;
 }
+
+Future getProfessionalCreds() async {
+  String urls = URLs.BASE_URL + 'user-type';
+  final response = await http.get(urls);
+  var convertDataToJson = jsonDecode(response.body);
+  return convertDataToJson;
+}

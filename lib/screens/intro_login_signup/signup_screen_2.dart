@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
 import 'package:cpe_flutter/components/TopBar.dart';
 import 'package:cpe_flutter/components/round_icon_button.dart';
@@ -8,6 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constant.dart';
+import '../../rest_api.dart';
 
 class SignUpScreen2 extends StatefulWidget {
   @override
@@ -30,11 +32,19 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
   var isProfCredsSelected = false;
   var isAdditionalQuaSelected = false;
 
+  var respStatus;
+  var respMessage;
+
+  var respProfCreds;
+
+  int arrProfCredsCount = 0;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     // Take API calls for the JobTitle, industry, Professional creds, Additional qualifications in serial manner..
+    getProfCredsAPI();
   }
 
   @override
@@ -187,29 +197,194 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                       color: Colors.black87,
                                     ),
                                   ),
-                                  Container(
-                                    color: Colors.white,
-                                    padding: EdgeInsets.fromLTRB(
-                                        6.0.w, 4.0.w, 8.5.w, 4.0.w),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(
-                                          'Professional Credentials',
-                                          style: TextStyle(
-                                            fontFamily: 'Whitney Bold',
-                                            fontSize: 15.0.sp,
-                                            color: isProfCredsSelected
-                                                ? Colors.black
-                                                : Color(0xFFBDBFCA),
+                                  GestureDetector(
+                                    onTap: () {
+                                      scaffoldState.currentState
+                                          .showBottomSheet(
+                                        (context) => Container(
+                                          color: Colors.white,
+                                          height: 70.0.h,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              // color: Colors.grey[900],
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.only(
+                                                topRight: Radius.circular(30.0),
+                                                topLeft: Radius.circular(30.0),
+                                              ),
+                                            ),
+                                            child: Column(
+                                              children: <Widget>[
+                                                Container(
+                                                  height: 17.0.w,
+                                                  decoration: BoxDecoration(
+                                                    color: Color(0xF0F3F5F9),
+                                                    // color: Colors.blueGrey,
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                      topRight:
+                                                          Radius.circular(30.0),
+                                                      topLeft:
+                                                          Radius.circular(30.0),
+                                                    ),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: <Widget>[
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: Container(
+                                                          width: 20.0.w,
+                                                          child: Center(
+                                                            child: Text(
+                                                              'Cancel',
+                                                              style:
+                                                                  kDateTestimonials,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        width: 50.0.w,
+                                                        child: Center(
+                                                          child: Text(
+                                                            'Prefessional Credentials',
+                                                            style: kOthersTitle,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        width: 20.0.w,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Container(
+                                                  height: 0.5,
+                                                  color: Colors.black45,
+                                                ),
+                                                // TopBar(Colors.white, 'Country'),
+                                                Expanded(
+                                                  child: ListView.builder(
+                                                    itemCount:
+                                                        arrProfCredsCount,
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      return GestureDetector(
+                                                        onTap: () {
+                                                          setState(() {});
+                                                        },
+                                                        child: ConstrainedBox(
+                                                          constraints:
+                                                              BoxConstraints(
+                                                            minHeight: 15.0.w,
+                                                          ),
+                                                          child: Container(
+                                                            margin: EdgeInsets
+                                                                .fromLTRB(
+                                                                    3.0.w,
+                                                                    3.0.w,
+                                                                    3.0.w,
+                                                                    0.0),
+                                                            // height: 12.0.w,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          7.0),
+                                                              // color: Color(0xF0F3F5F9),
+                                                              color:
+                                                                  Colors.teal,
+                                                              // color: Colors.blueGrey,
+                                                            ),
+                                                            child: Flexible(
+                                                              child: Container(
+                                                                child: Padding(
+                                                                  padding: EdgeInsets.symmetric(
+                                                                      vertical:
+                                                                          3.5.w,
+                                                                      horizontal:
+                                                                          3.5.w),
+                                                                  child: Row(
+                                                                    children: <
+                                                                        Widget>[
+                                                                      Icon(
+                                                                        FontAwesomeIcons
+                                                                            .circle,
+                                                                        size: 12.0
+                                                                            .sp,
+                                                                      ),
+                                                                      SizedBox(
+                                                                        width:
+                                                                            3.5.w,
+                                                                      ),
+                                                                      Expanded(
+                                                                        child:
+                                                                            Text(
+                                                                          '${respProfCreds['payload']['user_type'][index]['title']}',
+                                                                          // 'Test Name',
+                                                                          textAlign:
+                                                                              TextAlign.start,
+                                                                          style:
+                                                                              kDataSingleSelectionBottomNav,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                /*child: Text(
+                                                                  '${respProfCreds['payload']['user_type'][index]['title']}',
+                                                                  // 'Test Name',
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .start,
+                                                                  style:
+                                                                      kDataSingleSelectionBottomNav,
+                                                                ),*/
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                        Icon(
-                                          FontAwesomeIcons.plusCircle,
-                                          color: themeYellow,
-                                        ),
-                                      ],
+                                      );
+                                    },
+                                    child: Container(
+                                      color: Colors.white,
+                                      padding: EdgeInsets.fromLTRB(
+                                          6.0.w, 4.0.w, 8.5.w, 4.0.w),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(
+                                            'Professional Credentials',
+                                            style: TextStyle(
+                                              fontFamily: 'Whitney Bold',
+                                              fontSize: 15.0.sp,
+                                              color: isProfCredsSelected
+                                                  ? Colors.black
+                                                  : Color(0xFFBDBFCA),
+                                            ),
+                                          ),
+                                          Icon(
+                                            FontAwesomeIcons.plusCircle,
+                                            color: themeYellow,
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                   Container(
@@ -229,7 +404,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                           MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         Text(
-                                          'Professional Credentials',
+                                          'Additional Qualifications',
                                           style: TextStyle(
                                             fontFamily: 'Whitney Bold',
                                             fontSize: 15.0.sp,
@@ -315,5 +490,43 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
         ),
       ),
     );
+  }
+
+  void getProfCredsAPI() async {
+    isLoaderShowing = true;
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    // print('Connectivity Result is : $connectivityResult');
+
+    if ((connectivityResult == ConnectivityResult.mobile) ||
+        (connectivityResult == ConnectivityResult.wifi)) {
+      respProfCreds = await getProfessionalCreds();
+      print('Response for Country list api is : $respProfCreds');
+
+      respStatus = respProfCreds['success'];
+      respMessage = respProfCreds['message'];
+      isLoaderShowing = false;
+      if (respStatus) {
+        // Do something to load data for country list from here..
+        setState(() {
+          arrProfCredsCount = respProfCreds['payload']['user_type'].length;
+          print('ProfCreds Length is : $arrProfCredsCount');
+        });
+      } else {
+        scaffoldState.currentState.showSnackBar(
+          SnackBar(
+            content: Text('$respMessage'),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+    } else {
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content:
+              Text("Please check your internet connectivity and try again"),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    }
   }
 }
