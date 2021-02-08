@@ -2,6 +2,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
 import 'package:cpe_flutter/components/TopBar.dart';
 import 'package:cpe_flutter/components/round_icon_button.dart';
+import 'package:cpe_flutter/screens/intro_login_signup/hashmap.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/signup_screen_3.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +39,15 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
   var respProfCreds;
 
   int arrProfCredsCount = 0;
+
+  Map mapProfCreds = new Map<String, String>();
+  // Map mapProfCredsN = new Map<String, bool>();
+  // Map mapProfCredsN = new Map<int, bool>();
+  // Map mapProfCredsN = new Map<String, bool>();
+  Map mapProfCredsN = new Map<String, String>();
+  Map mapProfCredsT = new Map<dynamic, bool>();
+  var mapResult = '';
+  bool isProfChecked = false;
 
   @override
   void initState() {
@@ -77,8 +87,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
                                   Container(
-                                    margin: EdgeInsets.only(
-                                        left: 6.0.w, right: 6.0.w, top: 20.0.w),
+                                    margin: EdgeInsets.only(left: 6.0.w, right: 6.0.w, top: 20.0.w),
                                     child: TextField(
                                       controller: companyNameController,
                                       style: kLableSignUpTextStyle,
@@ -91,8 +100,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                     ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.fromLTRB(
-                                        6.0.w, 1.0.w, 6.0.w, 0),
+                                    margin: EdgeInsets.fromLTRB(6.0.w, 1.0.w, 6.0.w, 0),
                                     child: Divider(
                                       height: 5.0,
                                       color: Colors.black87,
@@ -102,22 +110,16 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                     onTap: () {},
                                     child: Container(
                                       color: Colors.white,
-                                      padding: EdgeInsets.fromLTRB(
-                                          6.0.w, 4.0.w, 8.5.w, 4.0.w),
+                                      padding: EdgeInsets.fromLTRB(6.0.w, 4.0.w, 8.5.w, 4.0.w),
                                       child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                           Text(
-                                            isOrganizationSizeSelected
-                                                ? organizationSize
-                                                : 'Organization Size',
+                                            isOrganizationSizeSelected ? organizationSize : 'Organization Size',
                                             style: TextStyle(
                                               fontFamily: 'Whitney Bold',
                                               fontSize: 15.0.sp,
-                                              color: isOrganizationSizeSelected
-                                                  ? Colors.black
-                                                  : Color(0xFFBDBFCA),
+                                              color: isOrganizationSizeSelected ? Colors.black : Color(0xFFBDBFCA),
                                             ),
                                           ),
                                           Icon(FontAwesomeIcons.caretDown),
@@ -126,8 +128,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                     ),
                                   ),
                                   Container(
-                                    margin:
-                                        EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
                                     child: Divider(
                                       height: 5.0,
                                       color: Colors.black87,
@@ -135,22 +136,16 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                   ),
                                   Container(
                                     color: Colors.white,
-                                    padding: EdgeInsets.fromLTRB(
-                                        6.0.w, 4.0.w, 8.5.w, 4.0.w),
+                                    padding: EdgeInsets.fromLTRB(6.0.w, 4.0.w, 8.5.w, 4.0.w),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         Text(
-                                          isJobTitleSelected
-                                              ? jobTitle
-                                              : 'Job Title/Designation',
+                                          isJobTitleSelected ? jobTitle : 'Job Title/Designation',
                                           style: TextStyle(
                                             fontFamily: 'Whitney Bold',
                                             fontSize: 15.0.sp,
-                                            color: isJobTitleSelected
-                                                ? Colors.black
-                                                : Color(0xFFBDBFCA),
+                                            color: isJobTitleSelected ? Colors.black : Color(0xFFBDBFCA),
                                           ),
                                         ),
                                         Icon(FontAwesomeIcons.caretDown),
@@ -158,8 +153,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                     ),
                                   ),
                                   Container(
-                                    margin:
-                                        EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
                                     child: Divider(
                                       height: 5.0,
                                       color: Colors.black87,
@@ -167,22 +161,16 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                   ),
                                   Container(
                                     color: Colors.white,
-                                    padding: EdgeInsets.fromLTRB(
-                                        6.0.w, 4.0.w, 8.5.w, 4.0.w),
+                                    padding: EdgeInsets.fromLTRB(6.0.w, 4.0.w, 8.5.w, 4.0.w),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         Text(
-                                          isIndustrySelected
-                                              ? industry
-                                              : 'Industry',
+                                          isIndustrySelected ? industry : 'Industry',
                                           style: TextStyle(
                                             fontFamily: 'Whitney Bold',
                                             fontSize: 15.0.sp,
-                                            color: isIndustrySelected
-                                                ? Colors.black
-                                                : Color(0xFFBDBFCA),
+                                            color: isIndustrySelected ? Colors.black : Color(0xFFBDBFCA),
                                           ),
                                         ),
                                         Icon(FontAwesomeIcons.caretDown),
@@ -190,8 +178,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                     ),
                                   ),
                                   Container(
-                                    margin:
-                                        EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
                                     child: Divider(
                                       height: 5.0,
                                       color: Colors.black87,
@@ -199,8 +186,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      scaffoldState.currentState
-                                          .showBottomSheet(
+                                      scaffoldState.currentState.showBottomSheet(
                                         (context) => Container(
                                           color: Colors.white,
                                           height: 70.0.h,
@@ -220,31 +206,24 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                   decoration: BoxDecoration(
                                                     color: Color(0xF0F3F5F9),
                                                     // color: Colors.blueGrey,
-                                                    borderRadius:
-                                                        BorderRadius.only(
-                                                      topRight:
-                                                          Radius.circular(30.0),
-                                                      topLeft:
-                                                          Radius.circular(30.0),
+                                                    borderRadius: BorderRadius.only(
+                                                      topRight: Radius.circular(30.0),
+                                                      topLeft: Radius.circular(30.0),
                                                     ),
                                                   ),
                                                   child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: <Widget>[
                                                       GestureDetector(
                                                         onTap: () {
-                                                          Navigator.pop(
-                                                              context);
+                                                          Navigator.pop(context);
                                                         },
                                                         child: Container(
                                                           width: 20.0.w,
                                                           child: Center(
                                                             child: Text(
                                                               'Cancel',
-                                                              style:
-                                                                  kDateTestimonials,
+                                                              style: kDateTestimonials,
                                                             ),
                                                           ),
                                                         ),
@@ -271,82 +250,96 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                 // TopBar(Colors.white, 'Country'),
                                                 Expanded(
                                                   child: ListView.builder(
-                                                    itemCount:
-                                                        arrProfCredsCount,
-                                                    itemBuilder:
-                                                        (context, index) {
+                                                    itemCount: arrProfCredsCount,
+                                                    itemBuilder: (context, index) {
                                                       return GestureDetector(
                                                         onTap: () {
                                                           setState(() {});
                                                         },
                                                         child: ConstrainedBox(
-                                                          constraints:
-                                                              BoxConstraints(
+                                                          constraints: BoxConstraints(
                                                             minHeight: 15.0.w,
                                                           ),
-                                                          child: Container(
-                                                            margin: EdgeInsets
-                                                                .fromLTRB(
-                                                                    3.0.w,
-                                                                    3.0.w,
-                                                                    3.0.w,
-                                                                    0.0),
-                                                            // height: 12.0.w,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          7.0),
-                                                              // color: Color(0xF0F3F5F9),
-                                                              color:
-                                                                  Colors.teal,
-                                                              // color: Colors.blueGrey,
-                                                            ),
-                                                            child: Flexible(
-                                                              child: Container(
-                                                                child: Padding(
-                                                                  padding: EdgeInsets.symmetric(
-                                                                      vertical:
-                                                                          3.5.w,
-                                                                      horizontal:
-                                                                          3.5.w),
-                                                                  child: Row(
-                                                                    children: <
-                                                                        Widget>[
-                                                                      Icon(
-                                                                        FontAwesomeIcons
-                                                                            .circle,
-                                                                        size: 12.0
-                                                                            .sp,
-                                                                      ),
-                                                                      SizedBox(
-                                                                        width:
-                                                                            3.5.w,
-                                                                      ),
-                                                                      Expanded(
-                                                                        child:
-                                                                            Text(
-                                                                          '${respProfCreds['payload']['user_type'][index]['title']}',
-                                                                          // 'Test Name',
-                                                                          textAlign:
-                                                                              TextAlign.start,
-                                                                          style:
-                                                                              kDataSingleSelectionBottomNav,
+                                                          child: GestureDetector(
+                                                            onTap: () {
+                                                              print('Check status for : $isProfChecked');
+                                                              // var profId = respProfCreds['payload']['user_type'][index]['id'];
+                                                              // var profId = respProfCreds['payload']['user_type'][index]['id'];
+                                                              String profId = respProfCreds['payload']['user_type'][index]['id'].toString();
+                                                              print('prof ID onTap : $profId');
+                                                              bool isSelectedforPos = false;
+                                                              // isSelectedforPos = mapProfCredsT['${int.parse(profId.toString())}'];
+                                                              isSelectedforPos = mapProfCredsT['$profId'];
+                                                              print('Status for isSelectedforPos : $isSelectedforPos');
+                                                              print('Status for isSelectedforPos Data: ${mapProfCredsT[2]}');
+                                                              print('Whole data for map is: ${mapProfCredsT.toString()}');
+                                                              print('Status for isSelectedforPos Data: ${mapProfCredsT[2]}');
+
+                                                              // var profTitle = respProfCreds['payload']['user_type'][index]['title'];
+                                                              // var profTitle = respProfCreds['payload']['user_type'][index]['title'];
+                                                              // print('clicked on ID : $profId :: $profTitle');
+                                                              // mapProfCreds.keys.forEach((k) => {
+                                                              /*mapProfCredsT.keys.forEach((k) => {
+                                                                    // print('data on each point is : $k'),
+                                                                    if (k.toString() == profId) {print('Selected ID : $k')} else {}
+                                                                    */ /*if (k)
+                                                                      {
+                                                                        // Uncheck record from here..
+                                                                        setState(() {
+                                                                          isProfChecked = false;
+                                                                          mapProfCredsT[profId] = false;
+                                                                          mapResult = mapProfCredsT.toString();
+                                                                        })
+                                                                      }
+                                                                    else
+                                                                      {
+                                                                        // Check record from here..
+                                                                        setState(() {
+                                                                          isProfChecked = true;
+                                                                          mapProfCredsT[profId] = true;
+                                                                          mapResult = mapProfCredsT.toString();
+                                                                        })
+                                                                      }*/ /*
+                                                                  });*/
+                                                            },
+                                                            child: Container(
+                                                              margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
+                                                              // height: 12.0.w,
+                                                              decoration: BoxDecoration(
+                                                                borderRadius: BorderRadius.circular(7.0),
+                                                                // color: Color(0xF0F3F5F9),
+                                                                // color: isProfChecked ? themeYellow : Colors.teal,
+                                                                /*color: mapProfCredsT["{respProfCreds['payload']['user_type'][index]['id']}"]
+                                                                    ? Colors.teal
+                                                                    : themeYellow,*/
+                                                                color: Colors.teal,
+                                                                // color: Colors.blueGrey,
+                                                              ),
+                                                              child: Flexible(
+                                                                child: Container(
+                                                                  child: Padding(
+                                                                    padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
+                                                                    child: Row(
+                                                                      children: <Widget>[
+                                                                        Icon(
+                                                                          isProfChecked ? FontAwesomeIcons.checkCircle : FontAwesomeIcons.circle,
+                                                                          size: 12.0.sp,
                                                                         ),
-                                                                      ),
-                                                                    ],
+                                                                        SizedBox(
+                                                                          width: 3.5.w,
+                                                                        ),
+                                                                        Expanded(
+                                                                          child: Text(
+                                                                            '${respProfCreds['payload']['user_type'][index]['title']}',
+                                                                            // 'Test Name',
+                                                                            textAlign: TextAlign.start,
+                                                                            style: kDataSingleSelectionBottomNav,
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
                                                                   ),
                                                                 ),
-                                                                /*child: Text(
-                                                                  '${respProfCreds['payload']['user_type'][index]['title']}',
-                                                                  // 'Test Name',
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .start,
-                                                                  style:
-                                                                      kDataSingleSelectionBottomNav,
-                                                                ),*/
                                                               ),
                                                             ),
                                                           ),
@@ -363,20 +356,16 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                     },
                                     child: Container(
                                       color: Colors.white,
-                                      padding: EdgeInsets.fromLTRB(
-                                          6.0.w, 4.0.w, 8.5.w, 4.0.w),
+                                      padding: EdgeInsets.fromLTRB(6.0.w, 4.0.w, 8.5.w, 4.0.w),
                                       child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                           Text(
                                             'Professional Credentials',
                                             style: TextStyle(
                                               fontFamily: 'Whitney Bold',
                                               fontSize: 15.0.sp,
-                                              color: isProfCredsSelected
-                                                  ? Colors.black
-                                                  : Color(0xFFBDBFCA),
+                                              color: isProfCredsSelected ? Colors.black : Color(0xFFBDBFCA),
                                             ),
                                           ),
                                           Icon(
@@ -388,8 +377,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                     ),
                                   ),
                                   Container(
-                                    margin:
-                                        EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
                                     child: Divider(
                                       height: 5.0,
                                       color: Colors.black87,
@@ -397,20 +385,16 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                   ),
                                   Container(
                                     color: Colors.white,
-                                    padding: EdgeInsets.fromLTRB(
-                                        6.0.w, 4.0.w, 8.5.w, 4.0.w),
+                                    padding: EdgeInsets.fromLTRB(6.0.w, 4.0.w, 8.5.w, 4.0.w),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         Text(
                                           'Additional Qualifications',
                                           style: TextStyle(
                                             fontFamily: 'Whitney Bold',
                                             fontSize: 15.0.sp,
-                                            color: isProfCredsSelected
-                                                ? Colors.black
-                                                : Color(0xFFBDBFCA),
+                                            color: isProfCredsSelected ? Colors.black : Color(0xFFBDBFCA),
                                           ),
                                         ),
                                         Icon(
@@ -421,8 +405,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                     ),
                                   ),
                                   Container(
-                                    margin:
-                                        EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
                                     child: Divider(
                                       height: 5.0,
                                       color: Colors.black87,
@@ -432,19 +415,26 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                     height: 20.0.w,
                                   ),
                                   Container(
-                                    margin:
-                                        EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.end,
                                       children: <Widget>[
-                                        Text(
-                                          // 'Next',
-                                          'Step 2/3',
-                                          // style: kButtonLabelTextStyle,
-                                          style: kStepText,
+                                        GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => HashMapSample(),
+                                              ),
+                                            );
+                                          },
+                                          child: Text(
+                                            // 'Next',
+                                            'Step 2/3',
+                                            // style: kButtonLabelTextStyle,
+                                            style: kStepText,
+                                          ),
                                         ),
                                         RoundIconButton(
                                           icon: FontAwesomeIcons.arrowRight,
@@ -452,8 +442,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                builder: (context) =>
-                                                    SignUpScreen3(),
+                                                builder: (context) => SignUpScreen3(),
                                               ),
                                             );
                                             // checkForValidations();
@@ -497,8 +486,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
     var connectivityResult = await (Connectivity().checkConnectivity());
     // print('Connectivity Result is : $connectivityResult');
 
-    if ((connectivityResult == ConnectivityResult.mobile) ||
-        (connectivityResult == ConnectivityResult.wifi)) {
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
       respProfCreds = await getProfessionalCreds();
       print('Response for Country list api is : $respProfCreds');
 
@@ -510,6 +498,16 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
         setState(() {
           arrProfCredsCount = respProfCreds['payload']['user_type'].length;
           print('ProfCreds Length is : $arrProfCredsCount');
+          // Add data to map from the API response..
+          for (int i = 0; i < arrProfCredsCount; i++) {
+            mapProfCredsT[{respProfCreds['payload']['user_type'][i]['id']}] = false;
+            // print('Data from the loop : ${respProfCreds['payload']['user_type'][i]['id'].toString()}');
+          }
+          /*print('Map response : ${mapProfCredsT.toString()}');
+          for (int j = 0; j < arrProfCredsCount; j++) {
+            mapProfCredsN[{respProfCreds['payload']['user_type'][j]['id']}] = "false";
+          }
+          print('MapN response : ${mapProfCredsN.toString()}');*/
         });
       } else {
         scaffoldState.currentState.showSnackBar(
@@ -522,8 +520,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
     } else {
       scaffoldState.currentState.showSnackBar(
         SnackBar(
-          content:
-              Text("Please check your internet connectivity and try again"),
+          content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 3),
         ),
       );

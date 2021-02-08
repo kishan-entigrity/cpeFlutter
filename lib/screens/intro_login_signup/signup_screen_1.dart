@@ -66,7 +66,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getCountryListAPI();
+    // getCountryListAPI();
   }
 
   @override
@@ -103,8 +103,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                     height: 200.0,
                                     width: double.infinity,
                                     child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          25.0, 50.0, 0.0, 0.0),
+                                      padding: const EdgeInsets.fromLTRB(25.0, 50.0, 0.0, 0.0),
                                       child: Text(
                                         'Register\nYourself',
                                         style: kLabelTitleTextStyle,
@@ -112,8 +111,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                     ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.symmetric(
-                                        vertical: 0.0, horizontal: 6.0.w),
+                                    margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 6.0.w),
                                     child: TextField(
                                       controller: fnameController,
                                       style: kLableSignUpTextStyle,
@@ -126,16 +124,14 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                     ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.fromLTRB(
-                                        6.0.w, 1.0.w, 6.0.w, 0),
+                                    margin: EdgeInsets.fromLTRB(6.0.w, 1.0.w, 6.0.w, 0),
                                     child: Divider(
                                       height: 5.0,
                                       color: Colors.black87,
                                     ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.symmetric(
-                                        vertical: 1.0.w, horizontal: 6.0.w),
+                                    margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
                                     child: TextField(
                                       controller: lnameController,
                                       style: kLableSignUpTextStyle,
@@ -148,16 +144,14 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                     ),
                                   ),
                                   Container(
-                                    margin:
-                                        EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
                                     child: Divider(
                                       height: 5.0,
                                       color: Colors.black87,
                                     ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.symmetric(
-                                        vertical: 1.0.w, horizontal: 6.0.w),
+                                    margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
                                     child: TextField(
                                       controller: emailController,
                                       style: kLableSignUpTextStyle,
@@ -171,16 +165,14 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                     ),
                                   ),
                                   Container(
-                                    margin:
-                                        EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
                                     child: Divider(
                                       height: 5.0,
                                       color: Colors.black87,
                                     ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.symmetric(
-                                        vertical: 1.0.w, horizontal: 6.0.w),
+                                    margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
                                     child: TextField(
                                       controller: phoneController,
                                       style: kLableSignUpTextStyle,
@@ -194,16 +186,14 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                     ),
                                   ),
                                   Container(
-                                    margin:
-                                        EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
                                     child: Divider(
                                       height: 5.0,
                                       color: Colors.black87,
                                     ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.symmetric(
-                                        vertical: 1.0.w, horizontal: 6.0.w),
+                                    margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
                                     child: TextField(
                                       controller: extController,
                                       style: kLableSignUpTextStyle,
@@ -217,8 +207,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                     ),
                                   ),
                                   Container(
-                                    margin:
-                                        EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
                                     child: Divider(
                                       height: 5.0,
                                       color: Colors.black87,
@@ -226,11 +215,9 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                   ),
                                   Container(
                                     // margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
-                                    margin: EdgeInsets.fromLTRB(
-                                        6.0.w, 1.0.w, 9.5.w, 1.0.w),
+                                    margin: EdgeInsets.fromLTRB(6.0.w, 1.0.w, 9.5.w, 1.0.w),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Expanded(
                                           child: TextField(
@@ -242,14 +229,12 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                               hintText: 'Mobile No.',
                                               hintStyle: kLableSignUpHintStyle,
                                             ),
-                                            textInputAction:
-                                                TextInputAction.next,
+                                            textInputAction: TextInputAction.next,
                                           ),
                                         ),
                                         GestureDetector(
                                           onTap: () {
-                                            scaffoldState.currentState
-                                                .showSnackBar(
+                                            scaffoldState.currentState.showSnackBar(
                                               SnackBar(
                                                 content: Text(mobileInfoMsg),
                                                 duration: Duration(seconds: 5),
@@ -266,16 +251,14 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                     ),
                                   ),
                                   Container(
-                                    margin:
-                                        EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
                                     child: Divider(
                                       height: 5.0,
                                       color: Colors.black87,
                                     ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.symmetric(
-                                        vertical: 1.0.w, horizontal: 6.0.w),
+                                    margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
                                     child: TextField(
                                       controller: passController,
                                       style: kLableSignUpTextStyle,
@@ -306,16 +289,14 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                     ),
                                   ),
                                   Container(
-                                    margin:
-                                        EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
                                     child: Divider(
                                       height: 5.0,
                                       color: Colors.black87,
                                     ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.symmetric(
-                                        vertical: 1.0.w, horizontal: 6.0.w),
+                                    margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
                                     child: TextField(
                                       controller: confPassController,
                                       style: kLableSignUpTextStyle,
@@ -346,8 +327,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                     ),
                                   ),
                                   Container(
-                                    margin:
-                                        EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
                                     child: Divider(
                                       height: 5.0,
                                       color: Colors.black87,
@@ -357,13 +337,10 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                     height: 20.0.w,
                                   ),
                                   Container(
-                                    margin:
-                                        EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.end,
                                       children: <Widget>[
                                         Text(
                                           // 'Next',
@@ -377,8 +354,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                builder: (context) =>
-                                                    SignUpScreen2(),
+                                                builder: (context) => SignUpScreen2(),
                                                 // SignUpScreen3(),
                                               ),
                                             );
@@ -423,8 +399,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
     var connectivityResult = await (Connectivity().checkConnectivity());
     print('Connectivity Result is : $connectivityResult');
 
-    if ((connectivityResult == ConnectivityResult.mobile) ||
-        (connectivityResult == ConnectivityResult.wifi)) {
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
       respCountry = await getCountryList();
       print('Response for Country list api is : $respCountry');
 
@@ -447,8 +422,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
     } else {
       scaffoldState.currentState.showSnackBar(
         SnackBar(
-          content:
-              Text("Please check your internet connectivity and try again"),
+          content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 3),
         ),
       );
@@ -460,8 +434,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
     print('Selected Country ID : $selectedCountryId');
 
     var connectivityResult = await (Connectivity().checkConnectivity());
-    if ((connectivityResult == ConnectivityResult.mobile) ||
-        (connectivityResult == ConnectivityResult.wifi)) {
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
       respState = await getStateList(selectedCountryId.toString());
       print('Response for State list api is : $respState');
 
@@ -485,8 +458,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
     } else {
       scaffoldState.currentState.showSnackBar(
         SnackBar(
-          content:
-              Text("Please check your internet connectivity and try again"),
+          content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 3),
         ),
       );
@@ -496,8 +468,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
   void getCityNameApi(int selectedStateId) async {
     isLoaderShowing = true;
     var connectivityResult = await (Connectivity().checkConnectivity());
-    if ((connectivityResult == ConnectivityResult.mobile) ||
-        (connectivityResult == ConnectivityResult.wifi)) {
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
       respCity = await getCityList(selectedStateId.toString());
       print('Response for City list api is : $respCity');
 
@@ -521,8 +492,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
     } else {
       scaffoldState.currentState.showSnackBar(
         SnackBar(
-          content:
-              Text("Please check your internet connectivity and try again"),
+          content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 3),
         ),
       );
