@@ -156,7 +156,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                     margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
                                     child: Divider(
                                       height: 5.0,
-                                      color: Colors.black87,
+                                      color: Colors.transparent,
                                     ),
                                   ),
                                   Container(
@@ -186,167 +186,141 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      scaffoldState.currentState.showBottomSheet(
-                                        (context) => Container(
-                                          color: Colors.white,
-                                          height: 70.0.h,
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              // color: Colors.grey[900],
-                                              color: Colors.white,
-                                              borderRadius: BorderRadius.only(
-                                                topRight: Radius.circular(30.0),
-                                                topLeft: Radius.circular(30.0),
-                                              ),
-                                            ),
-                                            child: Column(
-                                              children: <Widget>[
-                                                Container(
-                                                  height: 17.0.w,
-                                                  decoration: BoxDecoration(
-                                                    color: Color(0xF0F3F5F9),
-                                                    // color: Colors.blueGrey,
-                                                    borderRadius: BorderRadius.only(
-                                                      topRight: Radius.circular(30.0),
-                                                      topLeft: Radius.circular(30.0),
+                                      showModalBottomSheet(
+                                          context: context,
+                                          builder: (builder) {
+                                            return StatefulBuilder(
+                                              builder: (BuildContext context, void Function(void Function()) setState) {
+                                                return Container(
+                                                  color: Colors.white,
+                                                  height: 70.0.h,
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      // color: Colors.grey[900],
+                                                      color: Colors.transparent,
+                                                      borderRadius: BorderRadius.only(
+                                                        topRight: Radius.circular(30.0),
+                                                        topLeft: Radius.circular(30.0),
+                                                      ),
                                                     ),
-                                                  ),
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: <Widget>[
-                                                      GestureDetector(
-                                                        onTap: () {
-                                                          Navigator.pop(context);
-                                                        },
-                                                        child: Container(
-                                                          width: 20.0.w,
-                                                          child: Center(
-                                                            child: Text(
-                                                              'Cancel',
-                                                              style: kDateTestimonials,
+                                                    child: Column(
+                                                      children: <Widget>[
+                                                        Container(
+                                                          height: 17.0.w,
+                                                          decoration: BoxDecoration(
+                                                            color: Color(0xF0F3F5F9),
+                                                            // color: Colors.blueGrey,
+                                                            borderRadius: BorderRadius.only(
+                                                              topRight: Radius.circular(30.0),
+                                                              topLeft: Radius.circular(30.0),
                                                             ),
                                                           ),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        width: 50.0.w,
-                                                        child: Center(
-                                                          child: Text(
-                                                            'Prefessional Credentials',
-                                                            style: kOthersTitle,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        width: 20.0.w,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Container(
-                                                  height: 0.5,
-                                                  color: Colors.black45,
-                                                ),
-                                                // TopBar(Colors.white, 'Country'),
-                                                Expanded(
-                                                  child: ListView.builder(
-                                                    itemCount: arrProfCredsCount,
-                                                    itemBuilder: (context, index) {
-                                                      return ConstrainedBox(
-                                                        constraints: BoxConstraints(
-                                                          minHeight: 15.0.w,
-                                                        ),
-                                                        child: GestureDetector(
-                                                          onTap: () {
-                                                            var newState = respProfCreds['payload']['user_type'][index]['select_state'];
-                                                            print('new State from response : $newState');
-                                                            print('Check status for : $isProfChecked');
-                                                            // var profId = respProfCreds['payload']['user_type'][index]['id'];
-                                                            var profId = respProfCreds['payload']['user_type'][index]['id'];
-                                                            // String profId = respProfCreds['payload']['user_type'][index]['id'].toString();
-                                                            print('prof ID onTap : $profId');
-                                                            bool isSelectedforPos = false;
-                                                            bool isSelectedRes = false;
-                                                            // isSelectedforPos = mapProfCredsT['${int.parse(profId.toString())}'];
-                                                            isSelectedforPos = mapProfCredsT[profId];
-                                                            isSelectedRes = respProfCreds['payload']['user_type'][index]['select_state'];
-                                                            setState(() {
-                                                              print('Val for isSelectedforPos : $isSelectedforPos');
-                                                              if (respProfCreds['payload']['user_type'][index]['select_state']) {
-                                                                respProfCreds['payload']['user_type'][index]['select_state'] = false;
-                                                              } else {
-                                                                respProfCreds['payload']['user_type'][index]['select_state'] = true;
-                                                              }
-                                                              if (isSelectedforPos) {
-                                                                mapProfCredsT[profId] = false;
-                                                              } else {
-                                                                mapProfCredsT[profId] = true;
-                                                              }
-                                                              // mapProfCredsT[respProfCreds['payload']['user_type'][index]['id']];
-                                                              // respProfCreds['payload']['user_type'][index]['title'] = 'Test';
-                                                            });
-
-                                                            print('Whole data for map is: ${mapProfCredsT.toString()}');
-                                                            print(
-                                                                'State on api response pos : ${mapProfCredsT[respProfCreds['payload']['user_type'][index]['id']]}');
-                                                          },
-                                                          child: Container(
-                                                            margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
-                                                            // height: 12.0.w,
-                                                            decoration: BoxDecoration(
-                                                              borderRadius: BorderRadius.circular(7.0),
-                                                              // color: Color(0xF0F3F5F9),
-                                                              // color: isProfChecked ? themeYellow : Colors.teal,
-                                                              /*color: mapProfCredsT["{respProfCreds['payload']['user_type'][index]['id']}"]
-                                                                    ? Colors.teal
-                                                                    : themeYellow,*/
-                                                              // color: Colors.teal,
-                                                              // color: mapProfCredsT[respProfCreds['payload']['user_type'][index]['id']]? themeYellow: Colors.teal,
-                                                              color: respProfCreds['payload']['user_type'][index]['select_state']
-                                                                  ? themeYellow
-                                                                  : Colors.teal,
-                                                              // color: Colors.blueGrey,
-                                                            ),
-                                                            child: Flexible(
-                                                              child: Container(
-                                                                child: Padding(
-                                                                  padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
-                                                                  child: Row(
-                                                                    children: <Widget>[
-                                                                      Icon(
-                                                                        // isProfChecked ? FontAwesomeIcons.checkCircle : FontAwesomeIcons.circle,
-                                                                        mapProfCredsT[respProfCreds['payload']['user_type'][index]['id']]
-                                                                            ? FontAwesomeIcons.checkCircle
-                                                                            : FontAwesomeIcons.circle,
-                                                                        size: 12.0.sp,
-                                                                      ),
-                                                                      SizedBox(
-                                                                        width: 3.5.w,
-                                                                      ),
-                                                                      Expanded(
-                                                                        child: Text(
-                                                                          '${respProfCreds['payload']['user_type'][index]['title']}',
-                                                                          // 'Test Name',
-                                                                          textAlign: TextAlign.start,
-                                                                          style: kDataSingleSelectionBottomNav,
-                                                                        ),
-                                                                      ),
-                                                                    ],
+                                                          child: Row(
+                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            children: <Widget>[
+                                                              GestureDetector(
+                                                                onTap: () {
+                                                                  Navigator.pop(context);
+                                                                },
+                                                                child: Container(
+                                                                  width: 20.0.w,
+                                                                  child: Center(
+                                                                    child: Text(
+                                                                      'Cancel',
+                                                                      style: kDateTestimonials,
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               ),
-                                                            ),
+                                                              Container(
+                                                                width: 50.0.w,
+                                                                child: Center(
+                                                                  child: Text(
+                                                                    'Prefessional Credentials',
+                                                                    style: kOthersTitle,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Container(
+                                                                width: 20.0.w,
+                                                              ),
+                                                            ],
                                                           ),
                                                         ),
-                                                      );
-                                                    },
+                                                        Container(
+                                                          height: 0.5,
+                                                          color: Colors.black45,
+                                                        ),
+                                                        Expanded(
+                                                          child: ListView.builder(
+                                                            itemCount: arrProfCredsCount,
+                                                            itemBuilder: (context, index) {
+                                                              return ConstrainedBox(
+                                                                constraints: BoxConstraints(
+                                                                  minHeight: 15.0.w,
+                                                                ),
+                                                                child: GestureDetector(
+                                                                  onTap: () {
+                                                                    print('Check status for : $isProfChecked');
+                                                                    var profId = respProfCreds['payload']['user_type'][index]['id'];
+                                                                    setState(() {
+                                                                      if (mapProfCredsT[profId]) {
+                                                                        mapProfCredsT[profId] = false;
+                                                                      } else {
+                                                                        mapProfCredsT[profId] = true;
+                                                                      }
+                                                                    });
+                                                                  },
+                                                                  child: Container(
+                                                                    margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
+                                                                    decoration: BoxDecoration(
+                                                                      borderRadius: BorderRadius.circular(7.0),
+                                                                      color: mapProfCredsT[respProfCreds['payload']['user_type'][index]['id']]
+                                                                          ? themeYellow
+                                                                          : Colors.teal,
+                                                                    ),
+                                                                    child: Flexible(
+                                                                      child: Container(
+                                                                        child: Padding(
+                                                                          padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
+                                                                          child: Row(
+                                                                            children: <Widget>[
+                                                                              Icon(
+                                                                                // isProfChecked ? FontAwesomeIcons.checkCircle : FontAwesomeIcons.circle,
+                                                                                mapProfCredsT[respProfCreds['payload']['user_type'][index]['id']]
+                                                                                    ? FontAwesomeIcons.checkCircle
+                                                                                    : FontAwesomeIcons.circle,
+                                                                                size: 12.0.sp,
+                                                                              ),
+                                                                              SizedBox(
+                                                                                width: 3.5.w,
+                                                                              ),
+                                                                              Expanded(
+                                                                                child: Text(
+                                                                                  '${respProfCreds['payload']['user_type'][index]['title']}',
+                                                                                  // 'Test Name',
+                                                                                  textAlign: TextAlign.start,
+                                                                                  style: kDataSingleSelectionBottomNav,
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      );
+                                                );
+                                              },
+                                            );
+                                          });
                                     },
                                     child: Container(
                                       color: Colors.white,
