@@ -11,6 +11,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../constant.dart';
 import '../../rest_api.dart';
+import 'chipView.dart';
 
 class SignUpScreen1 extends StatefulWidget {
   @override
@@ -342,11 +343,22 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment: CrossAxisAlignment.end,
                                       children: <Widget>[
-                                        Text(
-                                          // 'Next',
-                                          'Step 1/3',
-                                          // style: kButtonLabelTextStyle,
-                                          style: kStepText,
+                                        GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => ChipviewSample(),
+                                                // SignUpScreen3(),
+                                              ),
+                                            );
+                                          },
+                                          child: Text(
+                                            // 'Next',
+                                            'Step 1/3',
+                                            // style: kButtonLabelTextStyle,
+                                            style: kStepText,
+                                          ),
                                         ),
                                         RoundIconButton(
                                           icon: FontAwesomeIcons.arrowRight,

@@ -39,6 +39,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
   var respProfCreds;
 
   int arrProfCredsCount = 0;
+  int selectedProfCount = 0;
 
   Map mapProfCreds = new Map<String, String>();
   // Map mapProfCredsN = new Map<String, bool>();
@@ -46,6 +47,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
   // Map mapProfCredsN = new Map<String, bool>();
   Map mapProfCredsN = new Map<String, String>();
   Map mapProfCredsT = new Map<dynamic, bool>();
+  Map mapProfCredsName = new Map<dynamic, String>();
   var mapResult = '';
   bool isProfChecked = false;
 
@@ -265,9 +267,17 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                                     var profId = respProfCreds['payload']['user_type'][index]['id'];
                                                                     setState(() {
                                                                       if (mapProfCredsT[profId]) {
+                                                                        selectedProfCount--;
                                                                         mapProfCredsT[profId] = false;
+                                                                        mapProfCredsName.remove(profId);
+                                                                        // mapProfCredsName[profId]
+                                                                        print('array data : ${mapProfCredsName.values}');
                                                                       } else {
+                                                                        selectedProfCount++;
                                                                         mapProfCredsT[profId] = true;
+                                                                        mapProfCredsName[profId] =
+                                                                            respProfCreds['payload']['user_type'][index]['title'];
+                                                                        print('array data : ${mapProfCredsName.values}');
                                                                       }
                                                                     });
                                                                   },
@@ -341,6 +351,36 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                             color: themeYellow,
                                           ),
                                         ],
+                                      ),
+                                    ),
+                                  ),
+                                  Visibility(
+                                    // visible: selectedProfCount>0? true : false,
+                                    visible: true,
+                                    child: Container(
+                                      margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                      child: Wrap(
+                                        children: List.generate(
+                                          // arrProfCredsCount,
+                                          // selectedProfCount,
+                                          mapProfCredsName.length,
+                                          (i) {
+                                            // (mapProfCredsName.keys.forEach((k) => i)) {
+                                            // (mapProfCredsName.forEach((key, value) {k})){
+                                            // (i = mapProfCredsName.keys) {
+                                            return Container(
+                                              margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 0.0),
+                                              child: Chip(
+                                                label: Container(
+                                                  child: Text(
+                                                    // '${respProfCreds['payload']['user_type'][i]['title']}',
+                                                    '${mapProfCredsName[i]}',
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ),
                                       ),
                                     ),
                                   ),
