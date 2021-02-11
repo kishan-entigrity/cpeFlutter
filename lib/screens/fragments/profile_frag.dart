@@ -1,3 +1,4 @@
+import 'package:cpe_flutter/screens/fragments/pagination_sample.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -50,16 +51,26 @@ class _ProfileFragState extends State<ProfileFrag> {
                 // mainAxisAlignment: MainAxisAlignment.center,
                 // crossAxisAlignment: CrossAxisAlignment.center,v
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Center(
-                      child: Text(
-                        'Profile',
-                        style: TextStyle(
-                          fontSize: 13.5.sp,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1,
-                          fontFamily: 'Whitney Semi Bold',
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PaginationSample(),
+                        ),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Center(
+                        child: Text(
+                          'Profile',
+                          style: TextStyle(
+                            fontSize: 13.5.sp,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1,
+                            fontFamily: 'Whitney Semi Bold',
+                          ),
                         ),
                       ),
                     ),
@@ -136,8 +147,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                             );
                           },
                           child: Card(
-                            margin: EdgeInsets.symmetric(
-                                vertical: 0.0, horizontal: 0.0),
+                            margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
                             child: ListTile(
                               leading: Icon(
                                 // Icons.phone,
@@ -170,8 +180,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                             );
                           },
                           child: Card(
-                            margin: EdgeInsets.symmetric(
-                                vertical: 0.0, horizontal: 0.0),
+                            margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
                             child: ListTile(
                               leading: Icon(
                                 // Icons.phone,
@@ -204,8 +213,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                             );
                           },
                           child: Card(
-                            margin: EdgeInsets.symmetric(
-                                vertical: 0.0, horizontal: 0.0),
+                            margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
                             child: ListTile(
                               leading: Icon(
                                 // Icons.phone,
@@ -242,8 +250,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                             );
                           },
                           child: Card(
-                            margin: EdgeInsets.symmetric(
-                                vertical: 0.0, horizontal: 0.0),
+                            margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
                             child: ListTile(
                               leading: Icon(
                                 // Icons.phone,
@@ -276,8 +283,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                             );
                           },
                           child: Card(
-                            margin: EdgeInsets.symmetric(
-                                vertical: 0.0, horizontal: 0.0),
+                            margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
                             child: ListTile(
                               leading: Icon(
                                 // Icons.phone,
@@ -310,8 +316,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                             );
                           },
                           child: Card(
-                            margin: EdgeInsets.symmetric(
-                                vertical: 0.0, horizontal: 0.0),
+                            margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
                             child: ListTile(
                               leading: Icon(
                                 // Icons.phone,
@@ -340,8 +345,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                             logoutUser();
                           },
                           child: Card(
-                            margin: EdgeInsets.symmetric(
-                                vertical: 0.0, horizontal: 0.0),
+                            margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
                             child: ListTile(
                               leading: Icon(
                                 // Icons.phone,
@@ -382,8 +386,7 @@ class _ProfileFragState extends State<ProfileFrag> {
     return showDialog(
           context: context,
           builder: (context) => new AlertDialog(
-            title: new Text('Confirm Exit?',
-                style: new TextStyle(color: Colors.black, fontSize: 20.0)),
+            title: new Text('Confirm Exit?', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
             content: new Text('Are you sure you want to exit the app?'),
             actions: <Widget>[
               new FlatButton(
@@ -394,8 +397,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                 child: new Text('Yes', style: new TextStyle(fontSize: 18.0)),
               ),
               new FlatButton(
-                onPressed: () =>
-                    Navigator.pop(context), // this line dismisses the dialog
+                onPressed: () => Navigator.pop(context), // this line dismisses the dialog
                 child: new Text('No', style: new TextStyle(fontSize: 18.0)),
               )
             ],
