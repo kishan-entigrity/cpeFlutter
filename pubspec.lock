@@ -212,13 +212,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.16.1"
-  loadmore:
+  lazy_load_scrollview:
     dependency: "direct main"
     description:
-      name: loadmore
+      name: lazy_load_scrollview
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.4"
+    version: "1.2.0"
   matcher:
     dependency: transitive
     description:

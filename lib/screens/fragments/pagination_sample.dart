@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
-import 'package:cpe_flutter/components/TopBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PaginationSample extends StatefulWidget {
@@ -18,6 +18,9 @@ class _PaginationSampleState extends State<PaginationSample> {
 
   int arrCount = 0;
   var data;
+
+  int start = 0;
+  int end = 10;
 
   String strWebinarType = "live";
   String strFilterPrice = "";
@@ -78,7 +81,7 @@ class _PaginationSampleState extends State<PaginationSample> {
           color: Colors.teal,
           child: Column(
             children: <Widget>[
-              TopBar(Colors.white, "Pagination Sample"),
+              // TopBar(Colors.white, "Pagination Sample"),
               Expanded(
                 child: Stack(
                   children: <Widget>[
@@ -86,28 +89,36 @@ class _PaginationSampleState extends State<PaginationSample> {
                       child: Container(
                         color: Colors.tealAccent,
                         child: Expanded(
-                          child: ListView.builder(
-                            itemCount: arrCount,
-                            itemBuilder: (context, index) {
-                              return ConstrainedBox(
-                                constraints: BoxConstraints(
-                                  minHeight: 50.0,
-                                ),
-                                child: Container(
-                                  margin: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
-                                  padding: EdgeInsets.all(10.0),
-                                  color: Colors.blueGrey,
-                                  child: Center(
-                                    child: Text(
-                                      '${data['payload']['webinar'][index]['webinar_title']}',
-                                      style: TextStyle(
-                                        fontSize: 20.0,
+                          // child: LoadMore(
+                          child: LazyLoadScrollView(
+                            onEndOfPage: checkForSPUpdate,
+                            // isFinish: !data['payload']['is_last'],
+                            // isFinish: start >= 60,
+                            // onLoadMore: checkForSPUpdate,
+                            // onLoadMore: _checkForSPupdate,
+                            child: ListView.builder(
+                              itemCount: arrCount,
+                              itemBuilder: (context, index) {
+                                return ConstrainedBox(
+                                  constraints: BoxConstraints(
+                                    minHeight: 50.0,
+                                  ),
+                                  child: Container(
+                                    margin: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
+                                    padding: EdgeInsets.all(10.0),
+                                    color: Colors.blueGrey,
+                                    child: Center(
+                                      child: Text(
+                                        '${data['payload']['webinar'][index]['webinar_title']}',
+                                        style: TextStyle(
+                                          fontSize: 20.0,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              );
-                            },
+                                );
+                              },
+                            ),
                           ),
                         ),
                       ),
@@ -129,6 +140,46 @@ class _PaginationSampleState extends State<PaginationSample> {
     );
   }
 
+  Future<bool> _checkForSPupdate() async {
+    print("onLoadMore");
+    await Future.delayed(Duration(seconds: 0, milliseconds: 100));
+    checkForSPUpdate();
+    return true;
+  }
+
+  void checkForSPUpdate() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    bool checkValue = preferences.getBool("check");
+
+    start = start + 10;
+    end = end + 10;
+
+    print('start : $start end : $end New API is called');
+
+    if (checkValue != null) {
+      setState(() {
+        isLoaderShowing = true;
+      });
+      if (checkValue) {
+        String token = preferences.getString("spToken");
+        _authToken = 'Bearer $token';
+        print('Auth Token from SP is : $_authToken');
+
+        // this.getDataWebinarList('$_authToken', '0', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
+        this.getDataWebinarList('$_authToken', '$start', '$end', '', '', '', 'self_study', '', '0');
+        // print('init State isLive : $isLive');
+        // print('init State isSelfStudy : $isSelfStudy');
+      } else {
+        // this.getDataWebinarList('$_authToken', '0', '10', '', '', '','$strWebinarType', '', '$strFilterPrice');
+        this.getDataWebinarList('$_authToken', '$start', '$end', '', '', '', 'self_study', '', '0');
+        // print('init State isLive : $isLive');
+        // print('init State isSelfStudy : $isSelfStudy');
+        print('Check value : $checkValue');
+        preferences.clear();
+      }
+    }
+  }
+
   void checkForSP() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     bool checkValue = preferences.getBool("check");
@@ -143,12 +194,12 @@ class _PaginationSampleState extends State<PaginationSample> {
         print('Auth Token from SP is : $_authToken');
 
         // this.getDataWebinarList('$_authToken', '0', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
-        this.getDataWebinarList('$_authToken', '0', '10', '', '', '', 'self_study', '', '0');
+        this.getDataWebinarList('$_authToken', '$start', '$end', '', '', '', 'self_study', '', '0');
         // print('init State isLive : $isLive');
         // print('init State isSelfStudy : $isSelfStudy');
       } else {
         // this.getDataWebinarList('$_authToken', '0', '10', '', '', '','$strWebinarType', '', '$strFilterPrice');
-        this.getDataWebinarList('$_authToken', '0', '10', '', '', '', 'self_study', '', '0');
+        this.getDataWebinarList('$_authToken', '$start', '$end', '', '', '', 'self_study', '', '0');
         // print('init State isLive : $isLive');
         // print('init State isSelfStudy : $isSelfStudy');
         print('Check value : $checkValue');

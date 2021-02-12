@@ -48,7 +48,7 @@ dependencies:
   sizer: ^1.1.8
   dots_indicator: ^1.2.0
   modal_bottom_sheet: ^1.0.0+1
-  loadmore: ^1.0.4
+  lazy_load_scrollview: 1.2.0
 
 dev_dependencies:
   flutter_test:
