@@ -1,4 +1,4 @@
-import 'package:cpe_flutter/screens/fragments/pagination_sample.dart';
+import 'package:cpe_flutter/screens/fragments/pagination/sample_pagination.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -56,7 +56,8 @@ class _ProfileFragState extends State<ProfileFrag> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => PaginationSample(),
+                          // builder: (context) => PaginationSample(),
+                          builder: (context) => SamplePagination(),
                         ),
                       );
                     },
