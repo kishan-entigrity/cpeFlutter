@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:cpe_flutter/screens/fragments/pagination/model_webinar_list.dart';
+import 'package:cpe_flutter/screens/fragments/pagination/weblist.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -20,8 +22,46 @@ class _SamplePaginationState extends State<SamplePagination> {
   int start = 0;
   int end = 10;
 
+  // List<modelWebList> webListMod = new List();
+  // List<modelWebList> webListMod = new List();
+  List<ModelWebinarList> webListModNew = new List();
+
   List<String> strTitles = new List();
   ScrollController _scrollController = new ScrollController();
+
+  static const String webListUrl = "https://my-cpe.com/api/v3/webinar/list";
+
+  Future<List<WebList>> getWebList(String authToken, String start, String limit, String topic_of_interest, String subject_area,
+      String webinar_key_text, String webinar_type, String date_filter, String filter_price) async {
+    try {
+      final response = await http.post(
+        webListUrl,
+        headers: {
+          'Accept': 'Application/json',
+          'Authorization': '$authToken',
+        },
+        body: {
+          'start': start,
+          'limit': limit,
+          'topic_of_interest': topic_of_interest,
+          'subject_area': subject_area,
+          'webinar_key_text': webinar_key_text,
+          'webinar_type': webinar_type,
+          'date_filter': date_filter,
+          'filter_price': filter_price,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        // final List<WebList> webList = webListFromJson(response.body);
+        // return webList;
+      } else {
+        return List<WebList>();
+      }
+    } catch (e) {
+      return List<WebList>();
+    }
+  }
 
   Future<String> getDataWebinarList(String authToken, String start, String limit, String topic_of_interest, String subject_area,
       String webinar_key_text, String webinar_type, String date_filter, String filter_price) async {
@@ -60,8 +100,12 @@ class _SamplePaginationState extends State<SamplePagination> {
     // for (int i = 0; i < arrCount; i++) {
     for (int i = 0; i < 10; i++) {
       strTitles.add(data['payload']['webinar'][i]['webinar_title']);
+      // webListMod.add(data);
+      // webListModNew.add(data);
     }
+    webListModNew = data;
     print('After adding data length for strTitles : ${strTitles.length}');
+    // print('Size for new model data is : ${webListModNew.Payload.Webinar.length}');
 
     return "Success!";
   }
