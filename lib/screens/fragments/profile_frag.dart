@@ -58,6 +58,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                         MaterialPageRoute(
                           // builder: (context) => PaginationSample(),
                           builder: (context) => SamplePagination(),
+                          // builder: (context) => NewsListPage(),
                         ),
                       );
                     },
