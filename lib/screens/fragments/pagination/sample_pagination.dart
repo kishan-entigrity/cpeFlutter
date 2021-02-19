@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cpe_flutter/model/home_webinar_list/webinar_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -23,13 +24,15 @@ class _SamplePaginationState extends State<SamplePagination> {
   // List<modelWebList> webListMod = new List();
   // List<modelWebList> webListMod = new List();
   // List<ModelWebinarList> webListModNew = new List();
+  List<Webinar> list;
 
   List<String> strTitles = new List();
   ScrollController _scrollController = new ScrollController();
 
   static const String webListUrl = "https://my-cpe.com/api/v3/webinar/list";
 
-  Future<String> getDataWebinarList(String authToken, String start, String limit, String topic_of_interest, String subject_area,
+  // Future<String> getDataWebinarList(String authToken, String start, String limit, String topic_of_interest, String subject_area,
+  Future<List<Webinar>> getDataWebinarList(String authToken, String start, String limit, String topic_of_interest, String subject_area,
       String webinar_key_text, String webinar_type, String date_filter, String filter_price) async {
     // String urls = URLs.BASE_URL + 'webinar/list';
     String urls = 'https://my-cpe.com/api/v3/webinar/list';
@@ -64,7 +67,8 @@ class _SamplePaginationState extends State<SamplePagination> {
     arrCount = data['payload']['webinar'].length;
     print('Size for array is : $arrCount');
 
-    return "Success!";
+    // return "Success!";
+    return list;
   }
 
   @override
