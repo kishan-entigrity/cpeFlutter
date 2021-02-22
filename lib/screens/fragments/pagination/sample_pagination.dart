@@ -30,6 +30,8 @@ class _SamplePaginationState extends State<SamplePagination> {
   ScrollController _scrollController = new ScrollController();
   List<Webinar> list;
 
+  bool isLast = false;
+
   static const String webListUrl = "https://my-cpe.com/api/v3/webinar/list";
 
   // Future<String> getDataWebinarList(String authToken, String start, String limit, String topic_of_interest, String subject_area,
@@ -37,10 +39,6 @@ class _SamplePaginationState extends State<SamplePagination> {
       String webinar_key_text, String webinar_type, String date_filter, String filter_price) async {
     // String urls = URLs.BASE_URL + 'webinar/list';
     String urls = 'https://my-cpe.com/api/v3/webinar/list';
-
-    /*setState(() {
-      isLoaderShowing = true;
-    });*/
 
     final response = await http.post(
       urls,
@@ -65,6 +63,11 @@ class _SamplePaginationState extends State<SamplePagination> {
       // data = jsonDecode(data) + jsonDecode(response.body);
       data = jsonDecode(response.body);
       isLoaderShowing = false;
+      if (data['payload']['is_last']) {
+        isLast = true;
+      } else {
+        isLast = false;
+      }
     });
 
     // print(data[1]["title"]);
@@ -94,11 +97,13 @@ class _SamplePaginationState extends State<SamplePagination> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
         print('Scroll Controller is called here');
-        start = start + 10;
-        // end = end + 10;
-        print('Page count start : $start :: end : $end');
-        // checkForSP();
-        this.getDataWebinarList('', '$start', '$end', '', '', '', 'self_study', '', '0');
+        if (!isLast) {
+          start = start + 10;
+          // end = end + 10;
+          print('Page count start : $start :: end : $end');
+          // checkForSP();
+          this.getDataWebinarList('', '$start', '$end', '', '', '', 'self_study', '', '0');
+        }
       }
     });
   }
@@ -118,45 +123,64 @@ class _SamplePaginationState extends State<SamplePagination> {
           // child: Text('Hello World'),
           child: (list != null && list.isNotEmpty)
               // child: !isLoaderShowing
-              ? ListView.builder(
-                  controller: _scrollController,
-                  shrinkWrap: true,
-                  // itemCount: arrCount,
-                  itemCount: list.length + 1,
-                  // itemCount: strTitles.length,
-                  itemBuilder: (context, index) {
-                    return ConstrainedBox(
-                      constraints: BoxConstraints(
-                        minHeight: 50.0,
-                      ),
-                      child: (index == list.length)
-                          ? Padding(
-                              padding: EdgeInsets.symmetric(vertical: 20.0),
-                              child: Center(
-                                child: CircularProgressIndicator(),
-                              ),
-                            )
-                          : Container(
-                              margin: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
-                              // padding: EdgeInsets.all(10.0),
-                              padding: EdgeInsets.symmetric(
-                                vertical: 20.0,
-                                horizontal: 10.0,
-                              ),
-                              color: Colors.blueGrey,
-                              child: Center(
-                                child: Text(
-                                  // '${data['payload']['webinar'][index]['webinar_title']}',
-                                  '${list[index].webinarTitle}',
-                                  // '${strTitles[index]}',
-                                  style: TextStyle(
-                                    fontSize: 20.0,
+              ? RefreshIndicator(
+                  onRefresh: () {
+                    print('On refresh is called..');
+                    start = 0;
+                    list.clear();
+                    // initState();
+                    this.getDataWebinarList('', '$start', '$end', '', '', '', 'self_study', '', '0');
+                  },
+                  child: ListView.builder(
+                    controller: _scrollController,
+                    shrinkWrap: true,
+                    // itemCount: arrCount,
+                    itemCount: list.length + 1,
+                    // itemCount: strTitles.length,
+                    itemBuilder: (context, index) {
+                      return ConstrainedBox(
+                        constraints: BoxConstraints(
+                          minHeight: 50.0,
+                        ),
+                        child: (index == list.length)
+                            ? isLast
+                                ? Container(
+                                    height: 20.0,
+                                  )
+                                : Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 20.0),
+                                    child: Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  )
+                            : GestureDetector(
+                                onTap: () {
+                                  print('Clicked on the webinar title : ${list[index].webinarTitle} || and ID : ${list[index].id}');
+                                  // So Basically we can handle the click event for the selected tile from here..
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
+                                  // padding: EdgeInsets.all(10.0),
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: 20.0,
+                                    horizontal: 10.0,
+                                  ),
+                                  color: Colors.blueGrey,
+                                  child: Center(
+                                    child: Text(
+                                      // '${data['payload']['webinar'][index]['webinar_title']}',
+                                      '${list[index].webinarTitle}',
+                                      // '${strTitles[index]}',
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 )
               : Container(
                   child: Center(

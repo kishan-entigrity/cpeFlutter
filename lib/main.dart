@@ -1,5 +1,6 @@
 import 'package:cpe_flutter/screens/intro_login_signup/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sizer/sizer_util.dart';
 
 void main() {
@@ -17,10 +18,9 @@ class MyApp extends StatelessWidget {
           //return OrientationBuilder
           builder: (context, orientation) {
             //initialize SizerUtil()
-            /*SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-              statusBarColor:
-                  Color(0xF0F3F5F9), //or set color with: Color(0xFF0000FF)
-            ));*/
+            SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                statusBarColor: Color(0xF0F3F5F9), statusBarIconBrightness: Brightness.dark //or set color with: Color(0xFF0000FF)
+                ));
             SizerUtil().init(constraints, orientation); //initialize SizerUtil
             return MaterialApp(
               title: 'Flutter Demo',
