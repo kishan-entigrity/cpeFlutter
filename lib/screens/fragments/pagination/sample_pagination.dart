@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:cpe_flutter/model/home_webinar_list/webinar_list.dart';
+import 'package:cpe_flutter/screens/fragments/pagination/webinar_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -17,6 +17,7 @@ class _SamplePaginationState extends State<SamplePagination> {
 
   int arrCount = 0;
   var data;
+  var data_web;
 
   int start = 0;
   int end = 10;
@@ -24,10 +25,10 @@ class _SamplePaginationState extends State<SamplePagination> {
   // List<modelWebList> webListMod = new List();
   // List<modelWebList> webListMod = new List();
   // List<ModelWebinarList> webListModNew = new List();
-  List<Webinar> list;
 
   List<String> strTitles = new List();
   ScrollController _scrollController = new ScrollController();
+  List<Webinar> list;
 
   static const String webListUrl = "https://my-cpe.com/api/v3/webinar/list";
 
@@ -37,11 +38,15 @@ class _SamplePaginationState extends State<SamplePagination> {
     // String urls = URLs.BASE_URL + 'webinar/list';
     String urls = 'https://my-cpe.com/api/v3/webinar/list';
 
+    /*setState(() {
+      isLoaderShowing = true;
+    });*/
+
     final response = await http.post(
       urls,
       headers: {
         'Accept': 'Application/json',
-        'Authorization': '$authToken',
+        // 'Authorization': '$authToken',
       },
       body: {
         'start': start,
@@ -64,8 +69,15 @@ class _SamplePaginationState extends State<SamplePagination> {
 
     // print(data[1]["title"]);
     print('API response is : $data');
-    arrCount = data['payload']['webinar'].length;
+    data_web = data['payload']['webinar'];
+    arrCount = arrCount + data['payload']['webinar'].length;
     print('Size for array is : $arrCount');
+
+    if (list != null && list.isNotEmpty) {
+      list.addAll(List.from(data_web).map<Webinar>((item) => Webinar.fromJson(item)).toList());
+    } else {
+      list = List.from(data_web).map<Webinar>((item) => Webinar.fromJson(item)).toList();
+    }
 
     // return "Success!";
     return list;
@@ -104,36 +116,53 @@ class _SamplePaginationState extends State<SamplePagination> {
         child: Container(
           // color: Colors.teal,
           // child: Text('Hello World'),
-          child: ListView.builder(
-            controller: _scrollController,
-            itemCount: arrCount,
-            // itemCount: strTitles.length,
-            itemBuilder: (context, index) {
-              return ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: 50.0,
-                ),
-                child: Container(
-                  margin: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
-                  // padding: EdgeInsets.all(10.0),
-                  padding: EdgeInsets.symmetric(
-                    vertical: 20.0,
-                    horizontal: 10.0,
-                  ),
-                  color: Colors.blueGrey,
-                  child: Center(
-                    child: Text(
-                      '${data['payload']['webinar'][index]['webinar_title']}',
-                      // '${strTitles[index]}',
-                      style: TextStyle(
-                        fontSize: 20.0,
+          child: (list != null && list.isNotEmpty)
+              // child: !isLoaderShowing
+              ? ListView.builder(
+                  controller: _scrollController,
+                  shrinkWrap: true,
+                  // itemCount: arrCount,
+                  itemCount: list.length + 1,
+                  // itemCount: strTitles.length,
+                  itemBuilder: (context, index) {
+                    return ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: 50.0,
                       ),
-                    ),
+                      child: (index == list.length)
+                          ? Padding(
+                              padding: EdgeInsets.symmetric(vertical: 20.0),
+                              child: Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            )
+                          : Container(
+                              margin: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
+                              // padding: EdgeInsets.all(10.0),
+                              padding: EdgeInsets.symmetric(
+                                vertical: 20.0,
+                                horizontal: 10.0,
+                              ),
+                              color: Colors.blueGrey,
+                              child: Center(
+                                child: Text(
+                                  // '${data['payload']['webinar'][index]['webinar_title']}',
+                                  '${list[index].webinarTitle}',
+                                  // '${strTitles[index]}',
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                    );
+                  },
+                )
+              : Container(
+                  child: Center(
+                    child: CircularProgressIndicator(),
                   ),
                 ),
-              );
-            },
-          ),
         ),
       ),
     );
