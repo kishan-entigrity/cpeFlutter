@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:cpe_flutter/components/SpinKitSample1.dart';
+import 'package:cpe_flutter/screens/fragments/pagination/webinar_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,6 +19,9 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
   List<int> tempInt = [1, 4, 5, 7];
   int arrCount = 0;
   var data;
+  var data_web;
+
+  int start = 0;
 
   bool isHotTopics = false;
   bool isLive = true;
@@ -35,17 +38,15 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
 
   bool isProgressShowing = false;
   bool isLoaderShowing = false;
+  List<Webinar> list;
 
-  Future<String> getDataWebinarList(
-      String authToken,
-      String start,
-      String limit,
-      String topic_of_interest,
-      String subject_area,
-      String webinar_key_text,
-      String webinar_type,
-      String date_filter,
-      String filter_price) async {
+  bool isLast = false;
+
+  ScrollController _scrollController = new ScrollController();
+
+  // Future<String> getDataWebinarList(
+  Future<List<Webinar>> getDataWebinarList(String authToken, String start, String limit, String topic_of_interest, String subject_area,
+      String webinar_key_text, String webinar_type, String date_filter, String filter_price) async {
     // String urls = URLs.BASE_URL + 'webinar/list';
     String urls = 'https://my-cpe.com/api/v3/webinar/list';
 
@@ -71,14 +72,27 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       // data = JSON.decode(response.body);
       data = jsonDecode(response.body);
       isLoaderShowing = false;
+      if (data['payload']['is_last']) {
+        isLast = true;
+      } else {
+        isLast = false;
+      }
     });
 
     // print(data[1]["title"]);
     print('API response is : $data');
     arrCount = data['payload']['webinar'].length;
+    data_web = data['payload']['webinar'];
     print('Size for array is : $arrCount');
 
-    return "Success!";
+    if (list != null && list.isNotEmpty) {
+      list.addAll(List.from(data_web).map<Webinar>((item) => Webinar.fromJson(item)).toList());
+    } else {
+      list = List.from(data_web).map<Webinar>((item) => Webinar.fromJson(item)).toList();
+    }
+
+    // return "Success!";
+    return list;
   }
 
   @override
@@ -88,11 +102,26 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
 
     checkForSP();
 
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+        print('Scroll Controller is called here');
+        if (!isLast) {
+          checkForSPNew();
+        }
+      }
+    });
+
     /*this.getDataWebinarList(
         '', '0', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
     print('init State isLive : $isLive');
     print('init State isSelfStudy : $isSelfStudy');*/
     // this.getDataWebinarList('', '0', '10', '', '', '', 'self_study', '', '0');
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -136,8 +165,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 0.0, horizontal: 10.0),
+                    padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
                     child: Row(
                       children: <Widget>[
                         /*selectedFilterWidget(
@@ -147,13 +175,11 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                           str: 'Hot Topics',
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 8.0, horizontal: 4.0),
+                          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30.0),
-                              border:
-                                  Border.all(color: Colors.black, width: 1.0),
+                              border: Border.all(color: Colors.black, width: 1.0),
                               color: Color(0xFFFFFFFF),
                             ),
                             child: Padding(
@@ -177,8 +203,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                             selectLiveFilter();
                           },
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 4.0),
+                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
                             child: Container(
                               decoration: isLive
                                   ? BoxDecoration(
@@ -187,8 +212,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                     )
                                   : BoxDecoration(
                                       borderRadius: BorderRadius.circular(30.0),
-                                      border: Border.all(
-                                          color: Colors.black, width: 1.0),
+                                      border: Border.all(color: Colors.black, width: 1.0),
                                       color: Color(0xFFFFFFFF),
                                     ),
                               child: Padding(
@@ -213,8 +237,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                             selectSelfStudyFilter();
                           },
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 4.0),
+                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
                             child: Container(
                               decoration: isSelfStudy
                                   ? BoxDecoration(
@@ -223,8 +246,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                     )
                                   : BoxDecoration(
                                       borderRadius: BorderRadius.circular(30.0),
-                                      border: Border.all(
-                                          color: Colors.black, width: 1.0),
+                                      border: Border.all(color: Colors.black, width: 1.0),
                                       color: Color(0xFFFFFFFF),
                                     ),
                               child: Padding(
@@ -235,9 +257,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                 child: Text(
                                   'Self Study',
                                   style: TextStyle(
-                                    color: isSelfStudy
-                                        ? Colors.white
-                                        : Colors.black,
+                                    color: isSelfStudy ? Colors.white : Colors.black,
                                     fontSize: 11.0.sp,
                                     fontFamily: 'Whitney Medium',
                                   ),
@@ -251,8 +271,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                             selectPremiumFilter();
                           },
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 4.0),
+                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
                             child: Container(
                               decoration: isPremium
                                   ? BoxDecoration(
@@ -261,8 +280,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                     )
                                   : BoxDecoration(
                                       borderRadius: BorderRadius.circular(30.0),
-                                      border: Border.all(
-                                          color: Colors.black, width: 1.0),
+                                      border: Border.all(color: Colors.black, width: 1.0),
                                       color: Color(0xFFFFFFFF),
                                     ),
                               child: Padding(
@@ -273,8 +291,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                 child: Text(
                                   'Premium',
                                   style: TextStyle(
-                                    color:
-                                        isPremium ? Colors.white : Colors.black,
+                                    color: isPremium ? Colors.white : Colors.black,
                                     fontSize: 11.0.sp,
                                     fontFamily: 'Whitney Medium',
                                   ),
@@ -288,8 +305,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                             selectFreeFilter();
                           },
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 4.0),
+                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
                             child: Container(
                               decoration: isFree
                                   ? BoxDecoration(
@@ -298,8 +314,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                     )
                                   : BoxDecoration(
                                       borderRadius: BorderRadius.circular(30.0),
-                                      border: Border.all(
-                                          color: Colors.black, width: 1.0),
+                                      border: Border.all(color: Colors.black, width: 1.0),
                                       color: Color(0xFFFFFFFF),
                                     ),
                               child: Padding(
@@ -320,13 +335,11 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 8.0, horizontal: 4.0),
+                          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30.0),
-                              border:
-                                  Border.all(color: Colors.black, width: 1.0),
+                              border: Border.all(color: Colors.black, width: 1.0),
                               color: Color(0xFFFFFFFF),
                             ),
                             child: Padding(
@@ -348,8 +361,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                         GestureDetector(
                           onTap: selectCPDFilter(),
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 4.0),
+                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
                             child: Container(
                               decoration: isCPD1
                                   ? BoxDecoration(
@@ -358,8 +370,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                     )
                                   : BoxDecoration(
                                       borderRadius: BorderRadius.circular(30.0),
-                                      border: Border.all(
-                                          color: Colors.black, width: 1.0),
+                                      border: Border.all(color: Colors.black, width: 1.0),
                                       color: Color(0xFFFFFFFF),
                                     ),
                               child: Padding(
@@ -384,275 +395,264 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                   ),
                 ),
                 Expanded(
-                  child: ListView.builder(
-                    itemCount: arrCount,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          print('Clicked on index pos : $index');
-                        },
-                        child: Container(
-                          // margin: EdgeInsets.only(top: 10.0),
-                          margin:
-                              EdgeInsets.fromLTRB(3.5.w, 0.0.h, 3.5.w, 2.0.h),
-                          decoration: BoxDecoration(
-                            // color: Color(0xFFFFC803),
-                            color: index % 2 == 0
-                                ? Color(0xFFFFC803)
-                                : Color(0xFF00B1FD),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(15.0),
-                            ),
-                          ),
-                          height: 70.0.w,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                top: 0,
-                                left: 0,
-                                right: 0,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 15.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          ConstrainedBox(
-                                            constraints: BoxConstraints(
-                                                minWidth: 28.0.w),
-                                            child: Container(
-                                              margin:
-                                                  EdgeInsets.only(left: 15.0),
-                                              height: 4.0.h,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                                color: Colors.white,
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 0.0,
-                                                        horizontal: 10.0),
-                                                child: Center(
-                                                  child: Text(
-                                                      '${data['payload']['webinar'][index]['webinar_type']}',
-                                                      style:
-                                                          // kWebinarButtonLabelTextStyleGreen,
-                                                          TextStyle(
-                                                        fontFamily:
-                                                            'Whitney Semi Bold',
-                                                        fontSize: 12.5.sp,
-                                                        color:
-                                                            Color(0xFF00A81B),
-                                                      )),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          ConstrainedBox(
-                                            constraints: BoxConstraints(
-                                                minWidth: 28.0.w),
-                                            child: Container(
-                                              height: 4.0.h,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                                color: Colors.white,
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 0.0,
-                                                        horizontal: 10.0),
-                                                child: Center(
-                                                  child: Text(
-                                                      '${data['payload']['webinar'][index]['cpa_credit']}',
-                                                      style:
-                                                          // kWebinarButtonLabelTextStyle,
-                                                          TextStyle(
-                                                        fontFamily:
-                                                            'Whitney Semi Bold',
-                                                        fontSize: 12.5.sp,
-                                                        color: Colors.black,
-                                                      )),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          ConstrainedBox(
-                                            constraints: BoxConstraints(
-                                                minWidth: 28.0.w),
-                                            child: Container(
-                                              margin:
-                                                  EdgeInsets.only(right: 15.0),
-                                              height: 4.0.h,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                                color: Colors.white,
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 0.0,
-                                                        horizontal: 10.0),
-                                                child: Center(
-                                                  child: Text(
-                                                      // '\$ ${data['payload']['webinar'][index]['fee']}',
-                                                      '${checkForPrice(index)}',
-                                                      style:
-                                                          // kWebinarButtonLabelTextStyle,
-                                                          TextStyle(
-                                                        fontFamily:
-                                                            'Whitney Semi Bold',
-                                                        fontSize: 12.5.sp,
-                                                        color: Colors.black,
-                                                      )),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          18.0, 10.0, 30.0, 0),
-                                      child: Flexible(
-                                        child: Text(
-                                          '${data['payload']['webinar'][index]['webinar_title']}',
-                                          style: TextStyle(
-                                            fontFamily: 'Whitney Bold',
-                                            fontSize: 16.0.sp,
-                                            color: index % 2 == 0
-                                                ? Colors.black
-                                                : Colors.white,
-                                          ),
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
+                  child: (list != null && list.isNotEmpty)
+                      ? ListView.builder(
+                          controller: _scrollController,
+                          shrinkWrap: true,
+                          // itemCount: arrCount,
+                          itemCount: list.length + 1,
+                          itemBuilder: (context, index) {
+                            return (index == list.length)
+                                ? isLast
+                                    ? Container(
+                                        height: 20.0,
+                                      )
+                                    : Padding(
+                                        padding: EdgeInsets.symmetric(vertical: 20.0),
+                                        child: Center(
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                      )
+                                : GestureDetector(
+                                    onTap: () {
+                                      print('Clicked on index pos : $index');
+                                    },
+                                    child: Container(
+                                      // margin: EdgeInsets.only(top: 10.0),
+                                      margin: EdgeInsets.fromLTRB(3.5.w, 0.0.h, 3.5.w, 2.0.h),
+                                      decoration: BoxDecoration(
+                                        // color: Color(0xFFFFC803),
+                                        color: index % 2 == 0 ? Color(0xFFFFC803) : Color(0xFF00B1FD),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(15.0),
                                         ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          18.0, 5.0, 30.0, 0),
-                                      child: Row(
+                                      height: 70.0.w,
+                                      child: Stack(
                                         children: [
-                                          Flexible(
-                                            child: Text(
-                                              '${data['payload']['webinar'][index]['speaker_name']}',
-                                              style: TextStyle(
-                                                fontFamily: 'Whitney Semi Bold',
-                                                fontSize: 13.0.sp,
-                                                color: index % 2 == 0
-                                                    ? Colors.black
-                                                    : Colors.white,
+                                          Positioned(
+                                            top: 0,
+                                            left: 0,
+                                            right: 0,
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding: const EdgeInsets.only(top: 15.0),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: <Widget>[
+                                                      ConstrainedBox(
+                                                        constraints: BoxConstraints(minWidth: 28.0.w),
+                                                        child: Container(
+                                                          margin: EdgeInsets.only(left: 15.0),
+                                                          height: 4.0.h,
+                                                          decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.circular(5.0),
+                                                            color: Colors.white,
+                                                          ),
+                                                          child: Padding(
+                                                            padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+                                                            child: Center(
+                                                              child: Text(
+                                                                  // '${data['payload']['webinar'][index]['webinar_type']}',
+                                                                  '${list[index].webinarType}',
+                                                                  style:
+                                                                      // kWebinarButtonLabelTextStyleGreen,
+                                                                      TextStyle(
+                                                                    fontFamily: 'Whitney Semi Bold',
+                                                                    fontSize: 12.5.sp,
+                                                                    color: Color(0xFF00A81B),
+                                                                  )),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      ConstrainedBox(
+                                                        constraints: BoxConstraints(minWidth: 28.0.w),
+                                                        child: Container(
+                                                          height: 4.0.h,
+                                                          decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.circular(5.0),
+                                                            color: Colors.white,
+                                                          ),
+                                                          child: Padding(
+                                                            padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+                                                            child: Center(
+                                                              child: Text(
+                                                                  // '${data['payload']['webinar'][index]['cpa_credit']}',
+                                                                  '${list[index].cpaCredit}',
+                                                                  style:
+                                                                      // kWebinarButtonLabelTextStyle,
+                                                                      TextStyle(
+                                                                    fontFamily: 'Whitney Semi Bold',
+                                                                    fontSize: 12.5.sp,
+                                                                    color: Colors.black,
+                                                                  )),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      ConstrainedBox(
+                                                        constraints: BoxConstraints(minWidth: 28.0.w),
+                                                        child: Container(
+                                                          margin: EdgeInsets.only(right: 15.0),
+                                                          height: 4.0.h,
+                                                          decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.circular(5.0),
+                                                            color: Colors.white,
+                                                          ),
+                                                          child: Padding(
+                                                            padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+                                                            child: Center(
+                                                              child: Text(
+                                                                  // '\$ ${data['payload']['webinar'][index]['fee']}',
+                                                                  '${checkForPrice(index)}',
+                                                                  style:
+                                                                      // kWebinarButtonLabelTextStyle,
+                                                                      TextStyle(
+                                                                    fontFamily: 'Whitney Semi Bold',
+                                                                    fontSize: 12.5.sp,
+                                                                    color: Colors.black,
+                                                                  )),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
+                                                  child: Flexible(
+                                                    child: Text(
+                                                      // '${data['payload']['webinar'][index]['webinar_title']}',
+                                                      '${list[index].webinarTitle}',
+                                                      style: TextStyle(
+                                                        fontFamily: 'Whitney Bold',
+                                                        fontSize: 16.0.sp,
+                                                        color: index % 2 == 0 ? Colors.black : Colors.white,
+                                                      ),
+                                                      maxLines: 2,
+                                                      overflow: TextOverflow.ellipsis,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
+                                                  child: Row(
+                                                    children: [
+                                                      Flexible(
+                                                        child: Text(
+                                                          // '${data['payload']['webinar'][index]['speaker_name']}',
+                                                          '${list[index].speakerName}',
+                                                          style: TextStyle(
+                                                            fontFamily: 'Whitney Semi Bold',
+                                                            fontSize: 13.0.sp,
+                                                            color: index % 2 == 0 ? Colors.black : Colors.white,
+                                                          ),
+                                                          overflow: TextOverflow.ellipsis,
+                                                          maxLines: 2,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
+                                                  child: Row(
+                                                    children: [
+                                                      Text(
+                                                        // '${data['payload']['webinar'][index]['start_date']} - ${data['payload']['webinar'][index]['start_time']} - ${data['payload']['webinar'][index]['time_zone']}',
+                                                        '${displayDateCondition(index)}',
+                                                        style: TextStyle(
+                                                          fontFamily: 'Whitney Semi Bold',
+                                                          fontSize: 13.0.sp,
+                                                          color: index % 2 == 0 ? Colors.black : Colors.white,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Positioned(
+                                            bottom: 18.0,
+                                            left: 18.0,
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                print('Clicked on register button index is : $index');
+                                                getIdWebinar(index);
+                                                // 1. Take an API call for relevent action from here..
+                                                // 2. Before this need to verify user is logged in or not..
+                                                // 3. If not then redirect to Login screen and then back here..
+                                                // 4. If user is logged in then need to check for webinar is free or not..
+                                                // 5. If the webinar is free then have to check for isCardSaved or not..
+                                                // 6. Take a Register API call from there onwards..
+                                              },
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  // color: Color(0xFFC2900D),
+                                                  color: Color(0x23000000),
+                                                  borderRadius: BorderRadius.all(
+                                                    Radius.circular(5.0),
+                                                  ),
+                                                ),
+                                                height: 11.5.w,
+                                                width: 35.0.w,
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: <Widget>[
+                                                    Padding(
+                                                      padding: const EdgeInsets.all(8.0),
+                                                      child: Text(
+                                                        // '${data['payload']['webinar'][index]['status']}',
+                                                        '${list[index].status}',
+                                                        style: TextStyle(
+                                                          fontFamily: 'Whitney Semi Bold',
+                                                          fontSize: 14.0.sp,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: EdgeInsets.all(5.0),
+                                                      child: Icon(
+                                                        FontAwesomeIcons.angleRight,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 2,
+                                            ),
+                                          ),
+                                          Positioned(
+                                            bottom: 0,
+                                            right: 0,
+                                            child: Image.asset(
+                                              'assets/avatar_bottom_right.png',
+                                              height: 36.0.w,
+                                              width: 36.0.w,
                                             ),
                                           ),
                                         ],
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          18.0, 5.0, 30.0, 0),
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            // '${data['payload']['webinar'][index]['start_date']} - ${data['payload']['webinar'][index]['start_time']} - ${data['payload']['webinar'][index]['time_zone']}',
-                                            '${displayDateCondition(index)}',
-                                            style: TextStyle(
-                                              fontFamily: 'Whitney Semi Bold',
-                                              fontSize: 13.0.sp,
-                                              color: index % 2 == 0
-                                                  ? Colors.black
-                                                  : Colors.white,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Positioned(
-                                bottom: 18.0,
-                                left: 18.0,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    print(
-                                        'Clicked on register button index is : $index');
-                                    getIdWebinar(index);
-                                    // 1. Take an API call for relevent action from here..
-                                    // 2. Before this need to verify user is logged in or not..
-                                    // 3. If not then redirect to Login screen and then back here..
-                                    // 4. If user is logged in then need to check for webinar is free or not..
-                                    // 5. If the webinar is free then have to check for isCardSaved or not..
-                                    // 6. Take a Register API call from there onwards..
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      // color: Color(0xFFC2900D),
-                                      color: Color(0x23000000),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(5.0),
-                                      ),
-                                    ),
-                                    height: 11.5.w,
-                                    width: 35.0.w,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            '${data['payload']['webinar'][index]['status']}',
-                                            style: TextStyle(
-                                              fontFamily: 'Whitney Semi Bold',
-                                              fontSize: 14.0.sp,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.all(5.0),
-                                          child: Icon(
-                                            FontAwesomeIcons.angleRight,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                bottom: 0,
-                                right: 0,
-                                child: Image.asset(
-                                  'assets/avatar_bottom_right.png',
-                                  height: 36.0.w,
-                                  width: 36.0.w,
-                                ),
-                              ),
-                            ],
+                                  );
+                          },
+                        )
+                      : Container(
+                          child: Center(
+                            child: CircularProgressIndicator(),
                           ),
                         ),
-                      );
-                    },
-                  ),
                 ),
               ],
             )),
-            Positioned(
+            /*Positioned(
               bottom: 0.0,
               right: 0.0,
               left: 0.0,
@@ -661,7 +661,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                 visible: isLoaderShowing ? true : false,
                 child: SpinKitSample1(),
               ),
-            ),
+            ),*/
           ],
         ),
       ),
@@ -675,8 +675,10 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       isSelfStudy = false;
       isProgressShowing = true;
 
-      this.getDataWebinarList(
-          '', '0', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
+      list.clear();
+      start = 0;
+
+      this.getDataWebinarList('', '0', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
     });
   }
 
@@ -687,8 +689,10 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       isSelfStudy = true;
       isProgressShowing = true;
 
-      this.getDataWebinarList(
-          '', '0', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
+      list.clear();
+      start = 0;
+
+      this.getDataWebinarList('', '0', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
     });
   }
 
@@ -711,8 +715,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       }
 
       isProgressShowing = true;
-      this.getDataWebinarList(
-          '', '0', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
+      this.getDataWebinarList('', '0', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
     });
   }
 
@@ -735,8 +738,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       }
 
       isProgressShowing = true;
-      this.getDataWebinarList(
-          '', '0', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
+      this.getDataWebinarList('', '0', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
     });
   }
 
@@ -751,9 +753,11 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
   }
 
   void getIdWebinar(int index) {
-    int webinarId = data['payload']['webinar'][index]['id'];
+    // int webinarId = data['payload']['webinar'][index]['id'];
+    int webinarId = list[index].id;
     String strWebinarId = webinarId.toString();
-    strWebinarTypeIntent = data['payload']['webinar'][index]['webinar_type'];
+    // strWebinarTypeIntent = data['payload']['webinar'][index]['webinar_type'];
+    strWebinarTypeIntent = list[index].webinarType;
     print('Id for the webinar is : $webinarId');
     print('String for strWebinarID : $strWebinarId');
     String sampleIntnent = 'HelloWorld';
@@ -782,13 +786,15 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
   }
 
   checkForPrice(int index) {
-    String strFee = data['payload']['webinar'][index]['fee'];
+    // String strFee = data['payload']['webinar'][index]['fee'];
+    String strFee = list[index].fee;
     String finalFee = "";
     if (strFee == "FREE") {
       finalFee = 'FREE';
     } else {
       // finalFee = 'data["payload']['webinar'][index]['fee"]';
-      finalFee = '\$ ${data['payload']['webinar'][index]['fee']}';
+      // finalFee = '\$ ${data['payload']['webinar'][index]['fee']}';
+      finalFee = '\$ ${list[index].fee}';
     }
 
     return finalFee;
@@ -796,7 +802,8 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
 
   displayDateCondition(int index) {
     // '${data['payload']['webinar'][index]['start_date']} - ${data['payload']['webinar'][index]['start_time']} - ${data['payload']['webinar'][index]['time_zone']}',
-    String strStartDate = data['payload']['webinar'][index]['start_date'];
+    // String strStartDate = data['payload']['webinar'][index]['start_date'];
+    String strStartDate = list[index].startDate;
     String day = "";
     String month = "";
     String year = "";
@@ -902,7 +909,8 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       }
 
       updatedDate =
-          '$day $month $year - ${data['payload']['webinar'][index]['start_time']} - ${data['payload']['webinar'][index]['time_zone']}';
+          // '$day $month $year - ${data['payload']['webinar'][index]['start_time']} - ${data['payload']['webinar'][index]['time_zone']}';
+          '$day $month $year - ${list[index].startTime} - ${list[index].timeZone}';
     }
 
     return (updatedDate);
@@ -916,22 +924,47 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       setState(() {
         isLoaderShowing = true;
       });
+
       if (checkValue) {
         String token = preferences.getString("spToken");
         _authToken = 'Bearer $token';
         print('Auth Token from SP is : $_authToken');
 
-        this.getDataWebinarList('$_authToken', '0', '10', '', '', '',
-            '$strWebinarType', '', '$strFilterPrice');
+        this.getDataWebinarList('$_authToken', '$start', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
         // print('init State isLive : $isLive');
         // print('init State isSelfStudy : $isSelfStudy');
       } else {
-        this.getDataWebinarList('$_authToken', '0', '10', '', '', '',
-            '$strWebinarType', '', '$strFilterPrice');
+        this.getDataWebinarList('$_authToken', '$start', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
         // print('init State isLive : $isLive');
         // print('init State isSelfStudy : $isSelfStudy');
         print('Check value : $checkValue');
         preferences.clear();
+      }
+    }
+  }
+
+  void checkForSPNew() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    bool checkValue = preferences.getBool("check");
+
+    if (checkValue != null) {
+      if (!isLast) {
+        start = start + 10;
+        if (checkValue) {
+          String token = preferences.getString("spToken");
+          _authToken = 'Bearer $token';
+          print('Auth Token from SP is : $_authToken');
+
+          this.getDataWebinarList('$_authToken', '$start', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
+          // print('init State isLive : $isLive');
+          // print('init State isSelfStudy : $isSelfStudy');
+        } else {
+          this.getDataWebinarList('$_authToken', '$start', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
+          // print('init State isLive : $isLive');
+          // print('init State isSelfStudy : $isSelfStudy');
+          print('Check value : $checkValue');
+          preferences.clear();
+        }
       }
     }
   }
