@@ -14,6 +14,19 @@ const kLabelTitleTextStyle = TextStyle(
   color: themeBlueLight,
 );
 
+final kLableTextCancelStyle = TextStyle(
+  fontSize: 12.0.sp,
+  fontWeight: FontWeight.bold,
+  letterSpacing: 1,
+  fontFamily: 'Whitney Medium',
+);
+
+final kLableSearchHomeStyle = TextStyle(
+  fontFamily: 'Whitney Semi Bold',
+  fontSize: 12.0.sp,
+  color: Color(0x80000000),
+);
+
 final kLableSignUpHintStyle = TextStyle(
   fontFamily: 'Whitney Bold',
   fontSize: 15.0.sp,
@@ -235,11 +248,7 @@ convertCamelCase(String status) {
     if (part.length > 1) {
       String lowerCase = part[0].toLowerCase();
       String lowerCase1 = part[1].toLowerCase();
-      String convert = lowerCase[0].toUpperCase() +
-          lowerCase.substring(1) +
-          " " +
-          lowerCase1[0].toUpperCase() +
-          lowerCase1.substring(1);
+      String convert = lowerCase[0].toUpperCase() + lowerCase.substring(1) + " " + lowerCase1[0].toUpperCase() + lowerCase1.substring(1);
       return "$convert";
     } else {
       String lowerCase = part[0].toLowerCase();
@@ -272,8 +281,7 @@ const String passLengthMsg = 'Please enter password';
 const String confPassLengthMsg = 'Please enter confirm password';
 const String passValidLengthMsg = 'Password must be 6 characters';
 const String confPassValidLengthMsg = 'Confirm password must be 6 characters';
-const String passConfPassEqualMsg =
-    'Password and confirm password must be same';
+const String passConfPassEqualMsg = 'Password and confirm password must be same';
 const String countryMsg = 'Please select country';
 const String stateMsg = 'Please select state';
 const String cityMsg = 'Please select city';
@@ -285,5 +293,4 @@ const String selectOrganizationSizeMsg = 'Please select organization size';
 const String selectJobTitleMsg = 'Please select job title/designation';
 const String selectIndustryMsg = 'Please select industry';
 const String selectPrefCredsMsg = 'Please select professional credentials';
-const String selectAddiQualificationMsg =
-    'Please select additional qualifications';
+const String selectAddiQualificationMsg = 'Please select additional qualifications';

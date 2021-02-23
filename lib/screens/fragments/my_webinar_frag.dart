@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../constant.dart';
 import '../webinar_details/webinar_details_new.dart';
 
 class MyWebinarFrag extends StatefulWidget {
@@ -41,8 +42,11 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
   List<Webinar> list;
 
   bool isLast = false;
-
+  bool isSearch = false;
   ScrollController _scrollController = new ScrollController();
+
+  TextEditingController searchController = TextEditingController();
+  var searchKey = "";
 
   // Future<String> getDataWebinarList(
   Future<List<Webinar>> getDataWebinarList(String authToken, String start, String limit, String topic_of_interest, String subject_area,
@@ -142,17 +146,135 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
             Positioned(
                 child: Column(
               children: <Widget>[
-                Container(
-                  height: 70.0,
-                  width: double.infinity,
-                  color: Color(0xFFF3F5F9),
-                  child: Center(
-                    child: Text(
-                      'My Webinar',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15.0.sp,
-                        fontFamily: 'Whitney Semi Bold',
+                Visibility(
+                  visible: !isSearch,
+                  child: Container(
+                    height: 60.0,
+                    width: double.infinity,
+                    color: Color(0xFFF3F5F9),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        Flexible(
+                          flex: 2,
+                          child: Container(
+                            padding: EdgeInsets.all(10.0),
+                            width: 20.0.sp,
+                          ),
+                        ),
+                        Flexible(
+                          flex: 8,
+                          child: Center(
+                            child: Text(
+                              'My Webinar',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15.0.sp,
+                                fontFamily: 'Whitney Semi Bold',
+                              ),
+                            ),
+                          ),
+                        ),
+                        Flexible(
+                          flex: 2,
+                          child: GestureDetector(
+                            onTap: () {
+                              print('Clicked on the search icon..');
+                              setState(() {
+                                isSearch = true;
+                              });
+                            },
+                            child: Container(
+                              color: Color(0xFFF3F5F9),
+                              width: 20.0.sp,
+                              height: double.infinity,
+                              padding: EdgeInsets.all(10.0),
+                              child: Icon(
+                                FontAwesomeIcons.search,
+                                size: 12.0.sp,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Visibility(
+                  visible: isSearch,
+                  child: Container(
+                    height: 60.0,
+                    // width: double.infinity,
+                    color: Color(0xFFF3F5F9),
+                    // color: Colors.tealAccent,
+                    child: Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Flexible(
+                            flex: 8,
+                            child: Container(
+                              margin: EdgeInsets.symmetric(vertical: 7.0, horizontal: 15.0),
+                              padding: EdgeInsets.symmetric(horizontal: 10.0),
+                              decoration: BoxDecoration(
+                                color: Color(0x88767680),
+                                borderRadius: BorderRadius.circular(5.0),
+                              ),
+                              child: TextField(
+                                controller: searchController,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'Search',
+                                  hintStyle: kLableSearchHomeStyle,
+                                ),
+                                textInputAction: TextInputAction.search,
+                                onEditingComplete: () {
+                                  print('Search event fired');
+                                  setState(() {
+                                    searchKey = searchController.text;
+                                  });
+                                  FocusScope.of(context).requestFocus(new FocusNode());
+
+                                  // Now take an API call for the search tag too..
+                                  list.clear();
+                                  start = 0;
+
+                                  this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+                                },
+                              ),
+                            ),
+                          ),
+                          Flexible(
+                            flex: 2,
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  isSearch = false;
+                                  if (searchController.text.isNotEmpty) {
+                                    searchController.text = "";
+                                    searchKey = "";
+
+                                    list.clear();
+                                    start = 0;
+
+                                    this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+                                  }
+                                });
+                              },
+                              child: Container(
+                                height: double.infinity,
+                                color: Color(0xFFF3F5F9),
+                                padding: EdgeInsets.only(right: 20.0),
+                                child: Center(
+                                  child: Text(
+                                    'Cancel',
+                                    style: kLableTextCancelStyle,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -678,7 +800,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       list.clear();
       start = 0;
 
-      this.getDataWebinarList('', '0', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
+      this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
     });
   }
 
@@ -692,7 +814,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       list.clear();
       start = 0;
 
-      this.getDataWebinarList('', '0', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
+      this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
     });
   }
 
@@ -715,7 +837,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       }
 
       isProgressShowing = true;
-      this.getDataWebinarList('', '0', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
+      this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
     });
   }
 
@@ -738,7 +860,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       }
 
       isProgressShowing = true;
-      this.getDataWebinarList('', '0', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
+      this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
     });
   }
 
@@ -930,11 +1052,11 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
         _authToken = 'Bearer $token';
         print('Auth Token from SP is : $_authToken');
 
-        this.getDataWebinarList('$_authToken', '$start', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
+        this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
         // print('init State isLive : $isLive');
         // print('init State isSelfStudy : $isSelfStudy');
       } else {
-        this.getDataWebinarList('$_authToken', '$start', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
+        this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
         // print('init State isLive : $isLive');
         // print('init State isSelfStudy : $isSelfStudy');
         print('Check value : $checkValue');
@@ -955,11 +1077,11 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
           _authToken = 'Bearer $token';
           print('Auth Token from SP is : $_authToken');
 
-          this.getDataWebinarList('$_authToken', '$start', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
+          this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
           // print('init State isLive : $isLive');
           // print('init State isSelfStudy : $isSelfStudy');
         } else {
-          this.getDataWebinarList('$_authToken', '$start', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
+          this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
           // print('init State isLive : $isLive');
           // print('init State isSelfStudy : $isSelfStudy');
           print('Check value : $checkValue');
