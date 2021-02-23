@@ -33,8 +33,7 @@ class WebinarDetailsNew extends StatefulWidget {
   final int webinarId;
 
   @override
-  _WebinarDetailsNewState createState() =>
-      _WebinarDetailsNewState(strWebinarTypeIntent, webinarId);
+  _WebinarDetailsNewState createState() => _WebinarDetailsNewState(strWebinarTypeIntent, webinarId);
 }
 
 class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
@@ -100,6 +99,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   @override
   void initState() {
     super.initState();
+    print('strWebinarTypeIntent : $strWebinarTypeIntent');
     checkForSP();
   }
 
@@ -135,8 +135,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
 
   void webinarDetailsAPI() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
-    if ((connectivityResult == ConnectivityResult.mobile) ||
-        (connectivityResult == ConnectivityResult.wifi)) {
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
       // Take API call from here..
       String strWebId = webinarId.toString();
       resp = await getWebinarDetails(userToken, strWebId);
@@ -204,9 +203,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
             // Webinar type as ON-DEMAND webinar..
             if (status.toLowerCase() == 'register') {
               isSingleStatusRow = true;
-            } else if (status.toLowerCase() == 'watch now' ||
-                status.toLowerCase() == 'resume watching' ||
-                status.toLowerCase() == 'resume now') {
+            } else if (status.toLowerCase() == 'watch now' || status.toLowerCase() == 'resume watching' || status.toLowerCase() == 'resume now') {
               // Now here in this case we need to check for the isAnswered or not..
               // isAnswered = webDetailsObj['review_answered']
               if (reviewAnswered) {
@@ -218,8 +215,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
           }
         });
 
-        print(
-            'Webinar details response : Webinar thumbnail is : $webinarThumb');
+        print('Webinar details response : Webinar thumbnail is : $webinarThumb');
         print('Webinar details response : Webinar video url is : $videoUrl');
       } else {
         _scaffoldKey.currentState.showSnackBar(
@@ -235,8 +231,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
     } else {
       _scaffoldKey.currentState.showSnackBar(
         SnackBar(
-          content:
-              Text("Please check your internet connectivity and try again"),
+          content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 3),
         ),
       );
@@ -260,8 +255,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
               bottom: 0.0,
               right: 0.0,
               left: 0.0,
-              child:
-                  childWebinarStatus(status, isSingleStatusRow, webDetailsObj),
+              child: childWebinarStatus(status, isSingleStatusRow, webDetailsObj),
             ),
             Positioned(
               top: 0.0,
@@ -283,9 +277,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                       children: <Widget>[
                         // Container SelfStudy Thumb..
                         Visibility(
-                          visible: (strWebinarTypeIntent == 'ON-DEMAND'
-                              ? (!isPlaying ? true : false)
-                              : false),
+                          visible: (strWebinarTypeIntent == 'ON-DEMAND' ? (!isPlaying ? true : false) : false),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -296,8 +288,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                     width: double.infinity,
                                     color: Colors.blue,
                                     child: FadeInImage(
-                                      placeholder: AssetImage(
-                                          'assets/webinar_placeholder.jpg'),
+                                      placeholder: AssetImage('assets/webinar_placeholder.jpg'),
                                       image: NetworkImage(webinarThumb),
                                       fit: BoxFit.fill,
                                     ),
@@ -309,14 +300,11 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                     right: 0.0,
                                     child: GestureDetector(
                                       onTap: () {
-                                        print(
-                                            'Click event on play button..: URL : $videoUrl');
+                                        print('Click event on play button..: URL : $videoUrl');
                                         setState(() {
                                           isPlaying = true;
                                           flickManager = FlickManager(
-                                            videoPlayerController:
-                                                VideoPlayerController.network(
-                                                    videoUrl),
+                                            videoPlayerController: VideoPlayerController.network(videoUrl),
                                           );
                                           checkForVideoPlayerListener();
                                         });
@@ -339,9 +327,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                         ),
                         // Container SelfStudy Video player..
                         Visibility(
-                          visible: (strWebinarTypeIntent == 'ON-DEMAND'
-                              ? (isPlaying ? true : false)
-                              : false),
+                          visible: (strWebinarTypeIntent == 'ON-DEMAND' ? (isPlaying ? true : false) : false),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -362,12 +348,98 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                         ),
                         // Container Live Webinar
                         Visibility(
-                          visible:
-                              (strWebinarTypeIntent == 'live' ? true : false),
+                          visible: (strWebinarTypeIntent == 'LIVE' ? true : false),
                           child: Container(
-                            height: 51.0.w,
-                            width: double.infinity,
-                            color: Colors.black,
+                            // margin: EdgeInsets.only(top: 10.0),
+                            // margin: EdgeInsets.fromLTRB(3.5.w, 0.0.h, 3.5.w, 2.0.h),
+                            decoration: BoxDecoration(
+                              // color: Color(0xFFFFC803),
+                              color: Color(0xFFFFC803),
+                              /*borderRadius: BorderRadius.all(
+                                Radius.circular(15.0),
+                              ),*/
+                            ),
+                            height: 60.0.w,
+                            child: Stack(
+                              children: [
+                                Positioned(
+                                  top: 0,
+                                  left: 0,
+                                  right: 0,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
+                                        child: Flexible(
+                                          child: Text(
+                                            // '${data['payload']['webinar'][index]['webinar_title']}',
+                                            // '${list[index].webinarTitle}',
+                                            '${webDetailsObj['webinar_title']}',
+                                            style: TextStyle(
+                                              fontFamily: 'Whitney Bold',
+                                              fontSize: 16.0.sp,
+                                              color: Colors.black,
+                                            ),
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
+                                        child: Row(
+                                          children: [
+                                            Flexible(
+                                              child: Text(
+                                                // '${data['payload']['webinar'][index]['speaker_name']}',
+                                                // '${list[index].speakerName}',
+                                                '${webDetailsObj['about_presententer']['name']}',
+                                                style: TextStyle(
+                                                  fontFamily: 'Whitney Semi Bold',
+                                                  fontSize: 13.0.sp,
+                                                  color: Colors.black,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 2,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              // '${data['payload']['webinar'][index]['start_date']} - ${data['payload']['webinar'][index]['start_time']} - ${data['payload']['webinar'][index]['time_zone']}',
+                                              // '${webDetailsObj['start_date']}',
+                                              // '${displayDateCondition(index)}',
+                                              '31 Dec, 02:30 PM EST',
+                                              style: TextStyle(
+                                                fontFamily: 'Whitney Semi Bold',
+                                                fontSize: 13.0.sp,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Positioned(
+                                  bottom: 0,
+                                  right: 0,
+                                  child: Image.asset(
+                                    'assets/avatar_bottom_right.png',
+                                    height: 36.0.w,
+                                    width: 36.0.w,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
@@ -389,8 +461,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                   checkDescriptionExpand();
                                 },
                                 strTitle: 'Description',
-                                cardChild: childCardDescription(
-                                    programDescription, learningObjective),
+                                cardChild: childCardDescription(programDescription, learningObjective),
                                 flagExpand: isDescriptionExpanded),
                             Visibility(
                               visible: isOverViewOfTopicsVisible ? true : false,
@@ -399,8 +470,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                     checkOverviewExpand();
                                   },
                                   strTitle: 'Overview of Topics',
-                                  cardChild: childCardOverviewofTopics(
-                                      overviewOfTopic),
+                                  cardChild: childCardOverviewofTopics(overviewOfTopic),
                                   flagExpand: isOverviewOfTopicsExpanded),
                             ),
                             Visibility(
@@ -410,8 +480,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                     checkWhyShouldAttendExpand();
                                   },
                                   strTitle: 'Why should attend',
-                                  cardChild:
-                                      childCardWhyShouldAttend(whyShouldAttend),
+                                  cardChild: childCardWhyShouldAttend(whyShouldAttend),
                                   flagExpand: isWhyShouldAttendExpanded),
                             ),
                             ExpandedCard(
@@ -435,9 +504,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                   checkTestimonialsExpand();
                                 },
                                 strTitle: 'Testimonials',
-                                cardChild: childCardTestimonials(
-                                    'Description Data Testimonials',
-                                    respTestimonials),
+                                cardChild: childCardTestimonials('Description Data Testimonials', respTestimonials),
                                 flagExpand: isTestimonialsExpanded),
                             ExpandedCard(
                                 onPress: () {
@@ -593,8 +660,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         if (flickManager.flickVideoManager.isPlaying) {
           print('Video player is playing $state');
           if (isOnCreate) {
-            flickManager.flickControlManager
-                .seekTo(Duration(seconds: webDetailsObj['play_time_duration']));
+            flickManager.flickControlManager.seekTo(Duration(seconds: webDetailsObj['play_time_duration']));
             isOnCreate = false;
           }
           // stopBasicTimer();
@@ -618,9 +684,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
     } else {
       print('_timer == null');
       _timer = Timer.periodic(Duration(seconds: 5), (timer) {
-        var currentWatchTime = flickManager
-            .flickVideoManager.videoPlayerValue.position.inSeconds
-            .toString();
+        var currentWatchTime = flickManager.flickVideoManager.videoPlayerValue.position.inSeconds.toString();
 
         var presentationDuration = webDetailsObj['duration'];
         // On Every time of tick take an API call for video-duration..
@@ -638,14 +702,11 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
     _timer = null;
   }
 
-  void videoDurationAPICall(String webinarId, String finalCurrentDuration,
-      String presentationDuration) async {
+  void videoDurationAPICall(String webinarId, String finalCurrentDuration, String presentationDuration) async {
     var connectivityResult = await (Connectivity().checkConnectivity());
 
-    if ((connectivityResult == ConnectivityResult.mobile) ||
-        (connectivityResult == ConnectivityResult.wifi)) {
-      var resp = await video_duration(
-          userToken, webinarId, finalCurrentDuration, presentationDuration);
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
+      var resp = await video_duration(userToken, webinarId, finalCurrentDuration, presentationDuration);
 
       print('Response for change password api is : $resp');
 
@@ -671,8 +732,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
     } else {
       _scaffoldKey.currentState.showSnackBar(
         SnackBar(
-          content:
-              Text("Please check your internet connectivity and try again"),
+          content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 3),
         ),
       );
