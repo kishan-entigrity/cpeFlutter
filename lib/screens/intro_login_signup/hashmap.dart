@@ -264,25 +264,52 @@ class _HashMapSampleState extends State<HashMapSample> {
                             ),
                           );
                         },
-                        child: Container(
-                          color: Colors.white,
-                          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                          child: Text('Open'),
+                        child: GestureDetector(
+                          onTap: () {
+                            printData();
+                          },
+                          child: Container(
+                            color: Colors.white,
+                            padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                            child: Text('Open'),
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
                 SizedBox(
-                  height: 60.0,
+                  height: 20.0,
                 ),
                 Container(
-                  padding: EdgeInsets.all(20.0),
+                  padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
                   child: Text('HashMap Data'),
                 ),
                 Container(
-                  padding: EdgeInsets.all(20.0),
+                  padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 0.0),
                   child: Text(result == '' ? 'Result' : result),
+                ),
+                // Load chip data here..
+                Container(),
+                Wrap(
+                  children: List.generate(
+                    mapSample.length,
+                    (i) {
+                      return Container(
+                        margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 0.0),
+                        child: Chip(
+                          label: Container(
+                            child: Text(
+                                // '${respProfCreds['payload']['user_type'][i]['title']}',
+                                // '${mapSample[i]}',
+                                // '${printData()}',
+                                // '${mapSample.entries.forEach((e) {e.key})}',
+                                'Test'),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 Expanded(
                   child: Container(
@@ -381,5 +408,10 @@ class _HashMapSampleState extends State<HashMapSample> {
         ),
       );
     }
+  }
+
+  printData() {
+    mapSample.keys.forEach((k) => print(k));
+    // mapSample.keys.forEach((k) => mapSample[k]);
   }
 }
