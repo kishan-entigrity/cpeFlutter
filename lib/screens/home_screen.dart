@@ -4,7 +4,6 @@ import 'package:cpe_flutter/screens/fragments/premium_frag.dart';
 import 'package:cpe_flutter/screens/fragments/profile_frag.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
@@ -337,11 +336,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(
+                      Image.asset(
+                        'assets/home.png',
+                        height: 18.0.sp,
+                        width: 18.0.sp,
+                        color: currentTab == 0 ? Color(0xFF193F70) : Color(0xFFABAAAA),
+                      ),
+                      /*Icon(
                         FontAwesomeIcons.home,
                         size: 20.0,
                         color: currentTab == 0 ? Color(0xFF193F70) : Color(0xFFABAAAA),
-                      ),
+                      ),*/
                       SizedBox(
                         height: 3.0,
                       ),
@@ -370,11 +375,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(
+                      Image.asset(
+                        'assets/my_webinar.png',
+                        height: 18.0.sp,
+                        width: 18.0.sp,
+                        color: currentTab == 1 ? Color(0xFF193F70) : Color(0xFFABAAAA),
+                      ),
+                      /*Icon(
                         FontAwesomeIcons.desktop,
                         size: 20.0,
                         color: currentTab == 1 ? Color(0xFF193F70) : Color(0xFFABAAAA),
-                      ),
+                      ),*/
                       SizedBox(
                         height: 3.0,
                       ),
@@ -403,11 +414,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(
+                      Image.asset(
+                        'assets/certificate.png',
+                        height: 18.0.sp,
+                        width: 18.0.sp,
+                        color: currentTab == 2 ? Color(0xFF193F70) : Color(0xFFABAAAA),
+                      ),
+                      /*Icon(
                         FontAwesomeIcons.certificate,
                         size: 20.0,
                         color: currentTab == 2 ? Color(0xFF193F70) : Color(0xFFABAAAA),
-                      ),
+                      ),*/
                       SizedBox(
                         height: 3.0,
                       ),
@@ -436,11 +453,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(
+                      Image.asset(
+                        'assets/package.png',
+                        height: 18.0.sp,
+                        width: 18.0.sp,
+                        color: currentTab == 3 ? Color(0xFF193F70) : Color(0xFFABAAAA),
+                      ),
+                      /*Icon(
                         FontAwesomeIcons.amazon,
                         size: 20.0,
                         color: currentTab == 3 ? Color(0xFF193F70) : Color(0xFFABAAAA),
-                      ),
+                      ),*/
                       SizedBox(
                         height: 3.0,
                       ),
@@ -469,11 +492,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(
+                      Image.asset(
+                        'assets/account.png',
+                        height: 18.0.sp,
+                        width: 18.0.sp,
+                        color: currentTab == 4 ? Color(0xFF193F70) : Color(0xFFABAAAA),
+                      ),
+                      /*Icon(
                         FontAwesomeIcons.user,
                         size: 20.0,
                         color: currentTab == 4 ? Color(0xFF193F70) : Color(0xFFABAAAA),
-                      ),
+                      ),*/
                       SizedBox(
                         height: 3.0,
                       ),
