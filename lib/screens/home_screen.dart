@@ -468,7 +468,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 3.0,
                       ),
                       Text(
-                        'Premium',
+                        // 'Premium',
+                        'Package',
                         style: TextStyle(
                           fontSize: 10.0.sp,
                           fontFamily: 'Whitney Medium',

@@ -294,3 +294,5 @@ const String selectJobTitleMsg = 'Please select job title/designation';
 const String selectIndustryMsg = 'Please select industry';
 const String selectPrefCredsMsg = 'Please select professional credentials';
 const String selectAddiQualificationMsg = 'Please select additional qualifications';
+
+const String sharedPrefsNot = 'Prefs not available';

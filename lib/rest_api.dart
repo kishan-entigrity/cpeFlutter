@@ -6,26 +6,18 @@ class URLs {
   static const String BASE_URL = 'https://my-cpe.com/api/v3/';
 }
 
-Future loginUser(String email, String password, String device_id,
-    String device_token, String device_type) async {
+Future loginUser(String email, String password, String device_id, String device_token, String device_type) async {
   String urls = URLs.BASE_URL + 'login';
   final response = await http.post(
     urls,
     headers: {'Accept': 'Application/json'},
-    body: {
-      'email': email,
-      'password': password,
-      'device_id': device_id,
-      'device_token': device_token,
-      'device_type': device_type
-    },
+    body: {'email': email, 'password': password, 'device_id': device_id, 'device_token': device_token, 'device_type': device_type},
   );
   var convertDataToJson = jsonDecode(response.body);
   return convertDataToJson;
 }
 
-Future changePassword(String authToken, String current_password,
-    String new_password, String confirm_password) async {
+Future changePassword(String authToken, String current_password, String new_password, String confirm_password) async {
   String urls = URLs.BASE_URL + 'change-password';
   final response = await http.post(
     urls,
@@ -33,18 +25,13 @@ Future changePassword(String authToken, String current_password,
       'Accept': 'Application/json',
       'Authorization': 'Bearer $authToken',
     },
-    body: {
-      'current_password': current_password,
-      'new_password': new_password,
-      'confirm_password': confirm_password
-    },
+    body: {'current_password': current_password, 'new_password': new_password, 'confirm_password': confirm_password},
   );
   var convertDataToJson = jsonDecode(response.body);
   return convertDataToJson;
 }
 
-Future video_duration(String authToken, String webinar_id,
-    String play_time_duration, String presentation_length) async {
+Future video_duration(String authToken, String webinar_id, String play_time_duration, String presentation_length) async {
   String urls = URLs.BASE_URL + 'webinar/video-duration';
   final response = await http.post(
     urls,
@@ -52,11 +39,7 @@ Future video_duration(String authToken, String webinar_id,
       'Accept': 'Application/json',
       'Authorization': 'Bearer $authToken',
     },
-    body: {
-      'webinar_id': webinar_id,
-      'play_time_duration': play_time_duration,
-      'presentation_length': presentation_length
-    },
+    body: {'webinar_id': webinar_id, 'play_time_duration': play_time_duration, 'presentation_length': presentation_length},
   );
   var convertDataToJson = jsonDecode(response.body);
   return convertDataToJson;
@@ -79,16 +62,8 @@ Future contactUs(String email, String subject) async {
   return convertDataToJson;
 }
 
-Future homeWebinarList(
-    String authToken,
-    String start,
-    String limit,
-    String topic_of_interest,
-    String subject_area,
-    String webinar_key_text,
-    String webinar_type,
-    String date_filter,
-    String filter_price) async {
+Future homeWebinarList(String authToken, String start, String limit, String topic_of_interest, String subject_area, String webinar_key_text,
+    String webinar_type, String date_filter, String filter_price) async {
   String urls = URLs.BASE_URL + 'webinar/list';
 
   String updatedToken = '';

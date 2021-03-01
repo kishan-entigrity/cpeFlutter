@@ -141,6 +141,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                         // My Transaction controller..
                         GestureDetector(
                           onTap: () {
+                            print('Clicked on My Tranasaction');
                             Navigator.push(
                               context,
                               MaterialPageRoute(
