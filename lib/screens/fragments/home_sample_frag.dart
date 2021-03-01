@@ -8,12 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tags/flutter_tags.dart';
 import 'package:http/http.dart' as http;
 
-class HomeFrag extends StatefulWidget {
+class HomeSampleFrag extends StatefulWidget {
   @override
-  _HomeFragState createState() => _HomeFragState();
+  _HomeSampleFragState createState() => _HomeSampleFragState();
 }
 
-class _HomeFragState extends State<HomeFrag> {
+class _HomeSampleFragState extends State<HomeSampleFrag> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   var _authToken = '';
 
@@ -48,8 +48,7 @@ class _HomeFragState extends State<HomeFrag> {
   var data;
 
   Future<String> getData() async {
-    var response = await http.get(
-        Uri.encodeFull("https://my-cpe.com/api/v3/topic-of-interest/list"));
+    var response = await http.get(Uri.encodeFull("https://my-cpe.com/api/v3/topic-of-interest/list"));
 
     this.setState(() {
       // data = JSON.decode(response.body);

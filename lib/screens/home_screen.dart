@@ -1,5 +1,4 @@
 import 'package:cpe_flutter/screens/fragments/certificate_frag.dart';
-import 'package:cpe_flutter/screens/fragments/home_frag.dart';
 import 'package:cpe_flutter/screens/fragments/my_webinar_frag.dart';
 import 'package:cpe_flutter/screens/fragments/premium_frag.dart';
 import 'package:cpe_flutter/screens/fragments/profile_frag.dart';
@@ -8,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+
+import 'fragments/home_fragment.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -23,7 +24,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   int currentTab = 0;
   final List<Widget> screens = [
-    HomeFrag(),
+    // HomeSampleFrag(),
+    HomeFragment(),
     MyWebinarFrag(),
     CertificateFrag(),
     PremiumFrag(),
@@ -32,7 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // Something that stores the stack..
   final PageStorageBucket bucket = PageStorageBucket();
-  Widget currentScreen = HomeFrag();
+  // Widget currentScreen = HomeSampleFrag();
+  Widget currentScreen = HomeFragment();
 
   @override
   void initState() {
@@ -323,7 +326,8 @@ class _HomeScreenState extends State<HomeScreen> {
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    currentScreen = HomeFrag();
+                    // currentScreen = HomeSampleFrag();
+                    currentScreen = HomeFragment();
                     currentTab = 0;
                   });
                 },
@@ -336,9 +340,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Icon(
                         FontAwesomeIcons.home,
                         size: 20.0,
-                        color: currentTab == 0
-                            ? Color(0xFF193F70)
-                            : Color(0xFFABAAAA),
+                        color: currentTab == 0 ? Color(0xFF193F70) : Color(0xFFABAAAA),
                       ),
                       SizedBox(
                         height: 3.0,
@@ -348,9 +350,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: TextStyle(
                           fontSize: 10.0.sp,
                           fontFamily: 'Whitney Medium',
-                          color: currentTab == 0
-                              ? Color(0xFF193F70)
-                              : Color(0xFFABAAAA),
+                          color: currentTab == 0 ? Color(0xFF193F70) : Color(0xFFABAAAA),
                         ),
                       ),
                     ],
@@ -373,9 +373,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Icon(
                         FontAwesomeIcons.desktop,
                         size: 20.0,
-                        color: currentTab == 1
-                            ? Color(0xFF193F70)
-                            : Color(0xFFABAAAA),
+                        color: currentTab == 1 ? Color(0xFF193F70) : Color(0xFFABAAAA),
                       ),
                       SizedBox(
                         height: 3.0,
@@ -385,9 +383,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: TextStyle(
                           fontSize: 10.0.sp,
                           fontFamily: 'Whitney Medium',
-                          color: currentTab == 1
-                              ? Color(0xFF193F70)
-                              : Color(0xFFABAAAA),
+                          color: currentTab == 1 ? Color(0xFF193F70) : Color(0xFFABAAAA),
                         ),
                       ),
                     ],
@@ -410,9 +406,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Icon(
                         FontAwesomeIcons.certificate,
                         size: 20.0,
-                        color: currentTab == 2
-                            ? Color(0xFF193F70)
-                            : Color(0xFFABAAAA),
+                        color: currentTab == 2 ? Color(0xFF193F70) : Color(0xFFABAAAA),
                       ),
                       SizedBox(
                         height: 3.0,
@@ -422,9 +416,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: TextStyle(
                           fontSize: 10.0.sp,
                           fontFamily: 'Whitney Medium',
-                          color: currentTab == 2
-                              ? Color(0xFF193F70)
-                              : Color(0xFFABAAAA),
+                          color: currentTab == 2 ? Color(0xFF193F70) : Color(0xFFABAAAA),
                         ),
                       ),
                     ],
@@ -447,9 +439,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Icon(
                         FontAwesomeIcons.amazon,
                         size: 20.0,
-                        color: currentTab == 3
-                            ? Color(0xFF193F70)
-                            : Color(0xFFABAAAA),
+                        color: currentTab == 3 ? Color(0xFF193F70) : Color(0xFFABAAAA),
                       ),
                       SizedBox(
                         height: 3.0,
@@ -459,9 +449,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: TextStyle(
                           fontSize: 10.0.sp,
                           fontFamily: 'Whitney Medium',
-                          color: currentTab == 3
-                              ? Color(0xFF193F70)
-                              : Color(0xFFABAAAA),
+                          color: currentTab == 3 ? Color(0xFF193F70) : Color(0xFFABAAAA),
                         ),
                       ),
                     ],
@@ -484,9 +472,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Icon(
                         FontAwesomeIcons.user,
                         size: 20.0,
-                        color: currentTab == 4
-                            ? Color(0xFF193F70)
-                            : Color(0xFFABAAAA),
+                        color: currentTab == 4 ? Color(0xFF193F70) : Color(0xFFABAAAA),
                       ),
                       SizedBox(
                         height: 3.0,
@@ -496,9 +482,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: TextStyle(
                           fontSize: 10.0.sp,
                           fontFamily: 'Whitney Medium',
-                          color: currentTab == 4
-                              ? Color(0xFF193F70)
-                              : Color(0xFFABAAAA),
+                          color: currentTab == 4 ? Color(0xFF193F70) : Color(0xFFABAAAA),
                         ),
                       ),
                     ],
