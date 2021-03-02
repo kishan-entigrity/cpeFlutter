@@ -4,7 +4,7 @@ import 'package:cpe_flutter/screens/profile/change_password.dart';
 import 'package:cpe_flutter/screens/profile/contact_us.dart';
 import 'package:cpe_flutter/screens/profile/my_credit.dart';
 import 'package:cpe_flutter/screens/profile/my_transaction.dart';
-import 'package:cpe_flutter/screens/profile/notification_settings.dart';
+import 'package:cpe_flutter/screens/profile/notification.dart';
 import 'package:cpe_flutter/screens/profile/privacy_policy.dart';
 import 'package:cpe_flutter/screens/profile/terms_condition.dart';
 import 'package:flutter/material.dart';
@@ -110,7 +110,8 @@ class _ProfileFragState extends State<ProfileFrag> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => NotificationSettings(),
+                                // builder: (context) => NotificationSettings(),
+                                builder: (context) => Notifications(),
                               ),
                             );
                           },
@@ -127,7 +128,8 @@ class _ProfileFragState extends State<ProfileFrag> {
                                 color: Colors.black,
                               ),
                               title: Text(
-                                'Notification Settings',
+                                // 'Notification Settings',
+                                'Notification',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontFamily: 'Whitney Medium',

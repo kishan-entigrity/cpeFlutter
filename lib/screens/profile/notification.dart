@@ -1,20 +1,23 @@
 import 'dart:convert';
 
-import 'package:cpe_flutter/screens/profile/pagination_my_transaction/my_transaction_list.dart';
+import 'package:cpe_flutter/screens/profile/notification_settings.dart';
+import 'package:cpe_flutter/screens/profile/pagination_notification/notification_list_data.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
+// import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constant.dart';
 
-class MyTranscation extends StatefulWidget {
+class Notifications extends StatefulWidget {
   @override
-  _MyTranscationState createState() => _MyTranscationState();
+  _NotificationsState createState() => _NotificationsState();
 }
 
-class _MyTranscationState extends State<MyTranscation> {
+class _NotificationsState extends State<Notifications> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   ScrollController _scrollController = new ScrollController();
   bool isLoaderShowing = false;
@@ -25,13 +28,13 @@ class _MyTranscationState extends State<MyTranscation> {
 
   bool isLast = false;
 
-  List<Transaction> list;
+  List<Notification_list> list;
   int arrCount = 0;
   var data_web;
 
-  Future<List<Transaction>> getMyTransactionList(String authToken, String start, String limit) async {
+  Future<List<Notification_list>> getMyTransactionList(String authToken, String start, String limit) async {
     // String urls = URLs.BASE_URL + 'webinar/list';
-    String urls = 'https://my-cpe.com/api/v3/payment-transaction';
+    String urls = 'https://my-cpe.com/api/v3/notification';
 
     final response = await http.post(
       urls,
@@ -58,14 +61,14 @@ class _MyTranscationState extends State<MyTranscation> {
 
     // print(data[1]["title"]);
     print('API response is : $data');
-    arrCount = data['payload']['transaction'].length;
-    data_web = data['payload']['transaction'];
+    arrCount = data['payload']['notification_list'].length;
+    data_web = data['payload']['notification_list'];
     print('Size for array is : $arrCount');
 
     if (list != null && list.isNotEmpty) {
-      list.addAll(List.from(data_web).map<Transaction>((item) => Transaction.fromJson(item)).toList());
+      list.addAll(List.from(data_web).map<Notification_list>((item) => Notification_list.fromJson(item)).toList());
     } else {
-      list = List.from(data_web).map<Transaction>((item) => Transaction.fromJson(item)).toList();
+      list = List.from(data_web).map<Notification_list>((item) => Notification_list.fromJson(item)).toList();
     }
 
     // return "Success!";
@@ -102,8 +105,8 @@ class _MyTranscationState extends State<MyTranscation> {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: implement build
     return Scaffold(
-      key: _scaffoldKey,
       body: SafeArea(
         child: Column(
           children: <Widget>[
@@ -130,7 +133,7 @@ class _MyTranscationState extends State<MyTranscation> {
                   Flexible(
                     child: Center(
                       child: Text(
-                        'My Transcation',
+                        'Notifications',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 14.5.sp,
@@ -140,9 +143,25 @@ class _MyTranscationState extends State<MyTranscation> {
                     ),
                     flex: 8,
                   ),
-                  Flexible(
-                    child: Text(''),
-                    flex: 1,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NotificationSettings(),
+                          // builder: (context) => Notifications(),
+                        ),
+                      );
+                    },
+                    child: Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          FontAwesomeIcons.cog,
+                        ),
+                      ),
+                      flex: 1,
+                    ),
                   ),
                 ],
               ),
@@ -189,7 +208,7 @@ class _MyTranscationState extends State<MyTranscation> {
                                         )
                                   : GestureDetector(
                                       onTap: () {
-                                        print('Clicked on the webinar title : ${list[index].title} || and ID : ${list[index].webinarId}');
+                                        print('Clicked on the webinar title : ${list[index].webinarId}');
                                         // So Basically we can handle the click event for the selected tile from here..
                                       },
                                       child: Container(
@@ -208,73 +227,20 @@ class _MyTranscationState extends State<MyTranscation> {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: <Widget>[
                                             Text(
-                                              '${list[index].title}',
+                                              '${list[index].notificationMessage}',
                                               style: TextStyle(
                                                 fontSize: 15.0.sp,
                                                 fontFamily: 'Whitney Medium',
                                               ),
                                             ),
                                             Text(
-                                              'Tr ID #: ${list[index].transactionId}',
+                                              // '${list[index].timestamp}',
+                                              // '${new DateTime.fromMicrosecondsSinceEpoch(${list[index].timestamp})}',
+                                              '${covertDateTimeTimeStamp('${list[index].timestamp}')}',
                                               style: TextStyle(
                                                 fontSize: 12.0.sp,
                                                 fontFamily: 'Whitney Medium',
                                                 color: Color(0x501F2227),
-                                              ),
-                                            ),
-                                            Container(
-                                              margin: EdgeInsets.only(top: 10.0),
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: <Widget>[
-                                                  Row(
-                                                    children: <Widget>[
-                                                      Container(
-                                                        margin: EdgeInsets.only(top: 5.0, bottom: 5.0, left: 0.0, right: 10.0),
-                                                        padding: EdgeInsets.symmetric(vertical: 4.0.sp, horizontal: 18.0.sp),
-                                                        decoration: BoxDecoration(
-                                                          color: themeBlueLight,
-                                                          borderRadius: BorderRadius.circular(4.0),
-                                                        ),
-                                                        child: Text(
-                                                          '\$ ${list[index].amount}',
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontFamily: 'Whitney Semibold',
-                                                            fontSize: 12.0.sp,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        child: Text(
-                                                          '${list[index].paymentDate}',
-                                                          style: TextStyle(
-                                                            color: Color(0x501F2227),
-                                                            fontFamily: 'Whitney Medium',
-                                                            fontSize: 12.0.sp,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Container(
-                                                    height: 32.0.sp,
-                                                    width: 32.0.sp,
-                                                    padding: EdgeInsets.symmetric(vertical: 12.0),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius.circular(32.0.sp),
-                                                      color: themeYellow,
-                                                    ),
-                                                    /*child: Icon(
-                                                      FontAwesomeIcons.arrowDown,
-                                                      color: Colors.white,
-                                                      size: 12.0.sp,
-                                                    ),*/
-                                                    child: Image.asset(
-                                                      'assets/download.png',
-                                                    ),
-                                                  ),
-                                                ],
                                               ),
                                             ),
                                           ],
@@ -326,5 +292,20 @@ class _MyTranscationState extends State<MyTranscation> {
         );
       }
     }
+  }
+
+  String covertDateTimeTimeStamp(String timeStamp) {
+    print('TimeStamp we are getting is : $timeStamp');
+
+    var intDate = int.parse(timeStamp);
+
+    var date = DateTime.fromMillisecondsSinceEpoch(intDate * 1000);
+    // DateTime date1 = intDate.toDate;
+    // var date2 = DateTime.fromMillisecondsSinceEpoch(intDate);
+    // var formattedDate = DateFormat.yMMMd().format(date2);
+
+    // return timeStamp;
+    // return formattedDate;
+    return date.toString();
   }
 }
