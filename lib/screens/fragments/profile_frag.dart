@@ -1,18 +1,17 @@
 import 'package:cpe_flutter/screens/fragments/pagination/sample_pagination.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
+import 'package:cpe_flutter/screens/profile/change_password.dart';
+import 'package:cpe_flutter/screens/profile/contact_us.dart';
+import 'package:cpe_flutter/screens/profile/my_credit.dart';
+import 'package:cpe_flutter/screens/profile/my_transaction.dart';
+import 'package:cpe_flutter/screens/profile/notification_settings.dart';
+import 'package:cpe_flutter/screens/profile/privacy_policy.dart';
+import 'package:cpe_flutter/screens/profile/terms_condition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-
-import 'file:///C:/Kishan/Projects/Flutter_Project/cpe_flutter/lib/screens/profile/change_password.dart';
-import 'file:///C:/Kishan/Projects/Flutter_Project/cpe_flutter/lib/screens/profile/contact_us.dart';
-import 'file:///C:/Kishan/Projects/Flutter_Project/cpe_flutter/lib/screens/profile/my_credit.dart';
-import 'file:///C:/Kishan/Projects/Flutter_Project/cpe_flutter/lib/screens/profile/my_transaction.dart';
-import 'file:///C:/Kishan/Projects/Flutter_Project/cpe_flutter/lib/screens/profile/notification_settings.dart';
-import 'file:///C:/Kishan/Projects/Flutter_Project/cpe_flutter/lib/screens/profile/privacy_policy.dart';
-import 'file:///C:/Kishan/Projects/Flutter_Project/cpe_flutter/lib/screens/profile/terms_condition.dart';
 
 class ProfileFrag extends StatefulWidget {
   @override

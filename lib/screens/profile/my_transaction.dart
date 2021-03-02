@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../constant.dart';
 
@@ -132,7 +133,7 @@ class _MyTranscationState extends State<MyTranscation> {
                         'My Transcation',
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 18.0,
+                          fontSize: 14.5.sp,
                           fontFamily: 'Whitney Semi Bold',
                         ),
                       ),
@@ -195,22 +196,88 @@ class _MyTranscationState extends State<MyTranscation> {
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(10.0),
                                           color: Colors.blueGrey,
+                                          // color: Color(0xFFF3F5F9),
                                         ),
                                         margin: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
                                         // padding: EdgeInsets.all(10.0),
                                         padding: EdgeInsets.symmetric(
-                                          vertical: 20.0,
+                                          vertical: 15.0,
                                           horizontal: 10.0,
                                         ),
-                                        child: Center(
-                                          child: Text(
-                                            // '${data['payload']['webinar'][index]['webinar_title']}',
-                                            '${list[index].title}',
-                                            // '${strTitles[index]}',
-                                            style: TextStyle(
-                                              fontSize: 20.0,
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Text(
+                                              '${list[index].title}',
+                                              style: TextStyle(
+                                                fontSize: 15.0.sp,
+                                                fontFamily: 'Whitney Medium',
+                                              ),
                                             ),
-                                          ),
+                                            Text(
+                                              'Tr ID #: ${list[index].transactionId}',
+                                              style: TextStyle(
+                                                fontSize: 12.0.sp,
+                                                fontFamily: 'Whitney Medium',
+                                                color: Color(0x501F2227),
+                                              ),
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.only(top: 10.0),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: <Widget>[
+                                                  Row(
+                                                    children: <Widget>[
+                                                      Container(
+                                                        margin: EdgeInsets.only(top: 5.0, bottom: 5.0, left: 0.0, right: 10.0),
+                                                        padding: EdgeInsets.symmetric(vertical: 4.0.sp, horizontal: 18.0.sp),
+                                                        decoration: BoxDecoration(
+                                                          color: themeBlueLight,
+                                                          borderRadius: BorderRadius.circular(4.0),
+                                                        ),
+                                                        child: Text(
+                                                          '\$ ${list[index].amount}',
+                                                          style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontFamily: 'Whitney Semibold',
+                                                            fontSize: 12.0.sp,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        child: Text(
+                                                          '${list[index].paymentDate}',
+                                                          style: TextStyle(
+                                                            color: Color(0x501F2227),
+                                                            fontFamily: 'Whitney Medium',
+                                                            fontSize: 12.0.sp,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Container(
+                                                    height: 32.0.sp,
+                                                    width: 32.0.sp,
+                                                    padding: EdgeInsets.symmetric(vertical: 12.0),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(32.0.sp),
+                                                      color: themeYellow,
+                                                    ),
+                                                    /*child: Icon(
+                                                      FontAwesomeIcons.arrowDown,
+                                                      color: Colors.white,
+                                                      size: 12.0.sp,
+                                                    ),*/
+                                                    child: Image.asset(
+                                                      'assets/download.png',
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
