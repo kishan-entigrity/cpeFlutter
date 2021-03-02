@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cpe_flutter/screens/home_screen.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,6 +30,11 @@ class _SplashScreenState extends State<SplashScreen> {
         );
       });
     });*/
+    if (Platform.isAndroid) {
+      print('Device Type is Android');
+    } else if (Platform.isIOS) {
+      print('Device Type is iOS');
+    }
   }
 
   @override
