@@ -197,7 +197,7 @@ class _MyTranscationState extends State<MyTranscation> {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) => TransactionPdfPreview('${list[index].receipt}'),
+                                              builder: (context) => TransactionPdfPreview('${list[index].receipt}', '${list[index].title}'),
                                             ),
                                           );
                                         } else {
