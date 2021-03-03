@@ -1,4 +1,5 @@
 import 'package:cpe_flutter/constant.dart';
+import 'package:cpe_flutter/screens/fragments/testimonials.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rating_bar/rating_bar.dart';
@@ -11,8 +12,7 @@ class childCardTestimonials extends StatefulWidget {
   final respTestimonials;
 
   @override
-  _childCardTestimonialsState createState() =>
-      _childCardTestimonialsState(respTestimonials);
+  _childCardTestimonialsState createState() => _childCardTestimonialsState(respTestimonials);
 }
 
 class _childCardTestimonialsState extends State<childCardTestimonials> {
@@ -28,14 +28,8 @@ class _childCardTestimonialsState extends State<childCardTestimonials> {
       ),*/
       child: Column(
         children: <Widget>[
-          TestimonialDataCell(
-              respTestimonials[0]['first_name'] +
-                  ' ' +
-                  respTestimonials[0]['last_name'] +
-                  respTestimonials[0]['designation'],
-              respTestimonials[0]['date'],
-              respTestimonials[0]['rate'],
-              respTestimonials[0]['review']),
+          TestimonialDataCell(respTestimonials[0]['first_name'] + ' ' + respTestimonials[0]['last_name'] + respTestimonials[0]['designation'],
+              respTestimonials[0]['date'], respTestimonials[0]['rate'], respTestimonials[0]['review']),
           Container(
             width: double.infinity,
             height: 0.5,
@@ -44,19 +38,19 @@ class _childCardTestimonialsState extends State<childCardTestimonials> {
           SizedBox(
             height: 10.0,
           ),
-          TestimonialDataCell(
-              respTestimonials[1]['first_name'] +
-                  ' ' +
-                  respTestimonials[1]['last_name'] +
-                  respTestimonials[1]['designation'],
-              respTestimonials[1]['date'],
-              respTestimonials[1]['rate'],
-              respTestimonials[1]['review']),
+          TestimonialDataCell(respTestimonials[1]['first_name'] + ' ' + respTestimonials[1]['last_name'] + respTestimonials[1]['designation'],
+              respTestimonials[1]['date'], respTestimonials[1]['rate'], respTestimonials[1]['review']),
           GestureDetector(
             // Have to put Navigator call for Testimonials screen from here..
             // Have to pass the data of webinar ID..
             onTap: () {
               print('Clicked on view more button');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Testimonials(),
+                ),
+              );
             },
             child: Container(
               padding: EdgeInsets.all(10.0),
@@ -73,8 +67,8 @@ class _childCardTestimonialsState extends State<childCardTestimonials> {
 }
 
 class TestimonialDataCell extends StatelessWidget {
-  TestimonialDataCell(
-      this.userNameData, this.testimonialDate, this.rating, this.review);
+  TestimonialDataCell(this.userNameData, this.testimonialDate, this.rating, this.review);
+
   final String userNameData;
   final String testimonialDate;
   final String rating;
