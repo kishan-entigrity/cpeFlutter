@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cpe_flutter/screens/profile/pagination_my_transaction/my_transaction_list.dart';
+import 'package:cpe_flutter/screens/profile/pdf_preview_transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -191,6 +192,22 @@ class _MyTranscationState extends State<MyTranscation> {
                                       onTap: () {
                                         print('Clicked on the webinar title : ${list[index].title} || and ID : ${list[index].webinarId}');
                                         // So Basically we can handle the click event for the selected tile from here..
+                                        var strUrl = list[index].receipt;
+                                        if (strUrl.isNotEmpty) {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => TransactionPdfPreview('${list[index].receipt}'),
+                                            ),
+                                          );
+                                        } else {
+                                          _scaffoldKey.currentState.showSnackBar(
+                                            SnackBar(
+                                              content: Text(urlnotFound),
+                                              duration: Duration(seconds: 3),
+                                            ),
+                                          );
+                                        }
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(
@@ -265,11 +282,6 @@ class _MyTranscationState extends State<MyTranscation> {
                                                       borderRadius: BorderRadius.circular(32.0.sp),
                                                       color: themeYellow,
                                                     ),
-                                                    /*child: Icon(
-                                                      FontAwesomeIcons.arrowDown,
-                                                      color: Colors.white,
-                                                      size: 12.0.sp,
-                                                    ),*/
                                                     child: Image.asset(
                                                       'assets/download.png',
                                                     ),

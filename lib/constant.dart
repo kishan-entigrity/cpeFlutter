@@ -296,3 +296,4 @@ const String selectPrefCredsMsg = 'Please select professional credentials';
 const String selectAddiQualificationMsg = 'Please select additional qualifications';
 
 const String sharedPrefsNot = 'Prefs not available';
+const String urlnotFound = 'Oops we didn\'t found url';

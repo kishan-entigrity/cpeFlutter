@@ -49,6 +49,7 @@ dependencies:
   dots_indicator: ^1.2.0
   modal_bottom_sheet: ^1.0.0+1
   lazy_load_scrollview: 1.2.0
+  advance_pdf_viewer: 1.2.2
 
 dev_dependencies:
   flutter_test:
