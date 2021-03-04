@@ -54,6 +54,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       String webinar_key_text, String webinar_type, String date_filter, String filter_price) async {
     // String urls = URLs.BASE_URL + 'webinar/list';
     String urls = 'https://my-cpe.com/api/v3/webinar/list';
+    // String urls = 'https://my-cpe.com/api/v3/webinar/my-webinar';
 
     final response = await http.post(
       urls,

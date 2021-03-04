@@ -7,6 +7,7 @@ import 'package:cpe_flutter/screens/profile/my_transaction.dart';
 import 'package:cpe_flutter/screens/profile/notification.dart';
 import 'package:cpe_flutter/screens/profile/privacy_policy.dart';
 import 'package:cpe_flutter/screens/profile/terms_condition.dart';
+import 'package:cpe_flutter/screens/profile/user_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -85,16 +86,26 @@ class _ProfileFragState extends State<ProfileFrag> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Center(
-                      child: Text(
-                        '$strFName ' '$strLName',
-                        style: TextStyle(
-                          fontSize: 19.0.sp,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1,
-                          fontFamily: 'Whitney Bold',
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => UserProfile(),
+                        ),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Center(
+                        child: Text(
+                          '$strFName $strLName',
+                          style: TextStyle(
+                            fontSize: 19.0.sp,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1,
+                            fontFamily: 'Whitney Bold',
+                          ),
                         ),
                       ),
                     ),
