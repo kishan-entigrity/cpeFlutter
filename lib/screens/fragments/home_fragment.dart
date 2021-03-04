@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cpe_flutter/screens/fragments/pagination/webinar_list.dart';
+import 'package:cpe_flutter/screens/profile/notification.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -152,21 +153,15 @@ class _HomeFragmentState extends State<HomeFragment> {
                     height: 60.0,
                     width: double.infinity,
                     color: Color(0xFFF3F5F9),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    child: Stack(
                       children: <Widget>[
-                        Flexible(
-                          flex: 2,
-                          child: Container(
-                            padding: EdgeInsets.all(10.0),
-                            width: 20.0.sp,
-                          ),
-                        ),
-                        Flexible(
-                          flex: 8,
+                        Positioned(
+                          top: 0.0,
+                          bottom: 0.0,
+                          right: 0.0,
+                          left: 0.0,
                           child: Center(
                             child: Text(
-                              // 'My Webinar',
                               'Home',
                               style: TextStyle(
                                 color: Colors.black,
@@ -176,24 +171,54 @@ class _HomeFragmentState extends State<HomeFragment> {
                             ),
                           ),
                         ),
-                        Flexible(
-                          flex: 2,
-                          child: GestureDetector(
-                            onTap: () {
-                              print('Clicked on the search icon..');
-                              setState(() {
-                                isSearch = true;
-                              });
-                            },
-                            child: Container(
-                              color: Color(0xFFF3F5F9),
-                              width: 20.0.sp,
-                              height: double.infinity,
-                              padding: EdgeInsets.all(10.0),
-                              child: Icon(
-                                FontAwesomeIcons.search,
-                                size: 12.0.sp,
-                              ),
+                        Positioned(
+                          right: 0.0,
+                          top: 0.0,
+                          bottom: 0.0,
+                          child: Container(
+                            // color: Color(0xFFF3F5F9),
+                            // width: 20.0.sp,
+                            height: double.infinity,
+                            padding: EdgeInsets.all(10.0),
+                            child: Row(
+                              children: <Widget>[
+                                GestureDetector(
+                                  onTap: () {
+                                    print('Clicked on the search icon..');
+                                    setState(() {
+                                      isSearch = true;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 30.0.sp,
+                                    height: double.infinity,
+                                    color: Color(0xFFF3F5F9),
+                                    child: Icon(
+                                      FontAwesomeIcons.search,
+                                      size: 12.0.sp,
+                                    ),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Notifications(),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    width: 20.0.sp,
+                                    height: double.infinity,
+                                    color: Color(0xFFF3F5F9),
+                                    child: Icon(
+                                      FontAwesomeIcons.solidBell,
+                                      size: 12.0.sp,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
