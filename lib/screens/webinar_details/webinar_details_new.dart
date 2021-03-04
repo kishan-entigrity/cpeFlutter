@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
-import 'package:cpe_flutter/components/TopBar.dart';
+import 'package:cpe_flutter/screens/profile/notification.dart';
 import 'package:cpe_flutter/screens/webinar_details/ExpandedCard.dart';
 import 'package:cpe_flutter/screens/webinar_details/WebinarSpeakerName_OnDemand.dart';
 import 'package:cpe_flutter/screens/webinar_details/WebinarTitleOnDemand.dart';
@@ -13,6 +13,7 @@ import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:video_player/video_player.dart';
@@ -267,9 +268,106 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    TopBar(
+                    /*TopBar(
                       Colors.white,
                       'Webinar Details',
+                    ),*/
+                    Container(
+                      height: 60.0,
+                      width: double.infinity,
+                      color: Color(0xFFF3F5F9),
+                      child: Stack(
+                        children: <Widget>[
+                          Positioned(
+                            top: 0.0,
+                            bottom: 0.0,
+                            left: 0.0,
+                            child: Container(
+                              child: GestureDetector(
+                                onTap: () {
+                                  print('Clicked on the back icon..');
+                                  Navigator.pop(context);
+                                },
+                                child: Container(
+                                  width: 30.0.sp,
+                                  height: double.infinity,
+                                  color: Color(0xFFF3F5F9),
+                                  child: Icon(
+                                    FontAwesomeIcons.angleLeft,
+                                    size: 12.0.sp,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top: 0.0,
+                            bottom: 0.0,
+                            right: 0.0,
+                            left: 0.0,
+                            child: Center(
+                              child: Text(
+                                'Webinar Details',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 15.0.sp,
+                                  fontFamily: 'Whitney Semi Bold',
+                                ),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            right: 0.0,
+                            top: 0.0,
+                            bottom: 0.0,
+                            child: Container(
+                              // color: Color(0xFFF3F5F9),
+                              // width: 20.0.sp,
+                              height: double.infinity,
+                              padding: EdgeInsets.all(10.0),
+                              child: Row(
+                                children: <Widget>[
+                                  GestureDetector(
+                                    onTap: () {
+                                      print('Clicked on the share icon..');
+                                      // Share.share('$strUrl');
+                                      Share.share('${webDetailsObj['shareable_link']}');
+                                    },
+                                    child: Container(
+                                      width: 30.0.sp,
+                                      height: double.infinity,
+                                      color: Color(0xFFF3F5F9),
+                                      child: Icon(
+                                        FontAwesomeIcons.shareAlt,
+                                        size: 12.0.sp,
+                                      ),
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Notifications(),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      width: 20.0.sp,
+                                      height: double.infinity,
+                                      color: Color(0xFFF3F5F9),
+                                      child: Icon(
+                                        FontAwesomeIcons.solidBell,
+                                        size: 12.0.sp,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     // Here the stack is used for controlling three view for the
                     // selfstudy thumb, selfstudy video player and live webinars..
