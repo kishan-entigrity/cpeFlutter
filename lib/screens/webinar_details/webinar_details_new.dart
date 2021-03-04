@@ -504,7 +504,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                   checkTestimonialsExpand();
                                 },
                                 strTitle: 'Testimonials',
-                                cardChild: childCardTestimonials('Description Data Testimonials', respTestimonials),
+                                cardChild:
+                                    childCardTestimonials('Description Data Testimonials', respTestimonials, webDetailsObj['webinar_id'].toString()),
                                 flagExpand: isTestimonialsExpanded),
                             ExpandedCard(
                                 onPress: () {

@@ -6,19 +6,21 @@ import 'package:rating_bar/rating_bar.dart';
 import 'package:sizer/sizer.dart';
 
 class childCardTestimonials extends StatefulWidget {
-  childCardTestimonials(this.strDetails, this.respTestimonials);
+  childCardTestimonials(this.strDetails, this.respTestimonials, this.webinarId);
 
   final String strDetails;
   final respTestimonials;
+  final String webinarId;
 
   @override
-  _childCardTestimonialsState createState() => _childCardTestimonialsState(respTestimonials);
+  _childCardTestimonialsState createState() => _childCardTestimonialsState(respTestimonials, webinarId);
 }
 
 class _childCardTestimonialsState extends State<childCardTestimonials> {
-  _childCardTestimonialsState(this.respTestimonials);
+  _childCardTestimonialsState(this.respTestimonials, this.webinarId);
 
   final respTestimonials;
+  final String webinarId;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,7 @@ class _childCardTestimonialsState extends State<childCardTestimonials> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => Testimonials(),
+                  builder: (context) => Testimonials(webinarId),
                 ),
               );
             },

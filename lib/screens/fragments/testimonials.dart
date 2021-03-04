@@ -12,11 +12,18 @@ import 'package:sizer/sizer.dart';
 import '../../constant.dart';
 
 class Testimonials extends StatefulWidget {
+  Testimonials(this.webinarId);
+
+  final String webinarId;
+
   @override
-  _TestimonialsState createState() => _TestimonialsState();
+  _TestimonialsState createState() => _TestimonialsState(webinarId);
 }
 
 class _TestimonialsState extends State<Testimonials> {
+  _TestimonialsState(this.webinarId);
+  final String webinarId;
+
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   ScrollController _scrollController = new ScrollController();
   bool isLoaderShowing = false;
@@ -32,8 +39,9 @@ class _TestimonialsState extends State<Testimonials> {
   var data_web;
 
   Future<List<Webinar_testimonial>> getMyTransactionList(String authToken, String start, String limit) async {
+    // Future<String> getMyTransactionList(String authToken, String start, String limit) async {
     // String urls = URLs.BASE_URL + 'webinar/list';
-    String urls = 'https://my-cpe.com/api/v3//webinar/testimonial';
+    String urls = 'https://my-cpe.com/api/v3/webinar/testimonial';
 
     final response = await http.post(
       urls,
@@ -42,6 +50,7 @@ class _TestimonialsState extends State<Testimonials> {
         'Authorization': '$authToken',
       },
       body: {
+        'webinar_id': webinarId,
         'start': start,
         'limit': limit,
       },
@@ -51,11 +60,12 @@ class _TestimonialsState extends State<Testimonials> {
       // data = JSON.decode(response.body);
       data = jsonDecode(response.body);
       isLoaderShowing = false;
-      if (data['payload']['is_last']) {
+      /*if (data['payload']['is_last']) {
         isLast = true;
       } else {
         isLast = false;
-      }
+      }*/
+      isLast = true;
     });
 
     // print(data[1]["title"]);
@@ -78,7 +88,7 @@ class _TestimonialsState extends State<Testimonials> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print('Enter into myTransaction screen');
+    print('Enter into myTransaction screen : webinarId : $webinarId');
     // Get API call for my transaction..
     checkForSP();
 
@@ -88,7 +98,7 @@ class _TestimonialsState extends State<Testimonials> {
         if (!isLast) {
           start = start + 10;
           print('Val for Start is : $start || Status for isLast is : $isLast');
-          this.getMyTransactionList('$_authToken', '$start', '10');
+          this.getMyTransactionList('$_authToken', '$start', '200');
         } else {
           print('val for isLast : $isLast');
         }
@@ -165,7 +175,7 @@ class _TestimonialsState extends State<Testimonials> {
                           print('On refresh is called..');
                           start = 0;
                           list.clear();
-                          this.getMyTransactionList('$_authToken', '$start', '10');
+                          this.getMyTransactionList('$_authToken', '$start', '200');
                         },
                         child: ListView.builder(
                           controller: _scrollController,
@@ -225,8 +235,8 @@ class _TestimonialsState extends State<Testimonials> {
                                               margin: EdgeInsets.only(top: 5.0),
                                               width: 80.0.sp,
                                               child: RatingBar.readOnly(
-                                                // initialRating: double.parse(rating),
-                                                initialRating: double.parse('4'),
+                                                initialRating: double.parse('${list[index].rate.toString()}'),
+                                                // initialRating: double.parse('4'),
                                                 size: 16.0.sp,
                                                 filledColor: Color(0xFFFFC803),
                                                 halfFilledColor: Color(0xFFFFC803),
@@ -247,89 +257,6 @@ class _TestimonialsState extends State<Testimonials> {
                                           ],
                                         ),
                                       ),
-                                      /*child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10.0),
-                                          // color: Colors.blueGrey,
-                                          color: Color(0xFFF3F5F9),
-                                        ),
-                                        margin: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
-                                        // padding: EdgeInsets.all(10.0),
-                                        padding: EdgeInsets.symmetric(
-                                          vertical: 15.0,
-                                          horizontal: 10.0,
-                                        ),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text(
-                                              '${list[index].title}',
-                                              style: TextStyle(
-                                                fontSize: 15.0.sp,
-                                                fontFamily: 'Whitney Medium',
-                                              ),
-                                            ),
-                                            Text(
-                                              'Tr ID #: ${list[index].transactionId}',
-                                              style: TextStyle(
-                                                fontSize: 12.0.sp,
-                                                fontFamily: 'Whitney Medium',
-                                                color: Color(0x501F2227),
-                                              ),
-                                            ),
-                                            Container(
-                                              margin: EdgeInsets.only(top: 10.0),
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: <Widget>[
-                                                  Row(
-                                                    children: <Widget>[
-                                                      Container(
-                                                        margin: EdgeInsets.only(top: 5.0, bottom: 5.0, left: 0.0, right: 10.0),
-                                                        padding: EdgeInsets.symmetric(vertical: 4.0.sp, horizontal: 18.0.sp),
-                                                        decoration: BoxDecoration(
-                                                          color: themeBlueLight,
-                                                          borderRadius: BorderRadius.circular(4.0),
-                                                        ),
-                                                        child: Text(
-                                                          '\$ ${list[index].amount}',
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontFamily: 'Whitney Semibold',
-                                                            fontSize: 12.0.sp,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        child: Text(
-                                                          '${list[index].paymentDate}',
-                                                          style: TextStyle(
-                                                            color: Color(0x501F2227),
-                                                            fontFamily: 'Whitney Medium',
-                                                            fontSize: 12.0.sp,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Container(
-                                                    height: 32.0.sp,
-                                                    width: 32.0.sp,
-                                                    padding: EdgeInsets.symmetric(vertical: 12.0),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius.circular(32.0.sp),
-                                                      color: themeYellow,
-                                                    ),
-                                                    child: Image.asset(
-                                                      'assets/download.png',
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),*/
                                     ),
                             );
                           },
@@ -363,7 +290,7 @@ class _TestimonialsState extends State<Testimonials> {
         print('Auth Token from SP is : $_authToken');
 
         // this.getDataWebinarList('$_authToken', '$start', '10');
-        this.getMyTransactionList('$_authToken', '$start', '10');
+        this.getMyTransactionList('$_authToken', '$start', '200');
         // print('init State isLive : $isLive');
         // print('init State isSelfStudy : $isSelfStudy');
       } else {
