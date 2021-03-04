@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cpe_flutter/screens/fragments/pagination/webinar_list.dart';
+import 'package:cpe_flutter/screens/profile/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -152,6 +153,82 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                     height: 60.0,
                     width: double.infinity,
                     color: Color(0xFFF3F5F9),
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned(
+                          top: 0.0,
+                          bottom: 0.0,
+                          right: 0.0,
+                          left: 0.0,
+                          child: Center(
+                            child: Text(
+                              'My Webinar',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15.0.sp,
+                                fontFamily: 'Whitney Semi Bold',
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          right: 0.0,
+                          top: 0.0,
+                          bottom: 0.0,
+                          child: Container(
+                            // color: Color(0xFFF3F5F9),
+                            // width: 20.0.sp,
+                            height: double.infinity,
+                            padding: EdgeInsets.all(10.0),
+                            child: Row(
+                              children: <Widget>[
+                                GestureDetector(
+                                  onTap: () {
+                                    print('Clicked on the search icon..');
+                                    setState(() {
+                                      isSearch = true;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 30.0.sp,
+                                    height: double.infinity,
+                                    color: Color(0xFFF3F5F9),
+                                    child: Icon(
+                                      FontAwesomeIcons.search,
+                                      size: 12.0.sp,
+                                    ),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Notifications(),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    width: 20.0.sp,
+                                    height: double.infinity,
+                                    color: Color(0xFFF3F5F9),
+                                    child: Icon(
+                                      FontAwesomeIcons.solidBell,
+                                      size: 12.0.sp,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  /*child: Container(
+                    height: 60.0,
+                    width: double.infinity,
+                    color: Color(0xFFF3F5F9),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
@@ -198,7 +275,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                         ),
                       ],
                     ),
-                  ),
+                  ),*/
                 ),
                 Visibility(
                   visible: isSearch,
