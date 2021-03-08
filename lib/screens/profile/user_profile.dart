@@ -4,11 +4,27 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sizer/sizer.dart';
 
 class UserProfile extends StatefulWidget {
+  UserProfile(this.data);
+
+  final data;
+
   @override
-  _UserProfileState createState() => _UserProfileState();
+  _UserProfileState createState() => _UserProfileState(data);
 }
 
 class _UserProfileState extends State<UserProfile> {
+  _UserProfileState(this.data);
+
+  final data;
+  String strProfilePic = '';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print('Resp: $data');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,6 +105,15 @@ class _UserProfileState extends State<UserProfile> {
                       ),
                     ),
                   ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 0.0),
+                child: Center(
+                  child: CircleAvatar(
+                    radius: 14.0.w,
+                    backgroundImage: NetworkImage(strProfilePic),
+                  ),
                 ),
               ),
             ],

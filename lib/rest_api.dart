@@ -95,6 +95,16 @@ Future homeWebinarList(String authToken, String start, String limit, String topi
   return convertDataToJson;
 }
 
+Future getViewProfile(String authToken) async {
+  String urls = URLs.BASE_URL + 'view-profile';
+  final response = await http.get(urls, headers: {
+    'Accept': 'Application/json',
+    'Authorization': authToken,
+  });
+  var convertDataToJson = jsonDecode(response.body);
+  return convertDataToJson;
+}
+
 Future getPrivacyPolicy() async {
   String urls = URLs.BASE_URL + 'cms/privacy_policy';
   final response = await http.get(

@@ -1,6 +1,6 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/screens/fragments/pagination/sample_pagination.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
-import 'package:cpe_flutter/screens/profile/change_password.dart';
 import 'package:cpe_flutter/screens/profile/contact_us.dart';
 import 'package:cpe_flutter/screens/profile/my_credit.dart';
 import 'package:cpe_flutter/screens/profile/my_transaction.dart';
@@ -14,6 +14,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../rest_api.dart';
 import '../profile/contact_us.dart';
 
 class ProfileFrag extends StatefulWidget {
@@ -29,6 +30,12 @@ class _ProfileFragState extends State<ProfileFrag> {
   String strProfilePic = '';
   int strID = 0;
 
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  bool isLoaderShowing = false;
+  String _authToken = "";
+  var resp;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -40,6 +47,7 @@ class _ProfileFragState extends State<ProfileFrag> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       /*appBar: AppBar(
         title: Text(
           'Profile Frag Screen',
@@ -50,8 +58,6 @@ class _ProfileFragState extends State<ProfileFrag> {
           child: SingleChildScrollView(
             child: SafeArea(
               child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
-                // crossAxisAlignment: CrossAxisAlignment.center,v
                 children: <Widget>[
                   GestureDetector(
                     onTap: () {
@@ -79,162 +85,196 @@ class _ProfileFragState extends State<ProfileFrag> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 0.0),
-                    child: Center(
-                      child: CircleAvatar(
-                        radius: 14.0.w,
-                        backgroundImage: NetworkImage(strProfilePic),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => UserProfile(),
-                        ),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Center(
-                        child: Text(
-                          '$strFName $strLName',
-                          style: TextStyle(
-                            fontSize: 19.0.sp,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1,
-                            fontFamily: 'Whitney Bold',
+                  Stack(
+                    children: <Widget>[
+                      Positioned(
+                        child: Visibility(
+                          visible: isLoaderShowing ? false : true,
+                          child: Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 0.0),
+                                child: Center(
+                                  child: CircleAvatar(
+                                    radius: 14.0.w,
+                                    backgroundImage: NetworkImage(strProfilePic),
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  if (resp.isNotEmpty) {
+                                    var respStr = resp.toString();
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => UserProfile(resp['payload']['data']),
+                                        // builder: (context) => UserProfile(respStr),
+                                      ),
+                                    );
+                                  } else {
+                                    _scaffoldKey.currentState.showSnackBar(
+                                      SnackBar(
+                                        content: Text("Oops we are getting issue while loading data."),
+                                        duration: Duration(seconds: 5),
+                                      ),
+                                    );
+                                  }
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Center(
+                                    child: Text(
+                                      '$strFName $strLName',
+                                      style: TextStyle(
+                                        fontSize: 19.0.sp,
+                                        fontWeight: FontWeight.bold,
+                                        letterSpacing: 1,
+                                        fontFamily: 'Whitney Bold',
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(30.0.sp),
+                                    topRight: Radius.circular(30.0.sp),
+                                  ),
+                                ),
+                                child: Column(
+                                  children: <Widget>[
+                                    // Notification settings controller..
+                                    SizedBox(
+                                      height: 20.0.sp,
+                                    ),
+                                    // profile_cell(),
+                                    profile_cell(
+                                      childIcon: FontAwesomeIcons.solidBell,
+                                      strLable: "Notification",
+                                      onPress: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => Notifications(),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    // My Transaction controller..
+                                    profile_cell(
+                                      childIcon: FontAwesomeIcons.creditCard,
+                                      strLable: "My Transaction",
+                                      onPress: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => MyTranscation(),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    // My Credit controller..
+                                    profile_cell(
+                                      childIcon: FontAwesomeIcons.creditCard,
+                                      strLable: "My Credit",
+                                      onPress: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => MyCredit(),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    // Provacy policy controller..
+                                    profile_cell(
+                                      childIcon: FontAwesomeIcons.solidFile,
+                                      strLable: "Privacy Policy",
+                                      onPress: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => PrivacyPolicy(),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    Divider(
+                                      height: 1.0,
+                                      color: Colors.black,
+                                    ),
+                                    // Terms and condition controller..
+                                    profile_cell(
+                                      childIcon: FontAwesomeIcons.solidFile,
+                                      strLable: "Terms & Condition",
+                                      onPress: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => TermsCondition(),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    // Contact us controller..
+                                    profile_cell(
+                                      childIcon: FontAwesomeIcons.solidEnvelope,
+                                      strLable: "Contact Us",
+                                      onPress: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => ContactUs(),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    // Change password controller..
+                                    profile_cell(
+                                      childIcon: FontAwesomeIcons.lock,
+                                      strLable: "Change Password",
+                                      onPress: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => ContactUs(),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    // Logout controller..
+                                    profile_cell(
+                                      childIcon: FontAwesomeIcons.signOutAlt,
+                                      strLable: "Logout",
+                                      onPress: () {
+                                        logoutUser();
+                                      },
+                                    ),
+                                    SizedBox(
+                                      width: double.infinity,
+                                      height: 60.0,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30.0.sp),
-                        topRight: Radius.circular(30.0.sp),
+                      Visibility(
+                        visible: isLoaderShowing ? true : false,
+                        child: Positioned(
+                          child: Container(
+                            child: Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        // Notification settings controller..
-                        SizedBox(
-                          height: 20.0.sp,
-                        ),
-                        // profile_cell(),
-                        profile_cell(
-                          childIcon: FontAwesomeIcons.solidBell,
-                          strLable: "Notification",
-                          onPress: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Notifications(),
-                              ),
-                            );
-                          },
-                        ),
-                        // My Transaction controller..
-                        profile_cell(
-                          childIcon: FontAwesomeIcons.creditCard,
-                          strLable: "My Transaction",
-                          onPress: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => MyTranscation(),
-                              ),
-                            );
-                          },
-                        ),
-                        // My Credit controller..
-                        profile_cell(
-                          childIcon: FontAwesomeIcons.creditCard,
-                          strLable: "My Credit",
-                          onPress: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => MyCredit(),
-                              ),
-                            );
-                          },
-                        ),
-                        // Provacy policy controller..
-                        profile_cell(
-                          childIcon: FontAwesomeIcons.solidFile,
-                          strLable: "Privacy Policy",
-                          onPress: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PrivacyPolicy(),
-                              ),
-                            );
-                          },
-                        ),
-                        Divider(
-                          height: 1.0,
-                          color: Colors.black,
-                        ),
-                        // Terms and condition controller..
-                        profile_cell(
-                          childIcon: FontAwesomeIcons.solidFile,
-                          strLable: "Terms & Condition",
-                          onPress: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => TermsCondition(),
-                              ),
-                            );
-                          },
-                        ),
-                        // Contact us controller..
-                        profile_cell(
-                          childIcon: FontAwesomeIcons.solidEnvelope,
-                          strLable: "Contact Us",
-                          onPress: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ContactUs(),
-                              ),
-                            );
-                          },
-                        ),
-                        // Change password controller..
-                        profile_cell(
-                          childIcon: FontAwesomeIcons.lock,
-                          strLable: "Change Password",
-                          onPress: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ContactUs(),
-                              ),
-                            );
-                          },
-                        ),
-                        // Logout controller..
-                        profile_cell(
-                          childIcon: FontAwesomeIcons.signOutAlt,
-                          strLable: "Logout",
-                          onPress: () {
-                            logoutUser();
-                          },
-                        ),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 60.0,
-                        ),
-                      ],
-                    ),
+                    ],
                   ),
                 ],
               ),
@@ -248,8 +288,7 @@ class _ProfileFragState extends State<ProfileFrag> {
     return showDialog(
           context: context,
           builder: (context) => new AlertDialog(
-            title: new Text('Confirm Exit?',
-                style: new TextStyle(color: Colors.black, fontSize: 20.0)),
+            title: new Text('Confirm Exit?', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
             content: new Text('Are you sure you want to exit the app?'),
             actions: <Widget>[
               new FlatButton(
@@ -278,6 +317,8 @@ class _ProfileFragState extends State<ProfileFrag> {
     if (checkValue != null) {
       if (checkValue) {
         setState(() {
+          String token = preferences.getString("spToken");
+          _authToken = 'Bearer $token';
           strEmail = preferences.getString("spEmail");
           strID = preferences.getInt("spID");
           strFName = preferences.getString("spFName");
@@ -292,6 +333,8 @@ class _ProfileFragState extends State<ProfileFrag> {
           print('LName on home screen from SP is : $strLName');
           print('Contact on home screen from SP is : $strContact');
           print('ProfilePic on home screen from SP is : $strProfilePic');
+
+          getUserDataAPI();
         });
       } else {
         print('Check value : $checkValue');
@@ -316,6 +359,30 @@ class _ProfileFragState extends State<ProfileFrag> {
         ),
         (Route<dynamic> route) => false);
     // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: context) => , (route) => false);
+  }
+
+  void getUserDataAPI() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
+      setState(() {
+        isLoaderShowing = true;
+      });
+      resp = await getViewProfile(_authToken);
+      print(resp);
+      setState(() {
+        isLoaderShowing = false;
+      });
+    } else {
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          content: Text("Please check your internet connectivity and try again"),
+          duration: Duration(seconds: 5),
+        ),
+      );
+      setState(() {
+        isLoaderShowing = false;
+      });
+    }
   }
 }
 
