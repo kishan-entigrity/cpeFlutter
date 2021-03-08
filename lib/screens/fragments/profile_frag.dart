@@ -14,6 +14,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
+import '../profile/contact_us.dart';
+
 class ProfileFrag extends StatefulWidget {
   @override
   _ProfileFragState createState() => _ProfileFragState();
@@ -111,49 +113,37 @@ class _ProfileFragState extends State<ProfileFrag> {
                     ),
                   ),
                   Container(
-                    color: Colors.white,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30.0.sp),
+                        topRight: Radius.circular(30.0.sp),
+                      ),
+                    ),
                     child: Column(
                       children: <Widget>[
                         // Notification settings controller..
-                        GestureDetector(
-                          onTap: () {
-                            // Navigator.push(context, MaterialPageRoute(context)=>NotificationSettings());
+                        SizedBox(
+                          height: 20.0.sp,
+                        ),
+                        // profile_cell(),
+                        profile_cell(
+                          childIcon: FontAwesomeIcons.solidBell,
+                          strLable: "Notification",
+                          onPress: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                // builder: (context) => NotificationSettings(),
                                 builder: (context) => Notifications(),
                               ),
                             );
                           },
-                          child: Card(
-                            margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-                            child: ListTile(
-                              leading: Icon(
-                                // Icons.phone,
-                                FontAwesomeIcons.solidBell,
-                                color: Colors.black,
-                              ),
-                              trailing: Icon(
-                                FontAwesomeIcons.angleRight,
-                                color: Colors.black,
-                              ),
-                              title: Text(
-                                // 'Notification Settings',
-                                'Notification',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'Whitney Medium',
-                                  fontSize: 15.0.sp,
-                                ),
-                              ),
-                            ),
-                          ),
                         ),
                         // My Transaction controller..
-                        GestureDetector(
-                          onTap: () {
-                            print('Clicked on My Tranasaction');
+                        profile_cell(
+                          childIcon: FontAwesomeIcons.creditCard,
+                          strLable: "My Transaction",
+                          onPress: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -161,32 +151,12 @@ class _ProfileFragState extends State<ProfileFrag> {
                               ),
                             );
                           },
-                          child: Card(
-                            margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
-                            child: ListTile(
-                              leading: Icon(
-                                // Icons.phone,
-                                FontAwesomeIcons.creditCard,
-                                color: Colors.black,
-                              ),
-                              trailing: Icon(
-                                FontAwesomeIcons.angleRight,
-                                color: Colors.black,
-                              ),
-                              title: Text(
-                                'My Transaction',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'Whitney Medium',
-                                  fontSize: 15.0.sp,
-                                ),
-                              ),
-                            ),
-                          ),
                         ),
                         // My Credit controller..
-                        GestureDetector(
-                          onTap: () {
+                        profile_cell(
+                          childIcon: FontAwesomeIcons.creditCard,
+                          strLable: "My Credit",
+                          onPress: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -194,32 +164,12 @@ class _ProfileFragState extends State<ProfileFrag> {
                               ),
                             );
                           },
-                          child: Card(
-                            margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
-                            child: ListTile(
-                              leading: Icon(
-                                // Icons.phone,
-                                FontAwesomeIcons.creditCard,
-                                color: Colors.black,
-                              ),
-                              trailing: Icon(
-                                FontAwesomeIcons.angleRight,
-                                color: Colors.black,
-                              ),
-                              title: Text(
-                                'My Credit',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'Whitney Medium',
-                                  fontSize: 15.0.sp,
-                                ),
-                              ),
-                            ),
-                          ),
                         ),
                         // Provacy policy controller..
-                        GestureDetector(
-                          onTap: () {
+                        profile_cell(
+                          childIcon: FontAwesomeIcons.solidFile,
+                          strLable: "Privacy Policy",
+                          onPress: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -227,36 +177,16 @@ class _ProfileFragState extends State<ProfileFrag> {
                               ),
                             );
                           },
-                          child: Card(
-                            margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
-                            child: ListTile(
-                              leading: Icon(
-                                // Icons.phone,
-                                FontAwesomeIcons.solidFile,
-                                color: Colors.black,
-                              ),
-                              trailing: Icon(
-                                FontAwesomeIcons.angleRight,
-                                color: Colors.black,
-                              ),
-                              title: Text(
-                                'Privacy Policy',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'Whitney Medium',
-                                  fontSize: 15.0.sp,
-                                ),
-                              ),
-                            ),
-                          ),
                         ),
                         Divider(
                           height: 1.0,
                           color: Colors.black,
                         ),
                         // Terms and condition controller..
-                        GestureDetector(
-                          onTap: () {
+                        profile_cell(
+                          childIcon: FontAwesomeIcons.solidFile,
+                          strLable: "Terms & Condition",
+                          onPress: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -264,32 +194,12 @@ class _ProfileFragState extends State<ProfileFrag> {
                               ),
                             );
                           },
-                          child: Card(
-                            margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
-                            child: ListTile(
-                              leading: Icon(
-                                // Icons.phone,
-                                FontAwesomeIcons.solidFile,
-                                color: Colors.black,
-                              ),
-                              trailing: Icon(
-                                FontAwesomeIcons.angleRight,
-                                color: Colors.black,
-                              ),
-                              title: Text(
-                                'Terms & Condition',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'Whitney Medium',
-                                  fontSize: 15.0.sp,
-                                ),
-                              ),
-                            ),
-                          ),
                         ),
                         // Contact us controller..
-                        GestureDetector(
-                          onTap: () {
+                        profile_cell(
+                          childIcon: FontAwesomeIcons.solidEnvelope,
+                          strLable: "Contact Us",
+                          onPress: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -297,90 +207,27 @@ class _ProfileFragState extends State<ProfileFrag> {
                               ),
                             );
                           },
-                          child: Card(
-                            margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
-                            child: ListTile(
-                              leading: Icon(
-                                // Icons.phone,
-                                FontAwesomeIcons.solidEnvelope,
-                                color: Colors.black,
-                              ),
-                              trailing: Icon(
-                                FontAwesomeIcons.angleRight,
-                                color: Colors.black,
-                              ),
-                              title: Text(
-                                'Contact Us',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'Whitney Medium',
-                                  fontSize: 15.0.sp,
-                                ),
-                              ),
-                            ),
-                          ),
                         ),
                         // Change password controller..
-                        GestureDetector(
-                          onTap: () {
+                        profile_cell(
+                          childIcon: FontAwesomeIcons.lock,
+                          strLable: "Change Password",
+                          onPress: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ChangePassword(),
+                                builder: (context) => ContactUs(),
                               ),
                             );
                           },
-                          child: Card(
-                            margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
-                            child: ListTile(
-                              leading: Icon(
-                                // Icons.phone,
-                                FontAwesomeIcons.lock,
-                                color: Colors.black,
-                              ),
-                              trailing: Icon(
-                                FontAwesomeIcons.angleRight,
-                                color: Colors.black,
-                              ),
-                              title: Text(
-                                'Change Password',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'Whitney Medium',
-                                  fontSize: 15.0.sp,
-                                ),
-                              ),
-                            ),
-                          ),
                         ),
                         // Logout controller..
-                        GestureDetector(
-                          onTap: () {
-                            // print('clicked on LogOut button');
+                        profile_cell(
+                          childIcon: FontAwesomeIcons.signOutAlt,
+                          strLable: "Logout",
+                          onPress: () {
                             logoutUser();
                           },
-                          child: Card(
-                            margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
-                            child: ListTile(
-                              leading: Icon(
-                                // Icons.phone,
-                                FontAwesomeIcons.signOutAlt,
-                                color: Colors.black,
-                              ),
-                              trailing: Icon(
-                                FontAwesomeIcons.angleRight,
-                                color: Colors.black,
-                              ),
-                              title: Text(
-                                'Logout',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'Whitney Medium',
-                                  fontSize: 15.0.sp,
-                                ),
-                              ),
-                            ),
-                          ),
                         ),
                         SizedBox(
                           width: double.infinity,
@@ -401,7 +248,8 @@ class _ProfileFragState extends State<ProfileFrag> {
     return showDialog(
           context: context,
           builder: (context) => new AlertDialog(
-            title: new Text('Confirm Exit?', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
+            title: new Text('Confirm Exit?',
+                style: new TextStyle(color: Colors.black, fontSize: 20.0)),
             content: new Text('Are you sure you want to exit the app?'),
             actions: <Widget>[
               new FlatButton(
@@ -412,7 +260,8 @@ class _ProfileFragState extends State<ProfileFrag> {
                 child: new Text('Yes', style: new TextStyle(fontSize: 18.0)),
               ),
               new FlatButton(
-                onPressed: () => Navigator.pop(context), // this line dismisses the dialog
+                onPressed: () => Navigator.pop(context),
+                // this line dismisses the dialog
                 child: new Text('No', style: new TextStyle(fontSize: 18.0)),
               )
             ],
@@ -467,5 +316,63 @@ class _ProfileFragState extends State<ProfileFrag> {
         ),
         (Route<dynamic> route) => false);
     // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: context) => , (route) => false);
+  }
+}
+
+class profile_cell extends StatelessWidget {
+  profile_cell({this.childIcon, this.strLable, this.onPress});
+
+  final IconData childIcon;
+  final String strLable;
+  final Function onPress;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onPress,
+      child: Container(
+        height: 40.0.sp,
+        color: Colors.white,
+        child: Stack(
+          children: <Widget>[
+            Positioned(
+              top: 0.0,
+              bottom: 0.0,
+              left: 12.0.sp,
+              child: Icon(
+                childIcon,
+                size: 14.0.sp,
+              ),
+            ),
+            Positioned(
+              top: 0.0,
+              bottom: 0.0,
+              left: 50.0.sp,
+              child: Center(
+                child: Text(
+                  // 'Notification',
+                  strLable,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'Whitney Medium',
+                    fontSize: 14.0.sp,
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              top: 0.0,
+              bottom: 0.0,
+              right: 10.0.sp,
+              child: Icon(
+                FontAwesomeIcons.angleRight,
+                color: Colors.black,
+                size: 14.0.sp,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
