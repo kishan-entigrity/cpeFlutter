@@ -30,6 +30,7 @@ class _UserProfileState extends State<UserProfile> {
   String strPhone = '';
   String strExt = '';
   String strMobile = '';
+  String strCompany = '';
 
   TextEditingController fnameController = TextEditingController();
   TextEditingController lnameController = TextEditingController();
@@ -37,6 +38,7 @@ class _UserProfileState extends State<UserProfile> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController extController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
+  TextEditingController companyNameController = TextEditingController();
 
   @override
   void initState() {
@@ -52,6 +54,7 @@ class _UserProfileState extends State<UserProfile> {
       strPhone = data['phone'];
       strExt = data[''];
       strMobile = data['contact_no'];
+      strCompany = data['company_name'];
     });
     print('Profile pic on init state is : $strProfilePic');
     print('FName on init state is : $strFName');
@@ -62,6 +65,7 @@ class _UserProfileState extends State<UserProfile> {
     emailController.text = strEmail;
     phoneController.text = strPhone;
     mobileController.text = strMobile;
+    companyNameController.text = strCompany;
   }
 
   @override
@@ -156,167 +160,198 @@ class _UserProfileState extends State<UserProfile> {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 0.0),
-                child: Center(
-                  child: CircleAvatar(
-                    radius: 14.0.w,
-                    backgroundImage: NetworkImage(strProfilePic),
-                  ),
-                ),
-              ),
-              Container(
-                // margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 6.0.w),
-                margin: EdgeInsets.only(top: 10.0.w, right: 6.0.w, left: 6.0.w),
-                child: TextField(
-                  enabled: isEditable,
-                  controller: fnameController,
-                  style: kLableSignUpTextStyle,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'First Name',
-                    hintStyle: kLableSignUpHintStyle,
-                  ),
-                  textInputAction: TextInputAction.next,
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.fromLTRB(6.0.w, 1.0.w, 6.0.w, 0),
-                child: Divider(
-                  height: 5.0,
-                  color: Colors.black87,
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
-                child: TextField(
-                  enabled: isEditable,
-                  controller: lnameController,
-                  style: kLableSignUpTextStyle,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Last Name',
-                    hintStyle: kLableSignUpHintStyle,
-                  ),
-                  textInputAction: TextInputAction.next,
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                child: Divider(
-                  height: 5.0,
-                  color: Colors.black87,
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
-                child: TextField(
-                  enabled: isEditable,
-                  controller: emailController,
-                  style: kLableSignUpTextStyle,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Email ID',
-                    hintStyle: kLableSignUpHintStyle,
-                  ),
-                  textInputAction: TextInputAction.next,
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                child: Divider(
-                  height: 5.0,
-                  color: Colors.black87,
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
-                child: TextField(
-                  enabled: isEditable,
-                  controller: phoneController,
-                  style: kLableSignUpTextStyle,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Phone Number',
-                    hintStyle: kLableSignUpHintStyle,
-                  ),
-                  textInputAction: TextInputAction.next,
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                child: Divider(
-                  height: 5.0,
-                  color: Colors.black87,
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
-                child: TextField(
-                  enabled: isEditable,
-                  controller: extController,
-                  style: kLableSignUpTextStyle,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Ext',
-                    hintStyle: kLableSignUpHintStyle,
-                  ),
-                  textInputAction: TextInputAction.next,
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                child: Divider(
-                  height: 5.0,
-                  color: Colors.black87,
-                ),
-              ),
-              Container(
-                // margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
-                margin: EdgeInsets.fromLTRB(6.0.w, 1.0.w, 9.5.w, 1.0.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        enabled: isEditable,
-                        controller: mobileController,
-                        style: kLableSignUpTextStyle,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Mobile No.',
-                          hintStyle: kLableSignUpHintStyle,
-                        ),
-                        textInputAction: TextInputAction.next,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        scaffoldState.currentState.showSnackBar(
-                          SnackBar(
-                            content: Text(mobileInfoMsg),
-                            duration: Duration(seconds: 5),
+              Expanded(
+                child: Container(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 0.0),
+                          child: Center(
+                            child: CircleAvatar(
+                              radius: 14.0.w,
+                              backgroundImage: NetworkImage(strProfilePic),
+                            ),
                           ),
-                        );
-                      },
-                      child: Icon(
-                        FontAwesomeIcons.infoCircle,
-                        size: 15.0.sp,
-                        color: Color(0xFFBDBFCA),
-                      ),
+                        ),
+                        Container(
+                          // margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 6.0.w),
+                          margin: EdgeInsets.only(top: 10.0.w, right: 6.0.w, left: 6.0.w),
+                          child: TextField(
+                            enabled: isEditable,
+                            controller: fnameController,
+                            style: kLableSignUpTextStyle,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'First Name',
+                              hintStyle: kLableSignUpHintStyle,
+                            ),
+                            textInputAction: TextInputAction.next,
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.fromLTRB(6.0.w, 1.0.w, 6.0.w, 0),
+                          child: Divider(
+                            height: 5.0,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
+                          child: TextField(
+                            enabled: isEditable,
+                            controller: lnameController,
+                            style: kLableSignUpTextStyle,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'Last Name',
+                              hintStyle: kLableSignUpHintStyle,
+                            ),
+                            textInputAction: TextInputAction.next,
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                          child: Divider(
+                            height: 5.0,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
+                          child: TextField(
+                            enabled: isEditable,
+                            controller: emailController,
+                            style: kLableSignUpTextStyle,
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'Email ID',
+                              hintStyle: kLableSignUpHintStyle,
+                            ),
+                            textInputAction: TextInputAction.next,
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                          child: Divider(
+                            height: 5.0,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
+                          child: TextField(
+                            enabled: isEditable,
+                            controller: phoneController,
+                            style: kLableSignUpTextStyle,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'Phone Number',
+                              hintStyle: kLableSignUpHintStyle,
+                            ),
+                            textInputAction: TextInputAction.next,
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                          child: Divider(
+                            height: 5.0,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
+                          child: TextField(
+                            enabled: isEditable,
+                            controller: extController,
+                            style: kLableSignUpTextStyle,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'Ext',
+                              hintStyle: kLableSignUpHintStyle,
+                            ),
+                            textInputAction: TextInputAction.next,
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                          child: Divider(
+                            height: 5.0,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        Container(
+                          // margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
+                          margin: EdgeInsets.fromLTRB(6.0.w, 1.0.w, 9.5.w, 1.0.w),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                  enabled: isEditable,
+                                  controller: mobileController,
+                                  style: kLableSignUpTextStyle,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: 'Mobile No.',
+                                    hintStyle: kLableSignUpHintStyle,
+                                  ),
+                                  textInputAction: TextInputAction.next,
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  scaffoldState.currentState.showSnackBar(
+                                    SnackBar(
+                                      content: Text(mobileInfoMsg),
+                                      duration: Duration(seconds: 5),
+                                    ),
+                                  );
+                                },
+                                child: Icon(
+                                  FontAwesomeIcons.infoCircle,
+                                  size: 15.0.sp,
+                                  color: Color(0xFFBDBFCA),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                          child: Divider(
+                            height: 5.0,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 6.0.w, right: 6.0.w, top: 1.0.w, bottom: 1.0.w),
+                          child: TextField(
+                            enabled: isEditable,
+                            controller: companyNameController,
+                            style: kLableSignUpTextStyle,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'Company name',
+                              hintStyle: kLableSignUpHintStyle,
+                            ),
+                            textInputAction: TextInputAction.next,
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.fromLTRB(6.0.w, 1.0.w, 6.0.w, 0),
+                          child: Divider(
+                            height: 5.0,
+                            color: Colors.black87,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                child: Divider(
-                  height: 5.0,
-                  color: Colors.black87,
+                  ),
                 ),
               ),
             ],
