@@ -297,11 +297,19 @@ class _MyTranscationState extends State<MyTranscation> {
                           },
                         ),
                       )
-                    : Container(
-                        child: Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                      ),
+                    : (list != null && list.isEmpty)
+                        ? Center(
+                            child: Text(
+                              'Oops data no data found for this user..',
+                              // data['message'],
+                              style: kValueLableWebinarDetailExpand,
+                            ),
+                          )
+                        : Container(
+                            child: Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          ),
               ),
             ),
           ],
