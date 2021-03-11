@@ -1,6 +1,12 @@
+import 'dart:convert';
+
+import 'package:connectivity/connectivity.dart';
+import 'package:cpe_flutter/screens/profile/pagination_job_titles/jobtitle_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constant.dart';
@@ -16,9 +22,9 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
-  _UserProfileState(this.data);
+  _UserProfileState(this.dataIntent);
 
-  final data;
+  final dataIntent;
   final scaffoldState = GlobalKey<ScaffoldState>();
 
   var isEditable = false;
@@ -31,6 +37,9 @@ class _UserProfileState extends State<UserProfile> {
   String strExt = '';
   String strMobile = '';
   String strCompany = '';
+  String strJobTitleName = '';
+
+  var jobTitleId = 0;
 
   TextEditingController fnameController = TextEditingController();
   TextEditingController lnameController = TextEditingController();
@@ -44,21 +53,78 @@ class _UserProfileState extends State<UserProfile> {
   List<String> companySizeData = ['0-9', '10-15', '16-50', '51-500', '501-1000', '1000+'];
   var companySizeSelectedPos = 0;
 
+  bool isLoaderShowing = false;
+  String _authToken = "";
+  var resp;
+  var data;
+  var data_web;
+
+  List<Job_title> list_job_title;
+  int arrCountJobTitle = 0;
+  bool isLast = false;
+
+  var isJobTitleSelected = false;
+  var jobTitle = '';
+
+  Future<List<Job_title>> getJobTitleList(String authToken) async {
+    // String urls = URLs.BASE_URL + 'webinar/list';
+    String urls = 'https://my-cpe.com/api/v3/job-title/list';
+
+    final response = await http.get(
+      urls,
+      headers: {
+        'Accept': 'Application/json',
+        'Authorization': '$authToken',
+      },
+      /*body: {
+        'start': start,
+        'limit': limit,
+      },*/
+    );
+
+    this.setState(() {
+      // data = JSON.decode(response.body);
+      data = jsonDecode(response.body);
+      isLoaderShowing = false;
+      // if (data['payload']['is_last']) {
+      isLast = true;
+      /*} else {
+        isLast = false;
+      }*/
+    });
+
+    print('API response is : $data');
+    arrCountJobTitle = data['payload']['job_title'].length;
+    data_web = data['payload']['job_title'];
+    print('Size for array is : $arrCountJobTitle');
+
+    if (list_job_title != null && list_job_title.isNotEmpty) {
+      list_job_title.addAll(List.from(data_web).map<Job_title>((item) => Job_title.fromJson(item)).toList());
+    } else {
+      list_job_title = List.from(data_web).map<Job_title>((item) => Job_title.fromJson(item)).toList();
+    }
+
+    return list_job_title;
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    print('Resp: $data');
+    print('Resp: $dataIntent');
 
     setState(() {
-      strProfilePic = data['profile_picture'];
-      strFName = data['first_name'];
-      strLName = data['last_name'];
-      strEmail = data['email'];
-      strPhone = data['phone'];
-      strExt = data[''];
-      strMobile = data['contact_no'];
-      strCompany = data['company_name'];
+      strProfilePic = dataIntent['profile_picture'];
+      strFName = dataIntent['first_name'];
+      strLName = dataIntent['last_name'];
+      strEmail = dataIntent['email'];
+      strPhone = dataIntent['phone'];
+      strExt = dataIntent[''];
+      strMobile = dataIntent['contact_no'];
+      strCompany = dataIntent['company_name'];
+      strJobTitleName = dataIntent['jobtitle_name'];
+
+      jobTitleId = dataIntent['jobtitle_id'];
     });
     print('Profile pic on init state is : $strProfilePic');
     print('FName on init state is : $strFName');
@@ -70,6 +136,8 @@ class _UserProfileState extends State<UserProfile> {
     phoneController.text = strPhone;
     mobileController.text = strMobile;
     companyNameController.text = strCompany;
+
+    checkForSP();
   }
 
   @override
@@ -493,6 +561,31 @@ class _UserProfileState extends State<UserProfile> {
                             color: Colors.black87,
                           ),
                         ),
+                        Container(
+                          color: Colors.white,
+                          padding: EdgeInsets.fromLTRB(6.0.w, 4.0.w, 8.5.w, 4.0.w),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                isJobTitleSelected ? jobTitle : 'Job Title/Designation',
+                                style: TextStyle(
+                                  fontFamily: 'Whitney Bold',
+                                  fontSize: 15.0.sp,
+                                  color: isJobTitleSelected ? Colors.black : Color(0xFFBDBFCA),
+                                ),
+                              ),
+                              Icon(FontAwesomeIcons.caretDown),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                          child: Divider(
+                            height: 5.0,
+                            color: Colors.transparent,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -503,5 +596,50 @@ class _UserProfileState extends State<UserProfile> {
         ),
       ),
     );
+  }
+
+  void checkForSP() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    bool checkValue = preferences.getBool("check");
+
+    if (checkValue != null) {
+      if (checkValue) {
+        setState(() {
+          String token = preferences.getString("spToken");
+          _authToken = 'Bearer $token';
+        });
+      } else {
+        print('Check value : $checkValue');
+        preferences.clear();
+      }
+    } else {
+      print('Null value else part');
+      checkValue = false;
+    }
+    getJobTitleAPI();
+  }
+
+  void getJobTitleAPI() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
+      setState(() {
+        isLoaderShowing = true;
+      });
+      resp = await getJobTitleList(_authToken);
+      print(resp);
+      setState(() {
+        isLoaderShowing = false;
+      });
+    } else {
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text("Please check your internet connectivity and try again"),
+          duration: Duration(seconds: 5),
+        ),
+      );
+      setState(() {
+        isLoaderShowing = false;
+      });
+    }
   }
 }

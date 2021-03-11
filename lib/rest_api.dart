@@ -105,6 +105,16 @@ Future getViewProfile(String authToken) async {
   return convertDataToJson;
 }
 
+/*Future getJobTitle(String authToken) async {
+  String urls = URLs.BASE_URL + 'job-title/list';
+  final response = await http.get(urls, headers: {
+    'Accept': 'Application/json',
+    'Authorization': authToken,
+  });
+  var convertDataToJson = jsonDecode(response.body);
+  return convertDataToJson;
+}*/
+
 Future getPrivacyPolicy() async {
   String urls = URLs.BASE_URL + 'cms/privacy_policy';
   final response = await http.get(
