@@ -40,6 +40,10 @@ class _UserProfileState extends State<UserProfile> {
   TextEditingController mobileController = TextEditingController();
   TextEditingController companyNameController = TextEditingController();
 
+  List<int> tempInt = [1, 4, 5, 7];
+  List<String> companySizeData = ['0-9', '10-15', '16-50', '51-500', '501-1000', '1000+'];
+  var companySizeSelectedPos = 0;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -164,6 +168,7 @@ class _UserProfileState extends State<UserProfile> {
                 child: Container(
                   child: SingleChildScrollView(
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 0.0),
@@ -340,6 +345,145 @@ class _UserProfileState extends State<UserProfile> {
                               hintStyle: kLableSignUpHintStyle,
                             ),
                             textInputAction: TextInputAction.next,
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.fromLTRB(6.0.w, 1.0.w, 6.0.w, 0),
+                          child: Divider(
+                            height: 5.0,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            print('Clicked on Company size');
+                            if (isEditable) {
+                              showModalBottomSheet(
+                                  context: context,
+                                  builder: (builder) {
+                                    return StatefulBuilder(
+                                      builder: (BuildContext context, void Function(void Function()) setState) {
+                                        return Container(
+                                          color: Colors.white,
+                                          height: 70.0.h,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              // color: Colors.grey[900],
+                                              // color: Colors.transparent,
+                                              color: Color(0xFF757575),
+                                            ),
+                                            child: Column(
+                                              children: <Widget>[
+                                                Container(
+                                                  height: 17.0.w,
+                                                  decoration: BoxDecoration(
+                                                    // color: Color(0xF0F3F5F9),
+                                                    color: Colors.white,
+                                                    borderRadius: BorderRadius.only(
+                                                      topRight: Radius.circular(30.0),
+                                                      topLeft: Radius.circular(30.0),
+                                                    ),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: <Widget>[
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          Navigator.pop(context);
+                                                        },
+                                                        child: Container(
+                                                          width: 20.0.w,
+                                                          child: Center(
+                                                            child: Text(
+                                                              'Cancel',
+                                                              style: kDateTestimonials,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        width: 50.0.w,
+                                                        child: Center(
+                                                          child: Text(
+                                                            'Select your Organization',
+                                                            style: kOthersTitle,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        width: 20.0.w,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Container(
+                                                  height: 0.5,
+                                                  color: Colors.black45,
+                                                ),
+                                                Expanded(
+                                                  child: ListView.builder(
+                                                    itemCount: companySizeData.length,
+                                                    itemBuilder: (context, index) {
+                                                      return ConstrainedBox(
+                                                        constraints: BoxConstraints(
+                                                          minHeight: 15.0.w,
+                                                        ),
+                                                        child: Container(
+                                                          color: Colors.white,
+                                                          child: GestureDetector(
+                                                            onTap: () {
+                                                              print('Clicked on the search icon..');
+                                                              setState(() {
+                                                                companySizeSelectedPos = index;
+                                                              });
+                                                            },
+                                                            child: Container(
+                                                              margin: EdgeInsets.fromLTRB(1.5.w, 3.0.w, 3.0.w, 1.5.w),
+                                                              decoration: BoxDecoration(
+                                                                borderRadius: BorderRadius.circular(7.0),
+                                                                color: companySizeSelectedPos == index ? Color(0xFFFEF0D5) : Color(0xFFF3F5F9),
+                                                              ),
+                                                              child: Flexible(
+                                                                child: Container(
+                                                                  child: Padding(
+                                                                    padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
+                                                                    child: Row(
+                                                                      children: <Widget>[
+                                                                        Expanded(
+                                                                          child: Text(
+                                                                            // '${respProfCreds['payload']['user_type'][index]['title']}',
+                                                                            '${companySizeData[index]}',
+                                                                            textAlign: TextAlign.start,
+                                                                            style: kDataSingleSelectionBottomNav,
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  });
+                            }
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(left: 6.0.w, right: 6.0.w, top: 1.0.w, bottom: 1.0.w),
+                            child: Text(
+                              'Company Size',
+                              style: kLableSignUpTextStyle,
+                            ),
                           ),
                         ),
                         Container(
