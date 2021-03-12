@@ -158,7 +158,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                     margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
                                     child: Divider(
                                       height: 5.0,
-                                      color: Colors.transparent,
+                                      color: Colors.black87,
                                     ),
                                   ),
                                   Container(

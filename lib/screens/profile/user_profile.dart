@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:connectivity/connectivity.dart';
+import 'package:cpe_flutter/screens/profile/pagination_industries/industry_list.dart';
 import 'package:cpe_flutter/screens/profile/pagination_job_titles/jobtitle_list.dart';
+import 'package:cpe_flutter/screens/profile/pagination_profcreds/profcreds_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -38,8 +40,10 @@ class _UserProfileState extends State<UserProfile> {
   String strMobile = '';
   String strCompany = '';
   String strJobTitleName = '';
+  String industryName = '';
 
   var jobTitleId = 0;
+  var industryId = 0;
 
   TextEditingController fnameController = TextEditingController();
   TextEditingController lnameController = TextEditingController();
@@ -58,16 +62,24 @@ class _UserProfileState extends State<UserProfile> {
   var resp;
   var data;
   var data_web;
+  var data_indus;
+  var data_prof;
 
   List<Job_title> list_job_title;
   int arrCountJobTitle = 0;
   bool isLast = false;
 
+  List<Industries_list> list_industries;
+  int arrCountIndustries = 0;
+
+  List<User_type> list_profcreds;
+  int arrCountProfCreds = 0;
+
   var isJobTitleSelected = false;
+  var isIndustrySelected = false;
   var jobTitle = '';
 
   Future<List<Job_title>> getJobTitleList(String authToken) async {
-    // String urls = URLs.BASE_URL + 'webinar/list';
     String urls = 'https://my-cpe.com/api/v3/job-title/list';
 
     final response = await http.get(
@@ -76,27 +88,19 @@ class _UserProfileState extends State<UserProfile> {
         'Accept': 'Application/json',
         'Authorization': '$authToken',
       },
-      /*body: {
-        'start': start,
-        'limit': limit,
-      },*/
     );
 
     this.setState(() {
       // data = JSON.decode(response.body);
       data = jsonDecode(response.body);
-      isLoaderShowing = false;
-      // if (data['payload']['is_last']) {
+      // isLoaderShowing = false;
       isLast = true;
-      /*} else {
-        isLast = false;
-      }*/
     });
 
-    print('API response is : $data');
+    print('API response jobtitles is : $data');
     arrCountJobTitle = data['payload']['job_title'].length;
     data_web = data['payload']['job_title'];
-    print('Size for array is : $arrCountJobTitle');
+    print('Size for array jobtitles is : $arrCountJobTitle');
 
     if (list_job_title != null && list_job_title.isNotEmpty) {
       list_job_title.addAll(List.from(data_web).map<Job_title>((item) => Job_title.fromJson(item)).toList());
@@ -104,7 +108,75 @@ class _UserProfileState extends State<UserProfile> {
       list_job_title = List.from(data_web).map<Job_title>((item) => Job_title.fromJson(item)).toList();
     }
 
+    getIndustryList(authToken);
+
     return list_job_title;
+  }
+
+  Future<List<Industries_list>> getIndustryList(String authToken) async {
+    String urls = 'https://my-cpe.com/api/v3/industry/list';
+
+    final response = await http.get(
+      urls,
+      headers: {
+        'Accept': 'Application/json',
+        'Authorization': '$authToken',
+      },
+    );
+
+    this.setState(() {
+      // data = JSON.decode(response.body);
+      data = jsonDecode(response.body);
+      // isLoaderShowing = false;
+      isLast = true;
+    });
+
+    print('API response industries is : $data');
+    arrCountIndustries = data['payload']['industries_list'].length;
+    data_indus = data['payload']['industries_list'];
+    print('Size for array industries is : $arrCountIndustries');
+
+    if (list_industries != null && list_industries.isNotEmpty) {
+      list_industries.addAll(List.from(data_indus).map<Industries_list>((item) => Industries_list.fromJson(item)).toList());
+    } else {
+      list_industries = List.from(data_indus).map<Industries_list>((item) => Industries_list.fromJson(item)).toList();
+    }
+
+    getProfessionalCreds(authToken);
+
+    return list_industries;
+  }
+
+  Future<List<User_type>> getProfessionalCreds(String authToken) async {
+    String urls = 'https://my-cpe.com/api/v3/user-type';
+
+    final response = await http.get(
+      urls,
+      headers: {
+        'Accept': 'Application/json',
+        'Authorization': '$authToken',
+      },
+    );
+
+    this.setState(() {
+      // data = JSON.decode(response.body);
+      data = jsonDecode(response.body);
+      isLoaderShowing = false;
+      isLast = true;
+    });
+
+    print('API response prof creds is : $data');
+    arrCountProfCreds = data['payload']['user_type'].length;
+    data_prof = data['payload']['user_type'];
+    print('Size for array prof creds is : $arrCountProfCreds');
+
+    if (list_profcreds != null && list_profcreds.isNotEmpty) {
+      list_profcreds.addAll(List.from(data_prof).map<User_type>((item) => User_type.fromJson(item)).toList());
+    } else {
+      list_profcreds = List.from(data_prof).map<User_type>((item) => User_type.fromJson(item)).toList();
+    }
+
+    return list_profcreds;
   }
 
   @override
@@ -123,8 +195,22 @@ class _UserProfileState extends State<UserProfile> {
       strMobile = dataIntent['contact_no'];
       strCompany = dataIntent['company_name'];
       strJobTitleName = dataIntent['jobtitle_name'];
+      industryName = dataIntent['industry_name'];
 
       jobTitleId = dataIntent['jobtitle_id'];
+      // industryId = dataIntent['industry_id'];
+
+      if (strJobTitleName.isNotEmpty) {
+        isJobTitleSelected = true;
+      } else {
+        isJobTitleSelected = false;
+      }
+
+      if (industryName.isNotEmpty) {
+        isIndustrySelected = true;
+      } else {
+        isIndustrySelected = false;
+      }
     });
     print('Profile pic on init state is : $strProfilePic');
     print('FName on init state is : $strFName');
@@ -547,7 +633,7 @@ class _UserProfileState extends State<UserProfile> {
                             }
                           },
                           child: Container(
-                            margin: EdgeInsets.only(left: 6.0.w, right: 6.0.w, top: 1.0.w, bottom: 1.0.w),
+                            margin: EdgeInsets.only(left: 6.0.w, right: 6.0.w, top: 4.0.w, bottom: 4.0.w),
                             child: Text(
                               'Company Size',
                               style: kLableSignUpTextStyle,
@@ -568,7 +654,7 @@ class _UserProfileState extends State<UserProfile> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text(
-                                isJobTitleSelected ? jobTitle : 'Job Title/Designation',
+                                isJobTitleSelected ? strJobTitleName : 'Job Title/Designation',
                                 style: TextStyle(
                                   fontFamily: 'Whitney Bold',
                                   fontSize: 15.0.sp,
@@ -580,10 +666,35 @@ class _UserProfileState extends State<UserProfile> {
                           ),
                         ),
                         Container(
+                          margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0.0),
+                          child: Divider(
+                            height: 5.0,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        Container(
+                          color: Colors.white,
+                          padding: EdgeInsets.fromLTRB(6.0.w, 4.0.w, 8.5.w, 4.0.w),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                isIndustrySelected ? industryName : 'Industry',
+                                style: TextStyle(
+                                  fontFamily: 'Whitney Bold',
+                                  fontSize: 15.0.sp,
+                                  color: isIndustrySelected ? Colors.black : Color(0xFFBDBFCA),
+                                ),
+                              ),
+                              Icon(FontAwesomeIcons.caretDown),
+                            ],
+                          ),
+                        ),
+                        Container(
                           margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
                           child: Divider(
                             height: 5.0,
-                            color: Colors.transparent,
+                            color: Colors.black87,
                           ),
                         ),
                       ],
