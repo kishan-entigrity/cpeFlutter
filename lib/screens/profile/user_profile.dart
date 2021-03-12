@@ -633,10 +633,17 @@ class _UserProfileState extends State<UserProfile> {
                             }
                           },
                           child: Container(
-                            margin: EdgeInsets.only(left: 6.0.w, right: 6.0.w, top: 4.0.w, bottom: 4.0.w),
-                            child: Text(
-                              'Company Size',
-                              style: kLableSignUpTextStyle,
+                            color: Colors.white,
+                            margin: EdgeInsets.only(left: 6.0.w, right: 8.5.w, top: 4.0.w, bottom: 4.0.w),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  'Company Size',
+                                  style: kLableSignUpTextStyle,
+                                ),
+                                Icon(FontAwesomeIcons.caretDown),
+                              ],
                             ),
                           ),
                         ),
@@ -647,22 +654,29 @@ class _UserProfileState extends State<UserProfile> {
                             color: Colors.black87,
                           ),
                         ),
-                        Container(
-                          color: Colors.white,
-                          padding: EdgeInsets.fromLTRB(6.0.w, 4.0.w, 8.5.w, 4.0.w),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text(
-                                isJobTitleSelected ? strJobTitleName : 'Job Title/Designation',
-                                style: TextStyle(
-                                  fontFamily: 'Whitney Bold',
-                                  fontSize: 15.0.sp,
-                                  color: isJobTitleSelected ? Colors.black : Color(0xFFBDBFCA),
+                        GestureDetector(
+                          onTap: () {
+                            if (isEditable) {
+                              print('Clicked on Job Title..');
+                            }
+                          },
+                          child: Container(
+                            color: Colors.white,
+                            padding: EdgeInsets.fromLTRB(6.0.w, 4.0.w, 8.5.w, 4.0.w),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  isJobTitleSelected ? strJobTitleName : 'Job Title/Designation',
+                                  style: TextStyle(
+                                    fontFamily: 'Whitney Bold',
+                                    fontSize: 15.0.sp,
+                                    color: isJobTitleSelected ? Colors.black : Color(0xFFBDBFCA),
+                                  ),
                                 ),
-                              ),
-                              Icon(FontAwesomeIcons.caretDown),
-                            ],
+                                Icon(FontAwesomeIcons.caretDown),
+                              ],
+                            ),
                           ),
                         ),
                         Container(
@@ -672,22 +686,29 @@ class _UserProfileState extends State<UserProfile> {
                             color: Colors.black87,
                           ),
                         ),
-                        Container(
-                          color: Colors.white,
-                          padding: EdgeInsets.fromLTRB(6.0.w, 4.0.w, 8.5.w, 4.0.w),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text(
-                                isIndustrySelected ? industryName : 'Industry',
-                                style: TextStyle(
-                                  fontFamily: 'Whitney Bold',
-                                  fontSize: 15.0.sp,
-                                  color: isIndustrySelected ? Colors.black : Color(0xFFBDBFCA),
+                        GestureDetector(
+                          onTap: () {
+                            if (isEditable) {
+                              print('Clicked on Industry list data..');
+                            }
+                          },
+                          child: Container(
+                            color: Colors.white,
+                            padding: EdgeInsets.fromLTRB(6.0.w, 4.0.w, 8.5.w, 4.0.w),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  isIndustrySelected ? industryName : 'Industry',
+                                  style: TextStyle(
+                                    fontFamily: 'Whitney Bold',
+                                    fontSize: 15.0.sp,
+                                    color: isIndustrySelected ? Colors.black : Color(0xFFBDBFCA),
+                                  ),
                                 ),
-                              ),
-                              Icon(FontAwesomeIcons.caretDown),
-                            ],
+                                Icon(FontAwesomeIcons.caretDown),
+                              ],
+                            ),
                           ),
                         ),
                         Container(
