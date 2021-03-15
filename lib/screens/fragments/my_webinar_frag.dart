@@ -1140,6 +1140,12 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
         print('Check value : $checkValue');
         preferences.clear();
       }
+    } else {
+      this.getDataWebinarList('', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+      // print('init State isLive : $isLive');
+      // print('init State isSelfStudy : $isSelfStudy');
+      print('Check value : $checkValue');
+      preferences.clear();
     }
   }
 
@@ -1165,6 +1171,15 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
           print('Check value : $checkValue');
           preferences.clear();
         }
+      }
+    } else {
+      if (!isLast) {
+        start = start + 10;
+        this.getDataWebinarList('', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+        // print('init State isLive : $isLive');
+        // print('init State isSelfStudy : $isSelfStudy');
+        print('Check value : $checkValue');
+        preferences.clear();
       }
     }
   }

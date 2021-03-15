@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constant.dart';
+import '../home_screen.dart';
 import 'login.dart';
 import 'slider_layout_1.dart';
 import 'slider_layout_2.dart';
@@ -64,8 +65,7 @@ class _IntroScreenState extends State<IntroScreen> {
                   height: 30.0.w,
                   child: Container(
                     // color: Colors.black45,
-                    margin: EdgeInsets.symmetric(
-                        vertical: 8.5.w, horizontal: 4.0.w),
+                    margin: EdgeInsets.symmetric(vertical: 8.5.w, horizontal: 4.0.w),
                     child: Row(
                       children: <Widget>[
                         Expanded(
@@ -130,6 +130,12 @@ class _IntroScreenState extends State<IntroScreen> {
                   child: GestureDetector(
                     onTap: () {
                       print('Clicked on skip button..');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomeScreen(),
+                        ),
+                      );
                     },
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
@@ -167,8 +173,7 @@ class _IntroScreenState extends State<IntroScreen> {
     return showDialog(
           context: context,
           builder: (context) => new AlertDialog(
-            title: new Text('Confirm Exit?',
-                style: new TextStyle(color: Colors.black, fontSize: 20.0)),
+            title: new Text('Confirm Exit?', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
             content: new Text('Are you sure you want to exit the app?'),
             actions: <Widget>[
               new FlatButton(
@@ -179,8 +184,7 @@ class _IntroScreenState extends State<IntroScreen> {
                 child: new Text('Yes', style: new TextStyle(fontSize: 18.0)),
               ),
               new FlatButton(
-                onPressed: () =>
-                    Navigator.pop(context), // this line dismisses the dialog
+                onPressed: () => Navigator.pop(context), // this line dismisses the dialog
                 child: new Text('No', style: new TextStyle(fontSize: 18.0)),
               )
             ],

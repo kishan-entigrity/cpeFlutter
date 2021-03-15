@@ -1067,6 +1067,7 @@ class _HomeFragmentState extends State<HomeFragment> {
   void checkForSP() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     bool checkValue = preferences.getBool("check");
+    print('Check value is : $checkValue');
 
     if (checkValue != null) {
       setState(() {
@@ -1088,6 +1089,13 @@ class _HomeFragmentState extends State<HomeFragment> {
         print('Check value : $checkValue');
         preferences.clear();
       }
+    } else {
+      print('check value is null....');
+      this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+      // print('init State isLive : $isLive');
+      // print('init State isSelfStudy : $isSelfStudy');
+      print('Check value : $checkValue');
+      preferences.clear();
     }
   }
 
@@ -1107,12 +1115,21 @@ class _HomeFragmentState extends State<HomeFragment> {
           // print('init State isLive : $isLive');
           // print('init State isSelfStudy : $isSelfStudy');
         } else {
-          this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+          this.getDataWebinarList('', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
           // print('init State isLive : $isLive');
           // print('init State isSelfStudy : $isSelfStudy');
           print('Check value : $checkValue');
           preferences.clear();
         }
+      }
+    } else {
+      if (!isLast) {
+        start = start + 10;
+        this.getDataWebinarList('', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+        // print('init State isLive : $isLive');
+        // print('init State isSelfStudy : $isSelfStudy');
+        print('Check value : $checkValue');
+        preferences.clear();
       }
     }
   }
