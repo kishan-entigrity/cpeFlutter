@@ -1,7 +1,9 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/screens/fragments/pagination/sample_pagination.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
+import 'package:cpe_flutter/screens/profile/change_password.dart';
 import 'package:cpe_flutter/screens/profile/contact_us.dart';
+import 'package:cpe_flutter/screens/profile/faq.dart';
 import 'package:cpe_flutter/screens/profile/my_credit.dart';
 import 'package:cpe_flutter/screens/profile/my_transaction.dart';
 import 'package:cpe_flutter/screens/profile/notification.dart';
@@ -35,6 +37,7 @@ class _ProfileFragState extends State<ProfileFrag> {
   bool isLoaderShowing = false;
   String _authToken = "";
   var resp;
+  bool isGuestMode = false;
 
   @override
   void initState() {
@@ -125,7 +128,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                                   padding: const EdgeInsets.all(10.0),
                                   child: Center(
                                     child: Text(
-                                      '$strFName $strLName',
+                                      isGuestMode ? 'Guest User' : '$strFName $strLName',
                                       style: TextStyle(
                                         fontSize: 19.0.sp,
                                         fontWeight: FontWeight.bold,
@@ -151,43 +154,81 @@ class _ProfileFragState extends State<ProfileFrag> {
                                       height: 20.0.sp,
                                     ),
                                     // profile_cell(),
-                                    profile_cell(
-                                      childIcon: FontAwesomeIcons.solidBell,
-                                      strLable: "Notification",
-                                      onPress: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => Notifications(),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                    // My Transaction controller..
-                                    profile_cell(
-                                      childIcon: FontAwesomeIcons.creditCard,
-                                      strLable: "My Transaction",
-                                      onPress: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => MyTranscation(),
-                                          ),
-                                        );
-                                      },
+                                    Visibility(
+                                      visible: isGuestMode ? false : true,
+                                      child: profile_cell(
+                                        childIcon: FontAwesomeIcons.solidBell,
+                                        strLable: "Notification",
+                                        onPress: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => Notifications(),
+                                            ),
+                                          );
+                                        },
+                                      ),
                                     ),
                                     // My Credit controller..
+                                    Visibility(
+                                      visible: isGuestMode ? false : true,
+                                      child: profile_cell(
+                                        childIcon: FontAwesomeIcons.creditCard,
+                                        strLable: "My Credit",
+                                        onPress: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => MyCredit(),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                    // My Transaction controller..
+                                    Visibility(
+                                      visible: isGuestMode ? false : true,
+                                      child: profile_cell(
+                                        childIcon: FontAwesomeIcons.creditCard,
+                                        strLable: "My Transaction",
+                                        onPress: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => MyTranscation(),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                    // FAQ Controller..
                                     profile_cell(
-                                      childIcon: FontAwesomeIcons.creditCard,
-                                      strLable: "My Credit",
+                                      childIcon: FontAwesomeIcons.solidQuestionCircle,
+                                      strLable: "FAQs",
                                       onPress: () {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => MyCredit(),
+                                            builder: (context) => FAQ(),
                                           ),
                                         );
                                       },
+                                    ),
+                                    // Change password controller..
+                                    Visibility(
+                                      visible: isGuestMode ? false : true,
+                                      child: profile_cell(
+                                        childIcon: FontAwesomeIcons.lock,
+                                        strLable: "Change Password",
+                                        onPress: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => ChangePassword(),
+                                            ),
+                                          );
+                                        },
+                                      ),
                                     ),
                                     // Provacy policy controller..
                                     profile_cell(
@@ -219,6 +260,19 @@ class _ProfileFragState extends State<ProfileFrag> {
                                         );
                                       },
                                     ),
+                                    // Chat with US controller..
+                                    profile_cell(
+                                      childIcon: FontAwesomeIcons.solidComments,
+                                      strLable: "Chat with us",
+                                      onPress: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => TermsCondition(),
+                                          ),
+                                        );
+                                      },
+                                    ),
                                     // Contact us controller..
                                     profile_cell(
                                       childIcon: FontAwesomeIcons.solidEnvelope,
@@ -232,25 +286,45 @@ class _ProfileFragState extends State<ProfileFrag> {
                                         );
                                       },
                                     ),
-                                    // Change password controller..
+                                    // Logout controller if in Guest mode is false..
+                                    Visibility(
+                                      visible: isGuestMode ? false : true,
+                                      child: profile_cell(
+                                        childIcon: FontAwesomeIcons.signOutAlt,
+                                        strLable: "Logout",
+                                        onPress: () {
+                                          logoutUser();
+                                        },
+                                      ),
+                                    ),
+                                    // Login controller if in guest mode true..
+                                    Visibility(
+                                      visible: isGuestMode ? true : false,
+                                      child: profile_cell(
+                                        childIcon: FontAwesomeIcons.signInAlt,
+                                        strLable: "Login",
+                                        onPress: () {
+                                          logoutUser();
+                                          /*Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => Login(),
+                                            ),
+                                          );*/
+                                        },
+                                      ),
+                                    ),
+                                    // Review US controller..
                                     profile_cell(
-                                      childIcon: FontAwesomeIcons.lock,
-                                      strLable: "Change Password",
+                                      childIcon: FontAwesomeIcons.solidStar,
+                                      strLable: "Review US",
                                       onPress: () {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => ContactUs(),
+                                            builder: (context) => TermsCondition(),
                                           ),
                                         );
-                                      },
-                                    ),
-                                    // Logout controller..
-                                    profile_cell(
-                                      childIcon: FontAwesomeIcons.signOutAlt,
-                                      strLable: "Logout",
-                                      onPress: () {
-                                        logoutUser();
                                       },
                                     ),
                                     SizedBox(
@@ -316,6 +390,7 @@ class _ProfileFragState extends State<ProfileFrag> {
     print('Status for checkValue is : $checkValue');
     if (checkValue != null) {
       if (checkValue) {
+        isGuestMode = false;
         setState(() {
           String token = preferences.getString("spToken");
           _authToken = 'Bearer $token';
@@ -337,14 +412,18 @@ class _ProfileFragState extends State<ProfileFrag> {
           getUserDataAPI();
         });
       } else {
-        print('Check value : $checkValue');
-        // username.clear();
-        // password.clear();
-        preferences.clear();
+        setState(() {
+          isGuestMode = true;
+          print('Check value : $checkValue');
+          preferences.clear();
+        });
       }
     } else {
       print('Null value else part');
-      checkValue = false;
+      setState(() {
+        checkValue = false;
+        isGuestMode = true;
+      });
     }
   }
 
