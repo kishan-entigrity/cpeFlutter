@@ -12,6 +12,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../constant.dart';
 import '../webinar_details/webinar_details_new.dart';
+import 'model_recentwebinar/recent_webinar_data.dart';
 
 class HomeFragment extends StatefulWidget {
   @override
@@ -21,8 +22,10 @@ class HomeFragment extends StatefulWidget {
 class _HomeFragmentState extends State<HomeFragment> {
   List<int> tempInt = [1, 4, 5, 7];
   int arrCount = 0;
+  int arrCountRecent = 0;
   var data;
   var data_web;
+  var data_recent;
 
   int start = 0;
 
@@ -42,6 +45,7 @@ class _HomeFragmentState extends State<HomeFragment> {
   bool isProgressShowing = false;
   bool isLoaderShowing = false;
   List<Webinar> list;
+  List<RecentWebinars> recentList;
 
   bool isLast = false;
   bool isSearch = false;
@@ -87,13 +91,24 @@ class _HomeFragmentState extends State<HomeFragment> {
     // print(data[1]["title"]);
     print('API response is : $data');
     arrCount = data['payload']['webinar'].length;
+    arrCountRecent = data['payload']['RecentWebinars'].length;
     data_web = data['payload']['webinar'];
     print('Size for array is : $arrCount');
+    print('Size for arrayRecent is : $arrCountRecent');
+
+    // data_recent = data['payload']['RecentWebinars'];
+    // print('Size for the recent List is : ${recentList.length}');
 
     if (list != null && list.isNotEmpty) {
       list.addAll(List.from(data_web).map<Webinar>((item) => Webinar.fromJson(item)).toList());
     } else {
       list = List.from(data_web).map<Webinar>((item) => Webinar.fromJson(item)).toList();
+    }
+
+    if (arrCountRecent != 0) {
+      data_recent = data['payload']['RecentWebinars'];
+      recentList = List.from(data_recent).map<RecentWebinars>((item) => RecentWebinars.fromJson(item)).toList();
+      print('Size for recentList = ${recentList.length}');
     }
 
     // return "Success!";
@@ -740,39 +755,43 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                 // 5. If the webinar is free then have to check for isCardSaved or not..
                                                 // 6. Take a Register API call from there onwards..
                                               },
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  // color: Color(0xFFC2900D),
-                                                  color: Color(0x23000000),
-                                                  borderRadius: BorderRadius.all(
-                                                    Radius.circular(5.0),
-                                                  ),
+                                              child: ConstrainedBox(
+                                                constraints: BoxConstraints(
+                                                  minWidth: 35.0.w,
                                                 ),
-                                                height: 11.5.w,
-                                                width: 35.0.w,
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: <Widget>[
-                                                    Padding(
-                                                      padding: const EdgeInsets.all(8.0),
-                                                      child: Text(
-                                                        // '${data['payload']['webinar'][index]['status']}',
-                                                        '${list[index].status}',
-                                                        style: TextStyle(
-                                                          fontFamily: 'Whitney Semi Bold',
-                                                          fontSize: 14.0.sp,
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    // color: Color(0xFFC2900D),
+                                                    color: Color(0x23000000),
+                                                    borderRadius: BorderRadius.all(
+                                                      Radius.circular(5.0),
+                                                    ),
+                                                  ),
+                                                  height: 11.5.w,
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: <Widget>[
+                                                      Padding(
+                                                        padding: const EdgeInsets.all(8.0),
+                                                        child: Text(
+                                                          // '${data['payload']['webinar'][index]['status']}',
+                                                          '${list[index].status}',
+                                                          style: TextStyle(
+                                                            fontFamily: 'Whitney Semi Bold',
+                                                            fontSize: 14.0.sp,
+                                                            color: Colors.white,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding: EdgeInsets.all(5.0),
+                                                        child: Icon(
+                                                          FontAwesomeIcons.angleRight,
                                                           color: Colors.white,
                                                         ),
                                                       ),
-                                                    ),
-                                                    Padding(
-                                                      padding: EdgeInsets.all(5.0),
-                                                      child: Icon(
-                                                        FontAwesomeIcons.angleRight,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ),
