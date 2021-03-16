@@ -73,7 +73,8 @@ class _UserProfileState extends State<UserProfile> {
   int arrCountIndustries = 0;
 
   List<User_type> list_profcreds;
-  int arrCountProfCreds = 0;
+  int arrProfCredsCount = 0;
+  Map mapProfCredsT = new Map<dynamic, bool>();
 
   var isJobTitleSelected = false;
   var isIndustrySelected = false;
@@ -166,15 +167,19 @@ class _UserProfileState extends State<UserProfile> {
     });
 
     print('API response prof creds is : $data');
-    arrCountProfCreds = data['payload']['user_type'].length;
+    arrProfCredsCount = data['payload']['user_type'].length;
     data_prof = data['payload']['user_type'];
-    print('Size for array prof creds is : $arrCountProfCreds');
+    print('Size for array prof creds is : $arrProfCredsCount');
 
     if (list_profcreds != null && list_profcreds.isNotEmpty) {
       list_profcreds.addAll(List.from(data_prof).map<User_type>((item) => User_type.fromJson(item)).toList());
     } else {
       list_profcreds = List.from(data_prof).map<User_type>((item) => User_type.fromJson(item)).toList();
     }
+
+    /*for (int i = 0; i < list_profcreds.length; i++) {
+      print('data on forloop pos : ${list_profcreds[i].id}');
+    }*/
 
     return list_profcreds;
   }
@@ -718,6 +723,211 @@ class _UserProfileState extends State<UserProfile> {
                             color: Colors.black87,
                           ),
                         ),
+                        /*GestureDetector(
+                          onTap: () {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (builder) {
+                                  return StatefulBuilder(
+                                    builder: (BuildContext context, void Function(void Function()) setState) {
+                                      return Container(
+                                        color: Colors.white,
+                                        height: 70.0.h,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            // color: Colors.grey[900],
+                                            color: Colors.transparent,
+                                            borderRadius: BorderRadius.only(
+                                              topRight: Radius.circular(30.0),
+                                              topLeft: Radius.circular(30.0),
+                                            ),
+                                          ),
+                                          child: Column(
+                                            children: <Widget>[
+                                              Container(
+                                                height: 17.0.w,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xF0F3F5F9),
+                                                  // color: Colors.blueGrey,
+                                                  borderRadius: BorderRadius.only(
+                                                    topRight: Radius.circular(30.0),
+                                                    topLeft: Radius.circular(30.0),
+                                                  ),
+                                                ),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: <Widget>[
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Container(
+                                                        width: 20.0.w,
+                                                        child: Center(
+                                                          child: Text(
+                                                            'Cancel',
+                                                            style: kDateTestimonials,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      width: 50.0.w,
+                                                      child: Center(
+                                                        child: Text(
+                                                          'Prefessional Credentials',
+                                                          style: kOthersTitle,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      width: 20.0.w,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Container(
+                                                height: 0.5,
+                                                color: Colors.black45,
+                                              ),
+                                              Expanded(
+                                                child: ListView.builder(
+                                                  itemCount: arrProfCredsCount,
+                                                  itemBuilder: (context, index) {
+                                                    return ConstrainedBox(
+                                                      constraints: BoxConstraints(
+                                                        minHeight: 15.0.w,
+                                                      ),
+                                                      child: GestureDetector(
+                                                        onTap: () {
+                                                          print('Check status for : $isProfChecked');
+                                                          // var profId = respProfCreds['payload']['user_type'][index]['id'];
+                                                          var profId = list_profcreds[index].id;
+                                                          setState(() {
+                                                            if (mapProfCredsT[profId]) {
+                                                              selectedProfCount--;
+                                                              mapProfCredsT[profId] = false;
+                                                              mapProfCredsName.remove(profId);
+                                                              // mapProfCredsName[profId]
+                                                              print('array data : ${mapProfCredsName.values}');
+                                                            } else {
+                                                              selectedProfCount++;
+                                                              mapProfCredsT[profId] = true;
+                                                              mapProfCredsName[profId] = respProfCreds['payload']['user_type'][index]['title'];
+                                                              print('array data : ${mapProfCredsName.values}');
+                                                            }
+                                                          });
+                                                        },
+                                                        child: Container(
+                                                          margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
+                                                          decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.circular(7.0),
+                                                            color: mapProfCredsT[respProfCreds['payload']['user_type'][index]['id']]
+                                                                ? themeYellow
+                                                                : Colors.teal,
+                                                          ),
+                                                          child: Flexible(
+                                                            child: Container(
+                                                              child: Padding(
+                                                                padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
+                                                                child: Row(
+                                                                  children: <Widget>[
+                                                                    Icon(
+                                                                      // isProfChecked ? FontAwesomeIcons.checkCircle : FontAwesomeIcons.circle,
+                                                                      mapProfCredsT[respProfCreds['payload']['user_type'][index]['id']]
+                                                                          ? FontAwesomeIcons.checkCircle
+                                                                          : FontAwesomeIcons.circle,
+                                                                      size: 12.0.sp,
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: 3.5.w,
+                                                                    ),
+                                                                    Expanded(
+                                                                      child: Text(
+                                                                        '${respProfCreds['payload']['user_type'][index]['title']}',
+                                                                        // 'Test Name',
+                                                                        textAlign: TextAlign.start,
+                                                                        style: kDataSingleSelectionBottomNav,
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                });
+                          },
+                          child: Container(
+                            color: Colors.white,
+                            padding: EdgeInsets.fromLTRB(6.0.w, 4.0.w, 8.5.w, 4.0.w),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  'Professional Credentials',
+                                  style: TextStyle(
+                                    fontFamily: 'Whitney Bold',
+                                    fontSize: 15.0.sp,
+                                    color: isProfCredsSelected ? Colors.black : Color(0xFFBDBFCA),
+                                  ),
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.plusCircle,
+                                  color: themeYellow,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                          // visible: selectedProfCount>0? true : false,
+                          visible: true,
+                          child: Container(
+                            margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                            child: Wrap(
+                              children: List.generate(
+                                // arrProfCredsCount,
+                                // selectedProfCount,
+                                mapProfCredsName.length,
+                                (i) {
+                                  // (mapProfCredsName.keys.forEach((k) => i)) {
+                                  // (mapProfCredsName.forEach((key, value) {k})){
+                                  // (i = mapProfCredsName.keys) {
+                                  return Container(
+                                    margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 0.0),
+                                    child: Chip(
+                                      label: Container(
+                                        child: Text(
+                                          // '${respProfCreds['payload']['user_type'][i]['title']}',
+                                          '${mapProfCredsName[i]}',
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                          child: Divider(
+                            height: 5.0,
+                            color: Colors.black87,
+                          ),
+                        ),*/
                       ],
                     ),
                   ),

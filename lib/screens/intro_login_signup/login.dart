@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sizer/sizer.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -55,103 +56,114 @@ class _LoginState extends State<Login> {
         title: Text('Login Screen'),
       ),*/
       body: SafeArea(
-        child: Column(
+        child: Stack(
           children: <Widget>[
-            Container(
-              height: 300.0,
-              width: double.infinity,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(25.0, 100.0, 0.0, 0.0),
-                child: Text(
-                  'Welcome\nBack',
-                  style: kLabelTitleTextStyle,
-                ),
-              ),
-            ),
-            Container(
-              height: 30.0,
-              width: double.infinity,
-              margin: EdgeInsets.fromLTRB(25.0, 0.0, 25.0, 0.0),
-              child: TextField(
-                controller: emailController,
-                obscureText: false,
-                decoration: lTextFlieldStyleEmail,
-                textInputAction: TextInputAction.next,
-              ),
-            ),
-            Container(
-              height: 30.0,
-              width: double.infinity,
-              margin: EdgeInsets.fromLTRB(25.0, 50.0, 25.0, 0.0),
-              child: TextField(
-                controller: passController,
-                obscureText: true,
-                decoration: lTextFlieldStylePass,
-                textInputAction: TextInputAction.done,
-              ),
-            ),
-            Container(
-              height: 100.0,
-              width: double.infinity,
-              // color: Colors.teal,
-              margin: EdgeInsets.symmetric(vertical: 50.0, horizontal: 25.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Positioned(
+              child: Column(
                 children: <Widget>[
-                  Text(
-                    'Sign In',
-                    style: kButtonLabelTextStyle,
+                  Container(
+                    height: 300.0,
+                    width: double.infinity,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(25.0, 100.0, 0.0, 0.0),
+                      child: Text(
+                        'Welcome\nBack',
+                        style: kLabelTitleTextStyle,
+                      ),
+                    ),
                   ),
-                  RoundIconButton(
-                    icon: FontAwesomeIcons.arrowRight,
-                    onPressed: () async {
-                      getUserData();
-                    },
+                  Container(
+                    height: 30.0,
+                    width: double.infinity,
+                    margin: EdgeInsets.fromLTRB(25.0, 0.0, 25.0, 0.0),
+                    child: TextField(
+                      controller: emailController,
+                      obscureText: false,
+                      decoration: lTextFlieldStyleEmail,
+                      textInputAction: TextInputAction.next,
+                    ),
                   ),
-                  /*FloatingActionButton(
-                    onPressed: null,
-                    backgroundColor: Color(0xFFFBB42C),
-                  ),*/
+                  Container(
+                    height: 30.0,
+                    width: double.infinity,
+                    margin: EdgeInsets.fromLTRB(25.0, 50.0, 25.0, 0.0),
+                    child: TextField(
+                      controller: passController,
+                      obscureText: true,
+                      decoration: lTextFlieldStylePass,
+                      textInputAction: TextInputAction.done,
+                    ),
+                  ),
+                  Container(
+                    height: 100.0,
+                    width: double.infinity,
+                    // color: Colors.teal,
+                    margin: EdgeInsets.symmetric(vertical: 50.0, horizontal: 25.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          'Sign In',
+                          style: kButtonLabelTextStyle,
+                        ),
+                        RoundIconButton(
+                          icon: FontAwesomeIcons.arrowRight,
+                          onPressed: () async {
+                            getUserData();
+                          },
+                        ),
+                        /*FloatingActionButton(
+                      onPressed: null,
+                      backgroundColor: Color(0xFFFBB42C),
+                    ),*/
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
-            Container(
-              height: 50.0,
-              width: double.infinity,
-              // color: Colors.teal,
-              margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 25.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Sign Up',
-                    style: kTextLableLoginUnderline,
-                  ),
-                  /*Text(
-                    'Forget Password',
-                    style: kTextLableLoginUnderlineGray,
-                  ),*/
-                  GestureDetector(
-                    child: Text(
+            Positioned(
+              bottom: 5.0.h,
+              right: 0.0,
+              left: 0.0,
+              child: Container(
+                height: 50.0,
+                width: double.infinity,
+                // color: Colors.teal,
+                margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 25.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      'Sign Up',
+                      style: kTextLableLoginUnderline,
+                    ),
+                    /*Text(
                       'Forget Password',
                       style: kTextLableLoginUnderlineGray,
+                    ),*/
+                    GestureDetector(
+                      child: Text(
+                        'Forget Password',
+                        style: kTextLableLoginUnderlineGray,
+                      ),
+                      // onTap: redirectToForgetPass(),
+                      onTap: () {
+                        // print('Temp Pressed');
+                        redirectToForgetPass();
+                      },
                     ),
-                    // onTap: redirectToForgetPass(),
-                    onTap: () {
-                      // print('Temp Pressed');
-                      redirectToForgetPass();
-                    },
-                  ),
-                  /*RoundIconButton(
-                    icon: FontAwesomeIcons.arrowRight,
-                  ),*/
-                  /*FloatingActionButton(
-                    onPressed: null,
-                    backgroundColor: Color(0xFFFBB42C),
-                  ),*/
-                ],
+                    /*RoundIconButton(
+                      icon: FontAwesomeIcons.arrowRight,
+                    ),*/
+                    /*FloatingActionButton(
+                      onPressed: null,
+                      backgroundColor: Color(0xFFFBB42C),
+                    ),*/
+                  ],
+                ),
               ),
-            ),
+            )
           ],
         ),
       ),
@@ -254,10 +266,8 @@ class _LoginState extends State<Login> {
     print('Connectivity Result is : $connectivityResult');
     print('Connectivity Result is empty');
 
-    if ((connectivityResult == ConnectivityResult.mobile) ||
-        (connectivityResult == ConnectivityResult.wifi)) {
-      var resp = await loginUser(
-          _email, _password, 'android', 'ddddddddddddddddddddddddddddd', 'A');
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
+      var resp = await loginUser(_email, _password, 'android', 'ddddddddddddddddddddddddddddd', 'A');
       print('Response is : $resp');
 
       respStatus = resp['success'];
@@ -294,8 +304,7 @@ class _LoginState extends State<Login> {
     } else {
       _scaffoldKey.currentState.showSnackBar(
         SnackBar(
-          content:
-              Text("Please check your internet connectivity and try again"),
+          content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 5),
         ),
       );
