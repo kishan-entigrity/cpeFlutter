@@ -576,239 +576,242 @@ class _HomeFragmentState extends State<HomeFragment> {
                                           child: CircularProgressIndicator(),
                                         ),
                                       )
-                                : GestureDetector(
-                                    onTap: () {
-                                      print('Clicked on index pos : $index');
-                                    },
-                                    child: Container(
-                                      // margin: EdgeInsets.only(top: 10.0),
-                                      margin: EdgeInsets.fromLTRB(3.5.w, 0.0.h, 3.5.w, 2.0.h),
-                                      decoration: BoxDecoration(
-                                        // color: Color(0xFFFFC803),
-                                        color: index % 2 == 0 ? Color(0xFFFFC803) : Color(0xFF00B1FD),
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(15.0),
-                                        ),
-                                      ),
-                                      height: 70.0.w,
-                                      child: Stack(
-                                        children: [
-                                          Positioned(
-                                            top: 0,
-                                            left: 0,
-                                            right: 0,
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Padding(
-                                                  padding: const EdgeInsets.only(top: 15.0),
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: <Widget>[
-                                                      ConstrainedBox(
-                                                        constraints: BoxConstraints(minWidth: 28.0.w),
-                                                        child: Container(
-                                                          margin: EdgeInsets.only(left: 15.0),
-                                                          height: 4.0.h,
-                                                          decoration: BoxDecoration(
-                                                            borderRadius: BorderRadius.circular(5.0),
-                                                            color: Colors.white,
-                                                          ),
-                                                          child: Padding(
-                                                            padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
-                                                            child: Center(
-                                                              child: Text(
-                                                                  // '${data['payload']['webinar'][index]['webinar_type']}',
-                                                                  '${list[index].webinarType}',
-                                                                  style:
-                                                                      // kWebinarButtonLabelTextStyleGreen,
-                                                                      TextStyle(
-                                                                    fontFamily: 'Whitney Semi Bold',
-                                                                    fontSize: 12.5.sp,
-                                                                    color: Color(0xFF00A81B),
-                                                                  )),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      ConstrainedBox(
-                                                        constraints: BoxConstraints(minWidth: 28.0.w),
-                                                        child: Container(
-                                                          height: 4.0.h,
-                                                          decoration: BoxDecoration(
-                                                            borderRadius: BorderRadius.circular(5.0),
-                                                            color: Colors.white,
-                                                          ),
-                                                          child: Padding(
-                                                            padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
-                                                            child: Center(
-                                                              child: Text(
-                                                                  // '${data['payload']['webinar'][index]['cpa_credit']}',
-                                                                  '${list[index].cpaCredit}',
-                                                                  style:
-                                                                      // kWebinarButtonLabelTextStyle,
-                                                                      TextStyle(
-                                                                    fontFamily: 'Whitney Semi Bold',
-                                                                    fontSize: 12.5.sp,
-                                                                    color: Colors.black,
-                                                                  )),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      ConstrainedBox(
-                                                        constraints: BoxConstraints(minWidth: 28.0.w),
-                                                        child: Container(
-                                                          margin: EdgeInsets.only(right: 15.0),
-                                                          height: 4.0.h,
-                                                          decoration: BoxDecoration(
-                                                            borderRadius: BorderRadius.circular(5.0),
-                                                            color: Colors.white,
-                                                          ),
-                                                          child: Padding(
-                                                            padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
-                                                            child: Center(
-                                                              child: Text(
-                                                                  // '\$ ${data['payload']['webinar'][index]['fee']}',
-                                                                  '${checkForPrice(index)}',
-                                                                  style:
-                                                                      // kWebinarButtonLabelTextStyle,
-                                                                      TextStyle(
-                                                                    fontFamily: 'Whitney Semi Bold',
-                                                                    fontSize: 12.5.sp,
-                                                                    color: Colors.black,
-                                                                  )),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
-                                                  child: Flexible(
-                                                    child: Text(
-                                                      // '${data['payload']['webinar'][index]['webinar_title']}',
-                                                      '${list[index].webinarTitle}',
-                                                      style: TextStyle(
-                                                        fontFamily: 'Whitney Bold',
-                                                        fontSize: 16.0.sp,
-                                                        color: index % 2 == 0 ? Colors.black : Colors.white,
-                                                      ),
-                                                      maxLines: 2,
-                                                      overflow: TextOverflow.ellipsis,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
-                                                  child: Row(
-                                                    children: [
-                                                      Flexible(
-                                                        child: Text(
-                                                          // '${data['payload']['webinar'][index]['speaker_name']}',
-                                                          '${list[index].speakerName}',
-                                                          style: TextStyle(
-                                                            fontFamily: 'Whitney Semi Bold',
-                                                            fontSize: 13.0.sp,
-                                                            color: index % 2 == 0 ? Colors.black : Colors.white,
-                                                          ),
-                                                          overflow: TextOverflow.ellipsis,
-                                                          maxLines: 2,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
-                                                  child: Row(
-                                                    children: [
-                                                      Text(
-                                                        // '${data['payload']['webinar'][index]['start_date']} - ${data['payload']['webinar'][index]['start_time']} - ${data['payload']['webinar'][index]['time_zone']}',
-                                                        '${displayDateCondition(index)}',
-                                                        style: TextStyle(
-                                                          fontFamily: 'Whitney Semi Bold',
-                                                          fontSize: 13.0.sp,
-                                                          color: index % 2 == 0 ? Colors.black : Colors.white,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
+                                // : (index == 0 && isSelfStudy && arrCountRecent != 0 && start == 0)
+                                : (index == 0 && isSelfStudy && arrCountRecent > 0)
+                                    ? Text('Horizontal row here..')
+                                    : GestureDetector(
+                                        onTap: () {
+                                          print('Clicked on index pos : $index');
+                                        },
+                                        child: Container(
+                                          // margin: EdgeInsets.only(top: 10.0),
+                                          margin: EdgeInsets.fromLTRB(3.5.w, 0.0.h, 3.5.w, 2.0.h),
+                                          decoration: BoxDecoration(
+                                            // color: Color(0xFFFFC803),
+                                            color: index % 2 == 0 ? Color(0xFFFFC803) : Color(0xFF00B1FD),
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(15.0),
                                             ),
                                           ),
-                                          Positioned(
-                                            bottom: 18.0,
-                                            left: 18.0,
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                print('Clicked on register button index is : $index');
-                                                getIdWebinar(index);
-                                                // 1. Take an API call for relevent action from here..
-                                                // 2. Before this need to verify user is logged in or not..
-                                                // 3. If not then redirect to Login screen and then back here..
-                                                // 4. If user is logged in then need to check for webinar is free or not..
-                                                // 5. If the webinar is free then have to check for isCardSaved or not..
-                                                // 6. Take a Register API call from there onwards..
-                                              },
-                                              child: ConstrainedBox(
-                                                constraints: BoxConstraints(
-                                                  minWidth: 35.0.w,
-                                                ),
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    // color: Color(0xFFC2900D),
-                                                    color: Color(0x23000000),
-                                                    borderRadius: BorderRadius.all(
-                                                      Radius.circular(5.0),
-                                                    ),
-                                                  ),
-                                                  height: 11.5.w,
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: <Widget>[
-                                                      Padding(
-                                                        padding: const EdgeInsets.all(8.0),
-                                                        child: Text(
-                                                          // '${data['payload']['webinar'][index]['status']}',
-                                                          '${list[index].status}',
-                                                          style: TextStyle(
-                                                            fontFamily: 'Whitney Semi Bold',
-                                                            fontSize: 14.0.sp,
-                                                            color: Colors.white,
+                                          height: 70.0.w,
+                                          child: Stack(
+                                            children: [
+                                              Positioned(
+                                                top: 0,
+                                                left: 0,
+                                                right: 0,
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: <Widget>[
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(top: 15.0),
+                                                      child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: <Widget>[
+                                                          ConstrainedBox(
+                                                            constraints: BoxConstraints(minWidth: 28.0.w),
+                                                            child: Container(
+                                                              margin: EdgeInsets.only(left: 15.0),
+                                                              height: 4.0.h,
+                                                              decoration: BoxDecoration(
+                                                                borderRadius: BorderRadius.circular(5.0),
+                                                                color: Colors.white,
+                                                              ),
+                                                              child: Padding(
+                                                                padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+                                                                child: Center(
+                                                                  child: Text(
+                                                                      // '${data['payload']['webinar'][index]['webinar_type']}',
+                                                                      '${list[index].webinarType}',
+                                                                      style:
+                                                                          // kWebinarButtonLabelTextStyleGreen,
+                                                                          TextStyle(
+                                                                        fontFamily: 'Whitney Semi Bold',
+                                                                        fontSize: 12.5.sp,
+                                                                        color: Color(0xFF00A81B),
+                                                                      )),
+                                                                ),
+                                                              ),
+                                                            ),
                                                           ),
+                                                          ConstrainedBox(
+                                                            constraints: BoxConstraints(minWidth: 28.0.w),
+                                                            child: Container(
+                                                              height: 4.0.h,
+                                                              decoration: BoxDecoration(
+                                                                borderRadius: BorderRadius.circular(5.0),
+                                                                color: Colors.white,
+                                                              ),
+                                                              child: Padding(
+                                                                padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+                                                                child: Center(
+                                                                  child: Text(
+                                                                      // '${data['payload']['webinar'][index]['cpa_credit']}',
+                                                                      '${list[index].cpaCredit}',
+                                                                      style:
+                                                                          // kWebinarButtonLabelTextStyle,
+                                                                          TextStyle(
+                                                                        fontFamily: 'Whitney Semi Bold',
+                                                                        fontSize: 12.5.sp,
+                                                                        color: Colors.black,
+                                                                      )),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          ConstrainedBox(
+                                                            constraints: BoxConstraints(minWidth: 28.0.w),
+                                                            child: Container(
+                                                              margin: EdgeInsets.only(right: 15.0),
+                                                              height: 4.0.h,
+                                                              decoration: BoxDecoration(
+                                                                borderRadius: BorderRadius.circular(5.0),
+                                                                color: Colors.white,
+                                                              ),
+                                                              child: Padding(
+                                                                padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+                                                                child: Center(
+                                                                  child: Text(
+                                                                      // '\$ ${data['payload']['webinar'][index]['fee']}',
+                                                                      '${checkForPrice(index)}',
+                                                                      style:
+                                                                          // kWebinarButtonLabelTextStyle,
+                                                                          TextStyle(
+                                                                        fontFamily: 'Whitney Semi Bold',
+                                                                        fontSize: 12.5.sp,
+                                                                        color: Colors.black,
+                                                                      )),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
+                                                      child: Flexible(
+                                                        child: Text(
+                                                          // '${data['payload']['webinar'][index]['webinar_title']}',
+                                                          '${list[index].webinarTitle}',
+                                                          style: TextStyle(
+                                                            fontFamily: 'Whitney Bold',
+                                                            fontSize: 16.0.sp,
+                                                            color: index % 2 == 0 ? Colors.black : Colors.white,
+                                                          ),
+                                                          maxLines: 2,
+                                                          overflow: TextOverflow.ellipsis,
                                                         ),
                                                       ),
-                                                      Padding(
-                                                        padding: EdgeInsets.all(5.0),
-                                                        child: Icon(
-                                                          FontAwesomeIcons.angleRight,
-                                                          color: Colors.white,
+                                                    ),
+                                                    Padding(
+                                                      padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
+                                                      child: Row(
+                                                        children: [
+                                                          Flexible(
+                                                            child: Text(
+                                                              // '${data['payload']['webinar'][index]['speaker_name']}',
+                                                              '${list[index].speakerName}',
+                                                              style: TextStyle(
+                                                                fontFamily: 'Whitney Semi Bold',
+                                                                fontSize: 13.0.sp,
+                                                                color: index % 2 == 0 ? Colors.black : Colors.white,
+                                                              ),
+                                                              overflow: TextOverflow.ellipsis,
+                                                              maxLines: 2,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
+                                                      child: Row(
+                                                        children: [
+                                                          Text(
+                                                            // '${data['payload']['webinar'][index]['start_date']} - ${data['payload']['webinar'][index]['start_time']} - ${data['payload']['webinar'][index]['time_zone']}',
+                                                            '${displayDateCondition(index)}',
+                                                            style: TextStyle(
+                                                              fontFamily: 'Whitney Semi Bold',
+                                                              fontSize: 13.0.sp,
+                                                              color: index % 2 == 0 ? Colors.black : Colors.white,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Positioned(
+                                                bottom: 18.0,
+                                                left: 18.0,
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    print('Clicked on register button index is : $index');
+                                                    getIdWebinar(index);
+                                                    // 1. Take an API call for relevent action from here..
+                                                    // 2. Before this need to verify user is logged in or not..
+                                                    // 3. If not then redirect to Login screen and then back here..
+                                                    // 4. If user is logged in then need to check for webinar is free or not..
+                                                    // 5. If the webinar is free then have to check for isCardSaved or not..
+                                                    // 6. Take a Register API call from there onwards..
+                                                  },
+                                                  child: ConstrainedBox(
+                                                    constraints: BoxConstraints(
+                                                      minWidth: 35.0.w,
+                                                    ),
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                        // color: Color(0xFFC2900D),
+                                                        color: Color(0x23000000),
+                                                        borderRadius: BorderRadius.all(
+                                                          Radius.circular(5.0),
                                                         ),
                                                       ),
-                                                    ],
+                                                      height: 11.5.w,
+                                                      child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: <Widget>[
+                                                          Padding(
+                                                            padding: const EdgeInsets.all(8.0),
+                                                            child: Text(
+                                                              // '${data['payload']['webinar'][index]['status']}',
+                                                              '${list[index].status}',
+                                                              style: TextStyle(
+                                                                fontFamily: 'Whitney Semi Bold',
+                                                                fontSize: 14.0.sp,
+                                                                color: Colors.white,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding: EdgeInsets.all(5.0),
+                                                            child: Icon(
+                                                              FontAwesomeIcons.angleRight,
+                                                              color: Colors.white,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
+                                              Positioned(
+                                                bottom: 0,
+                                                right: 0,
+                                                child: Image.asset(
+                                                  'assets/avatar_bottom_right.png',
+                                                  height: 36.0.w,
+                                                  width: 36.0.w,
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          Positioned(
-                                            bottom: 0,
-                                            right: 0,
-                                            child: Image.asset(
-                                              'assets/avatar_bottom_right.png',
-                                              height: 36.0.w,
-                                              width: 36.0.w,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
+                                        ),
+                                      );
                           },
                         )
                       : Container(
