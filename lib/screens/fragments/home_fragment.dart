@@ -578,7 +578,99 @@ class _HomeFragmentState extends State<HomeFragment> {
                                       )
                                 // : (index == 0 && isSelfStudy && arrCountRecent != 0 && start == 0)
                                 : (index == 0 && isSelfStudy && arrCountRecent > 0)
-                                    ? Text('Horizontal row here..')
+                                    ? Column(
+                                        children: <Widget>[
+                                          Container(
+                                            padding: EdgeInsets.symmetric(horizontal: 12.0.sp),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: <Widget>[
+                                                Text(
+                                                  'Continue Watch',
+                                                  style: TextStyle(
+                                                    fontSize: 11.0.sp,
+                                                    fontFamily: 'Whitney Semi Bold',
+                                                  ),
+                                                ),
+                                                Icon(
+                                                  FontAwesomeIcons.angleRight,
+                                                  color: Colors.black,
+                                                  size: 12.0.sp,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Container(
+                                            height: 40.0.w,
+                                            child: ListView.builder(
+                                              scrollDirection: Axis.horizontal,
+                                              itemCount: recentList.length,
+                                              shrinkWrap: true,
+                                              itemBuilder: (context, index) {
+                                                return Container(
+                                                  margin: EdgeInsets.fromLTRB(3.5.w, 1.0.h, 0.0, 2.0.h),
+                                                  height: 40.0.w,
+                                                  width: 65.0.w,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(10.0.sp),
+                                                    color: Colors.teal,
+                                                  ),
+                                                  child: Stack(
+                                                    children: <Widget>[
+                                                      Positioned(
+                                                        child: Image.asset(
+                                                          'assets/bg_image_recent.png',
+                                                          height: 40.0.w,
+                                                          width: 65.0.w,
+                                                          fit: BoxFit.fill,
+                                                        ),
+                                                      ),
+                                                      Positioned(
+                                                        child: Container(
+                                                          height: double.infinity,
+                                                          child: Stack(
+                                                            children: <Widget>[
+                                                              Positioned(
+                                                                child: Text(
+                                                                  recentList[index].webinarTitle,
+                                                                  style: TextStyle(
+                                                                    fontSize: 10.0.sp,
+                                                                    color: Colors.white,
+                                                                    fontFamily: 'Whitney Bold',
+                                                                  ),
+                                                                  maxLines: 3,
+                                                                  overflow: TextOverflow.ellipsis,
+                                                                ),
+                                                              ),
+                                                              Positioned(
+                                                                bottom: 0.0,
+                                                                child: Container(
+                                                                  height: 25.0.sp,
+                                                                  width: 25.0.sp,
+                                                                  decoration: BoxDecoration(
+                                                                    borderRadius: BorderRadius.circular(25.0.sp),
+                                                                    color: Colors.white,
+                                                                  ),
+                                                                  padding: EdgeInsets.all(7.0.sp),
+                                                                  child: Image.asset(
+                                                                    'assets/cpe_icon.png',
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          padding: EdgeInsets.all(10.0.sp),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    /*Text('Horizontal row here..')*/
                                     : GestureDetector(
                                         onTap: () {
                                           print('Clicked on index pos : $index');
