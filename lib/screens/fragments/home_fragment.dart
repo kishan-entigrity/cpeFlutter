@@ -644,16 +644,23 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                               ),
                                                               Positioned(
                                                                 bottom: 0.0,
-                                                                child: Container(
-                                                                  height: 25.0.sp,
-                                                                  width: 25.0.sp,
-                                                                  decoration: BoxDecoration(
-                                                                    borderRadius: BorderRadius.circular(25.0.sp),
-                                                                    color: Colors.white,
-                                                                  ),
-                                                                  padding: EdgeInsets.all(7.0.sp),
-                                                                  child: Image.asset(
-                                                                    'assets/cpe_icon.png',
+                                                                child: GestureDetector(
+                                                                  onTap: () {
+                                                                    print('Clicked on index position : $index');
+                                                                    print('Clicked on ID : ${recentList[index].id}');
+                                                                    getIdWebinar(index);
+                                                                  },
+                                                                  child: Container(
+                                                                    height: 25.0.sp,
+                                                                    width: 25.0.sp,
+                                                                    decoration: BoxDecoration(
+                                                                      borderRadius: BorderRadius.circular(25.0.sp),
+                                                                      color: Colors.white,
+                                                                    ),
+                                                                    padding: EdgeInsets.all(7.0.sp),
+                                                                    child: Image.asset(
+                                                                      'assets/cpe_icon.png',
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               ),
