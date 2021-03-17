@@ -1,4 +1,5 @@
 import 'package:cpe_flutter/constant.dart';
+import 'package:cpe_flutter/screens/review_questions/review_questions.dart';
 import 'package:cpe_flutter/screens/video_player/videoPlayer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -59,15 +60,13 @@ class childWebinarStatus extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              VideoPlayerFlickker(webDetailsObj),
+                          builder: (context) => VideoPlayerFlickker(webDetailsObj),
                         ),
                       );
                     },
                     child: Container(
                       height: 10.2.w,
-                      margin: EdgeInsets.only(
-                          top: 10.0, bottom: 10.0, left: 10.0, right: 5.0),
+                      margin: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 10.0, right: 5.0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5.0),
                         color: themeYellow,
@@ -82,18 +81,28 @@ class childWebinarStatus extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  child: Container(
-                    height: 10.2.w,
-                    margin: EdgeInsets.only(
-                        top: 10.0, bottom: 10.0, right: 10.0, left: 5.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                      color: themeBlueLight,
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Review Question',
-                        style: kWebinarStatusSmall,
+                  child: GestureDetector(
+                    onTap: () {
+                      print('Clicked on review question button');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ReviewQuestions(webDetailsObj['webinar_id']),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 10.2.w,
+                      margin: EdgeInsets.only(top: 10.0, bottom: 10.0, right: 10.0, left: 5.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: themeBlueLight,
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Review Question',
+                          style: kWebinarStatusSmall,
+                        ),
                       ),
                     ),
                   ),
