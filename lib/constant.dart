@@ -267,6 +267,12 @@ const Color black80 = const Color(0x801F2227);
 const Color themeBlueLight = const Color(0xFF193F70);
 const Color underLineGray = const Color(0xFFA0A2B0);
 
+const Color answerBlue = const Color(0xFF013872);
+const Color answerGreen = const Color(0xFF29bd4e);
+const Color answerRed = const Color(0xFFee1818);
+const Color answerWhite = const Color(0xFFFFFFFF);
+const Color answerBlack = const Color(0xFF000000);
+
 // ConstString Files from here..const
 const String fnameEmptyMsg = 'Please enter first name';
 const String lnameEmptyMsg = 'Please enter last name';

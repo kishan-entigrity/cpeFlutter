@@ -36,6 +36,7 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
 
   var current_question = 0;
   var isAnswered = false;
+  var isAnswerSubmitted = false;
 
   Future<List<Review_questions>> getReviewQuestionList(String authToken) async {
     // String urls = URLs.BASE_URL + 'webinar/list';
@@ -184,132 +185,252 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
                                     SizedBox(
                                       height: 30.0.sp,
                                     ),
-                                    ConstrainedBox(
-                                      constraints: BoxConstraints(minHeight: 40.0.sp),
-                                      child: Container(
-                                        width: double.infinity,
-                                        padding: EdgeInsets.fromLTRB(10.0.sp, 4.0.sp, 10.0.sp, 4.0.sp),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10.0),
-                                          color: Colors.white,
-                                          border: Border.all(
-                                            color: Colors.black, //                   <--- border color
-                                            width: 0.5,
-                                          ),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text(
-                                              // 'Option A',
-                                              '${list[current_question].a.optionTitle}',
-                                              style: TextStyle(
-                                                fontSize: 13.0.sp,
-                                                color: Colors.black,
-                                                fontFamily: 'Whitney Semi Bold',
-                                              ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        print('Clicked on option A');
+                                        setState(() {
+                                          list[current_question].isAnswered = true;
+                                          list[current_question].answeredOption = 'a';
+                                          if (list[current_question].answer == 'a') {
+                                            list[current_question].isCorrectAnswered = true;
+                                          } else {
+                                            list[current_question].isCorrectAnswered = false;
+                                          }
+                                        });
+                                      },
+                                      child: ConstrainedBox(
+                                        constraints: BoxConstraints(minHeight: 40.0.sp),
+                                        child: Container(
+                                          width: double.infinity,
+                                          padding: EdgeInsets.fromLTRB(10.0.sp, 4.0.sp, 10.0.sp, 4.0.sp),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(10.0),
+                                            // color: isA ? answerBlue : answerWhite,
+                                            color: isAnswerSubmitted
+                                                ? list[current_question].answeredOption == 'a'
+                                                    ? list[current_question].answer == 'a'
+                                                        ? answerGreen
+                                                        : answerRed
+                                                    : answerWhite
+                                                : list[current_question].isAnswered
+                                                    ? list[current_question].answeredOption == 'a'
+                                                        ? answerBlue
+                                                        : answerWhite
+                                                    : answerWhite,
+                                            border: Border.all(
+                                              color: Colors.black, //                   <--- border color
+                                              width: 0.5,
                                             ),
-                                          ],
+                                          ),
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text(
+                                                // 'Option A',
+                                                '${list[current_question].a.optionTitle}',
+                                                style: TextStyle(
+                                                  fontSize: 13.0.sp,
+                                                  // color: isA ? answerWhite : answerBlack,
+                                                  color: list[current_question].isAnswered
+                                                      ? list[current_question].answeredOption == 'a'
+                                                          ? answerWhite
+                                                          : answerBlack
+                                                      : answerBlack,
+                                                  fontFamily: 'Whitney Semi Bold',
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
                                     SizedBox(
                                       height: 10.0.sp,
                                     ),
-                                    ConstrainedBox(
-                                      constraints: BoxConstraints(minHeight: 40.0.sp),
-                                      child: Container(
-                                        width: double.infinity,
-                                        padding: EdgeInsets.fromLTRB(10.0.sp, 4.0.sp, 10.0.sp, 4.0.sp),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10.0),
-                                          color: Colors.white,
-                                          border: Border.all(
-                                            color: Colors.black, //                   <--- border color
-                                            width: 0.5,
-                                          ),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text(
-                                              // 'Option B',
-                                              '${list[current_question].b.optionTitle}',
-                                              style: TextStyle(
-                                                fontSize: 13.0.sp,
-                                                color: Colors.black,
-                                                fontFamily: 'Whitney Semi Bold',
-                                              ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        print('Clicked on option B');
+                                        setState(() {
+                                          list[current_question].isAnswered = true;
+                                          list[current_question].answeredOption = 'b';
+                                          if (list[current_question].answer == 'b') {
+                                            list[current_question].isCorrectAnswered = true;
+                                          } else {
+                                            list[current_question].isCorrectAnswered = false;
+                                          }
+                                        });
+                                      },
+                                      child: ConstrainedBox(
+                                        constraints: BoxConstraints(minHeight: 40.0.sp),
+                                        child: Container(
+                                          width: double.infinity,
+                                          padding: EdgeInsets.fromLTRB(10.0.sp, 4.0.sp, 10.0.sp, 4.0.sp),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(10.0),
+                                            // color: isB ? answerBlue : answerWhite,
+                                            color: isAnswerSubmitted
+                                                ? list[current_question].answeredOption == 'b'
+                                                    ? list[current_question].answer == 'b'
+                                                        ? answerGreen
+                                                        : answerRed
+                                                    : answerWhite
+                                                : list[current_question].isAnswered
+                                                    ? list[current_question].answeredOption == 'b'
+                                                        ? answerBlue
+                                                        : answerWhite
+                                                    : answerWhite,
+                                            border: Border.all(
+                                              color: Colors.black, //                   <--- border color
+                                              width: 0.5,
                                             ),
-                                          ],
+                                          ),
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text(
+                                                // 'Option B',
+                                                '${list[current_question].b.optionTitle}',
+                                                style: TextStyle(
+                                                  fontSize: 13.0.sp,
+                                                  // color: isB ? answerWhite : answerBlack,
+                                                  color: list[current_question].isAnswered
+                                                      ? list[current_question].answeredOption == 'b'
+                                                          ? answerWhite
+                                                          : answerBlack
+                                                      : answerBlack,
+                                                  fontFamily: 'Whitney Semi Bold',
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
                                     SizedBox(
                                       height: 10.0.sp,
                                     ),
-                                    ConstrainedBox(
-                                      constraints: BoxConstraints(minHeight: 40.0.sp),
-                                      child: Container(
-                                        width: double.infinity,
-                                        padding: EdgeInsets.fromLTRB(10.0.sp, 4.0.sp, 10.0.sp, 4.0.sp),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10.0),
-                                          color: Colors.white,
-                                          border: Border.all(
-                                            color: Colors.black, //                   <--- border color
-                                            width: 0.5,
-                                          ),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text(
-                                              // 'Option C',
-                                              '${list[current_question].c.optionTitle}',
-                                              style: TextStyle(
-                                                fontSize: 13.0.sp,
-                                                color: Colors.black,
-                                                fontFamily: 'Whitney Semi Bold',
-                                              ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        print('Clicked on option C');
+                                        setState(() {
+                                          list[current_question].isAnswered = true;
+                                          list[current_question].answeredOption = 'c';
+                                          if (list[current_question].answer == 'c') {
+                                            list[current_question].isCorrectAnswered = true;
+                                          } else {
+                                            list[current_question].isCorrectAnswered = false;
+                                          }
+                                        });
+                                      },
+                                      child: ConstrainedBox(
+                                        constraints: BoxConstraints(minHeight: 40.0.sp),
+                                        child: Container(
+                                          width: double.infinity,
+                                          padding: EdgeInsets.fromLTRB(10.0.sp, 4.0.sp, 10.0.sp, 4.0.sp),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(10.0),
+                                            // color: isC ? answerBlue : answerWhite,
+                                            color: isAnswerSubmitted
+                                                ? list[current_question].answeredOption == 'c'
+                                                    ? list[current_question].answer == 'c'
+                                                        ? answerGreen
+                                                        : answerRed
+                                                    : answerWhite
+                                                : list[current_question].isAnswered
+                                                    ? list[current_question].answeredOption == 'c'
+                                                        ? answerBlue
+                                                        : answerWhite
+                                                    : answerWhite,
+                                            border: Border.all(
+                                              color: Colors.black, //                   <--- border color
+                                              width: 0.5,
                                             ),
-                                          ],
+                                          ),
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text(
+                                                // 'Option C',
+                                                '${list[current_question].c.optionTitle}',
+                                                style: TextStyle(
+                                                  fontSize: 13.0.sp,
+                                                  // color: isC ? answerWhite : answerBlack,
+                                                  color: list[current_question].isAnswered
+                                                      ? list[current_question].answeredOption == 'c'
+                                                          ? answerWhite
+                                                          : answerBlack
+                                                      : answerBlack,
+                                                  fontFamily: 'Whitney Semi Bold',
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
                                     SizedBox(
                                       height: 10.0.sp,
                                     ),
-                                    ConstrainedBox(
-                                      constraints: BoxConstraints(minHeight: 40.0.sp),
-                                      child: Container(
-                                        width: double.infinity,
-                                        padding: EdgeInsets.fromLTRB(10.0.sp, 4.0.sp, 10.0.sp, 4.0.sp),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10.0),
-                                          color: Colors.white,
-                                          border: Border.all(
-                                            color: Colors.black, //                   <--- border color
-                                            width: 0.5,
-                                          ),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text(
-                                              // 'Option D',
-                                              '${list[current_question].d.optionTitle}',
-                                              style: TextStyle(
-                                                fontSize: 13.0.sp,
-                                                color: Colors.black,
-                                                fontFamily: 'Whitney Semi Bold',
-                                              ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        print('Clicked on option D');
+                                        setState(() {
+                                          list[current_question].isAnswered = true;
+                                          list[current_question].answeredOption = 'd';
+                                          if (list[current_question].answer == 'd') {
+                                            list[current_question].isCorrectAnswered = true;
+                                          } else {
+                                            list[current_question].isCorrectAnswered = false;
+                                          }
+                                        });
+                                      },
+                                      child: ConstrainedBox(
+                                        constraints: BoxConstraints(minHeight: 40.0.sp),
+                                        child: Container(
+                                          width: double.infinity,
+                                          padding: EdgeInsets.fromLTRB(10.0.sp, 4.0.sp, 10.0.sp, 4.0.sp),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(10.0),
+                                            // color: isD ? answerBlue : answerWhite,
+                                            color: isAnswerSubmitted
+                                                ? list[current_question].answeredOption == 'd'
+                                                    ? list[current_question].answer == 'd'
+                                                        ? answerGreen
+                                                        : answerRed
+                                                    : answerWhite
+                                                : list[current_question].isAnswered
+                                                    ? list[current_question].answeredOption == 'd'
+                                                        ? answerBlue
+                                                        : answerWhite
+                                                    : answerWhite,
+                                            border: Border.all(
+                                              color: Colors.black, //                   <--- border color
+                                              width: 0.5,
                                             ),
-                                          ],
+                                          ),
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text(
+                                                // 'Option D',
+                                                '${list[current_question].d.optionTitle}',
+                                                style: TextStyle(
+                                                  fontSize: 13.0.sp,
+                                                  // color: isD ? answerWhite : answerBlack,
+                                                  color: list[current_question].isAnswered
+                                                      ? list[current_question].answeredOption == 'd'
+                                                          ? answerWhite
+                                                          : answerBlack
+                                                      : answerBlack,
+                                                  fontFamily: 'Whitney Semi Bold',
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -394,13 +515,23 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
                                               onTap: () {
                                                 print('Next Current question is : ${current_question + 1}');
                                                 print('Next ArrCount is : $arrCount');
-                                                if (arrCount == {current_question + 1}) {
+                                                if (arrCount.compareTo(current_question + 1) == 0) {
                                                   // Do nothing..
                                                   print('Next if part');
+                                                  // Implement submit click from here..
+                                                  // 1.First we need to check for all questions are answered or not!!??
+                                                  // 2.If all questions are answered then we need to check for correct answers..
+                                                  // 3.If all questions are answered correctly then we need to show popup for the all questions
+                                                  // answered correctly..
+                                                  setState(() {
+                                                    current_question = 0;
+                                                    isAnswerSubmitted = true;
+                                                  });
                                                 } else {
                                                   print('Next else part');
                                                   setState(() {
                                                     current_question = current_question + 1;
+                                                    // list[current_question].d.optionTitle = 'Test Option';
                                                   });
                                                 }
                                               },
@@ -413,7 +544,8 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
                                                 ),
                                                 child: Center(
                                                   child: Text(
-                                                    'Next',
+                                                    // 'Next',
+                                                    arrCount.compareTo(current_question + 1) == 0 ? 'Submit' : 'Next',
                                                     style: TextStyle(
                                                       fontSize: 15.0.sp,
                                                       color: Colors.white,

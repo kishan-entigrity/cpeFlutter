@@ -43,14 +43,41 @@ class Review_questions {
   B _b;
   C _c;
   D _d;
+  bool _isAnswered = false;
+  bool _isCorrectAnswered = false;
+  String _answeredOption;
 
   int get id => _id;
+
   String get questionTitle => _questionTitle;
+
   String get answer => _answer;
+
+  bool get isAnswered => _isAnswered;
+
+  bool get isCorrectAnswered => _isCorrectAnswered;
+
+  String get answeredOption => _answeredOption;
+
   A get a => _a;
+
   B get b => _b;
+
   C get c => _c;
+
   D get d => _d;
+
+  set isAnswered(bool isAnswered) {
+    this._isAnswered = isAnswered;
+  }
+
+  set isCorrectAnswered(bool isCorrectAnswered) {
+    this._isCorrectAnswered = isCorrectAnswered;
+  }
+
+  set answeredOption(String answeredOption) {
+    this._answeredOption = answeredOption;
+  }
 
   Review_questions({int id, String questionTitle, String answer, A a, B b, C c, D d}) {
     _id = id;
@@ -103,8 +130,22 @@ class D {
   String _description;
 
   String get optionTitle => _optionTitle;
+
   String get isAnswer => _isAnswer;
+
   String get description => _description;
+
+  set optionTitle(String optionTitle) {
+    this._optionTitle = optionTitle;
+  }
+
+  set isAnswer(String isAnswer) {
+    this._isAnswer = isAnswer;
+  }
+
+  set description(String description) {
+    this._description = description;
+  }
 
   D({String optionTitle, String isAnswer, String description}) {
     _optionTitle = optionTitle;
@@ -137,8 +178,22 @@ class C {
   String _description;
 
   String get optionTitle => _optionTitle;
+
   String get isAnswer => _isAnswer;
+
   String get description => _description;
+
+  set optionTitle(String optionTitle) {
+    this._optionTitle = optionTitle;
+  }
+
+  set isAnswer(String isAnswer) {
+    this._isAnswer = isAnswer;
+  }
+
+  set description(String description) {
+    this._description = description;
+  }
 
   C({String optionTitle, String isAnswer, String description}) {
     _optionTitle = optionTitle;
@@ -171,8 +226,22 @@ class B {
   String _description;
 
   String get optionTitle => _optionTitle;
+
   String get isAnswer => _isAnswer;
+
   String get description => _description;
+
+  set optionTitle(String optionTitle) {
+    this._optionTitle = optionTitle;
+  }
+
+  set isAnswer(String isAnswer) {
+    this._isAnswer = isAnswer;
+  }
+
+  set description(String description) {
+    this._description = description;
+  }
 
   B({String optionTitle, String isAnswer, String description}) {
     _optionTitle = optionTitle;
@@ -205,8 +274,22 @@ class A {
   String _description;
 
   String get optionTitle => _optionTitle;
+
   String get isAnswer => _isAnswer;
+
   String get description => _description;
+
+  set optionTitle(String optionTitle) {
+    this._optionTitle = optionTitle;
+  }
+
+  set isAnswer(String isAnswer) {
+    this._isAnswer = isAnswer;
+  }
+
+  set description(String description) {
+    this._description = description;
+  }
 
   A({String optionTitle, String isAnswer, String description}) {
     _optionTitle = optionTitle;
