@@ -45,6 +45,7 @@ class Review_questions {
   D _d;
   bool _isAnswered = false;
   bool _isCorrectAnswered = false;
+  bool _isAnswerUpdated = false;
   String _answeredOption;
 
   int get id => _id;
@@ -56,6 +57,8 @@ class Review_questions {
   bool get isAnswered => _isAnswered;
 
   bool get isCorrectAnswered => _isCorrectAnswered;
+
+  bool get isAnswerUpdated => _isAnswerUpdated;
 
   String get answeredOption => _answeredOption;
 
@@ -73,6 +76,10 @@ class Review_questions {
 
   set isCorrectAnswered(bool isCorrectAnswered) {
     this._isCorrectAnswered = isCorrectAnswered;
+  }
+
+  set isAnswerUpdated(bool isAnswerUpdated) {
+    this._isAnswerUpdated = isAnswerUpdated;
   }
 
   set answeredOption(String answeredOption) {

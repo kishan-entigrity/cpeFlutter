@@ -10,17 +10,17 @@ import 'package:sizer/sizer.dart';
 import '../../constant.dart';
 import 'model/review_question_model.dart';
 
-class ReviewQuestions extends StatefulWidget {
-  ReviewQuestions(this.webinarId);
+class ReviewQuestionsOld extends StatefulWidget {
+  ReviewQuestionsOld(this.webinarId);
 
   final int webinarId;
 
   @override
-  _ReviewQuestionsState createState() => _ReviewQuestionsState(webinarId);
+  _ReviewQuestionsOldState createState() => _ReviewQuestionsOldState(webinarId);
 }
 
-class _ReviewQuestionsState extends State<ReviewQuestions> {
-  _ReviewQuestionsState(this.webinarId);
+class _ReviewQuestionsOldState extends State<ReviewQuestionsOld> {
+  _ReviewQuestionsOldState(this.webinarId);
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -37,12 +37,6 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
   var current_question = 0;
   var isAnswered = false;
   var isAnswerSubmitted = false;
-
-  var isNextPressed = false;
-  var isNextPressedColor = false;
-  var lastState = '';
-  var questionList = '';
-  var answerList = '';
 
   Future<List<Review_questions>> getReviewQuestionList(String authToken) async {
     // String urls = URLs.BASE_URL + 'webinar/list';
@@ -79,37 +73,6 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
 
     // return "Success!";
     return list;
-  }
-
-  Future<String> getReviewAnswer(String authToken) async {
-    String urls = 'https://my-cpe.com/api/v3/webinar/review-answer';
-
-    final response = await http.post(
-      urls,
-      headers: {
-        'Accept': 'Application/json',
-        'Authorization': '$authToken',
-      },
-      body: {
-        'webinar_id': webinarId.toString(),
-        'question_id': questionList,
-        'answers': answerList,
-      },
-    );
-
-    this.setState(() {
-      // data = JSON.decode(response.body);
-      data = jsonDecode(response.body);
-      isLoaderShowing = false;
-    });
-
-    // print(data[1]["title"]);
-    /*print('API response is : $data');
-    arrCount = data['payload']['review_questions'].length;
-    data_web = data['payload']['review_questions'];
-    print('Size for array is : $arrCount');*/
-
-    return "Success!";
   }
 
   @override
@@ -226,14 +189,26 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
                                       onTap: () {
                                         print('Clicked on option A');
                                         setState(() {
-                                          // list[current_question].isAnswered = true;
-                                          list[current_question].answeredOption = 'a';
-                                          if (list[current_question].answer == 'a') {
-                                            list[current_question].isCorrectAnswered = true;
+                                          if (isAnswerSubmitted) {
+                                            if (!list[current_question].isCorrectAnswered) {
+                                              list[current_question].answeredOption = 'a';
+                                              if (list[current_question].answer == 'a') {
+                                                list[current_question].isCorrectAnswered = true;
+                                              } else {
+                                                list[current_question].isCorrectAnswered = false;
+                                              }
+                                            } else {
+                                              print('Do nothing with A..');
+                                            }
                                           } else {
-                                            list[current_question].isCorrectAnswered = false;
+                                            list[current_question].isAnswered = true;
+                                            list[current_question].answeredOption = 'a';
+                                            if (list[current_question].answer == 'a') {
+                                              list[current_question].isCorrectAnswered = true;
+                                            } else {
+                                              list[current_question].isCorrectAnswered = false;
+                                            }
                                           }
-                                          isNextPressedColor = false;
                                         });
                                       },
                                       child: ConstrainedBox(
@@ -244,20 +219,19 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(10.0),
                                             // color: isA ? answerBlue : answerWhite,
-                                            // color: answerWhite,
-                                            // color: list[current_question].isCorrectAnswered ? answerGreen : answerRed,
-                                            // color: list[current_question].answeredOption == 'a' ? answerBlue : answerWhite,
-                                            color: isNextPressedColor
+                                            color: isAnswerSubmitted
                                                 ? list[current_question].answeredOption == 'a'
-                                                    ? list[current_question].isCorrectAnswered
+                                                    ? list[current_question].answer == 'a'
                                                         ? answerGreen
                                                         : answerRed
                                                     : answerWhite
-                                                : list[current_question].answeredOption == 'a'
-                                                    ? answerBlue
+                                                : list[current_question].isAnswered
+                                                    ? list[current_question].answeredOption == 'a'
+                                                        ? answerBlue
+                                                        : answerWhite
                                                     : answerWhite,
                                             border: Border.all(
-                                              color: Colors.black,
+                                              color: Colors.black, //                   <--- border color
                                               width: 0.5,
                                             ),
                                           ),
@@ -271,7 +245,11 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
                                                 style: TextStyle(
                                                   fontSize: 13.0.sp,
                                                   // color: isA ? answerWhite : answerBlack,
-                                                  color: list[current_question].answeredOption == 'a' ? answerWhite : answerBlack,
+                                                  color: list[current_question].isAnswered
+                                                      ? list[current_question].answeredOption == 'a'
+                                                          ? answerWhite
+                                                          : answerBlack
+                                                      : answerBlack,
                                                   fontFamily: 'Whitney Semi Bold',
                                                 ),
                                               ),
@@ -287,14 +265,27 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
                                       onTap: () {
                                         print('Clicked on option B');
                                         setState(() {
-                                          // list[current_question].isAnswered = true;
-                                          list[current_question].answeredOption = 'b';
-                                          if (list[current_question].answer == 'b') {
-                                            list[current_question].isCorrectAnswered = true;
+                                          if (isAnswerSubmitted) {
+                                            if (!list[current_question].isCorrectAnswered) {
+                                              list[current_question].isAnswered = true;
+                                              list[current_question].answeredOption = 'b';
+                                              if (list[current_question].answer == 'b') {
+                                                list[current_question].isCorrectAnswered = true;
+                                              } else {
+                                                list[current_question].isCorrectAnswered = false;
+                                              }
+                                            } else {
+                                              print('Do nothing with B..');
+                                            }
                                           } else {
-                                            list[current_question].isCorrectAnswered = false;
+                                            list[current_question].isAnswered = true;
+                                            list[current_question].answeredOption = 'b';
+                                            if (list[current_question].answer == 'b') {
+                                              list[current_question].isCorrectAnswered = true;
+                                            } else {
+                                              list[current_question].isCorrectAnswered = false;
+                                            }
                                           }
-                                          isNextPressedColor = false;
                                         });
                                       },
                                       child: ConstrainedBox(
@@ -305,16 +296,16 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(10.0),
                                             // color: isB ? answerBlue : answerWhite,
-                                            // color: answerWhite,
-                                            // color: list[current_question].answeredOption == 'b' ? answerBlue : answerWhite,
-                                            color: isNextPressedColor
+                                            color: isAnswerSubmitted
                                                 ? list[current_question].answeredOption == 'b'
-                                                    ? list[current_question].isCorrectAnswered
+                                                    ? list[current_question].answer == 'b'
                                                         ? answerGreen
                                                         : answerRed
                                                     : answerWhite
-                                                : list[current_question].answeredOption == 'b'
-                                                    ? answerBlue
+                                                : list[current_question].isAnswered
+                                                    ? list[current_question].answeredOption == 'b'
+                                                        ? answerBlue
+                                                        : answerWhite
                                                     : answerWhite,
                                             border: Border.all(
                                               color: Colors.black, //                   <--- border color
@@ -331,7 +322,11 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
                                                 style: TextStyle(
                                                   fontSize: 13.0.sp,
                                                   // color: isB ? answerWhite : answerBlack,
-                                                  color: list[current_question].answeredOption == 'b' ? answerWhite : answerBlack,
+                                                  color: list[current_question].isAnswered
+                                                      ? list[current_question].answeredOption == 'b'
+                                                          ? answerWhite
+                                                          : answerBlack
+                                                      : answerBlack,
                                                   fontFamily: 'Whitney Semi Bold',
                                                 ),
                                               ),
@@ -347,14 +342,27 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
                                       onTap: () {
                                         print('Clicked on option C');
                                         setState(() {
-                                          // list[current_question].isAnswered = true;
-                                          list[current_question].answeredOption = 'c';
-                                          if (list[current_question].answer == 'c') {
-                                            list[current_question].isCorrectAnswered = true;
+                                          if (isAnswerSubmitted) {
+                                            if (!list[current_question].isCorrectAnswered) {
+                                              list[current_question].isAnswered = true;
+                                              list[current_question].answeredOption = 'c';
+                                              if (list[current_question].answer == 'c') {
+                                                list[current_question].isCorrectAnswered = true;
+                                              } else {
+                                                list[current_question].isCorrectAnswered = false;
+                                              }
+                                            } else {
+                                              print('Do nothing with C..');
+                                            }
                                           } else {
-                                            list[current_question].isCorrectAnswered = false;
+                                            list[current_question].isAnswered = true;
+                                            list[current_question].answeredOption = 'c';
+                                            if (list[current_question].answer == 'c') {
+                                              list[current_question].isCorrectAnswered = true;
+                                            } else {
+                                              list[current_question].isCorrectAnswered = false;
+                                            }
                                           }
-                                          isNextPressedColor = false;
                                         });
                                       },
                                       child: ConstrainedBox(
@@ -365,16 +373,16 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(10.0),
                                             // color: isC ? answerBlue : answerWhite,
-                                            // color: answerWhite,
-                                            // color: list[current_question].answeredOption == 'c' ? answerBlue : answerWhite,
-                                            color: isNextPressedColor
+                                            color: isAnswerSubmitted
                                                 ? list[current_question].answeredOption == 'c'
-                                                    ? list[current_question].isCorrectAnswered
+                                                    ? list[current_question].answer == 'c'
                                                         ? answerGreen
                                                         : answerRed
                                                     : answerWhite
-                                                : list[current_question].answeredOption == 'c'
-                                                    ? answerBlue
+                                                : list[current_question].isAnswered
+                                                    ? list[current_question].answeredOption == 'c'
+                                                        ? answerBlue
+                                                        : answerWhite
                                                     : answerWhite,
                                             border: Border.all(
                                               color: Colors.black, //                   <--- border color
@@ -391,7 +399,11 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
                                                 style: TextStyle(
                                                   fontSize: 13.0.sp,
                                                   // color: isC ? answerWhite : answerBlack,
-                                                  color: list[current_question].answeredOption == 'c' ? answerWhite : answerBlack,
+                                                  color: list[current_question].isAnswered
+                                                      ? list[current_question].answeredOption == 'c'
+                                                          ? answerWhite
+                                                          : answerBlack
+                                                      : answerBlack,
                                                   fontFamily: 'Whitney Semi Bold',
                                                 ),
                                               ),
@@ -407,14 +419,27 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
                                       onTap: () {
                                         print('Clicked on option D');
                                         setState(() {
-                                          // list[current_question].isAnswered = true;
-                                          list[current_question].answeredOption = 'd';
-                                          if (list[current_question].answer == 'd') {
-                                            list[current_question].isCorrectAnswered = true;
+                                          if (isAnswerSubmitted) {
+                                            if (!list[current_question].isCorrectAnswered) {
+                                              list[current_question].isAnswered = true;
+                                              list[current_question].answeredOption = 'd';
+                                              if (list[current_question].answer == 'd') {
+                                                list[current_question].isCorrectAnswered = true;
+                                              } else {
+                                                list[current_question].isCorrectAnswered = false;
+                                              }
+                                            } else {
+                                              print('Do nothing with D..');
+                                            }
                                           } else {
-                                            list[current_question].isCorrectAnswered = false;
+                                            list[current_question].isAnswered = true;
+                                            list[current_question].answeredOption = 'd';
+                                            if (list[current_question].answer == 'd') {
+                                              list[current_question].isCorrectAnswered = true;
+                                            } else {
+                                              list[current_question].isCorrectAnswered = false;
+                                            }
                                           }
-                                          isNextPressedColor = false;
                                         });
                                       },
                                       child: ConstrainedBox(
@@ -425,16 +450,16 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(10.0),
                                             // color: isD ? answerBlue : answerWhite,
-                                            // color: answerWhite,
-                                            // color: list[current_question].answeredOption == 'd' ? answerBlue : answerWhite,
-                                            color: isNextPressedColor
+                                            color: isAnswerSubmitted
                                                 ? list[current_question].answeredOption == 'd'
-                                                    ? list[current_question].isCorrectAnswered
+                                                    ? list[current_question].answer == 'd'
                                                         ? answerGreen
                                                         : answerRed
                                                     : answerWhite
-                                                : list[current_question].answeredOption == 'd'
-                                                    ? answerBlue
+                                                : list[current_question].isAnswered
+                                                    ? list[current_question].answeredOption == 'd'
+                                                        ? answerBlue
+                                                        : answerWhite
                                                     : answerWhite,
                                             border: Border.all(
                                               color: Colors.black, //                   <--- border color
@@ -451,7 +476,11 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
                                                 style: TextStyle(
                                                   fontSize: 13.0.sp,
                                                   // color: isD ? answerWhite : answerBlack,
-                                                  color: list[current_question].answeredOption == 'd' ? answerWhite : answerBlack,
+                                                  color: list[current_question].isAnswered
+                                                      ? list[current_question].answeredOption == 'd'
+                                                          ? answerWhite
+                                                          : answerBlack
+                                                      : answerBlack,
                                                   fontFamily: 'Whitney Semi Bold',
                                                 ),
                                               ),
@@ -461,16 +490,15 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
                                       ),
                                     ),
                                     Visibility(
-                                      visible: list[current_question].isAnswered ? true : false,
+                                      visible: isAnswered ? true : false,
                                       child: SizedBox(
                                         height: 10.0.sp,
                                       ),
                                     ),
                                     Visibility(
-                                      visible: list[current_question].isAnswered ? true : false,
+                                      visible: isAnswered ? true : false,
                                       child: Text(
-                                        // list[current_question].isCorrectAnswered ? 'Why it\'s correct?' : 'Why it\'s incorrect?',
-                                        '${checkForAnswerTagState()}',
+                                        'Why it\'s correct?',
                                         style: TextStyle(
                                           fontSize: 13.0.sp,
                                           color: Colors.black,
@@ -479,16 +507,15 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
                                       ),
                                     ),
                                     Visibility(
-                                      visible: list[current_question].isAnswered ? true : false,
+                                      visible: isAnswered ? true : false,
                                       child: SizedBox(
                                         height: 5.0.sp,
                                       ),
                                     ),
                                     Visibility(
-                                      visible: list[current_question].isAnswered ? true : false,
+                                      visible: isAnswered ? true : false,
                                       child: Text(
-                                        // 'Deffered Social security tax, the deffered taxes are due in 12/31/2021 and 12/31/2022 by 50%',
-                                        '${displayAnswerDescription()}',
+                                        'Deffered Social security tax, the deffered taxes are due in 12/31/2021 and 12/31/2022 by 50%',
                                         style: TextStyle(
                                           fontSize: 12.0.sp,
                                           color: Colors.black45,
@@ -552,31 +579,14 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
                                                   // 3.If all questions are answered correctly then we need to show popup for the all questions
                                                   // answered correctly..
                                                   setState(() {
-                                                    // current_question = 0;
-                                                    // isAnswerSubmitted = true;
-                                                    isNextPressed = true;
-                                                    isNextPressedColor = true;
-                                                    checkForAnswerTagState();
-                                                    list[current_question].isAnswered = true;
-                                                    if (list[current_question].isCorrectAnswered) {
-                                                      print('All Answers are true here..');
-                                                      // Take submit review que
-                                                      submitReviewQuestions();
-                                                    }
+                                                    current_question = 0;
+                                                    isAnswerSubmitted = true;
                                                   });
                                                 } else {
                                                   print('Next else part');
                                                   setState(() {
-                                                    // Check for the correct answer or not..
-                                                    isNextPressed = true;
-                                                    isNextPressedColor = true;
-                                                    checkForAnswerTagState();
-                                                    list[current_question].isAnswered = true;
-                                                    if (list[current_question].isCorrectAnswered) {
-                                                      current_question = current_question + 1;
-                                                    } else {
-                                                      // Else have to show color as red..
-                                                    }
+                                                    current_question = current_question + 1;
+                                                    // list[current_question].d.optionTitle = 'Test Option';
                                                   });
                                                 }
                                               },
@@ -657,49 +667,5 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
         ),
       );
     }
-  }
-
-  displayAnswerDescription() {
-    if (list[current_question].answeredOption == 'a') {
-      return list[current_question].a.description;
-    } else if (list[current_question].answeredOption == 'b') {
-      return list[current_question].b.description;
-    } else if (list[current_question].answeredOption == 'c') {
-      return list[current_question].c.description;
-    } else if (list[current_question].answeredOption == 'd') {
-      return list[current_question].d.description;
-    }
-  }
-
-  checkForAnswerTagState() {
-    if (isNextPressed) {
-      isNextPressed = false;
-
-      if (list[current_question].isCorrectAnswered) {
-        lastState = 'Why it\'s correct';
-        return 'Why it\'s correct';
-      } else {
-        lastState = 'Why it\'s incorrect';
-        return 'Why it\'s incorrect';
-      }
-    } else {
-      print('Inside else part lastState is : $lastState');
-      return lastState;
-    }
-  }
-
-  void submitReviewQuestions() {
-    for (int i = 0; i < arrCount; i++) {
-      if (i == 0) {
-        answerList = list[i].answeredOption;
-        questionList = list[i].id.toString();
-      } else {
-        answerList = answerList + ',' + list[i].answeredOption;
-        questionList = questionList + ',' + list[i].id.toString();
-      }
-    }
-
-    print('Question List is : $questionList');
-    print('Answer List is : $answerList');
   }
 }
