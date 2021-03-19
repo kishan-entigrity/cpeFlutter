@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -43,12 +44,15 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
   var questionList = '';
   var answerList = '';
 
-  var successReviewSubmit;
-  var successReviewSubmitMessage;
+  var successFinalSubmit;
+  var successFinalSubmitMessage;
 
   String _authToken = "";
+  int answeredQuestions = 0;
+  int correctAnsweredQuestions = 0;
+  double correctAnsertPercentages = 0;
 
-  Future<List<Final_quiz_questions>> getFinalQuizQuestions(String authToken) async {
+  Future<List<Final_quiz_questions>> getFinalQuizQuestions(String authToken, String webinar_id) async {
     // String urls = URLs.BASE_URL + 'webinar/list';
     String urls = 'https://my-cpe.com/api/v3/webinar/final-quiz-questions';
 
@@ -59,7 +63,7 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
         'Authorization': '$authToken',
       },
       body: {
-        'webinar_id': webinarId.toString(),
+        'webinar_id': webinar_id,
       },
     );
 
@@ -80,9 +84,57 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
     } else {
       list = List.from(data_web).map<Final_quiz_questions>((item) => Final_quiz_questions.fromJson(item)).toList();
     }
-
     // return "Success!";
     return list;
+  }
+
+  Future<String> submitFinalQuizAnswers(String authToken, String questionList, String answerList) async {
+    String urls = 'https://my-cpe.com/api/v3/webinar/review-answer';
+
+    final response = await http.post(
+      urls,
+      headers: {
+        'Accept': 'Application/json',
+        'Authorization': '$authToken',
+      },
+      body: {
+        'webinar_id': webinarId.toString(),
+        'question_id': questionList,
+        'answers': answerList,
+      },
+    );
+
+    this.setState(() {
+      // data = JSON.decode(response.body);
+      data = jsonDecode(response.body);
+      isLoaderShowing = false;
+    });
+
+    successFinalSubmit = data['success'];
+    successFinalSubmitMessage = data['message'];
+    print('Status for success is : $successFinalSubmit');
+
+    if (successFinalSubmit) {
+      // Pop back stack with flag..
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          content: Text(successFinalSubmitMessage),
+          duration: Duration(seconds: 3),
+        ),
+      );
+      // isFromSubmitReview = true;
+      Navigator.pop(context, true);
+    } else {
+      // Show error message there..
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          content: Text(successFinalSubmitMessage),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    }
+
+    return "Success!";
   }
 
   @override
@@ -199,12 +251,12 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
                                         setState(() {
                                           // list[current_question].isAnswered = true;
                                           list[current_question].answeredOption = 'a';
+                                          list[current_question].isAnswered = true;
                                           if (list[current_question].answer == 'a') {
                                             list[current_question].isCorrectAnswered = true;
                                           } else {
                                             list[current_question].isCorrectAnswered = false;
                                           }
-                                          isNextPressedColor = false;
                                         });
                                       },
                                       child: ConstrainedBox(
@@ -218,15 +270,7 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
                                             // color: answerWhite,
                                             // color: list[current_question].isCorrectAnswered ? answerGreen : answerRed,
                                             // color: list[current_question].answeredOption == 'a' ? answerBlue : answerWhite,
-                                            color: isNextPressedColor
-                                                ? list[current_question].answeredOption == 'a'
-                                                    ? list[current_question].isCorrectAnswered
-                                                        ? answerGreen
-                                                        : answerRed
-                                                    : answerWhite
-                                                : list[current_question].answeredOption == 'a'
-                                                    ? answerBlue
-                                                    : answerWhite,
+                                            color: list[current_question].answeredOption == 'a' ? answerBlue : answerWhite,
                                             border: Border.all(
                                               color: Colors.black,
                                               width: 0.5,
@@ -260,12 +304,12 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
                                         setState(() {
                                           // list[current_question].isAnswered = true;
                                           list[current_question].answeredOption = 'b';
+                                          list[current_question].isAnswered = true;
                                           if (list[current_question].answer == 'b') {
                                             list[current_question].isCorrectAnswered = true;
                                           } else {
                                             list[current_question].isCorrectAnswered = false;
                                           }
-                                          isNextPressedColor = false;
                                         });
                                       },
                                       child: ConstrainedBox(
@@ -277,16 +321,7 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
                                             borderRadius: BorderRadius.circular(10.0),
                                             // color: isB ? answerBlue : answerWhite,
                                             // color: answerWhite,
-                                            // color: list[current_question].answeredOption == 'b' ? answerBlue : answerWhite,
-                                            color: isNextPressedColor
-                                                ? list[current_question].answeredOption == 'b'
-                                                    ? list[current_question].isCorrectAnswered
-                                                        ? answerGreen
-                                                        : answerRed
-                                                    : answerWhite
-                                                : list[current_question].answeredOption == 'b'
-                                                    ? answerBlue
-                                                    : answerWhite,
+                                            color: list[current_question].answeredOption == 'b' ? answerBlue : answerWhite,
                                             border: Border.all(
                                               color: Colors.black, //                   <--- border color
                                               width: 0.5,
@@ -320,12 +355,12 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
                                         setState(() {
                                           // list[current_question].isAnswered = true;
                                           list[current_question].answeredOption = 'c';
+                                          list[current_question].isAnswered = true;
                                           if (list[current_question].answer == 'c') {
                                             list[current_question].isCorrectAnswered = true;
                                           } else {
                                             list[current_question].isCorrectAnswered = false;
                                           }
-                                          isNextPressedColor = false;
                                         });
                                       },
                                       child: ConstrainedBox(
@@ -337,16 +372,7 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
                                             borderRadius: BorderRadius.circular(10.0),
                                             // color: isC ? answerBlue : answerWhite,
                                             // color: answerWhite,
-                                            // color: list[current_question].answeredOption == 'c' ? answerBlue : answerWhite,
-                                            color: isNextPressedColor
-                                                ? list[current_question].answeredOption == 'c'
-                                                    ? list[current_question].isCorrectAnswered
-                                                        ? answerGreen
-                                                        : answerRed
-                                                    : answerWhite
-                                                : list[current_question].answeredOption == 'c'
-                                                    ? answerBlue
-                                                    : answerWhite,
+                                            color: list[current_question].answeredOption == 'c' ? answerBlue : answerWhite,
                                             border: Border.all(
                                               color: Colors.black, //                   <--- border color
                                               width: 0.5,
@@ -380,12 +406,12 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
                                         setState(() {
                                           // list[current_question].isAnswered = true;
                                           list[current_question].answeredOption = 'd';
+                                          list[current_question].isAnswered = true;
                                           if (list[current_question].answer == 'd') {
                                             list[current_question].isCorrectAnswered = true;
                                           } else {
                                             list[current_question].isCorrectAnswered = false;
                                           }
-                                          isNextPressedColor = false;
                                         });
                                       },
                                       child: ConstrainedBox(
@@ -397,16 +423,7 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
                                             borderRadius: BorderRadius.circular(10.0),
                                             // color: isD ? answerBlue : answerWhite,
                                             // color: answerWhite,
-                                            // color: list[current_question].answeredOption == 'd' ? answerBlue : answerWhite,
-                                            color: isNextPressedColor
-                                                ? list[current_question].answeredOption == 'd'
-                                                    ? list[current_question].isCorrectAnswered
-                                                        ? answerGreen
-                                                        : answerRed
-                                                    : answerWhite
-                                                : list[current_question].answeredOption == 'd'
-                                                    ? answerBlue
-                                                    : answerWhite,
+                                            color: list[current_question].answeredOption == 'd' ? answerBlue : answerWhite,
                                             border: Border.all(
                                               color: Colors.black, //                   <--- border color
                                               width: 0.5,
@@ -481,37 +498,55 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
                                                 if (arrCount.compareTo(current_question + 1) == 0) {
                                                   // Do nothing..
                                                   print('Next if part');
-                                                  // Implement submit click from here..
-                                                  // 1.First we need to check for all questions are answered or not!!??
-                                                  // 2.If all questions are answered then we need to check for correct answers..
-                                                  // 3.If all questions are answered correctly then we need to show popup for the all questions
-                                                  // answered correctly..
-                                                  setState(() {
-                                                    // current_question = 0;
-                                                    // isAnswerSubmitted = true;
-                                                    isNextPressed = true;
-                                                    isNextPressedColor = true;
-                                                    // checkForAnswerTagState();
-                                                    list[current_question].isAnswered = true;
-                                                    if (list[current_question].isCorrectAnswered) {
-                                                      print('All Answers are true here..');
-                                                      // Take submit review que
-                                                      // submitReviewQuestions();
+                                                  answeredQuestions = 0;
+                                                  for (int i = 0; i < arrCount; i++) {
+                                                    if (list[i].isAnswered) {
+                                                      answeredQuestions++;
                                                     }
+                                                  }
+
+                                                  if (answeredQuestions.compareTo(arrCount) == 0) {
+                                                    correctAnsweredQuestions = 0;
+                                                    for (int i = 0; i < arrCount; i++) {
+                                                      if (list[i].isCorrectAnswered) {
+                                                        correctAnsweredQuestions++;
+                                                      }
+                                                    }
+                                                    print('Total correct answered questions are : $correctAnsweredQuestions');
+
+                                                    correctAnsertPercentages = (correctAnsweredQuestions * 100) / arrCount;
+                                                    print('Answered percentages : $correctAnsertPercentages');
+
+                                                    if (correctAnsertPercentages > 70) {
+                                                      // Take API call for submitting answers for final quiz..
+                                                      answerList = '';
+                                                      questionList = '';
+                                                      for (int i = 0; i < arrCount; i++) {
+                                                        if (i == 0) {
+                                                          answerList = list[i].answeredOption;
+                                                          questionList = list[i].id.toString();
+                                                        } else {
+                                                          answerList = answerList + ',' + list[i].answeredOption;
+                                                          questionList = questionList + ',' + list[i].id.toString();
+                                                        }
+                                                      }
+                                                      submitFinalQuizQuestion(questionList, answerList);
+                                                    } else {
+                                                      // Show alert message that user can see popup message..
+                                                      showError70();
+                                                    }
+                                                  }
+
+                                                  print('Size for arr count = $arrCount');
+                                                  print('Total answered questions are : $answeredQuestions');
+
+                                                  setState(() {
+                                                    // Click event for submit button..try
                                                   });
                                                 } else {
                                                   print('Next else part');
                                                   setState(() {
-                                                    // Check for the correct answer or not..
-                                                    isNextPressed = true;
-                                                    isNextPressedColor = true;
-                                                    // checkForAnswerTagState();
-                                                    list[current_question].isAnswered = true;
-                                                    if (list[current_question].isCorrectAnswered) {
-                                                      current_question = current_question + 1;
-                                                    } else {
-                                                      // Else have to show color as red..
-                                                    }
+                                                    current_question = current_question + 1;
                                                   });
                                                 }
                                               },
@@ -570,7 +605,17 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
         _authToken = 'Bearer $token';
         print('Auth Token from SP is : $_authToken');
 
-        this.getFinalQuizQuestions('$_authToken');
+        var connectivityResult = await (Connectivity().checkConnectivity());
+        if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
+          this.getFinalQuizQuestions('$_authToken', webinarId.toString());
+        } else {
+          _scaffoldKey.currentState.showSnackBar(
+            SnackBar(
+              content: Text("Please check your internet connectivity and try again"),
+              duration: Duration(seconds: 5),
+            ),
+          );
+        }
       } else {
         _scaffoldKey.currentState.showSnackBar(
           SnackBar(
@@ -587,6 +632,39 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
         SnackBar(
           content: Text(sharedPrefsNot),
           duration: Duration(seconds: 3),
+        ),
+      );
+    }
+  }
+
+  void showError70() {
+    showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text('Oops', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
+            content: new Text('You have not answered 70% of the questions correctly. Please retake the quiz.'),
+            actions: <Widget>[
+              new FlatButton(
+                onPressed: () => Navigator.pop(context), // this line dismisses the dialog
+                child: new Text('Ok', style: new TextStyle(fontSize: 18.0)),
+              )
+            ],
+          ),
+        ) ??
+        false;
+  }
+
+  void submitFinalQuizQuestion(String questionList, String answerList) async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
+      // this.getFinalQuizQuestions('$_authToken', webinarId.toString());
+      isLoaderShowing = true;
+      submitFinalQuizAnswers(_authToken, questionList, answerList);
+    } else {
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          content: Text("Please check your internet connectivity and try again"),
+          duration: Duration(seconds: 5),
         ),
       );
     }
