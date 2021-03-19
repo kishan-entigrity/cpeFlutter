@@ -1,4 +1,5 @@
 import 'package:cpe_flutter/constant.dart';
+import 'package:cpe_flutter/screens/final_quiz/final_quiz_screen.dart';
 import 'package:cpe_flutter/screens/review_questions/review_questions.dart';
 import 'package:cpe_flutter/screens/video_player/videoPlayer.dart';
 import 'package:flutter/cupertino.dart';
@@ -25,12 +26,26 @@ class childWebinarStatus extends StatelessWidget {
             child: GestureDetector(
               onTap: () {
                 print('Clicked on large button status');
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => VideoPlayerFlickker(webDetailsObj),
-                  ),
-                );
+                if (status.toLowerCase() == 'quiz pending') {
+                  print('Status is QUIZ pending');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FinalQuizScreen(webDetailsObj['webinar_id']),
+                    ),
+                  );
+                } else if (status.toLowerCase() == 'Register Webinar') {
+                  print('Status is register webinar');
+                } else {
+                  print('Went to else part..');
+                }
+
+                /*Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => VideoPlayerFlickker(webDetailsObj),
+                    ),
+                  );*/
               },
               child: Container(
                 height: 10.2.w,

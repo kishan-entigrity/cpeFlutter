@@ -303,3 +303,5 @@ const String selectAddiQualificationMsg = 'Please select additional qualificatio
 
 const String sharedPrefsNot = 'Prefs not available';
 const String urlnotFound = 'Oops we didn\'t found url';
+
+const bool isFromSubmitReview = false;

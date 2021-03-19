@@ -8,28 +8,27 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constant.dart';
-import 'model/review_question_model.dart';
+import 'final_quiz_model.dart';
 
-class ReviewQuestions extends StatefulWidget {
-  ReviewQuestions(this.webinarId);
+class FinalQuizScreen extends StatefulWidget {
+  FinalQuizScreen(this.webinarId);
 
   final int webinarId;
 
   @override
-  _ReviewQuestionsState createState() => _ReviewQuestionsState(webinarId);
+  _FinalQuizScreenState createState() => _FinalQuizScreenState(webinarId);
 }
 
-class _ReviewQuestionsState extends State<ReviewQuestions> {
-  _ReviewQuestionsState(this.webinarId);
-
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
+class _FinalQuizScreenState extends State<FinalQuizScreen> {
+  _FinalQuizScreenState(this.webinarId);
 
   final int webinarId;
   bool isLoaderShowing = false;
 
-  String _authToken = "";
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  List<Review_questions> list;
+  // List<Review_questions> list;
+  List<Final_quiz_questions> list;
   int arrCount = 0;
   var data_web;
   var data;
@@ -47,9 +46,11 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
   var successReviewSubmit;
   var successReviewSubmitMessage;
 
-  Future<List<Review_questions>> getReviewQuestionList(String authToken) async {
+  String _authToken = "";
+
+  Future<List<Final_quiz_questions>> getFinalQuizQuestions(String authToken) async {
     // String urls = URLs.BASE_URL + 'webinar/list';
-    String urls = 'https://my-cpe.com/api/v3/webinar/review-questions';
+    String urls = 'https://my-cpe.com/api/v3/webinar/final-quiz-questions';
 
     final response = await http.post(
       urls,
@@ -70,81 +71,24 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
 
     // print(data[1]["title"]);
     print('API response is : $data');
-    arrCount = data['payload']['review_questions'].length;
-    data_web = data['payload']['review_questions'];
+    arrCount = data['payload']['final_quiz_questions'].length;
+    data_web = data['payload']['final_quiz_questions'];
     print('Size for array is : $arrCount');
 
     if (list != null && list.isNotEmpty) {
-      list.addAll(List.from(data_web).map<Review_questions>((item) => Review_questions.fromJson(item)).toList());
+      list.addAll(List.from(data_web).map<Final_quiz_questions>((item) => Final_quiz_questions.fromJson(item)).toList());
     } else {
-      list = List.from(data_web).map<Review_questions>((item) => Review_questions.fromJson(item)).toList();
+      list = List.from(data_web).map<Final_quiz_questions>((item) => Final_quiz_questions.fromJson(item)).toList();
     }
 
     // return "Success!";
     return list;
   }
 
-  Future<String> getReviewAnswer(String authToken, String questionList, answerList) async {
-    String urls = 'https://my-cpe.com/api/v3/webinar/review-answer';
-
-    final response = await http.post(
-      urls,
-      headers: {
-        'Accept': 'Application/json',
-        'Authorization': '$authToken',
-      },
-      body: {
-        'webinar_id': webinarId.toString(),
-        'question_id': questionList,
-        'answers': answerList,
-      },
-    );
-
-    this.setState(() {
-      // data = JSON.decode(response.body);
-      data = jsonDecode(response.body);
-      isLoaderShowing = false;
-    });
-
-    // print(data[1]["title"]);
-    /*print('API response is : $data');
-    arrCount = data['payload']['review_questions'].length;
-    data_web = data['payload']['review_questions'];
-    print('Size for array is : $arrCount');*/
-
-    successReviewSubmit = data['success'];
-    successReviewSubmitMessage = data['message'];
-    print('Status for success is : $successReviewSubmit');
-
-    if (successReviewSubmit) {
-      // Pop back stack with flag..
-      _scaffoldKey.currentState.showSnackBar(
-        SnackBar(
-          content: Text(successReviewSubmitMessage),
-          duration: Duration(seconds: 3),
-        ),
-      );
-      // isFromSubmitReview = true;
-      Navigator.pop(context, true);
-    } else {
-      // Show error message there..
-      _scaffoldKey.currentState.showSnackBar(
-        SnackBar(
-          content: Text(successReviewSubmitMessage),
-          duration: Duration(seconds: 3),
-        ),
-      );
-    }
-
-    return "Success!";
-  }
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    print('Webinar ID on review question : $webinarId');
-    // getReviewQuestion();
     checkforSp();
   }
 
@@ -179,7 +123,7 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
                   Flexible(
                     child: Center(
                       child: Text(
-                        'Review Questions',
+                        'Final Quiz',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 14.5.sp,
@@ -487,42 +431,6 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
                                         ),
                                       ),
                                     ),
-                                    Visibility(
-                                      visible: list[current_question].isAnswered ? true : false,
-                                      child: SizedBox(
-                                        height: 10.0.sp,
-                                      ),
-                                    ),
-                                    Visibility(
-                                      visible: list[current_question].isAnswered ? true : false,
-                                      child: Text(
-                                        // list[current_question].isCorrectAnswered ? 'Why it\'s correct?' : 'Why it\'s incorrect?',
-                                        '${checkForAnswerTagState()}',
-                                        style: TextStyle(
-                                          fontSize: 13.0.sp,
-                                          color: Colors.black,
-                                          fontFamily: 'Whitney Semi Bold',
-                                        ),
-                                      ),
-                                    ),
-                                    Visibility(
-                                      visible: list[current_question].isAnswered ? true : false,
-                                      child: SizedBox(
-                                        height: 5.0.sp,
-                                      ),
-                                    ),
-                                    Visibility(
-                                      visible: list[current_question].isAnswered ? true : false,
-                                      child: Text(
-                                        // 'Deffered Social security tax, the deffered taxes are due in 12/31/2021 and 12/31/2022 by 50%',
-                                        '${displayAnswerDescription()}',
-                                        style: TextStyle(
-                                          fontSize: 12.0.sp,
-                                          color: Colors.black45,
-                                          fontFamily: 'Whitney Medium',
-                                        ),
-                                      ),
-                                    ),
                                     SizedBox(
                                       height: 30.0.sp,
                                     ),
@@ -583,12 +491,12 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
                                                     // isAnswerSubmitted = true;
                                                     isNextPressed = true;
                                                     isNextPressedColor = true;
-                                                    checkForAnswerTagState();
+                                                    // checkForAnswerTagState();
                                                     list[current_question].isAnswered = true;
                                                     if (list[current_question].isCorrectAnswered) {
                                                       print('All Answers are true here..');
                                                       // Take submit review que
-                                                      submitReviewQuestions();
+                                                      // submitReviewQuestions();
                                                     }
                                                   });
                                                 } else {
@@ -597,7 +505,7 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
                                                     // Check for the correct answer or not..
                                                     isNextPressed = true;
                                                     isNextPressedColor = true;
-                                                    checkForAnswerTagState();
+                                                    // checkForAnswerTagState();
                                                     list[current_question].isAnswered = true;
                                                     if (list[current_question].isCorrectAnswered) {
                                                       current_question = current_question + 1;
@@ -649,8 +557,6 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
     );
   }
 
-  void getReviewQuestion() async {}
-
   void checkforSp() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     bool checkValue = preferences.getBool("check");
@@ -664,7 +570,7 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
         _authToken = 'Bearer $token';
         print('Auth Token from SP is : $_authToken');
 
-        this.getReviewQuestionList('$_authToken');
+        this.getFinalQuizQuestions('$_authToken');
       } else {
         _scaffoldKey.currentState.showSnackBar(
           SnackBar(
@@ -684,52 +590,5 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
         ),
       );
     }
-  }
-
-  displayAnswerDescription() {
-    if (list[current_question].answeredOption == 'a') {
-      return list[current_question].a.description;
-    } else if (list[current_question].answeredOption == 'b') {
-      return list[current_question].b.description;
-    } else if (list[current_question].answeredOption == 'c') {
-      return list[current_question].c.description;
-    } else if (list[current_question].answeredOption == 'd') {
-      return list[current_question].d.description;
-    }
-  }
-
-  checkForAnswerTagState() {
-    if (isNextPressed) {
-      isNextPressed = false;
-
-      if (list[current_question].isCorrectAnswered) {
-        lastState = 'Why it\'s correct';
-        return 'Why it\'s correct';
-      } else {
-        lastState = 'Why it\'s incorrect';
-        return 'Why it\'s incorrect';
-      }
-    } else {
-      print('Inside else part lastState is : $lastState');
-      return lastState;
-    }
-  }
-
-  void submitReviewQuestions() {
-    for (int i = 0; i < arrCount; i++) {
-      if (i == 0) {
-        answerList = list[i].answeredOption;
-        questionList = list[i].id.toString();
-      } else {
-        answerList = answerList + ',' + list[i].answeredOption;
-        questionList = questionList + ',' + list[i].id.toString();
-      }
-    }
-
-    print('Question List is : $questionList');
-    print('Answer List is : $answerList');
-
-    isLoaderShowing = true;
-    getReviewAnswer(_authToken, questionList, answerList);
   }
 }
