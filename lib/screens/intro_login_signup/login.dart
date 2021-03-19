@@ -4,6 +4,7 @@ import 'package:cpe_flutter/constant.dart';
 import 'package:cpe_flutter/rest_api.dart';
 import 'package:cpe_flutter/screens/home_screen.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/forget_password.dart';
+import 'package:cpe_flutter/screens/intro_login_signup/signup_screen_1.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,10 @@ class _LoginState extends State<Login> {
   var respStatus;
   var respMessage;
 
+  bool isLoading = false;
+
+  bool obscurePass = true;
+
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -62,7 +67,7 @@ class _LoginState extends State<Login> {
               child: Column(
                 children: <Widget>[
                   Container(
-                    height: 300.0,
+                    height: 170.0.sp,
                     width: double.infinity,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(25.0, 100.0, 0.0, 0.0),
@@ -73,6 +78,27 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   Container(
+                    margin: EdgeInsets.symmetric(vertical: 4.0.w, horizontal: 6.0.w),
+                    child: TextField(
+                      controller: emailController,
+                      style: kLableSignUpTextStyle,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Email ID',
+                        hintStyle: kLableSignUpHintStyle,
+                      ),
+                      textInputAction: TextInputAction.next,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                    child: Divider(
+                      height: 5.0,
+                      color: Colors.black87,
+                    ),
+                  ),
+                  /*Container(
                     height: 30.0,
                     width: double.infinity,
                     margin: EdgeInsets.fromLTRB(25.0, 0.0, 25.0, 0.0),
@@ -82,8 +108,46 @@ class _LoginState extends State<Login> {
                       decoration: lTextFlieldStyleEmail,
                       textInputAction: TextInputAction.next,
                     ),
+                  ),*/
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 4.0.w, horizontal: 6.0.w),
+                    child: TextField(
+                      controller: passController,
+                      style: kLableSignUpTextStyle,
+                      obscureText: obscurePass,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Password',
+                        hintStyle: kLableSignUpHintStyle,
+                        suffixIcon: IconButton(
+                          // onPressed: () => _controller.clear(),
+                          onPressed: () {
+                            setState(() {
+                              if (obscurePass) {
+                                obscurePass = false;
+                              } else {
+                                obscurePass = true;
+                              }
+                            });
+                          },
+                          icon: Icon(
+                            FontAwesomeIcons.eye,
+                            size: 15.0.sp,
+                            color: Color(0xFFBDBFCA),
+                          ),
+                        ),
+                      ),
+                      textInputAction: TextInputAction.done,
+                    ),
                   ),
                   Container(
+                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                    child: Divider(
+                      height: 5.0,
+                      color: Colors.black87,
+                    ),
+                  ),
+                  /*Container(
                     height: 30.0,
                     width: double.infinity,
                     margin: EdgeInsets.fromLTRB(25.0, 50.0, 25.0, 0.0),
@@ -93,7 +157,7 @@ class _LoginState extends State<Login> {
                       decoration: lTextFlieldStylePass,
                       textInputAction: TextInputAction.done,
                     ),
-                  ),
+                  ),*/
                   Container(
                     height: 100.0,
                     width: double.infinity,
@@ -134,9 +198,19 @@ class _LoginState extends State<Login> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(
-                      'Sign Up',
-                      style: kTextLableLoginUnderline,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SignUpScreen1(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Sign Up',
+                        style: kTextLableLoginUnderline,
+                      ),
                     ),
                     /*Text(
                       'Forget Password',
@@ -163,7 +237,15 @@ class _LoginState extends State<Login> {
                   ],
                 ),
               ),
-            )
+            ),
+            Positioned(
+              child: Visibility(
+                visible: isLoading ? true : false,
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -267,6 +349,9 @@ class _LoginState extends State<Login> {
     print('Connectivity Result is empty');
 
     if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
+      setState(() {
+        isLoading = true;
+      });
       var resp = await loginUser(_email, _password, 'android', 'ddddddddddddddddddddddddddddd', 'A');
       print('Response is : $resp');
 
@@ -291,9 +376,14 @@ class _LoginState extends State<Login> {
         print('Response LName is : $respStrLName');
         print('Response contact is : $respStrContactNumber');
         print('Response profile-pic is : $respStrProfilePic');
-
+        setState(() {
+          isLoading = false;
+        });
         saveData();
       } else {
+        setState(() {
+          isLoading = false;
+        });
         _scaffoldKey.currentState.showSnackBar(
           SnackBar(
             content: Text('$respMessage'),
@@ -302,6 +392,9 @@ class _LoginState extends State<Login> {
         );
       }
     } else {
+      setState(() {
+        isLoading = false;
+      });
       _scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text("Please check your internet connectivity and try again"),
