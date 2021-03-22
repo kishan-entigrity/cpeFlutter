@@ -12,6 +12,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:sizer/sizer.dart';
 
+import '../../const_signup.dart';
 import '../../constant.dart';
 import '../../rest_api.dart';
 import 'model/industries_model.dart';
@@ -84,6 +85,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
     super.initState();
     // Take API calls for the JobTitle, industry, Professional creds, Additional qualifications in serial manner..
     checkForInternet();
+    print('Fname from global class is : ${ConstSignUp.strFname}');
     // getProfCredsAPI();
   }
 

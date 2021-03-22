@@ -1,7 +1,7 @@
-import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
 import 'package:cpe_flutter/components/TopBar.dart';
 import 'package:cpe_flutter/components/round_icon_button.dart';
+import 'package:cpe_flutter/const_signup.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/signup_screen_2.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,7 +10,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constant.dart';
-import '../../rest_api.dart';
 import 'chipView.dart';
 
 class SignUpScreen1 extends StatefulWidget {
@@ -23,34 +22,34 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
   bool obscurePass = true;
   bool obscureConfPass = true;
 
-  bool isCountrySelected = false;
-  bool isStateSelected = false;
-  bool isCitySelected = false;
+  // bool isCountrySelected = false;
+  // bool isStateSelected = false;
+  // bool isCitySelected = false;
 
   var respStatus;
   var respMessage;
 
-  int arrCountCountry = 0;
-  int arrCountState = 0;
-  int arrCountCity = 0;
+  // int arrCountCountry = 0;
+  // int arrCountState = 0;
+  // int arrCountCity = 0;
 
-  var respCountry;
-  var respState;
-  var respCity;
+  // var respCountry;
+  // var respState;
+  // var respCity;
 
-  var selectedCountryName = '';
-  var selectedStateName = '';
-  var selectedCityName = '';
+  // var selectedCountryName = '';
+  // var selectedStateName = '';
+  // var selectedCityName = '';
 
-  var strFname = '';
-  var strLname = '';
-  var strEmail = '';
-  var strPhone = '';
-  var strPass = '';
-  var strConfPass = '';
-  var selectedCountryId = 0;
-  var selectedStateId = 0;
-  var selectedCityId = 0;
+  // var strFname = '';
+  // var strLname = '';
+  // var strEmail = '';
+  // var strPhone = '';
+  // var strPass = '';
+  // var strConfPass = '';
+  // var selectedCountryId = 0;
+  // var selectedStateId = 0;
+  // var selectedCityId = 0;
 
   TextEditingController fnameController = TextEditingController();
   TextEditingController lnameController = TextEditingController();
@@ -363,6 +362,8 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                         RoundIconButton(
                                           icon: FontAwesomeIcons.arrowRight,
                                           onPressed: () async {
+                                            ConstSignUp.strFname = fnameController.text;
+
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
@@ -406,7 +407,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
     );
   }
 
-  void getCountryListAPI() async {
+  /*void getCountryListAPI() async {
     isLoaderShowing = true;
     var connectivityResult = await (Connectivity().checkConnectivity());
     print('Connectivity Result is : $connectivityResult');
@@ -509,87 +510,89 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
         ),
       );
     }
-  }
+  }*/
 
   void checkForValidations() {
-    strFname = fnameController.text;
-    strLname = lnameController.text;
-    strEmail = emailController.text;
-    strPhone = phoneController.text;
-    strPass = passController.text;
-    strConfPass = confPassController.text;
+    ConstSignUp.strFname = fnameController.text;
+    ConstSignUp.strLname = lnameController.text;
+    ConstSignUp.strEmail = emailController.text;
+    ConstSignUp.strPhone = phoneController.text;
+    ConstSignUp.strExt = extController.text;
+    ConstSignUp.strMobile = mobileController.text;
+    ConstSignUp.strPass = passController.text;
+    ConstSignUp.strConfPass = confPassController.text;
 
-    if (strFname == '' || strFname.length == 0) {
+    if (ConstSignUp.strFname == '' || ConstSignUp.strFname.length == 0) {
       scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(fnameEmptyMsg),
           duration: Duration(seconds: 3),
         ),
       );
-    } else if (strLname == '' || strLname.length == 0) {
+    } else if (ConstSignUp.strLname == '' || ConstSignUp.strLname.length == 0) {
       scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(lnameEmptyMsg),
           duration: Duration(seconds: 3),
         ),
       );
-    } else if (strEmail == '' || strEmail.length == 0) {
+    } else if (ConstSignUp.strEmail == '' || ConstSignUp.strEmail.length == 0) {
       scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(emailEmptyMsg),
           duration: Duration(seconds: 5),
         ),
       );
-    } else if (!EmailValidator.validate(strEmail)) {
+    } else if (!EmailValidator.validate(ConstSignUp.strEmail)) {
       scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(emailInValidMsg),
           duration: Duration(seconds: 5),
         ),
       );
-    } else if (strPhone == '' || strPhone.length == 0) {
+    } else if (ConstSignUp.strPhone == '' || ConstSignUp.strPhone.length == 0) {
       scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(phoneEmptyMsg),
           duration: Duration(seconds: 5),
         ),
       );
-    } else if (strPhone.length < 10 || strPhone.length > 10) {
+    } else if (ConstSignUp.strPhone.length < 10 || ConstSignUp.strPhone.length > 10) {
       scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(phoneLengthMsg),
           duration: Duration(seconds: 5),
         ),
       );
-    } else if (strPass == '' || strPass.length == 0) {
+    } else if (ConstSignUp.strPass == '' || ConstSignUp.strPass.length == 0) {
       scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(passLengthMsg),
           duration: Duration(seconds: 5),
         ),
       );
-    } else if (strPass.length < 6) {
+    } else if (ConstSignUp.strPass.length < 6) {
       scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(passValidLengthMsg),
           duration: Duration(seconds: 5),
         ),
       );
-    } else if (strConfPass == '' || strConfPass.length == 0) {
+    } else if (ConstSignUp.strConfPass == '' || ConstSignUp.strConfPass.length == 0) {
       scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(confPassLengthMsg),
           duration: Duration(seconds: 5),
         ),
       );
-    } else if (strConfPass.length < 6) {
+    } else if (ConstSignUp.strConfPass.length < 6) {
       scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(confPassValidLengthMsg),
           duration: Duration(seconds: 5),
         ),
       );
-    } else if (strPass != strConfPass) {
+    } else if (ConstSignUp.strPass != ConstSignUp.strConfPass) {
       scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(passConfPassEqualMsg),
