@@ -31,8 +31,6 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
 
   bool isLoaderShowing = false;
 
-  var organizationSize = '';
-
   var isProfCredsSelected = false;
   var isAdditionalQuaSelected = false;
 
@@ -55,29 +53,30 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
   var mapResult = '';
   bool isProfChecked = false;
 
-  List<String> orgSizeList = ['0-9', '10-15', '16-50', '51-500', '501-1000', '1000+'];
-  var strOrgSize = '';
-  var isOrganizationSizeSelected = false;
+  // List<String> orgSizeList = ['0-9', '10-15', '16-50', '51-500', '501-1000', '1000+'];
+  // var strOrgSize = '';
+  // var isOrganizationSizeSelected = false;
+  // var organizationSize = '';
 
-  List<Job_title> listJobTitle;
-  int arrCountJTitle = 0;
-  var data_web_jtitle;
-  var dataJTitle;
-  var jobTitle = '';
-  var isJobTitleSelected = false;
+  // List<Job_title> listJobTitle;
+  // int arrCountJTitle = 0;
+  // var data_web_jtitle;
+  // var dataJTitle;
+  // var jobTitle = '';
+  // var isJobTitleSelected = false;
 
-  List<Industries_list> listIndustries;
-  int arrCountIndustries = 0;
-  var data_web_industries;
-  var dataIndustries;
-  var industry = '';
-  var isIndustrySelected = false;
+  // List<Industries_list> listIndustries;
+  // int arrCountIndustries = 0;
+  // var data_web_industries;
+  // var dataIndustries;
+  // var industry = '';
+  // var isIndustrySelected = false;
 
-  List<User_type> listProfCreds;
-  List<String> smallTitles = [];
-  int arrCountProf = 0;
-  var data_web_prof;
-  var data_prof;
+  // List<User_type> listProfCreds;
+  // List<String> smallTitles = [];
+  // int arrCountProf = 0;
+  // var data_web_prof;
+  // var data_prof;
 
   @override
   void initState() {
@@ -157,6 +156,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                           children: <Widget>[
                                                             GestureDetector(
                                                               onTap: () {
+                                                                ConstSignUp.strCompanyName = companyNameController.text;
                                                                 Navigator.pop(context);
                                                               },
                                                               child: Container(
@@ -186,7 +186,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                       ),
                                                       Expanded(
                                                         child: ListView.builder(
-                                                          itemCount: orgSizeList.length,
+                                                          itemCount: ConstSignUp.orgSizeList.length,
                                                           itemBuilder: (context, index) {
                                                             return ConstrainedBox(
                                                               constraints: BoxConstraints(
@@ -202,7 +202,9 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                                   margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
                                                                   decoration: BoxDecoration(
                                                                     borderRadius: BorderRadius.circular(7.0),
-                                                                    color: organizationSize == orgSizeList[index] ? themeYellow : Colors.teal,
+                                                                    color: ConstSignUp.organizationSize == ConstSignUp.orgSizeList[index]
+                                                                        ? themeYellow
+                                                                        : Colors.teal,
                                                                     // color: Colors.teal,
                                                                   ),
                                                                   child: Padding(
@@ -212,7 +214,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                                         Expanded(
                                                                           child: Text(
                                                                             // list[index].shortTitle,
-                                                                            orgSizeList[index],
+                                                                            ConstSignUp.orgSizeList[index],
                                                                             textAlign: TextAlign.start,
                                                                             style: kDataSingleSelectionBottomNav,
                                                                           ),
@@ -240,11 +242,11 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                           Text(
-                                            isOrganizationSizeSelected ? organizationSize : 'Organization Size',
+                                            ConstSignUp.isOrganizationSizeSelected ? ConstSignUp.organizationSize : 'Organization Size',
                                             style: TextStyle(
                                               fontFamily: 'Whitney Bold',
                                               fontSize: 15.0.sp,
-                                              color: isOrganizationSizeSelected ? Colors.black : Color(0xFFBDBFCA),
+                                              color: ConstSignUp.isOrganizationSizeSelected ? Colors.black : Color(0xFFBDBFCA),
                                             ),
                                           ),
                                           Icon(FontAwesomeIcons.caretDown),
@@ -307,7 +309,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                       ),
                                                       Expanded(
                                                         child: ListView.builder(
-                                                          itemCount: listJobTitle.length,
+                                                          itemCount: ConstSignUp.listJobTitle.length,
                                                           itemBuilder: (context, index) {
                                                             return ConstrainedBox(
                                                               constraints: BoxConstraints(
@@ -324,7 +326,9 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                                   margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
                                                                   decoration: BoxDecoration(
                                                                     borderRadius: BorderRadius.circular(7.0),
-                                                                    color: jobTitle == listJobTitle[index].name ? themeYellow : Colors.teal,
+                                                                    color: ConstSignUp.jobTitle == ConstSignUp.listJobTitle[index].name
+                                                                        ? themeYellow
+                                                                        : Colors.teal,
                                                                   ),
                                                                   child: Padding(
                                                                     padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
@@ -332,7 +336,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                                       children: <Widget>[
                                                                         Expanded(
                                                                           child: Text(
-                                                                            listJobTitle[index].name,
+                                                                            ConstSignUp.listJobTitle[index].name,
                                                                             textAlign: TextAlign.start,
                                                                             style: kDataSingleSelectionBottomNav,
                                                                           ),
@@ -360,11 +364,11 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                           Text(
-                                            isJobTitleSelected ? jobTitle : 'Job Title/Designation',
+                                            ConstSignUp.isJobTitleSelected ? ConstSignUp.jobTitle : 'Job Title/Designation',
                                             style: TextStyle(
                                               fontFamily: 'Whitney Bold',
                                               fontSize: 15.0.sp,
-                                              color: isJobTitleSelected ? Colors.black : Color(0xFFBDBFCA),
+                                              color: ConstSignUp.isJobTitleSelected ? Colors.black : Color(0xFFBDBFCA),
                                             ),
                                           ),
                                           Icon(FontAwesomeIcons.caretDown),
@@ -426,7 +430,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                       ),
                                                       Expanded(
                                                         child: ListView.builder(
-                                                          itemCount: listIndustries.length,
+                                                          itemCount: ConstSignUp.listIndustries.length,
                                                           itemBuilder: (context, index) {
                                                             return ConstrainedBox(
                                                               constraints: BoxConstraints(
@@ -442,7 +446,9 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                                   margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
                                                                   decoration: BoxDecoration(
                                                                     borderRadius: BorderRadius.circular(7.0),
-                                                                    color: listIndustries[index].name == industry ? themeYellow : Colors.teal,
+                                                                    color: ConstSignUp.listIndustries[index].name == ConstSignUp.industry
+                                                                        ? themeYellow
+                                                                        : Colors.teal,
                                                                   ),
                                                                   child: Padding(
                                                                     padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
@@ -450,7 +456,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                                       children: <Widget>[
                                                                         Expanded(
                                                                           child: Text(
-                                                                            listIndustries[index].name,
+                                                                            ConstSignUp.listIndustries[index].name,
                                                                             textAlign: TextAlign.start,
                                                                             style: kDataSingleSelectionBottomNav,
                                                                           ),
@@ -478,11 +484,11 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                           Text(
-                                            isIndustrySelected ? industry : 'Industry',
+                                            ConstSignUp.isIndustrySelected ? ConstSignUp.industry : 'Industry',
                                             style: TextStyle(
                                               fontFamily: 'Whitney Bold',
                                               fontSize: 15.0.sp,
-                                              color: isIndustrySelected ? Colors.black : Color(0xFFBDBFCA),
+                                              color: ConstSignUp.isIndustrySelected ? Colors.black : Color(0xFFBDBFCA),
                                             ),
                                           ),
                                           Icon(FontAwesomeIcons.caretDown),
@@ -544,7 +550,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                       ),
                                                       Expanded(
                                                         child: ListView.builder(
-                                                          itemCount: listProfCreds.length,
+                                                          itemCount: ConstSignUp.listProfCreds.length,
                                                           itemBuilder: (context, index) {
                                                             return ConstrainedBox(
                                                               constraints: BoxConstraints(
@@ -560,14 +566,14 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                                   margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
                                                                   decoration: BoxDecoration(
                                                                     borderRadius: BorderRadius.circular(7.0),
-                                                                    color: listProfCreds[index].isSelected ? themeYellow : Colors.teal,
+                                                                    color: ConstSignUp.listProfCreds[index].isSelected ? themeYellow : Colors.teal,
                                                                   ),
                                                                   child: Padding(
                                                                     padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
                                                                     child: Row(
                                                                       children: <Widget>[
                                                                         Icon(
-                                                                          listProfCreds[index].isSelected
+                                                                          ConstSignUp.listProfCreds[index].isSelected
                                                                               ? FontAwesomeIcons.checkCircle
                                                                               : FontAwesomeIcons.circle,
                                                                           size: 12.0.sp,
@@ -577,7 +583,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                                         ),
                                                                         Expanded(
                                                                           child: Text(
-                                                                            listProfCreds[index].shortTitle,
+                                                                            ConstSignUp.listProfCreds[index].shortTitle,
                                                                             textAlign: TextAlign.start,
                                                                             style: kDataSingleSelectionBottomNav,
                                                                           ),
@@ -621,41 +627,11 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                       ),
                                     ),
                                   ),
-                                  /*Visibility(
-                                    // visible: selectedProfCount>0? true : false,
-                                    visible: true,
-                                    child: Container(
-                                      margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                                      child: Wrap(
-                                        children: List.generate(
-                                          // arrProfCredsCount,
-                                          // selectedProfCount,
-                                          mapProfCredsName.length,
-                                          (i) {
-                                            // (mapProfCredsName.keys.forEach((k) => i)) {
-                                            // (mapProfCredsName.forEach((key, value) {k})){
-                                            // (i = mapProfCredsName.keys) {
-                                            return Container(
-                                              margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 0.0),
-                                              child: Chip(
-                                                label: Container(
-                                                  child: Text(
-                                                    // '${respProfCreds['payload']['user_type'][i]['title']}',
-                                                    '${mapProfCredsName[i]}',
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ),*/
                                   Container(
                                     margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
                                     child: Wrap(
                                       children: List.generate(
-                                        smallTitles.length,
+                                        ConstSignUp.smallTitles.length,
                                         (i) {
                                           return Container(
                                             // margin: EdgeInsets.symmetric(horizontal: 4.0, vertical: 0.0),
@@ -664,7 +640,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                               backgroundColor: themeYellow,
                                               label: Container(
                                                 child: Text(
-                                                  '${smallTitles[i].toString()}',
+                                                  '${ConstSignUp.smallTitles[i].toString()}',
                                                 ),
                                               ),
                                             ),
@@ -680,34 +656,6 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                       color: Colors.black87,
                                     ),
                                   ),
-                                  /*Container(
-                                    color: Colors.white,
-                                    padding: EdgeInsets.fromLTRB(6.0.w, 4.0.w, 8.5.w, 4.0.w),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(
-                                          'Additional Qualifications',
-                                          style: TextStyle(
-                                            fontFamily: 'Whitney Bold',
-                                            fontSize: 15.0.sp,
-                                            color: isProfCredsSelected ? Colors.black : Color(0xFFBDBFCA),
-                                          ),
-                                        ),
-                                        Icon(
-                                          FontAwesomeIcons.plusCircle,
-                                          color: themeYellow,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                                    child: Divider(
-                                      height: 5.0,
-                                      color: Colors.black87,
-                                    ),
-                                  ),*/
                                   SizedBox(
                                     height: 20.0.w,
                                   ),
@@ -736,6 +684,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                         RoundIconButton(
                                           icon: FontAwesomeIcons.arrowRight,
                                           onPressed: () async {
+                                            ConstSignUp.strCompanyName = companyNameController.text;
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
@@ -850,27 +799,27 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
     );
 
     this.setState(() {
-      dataJTitle = jsonDecode(response.body);
+      ConstSignUp.dataJTitle = jsonDecode(response.body);
       isLoaderShowing = false;
     });
 
     setState(() {
-      print('API response is : $dataJTitle');
-      arrCountJTitle = dataJTitle['payload']['job_title'].length;
-      data_web_jtitle = dataJTitle['payload']['job_title'];
-      print('Size for array is : $arrCountJTitle');
+      print('API response is : ${ConstSignUp.dataJTitle}');
+      ConstSignUp.arrCountJTitle = ConstSignUp.dataJTitle['payload']['job_title'].length;
+      ConstSignUp.data_web_jtitle = ConstSignUp.dataJTitle['payload']['job_title'];
+      print('Size for array is : ${ConstSignUp.arrCountJTitle}');
     });
 
-    if (listJobTitle != null && listJobTitle.isNotEmpty) {
-      listJobTitle.addAll(List.from(data_web_jtitle).map<Job_title>((item) => Job_title.fromJson(item)).toList());
+    if (ConstSignUp.listJobTitle != null && ConstSignUp.listJobTitle.isNotEmpty) {
+      ConstSignUp.listJobTitle.addAll(List.from(ConstSignUp.data_web_jtitle).map<Job_title>((item) => Job_title.fromJson(item)).toList());
     } else {
-      listJobTitle = List.from(data_web_jtitle).map<Job_title>((item) => Job_title.fromJson(item)).toList();
+      ConstSignUp.listJobTitle = List.from(ConstSignUp.data_web_jtitle).map<Job_title>((item) => Job_title.fromJson(item)).toList();
     }
 
     getIndustries();
 
-    print('Size for the list is : ${listJobTitle.length}');
-    return listJobTitle;
+    print('Size for the list is : ${ConstSignUp.listJobTitle.length}');
+    return ConstSignUp.listJobTitle;
   }
 
   Future<List<Industries_list>> getIndustries() async {
@@ -885,27 +834,28 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
     );
 
     this.setState(() {
-      dataIndustries = jsonDecode(response.body);
+      ConstSignUp.dataIndustries = jsonDecode(response.body);
       isLoaderShowing = false;
     });
 
     setState(() {
-      print('API response Industries is : $dataIndustries');
-      arrCountIndustries = dataIndustries['payload']['industries_list'].length;
-      data_web_industries = dataIndustries['payload']['industries_list'];
-      print('Size for array is : $arrCountIndustries');
+      print('API response Industries is : ${ConstSignUp.dataIndustries}');
+      ConstSignUp.arrCountIndustries = ConstSignUp.dataIndustries['payload']['industries_list'].length;
+      ConstSignUp.data_web_industries = ConstSignUp.dataIndustries['payload']['industries_list'];
+      print('Size for array is : ${ConstSignUp.arrCountIndustries}');
     });
 
-    if (listIndustries != null && listIndustries.isNotEmpty) {
-      listIndustries.addAll(List.from(data_web_industries).map<Industries_list>((item) => Industries_list.fromJson(item)).toList());
+    if (ConstSignUp.listIndustries != null && ConstSignUp.listIndustries.isNotEmpty) {
+      ConstSignUp.listIndustries
+          .addAll(List.from(ConstSignUp.data_web_industries).map<Industries_list>((item) => Industries_list.fromJson(item)).toList());
     } else {
-      listIndustries = List.from(data_web_industries).map<Industries_list>((item) => Industries_list.fromJson(item)).toList();
+      ConstSignUp.listIndustries = List.from(ConstSignUp.data_web_industries).map<Industries_list>((item) => Industries_list.fromJson(item)).toList();
     }
 
     getProfessionalCredsAPI();
 
-    print('Size for the list is : ${listJobTitle.length}');
-    return listIndustries;
+    print('Size for the list is : ${ConstSignUp.listJobTitle.length}');
+    return ConstSignUp.listIndustries;
   }
 
   Future<List<User_type>> getProfessionalCredsAPI() async {
@@ -921,64 +871,64 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
 
     this.setState(() {
       // data = JSON.decode(response.body);
-      data_prof = jsonDecode(response.body);
+      ConstSignUp.data_prof = jsonDecode(response.body);
       isLoaderShowing = false;
     });
 
     // print(data[1]["title"]);
     setState(() {
-      print('API response is : $data_prof');
-      arrCountProf = data_prof['payload']['user_type'].length;
-      data_web_prof = data_prof['payload']['user_type'];
-      print('Size for array is : $arrCountProf');
+      print('API response is : ${ConstSignUp.data_prof}');
+      ConstSignUp.arrCountProf = ConstSignUp.data_prof['payload']['user_type'].length;
+      ConstSignUp.data_web_prof = ConstSignUp.data_prof['payload']['user_type'];
+      print('Size for array is : ${ConstSignUp.arrCountProf}');
     });
 
-    if (listProfCreds != null && listProfCreds.isNotEmpty) {
-      listProfCreds.addAll(List.from(data_web_prof).map<User_type>((item) => User_type.fromJson(item)).toList());
+    if (ConstSignUp.listProfCreds != null && ConstSignUp.listProfCreds.isNotEmpty) {
+      ConstSignUp.listProfCreds.addAll(List.from(ConstSignUp.data_web_prof).map<User_type>((item) => User_type.fromJson(item)).toList());
     } else {
-      listProfCreds = List.from(data_web_prof).map<User_type>((item) => User_type.fromJson(item)).toList();
+      ConstSignUp.listProfCreds = List.from(ConstSignUp.data_web_prof).map<User_type>((item) => User_type.fromJson(item)).toList();
     }
 
-    print('Size for the list is : ${listProfCreds.length}');
-    return listProfCreds;
+    print('Size for the list is : ${ConstSignUp.listProfCreds.length}');
+    return ConstSignUp.listProfCreds;
   }
 
   void clickEventOrgSize(int index) {
     setState(() {
-      organizationSize = '';
-      organizationSize = orgSizeList[index];
-      isOrganizationSizeSelected = true;
+      ConstSignUp.organizationSize = '';
+      ConstSignUp.organizationSize = ConstSignUp.orgSizeList[index];
+      ConstSignUp.isOrganizationSizeSelected = true;
     });
   }
 
   void clickEventJobTitle(int index) {
     setState(() {
-      jobTitle = listJobTitle[index].name;
-      isJobTitleSelected = true;
+      ConstSignUp.jobTitle = ConstSignUp.listJobTitle[index].name;
+      ConstSignUp.isJobTitleSelected = true;
     });
   }
 
   void clickEventIndustry(int index) {
     setState(() {
-      industry = listIndustries[index].name;
-      isIndustrySelected = true;
+      ConstSignUp.industry = ConstSignUp.listIndustries[index].name;
+      ConstSignUp.isIndustrySelected = true;
     });
   }
 
   void checkForClickBottom(int index) {
-    if (listProfCreds[index].isSelected) {
-      listProfCreds[index].isSelected = false;
+    if (ConstSignUp.listProfCreds[index].isSelected) {
+      ConstSignUp.listProfCreds[index].isSelected = false;
       setState(() {
-        smallTitles.remove(listProfCreds[index].shortTitle);
-        print('Length of smallTitles : ${smallTitles.length}');
-        print('Data for smallTitles : ${smallTitles.toString()}');
+        ConstSignUp.smallTitles.remove(ConstSignUp.listProfCreds[index].shortTitle);
+        print('Length of smallTitles : ${ConstSignUp.smallTitles.length}');
+        print('Data for smallTitles : ${ConstSignUp.smallTitles.toString()}');
       });
     } else {
-      listProfCreds[index].isSelected = true;
+      ConstSignUp.listProfCreds[index].isSelected = true;
       setState(() {
-        smallTitles.add(listProfCreds[index].shortTitle);
-        print('Length of smallTitles : ${smallTitles.length}');
-        print('Data for smallTitles : ${smallTitles.toString()}');
+        ConstSignUp.smallTitles.add(ConstSignUp.listProfCreds[index].shortTitle);
+        print('Length of smallTitles : ${ConstSignUp.smallTitles.length}');
+        print('Data for smallTitles : ${ConstSignUp.smallTitles.toString()}');
       });
     }
   }

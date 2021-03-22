@@ -27,6 +27,12 @@ final kLableSearchHomeStyle = TextStyle(
   color: Color(0x80000000),
 );
 
+final kLableSignUpHintLableStyle = TextStyle(
+  fontFamily: 'Whitney Bold',
+  fontSize: 10.0.sp,
+  color: Colors.black,
+);
+
 final kLableSignUpHintStyle = TextStyle(
   fontFamily: 'Whitney Bold',
   fontSize: 15.0.sp,

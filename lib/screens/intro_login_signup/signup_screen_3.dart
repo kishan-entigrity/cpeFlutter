@@ -87,9 +87,15 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
                                   Container(
+                                    child: Text(
+                                      'PTIN',
+                                      style: kLableSignUpHintLableStyle,
+                                    ),
+                                    margin: EdgeInsets.only(left: 6.0.w, right: 6.0.w, top: 20.0.w),
+                                  ),
+                                  Container(
                                     // margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 6.0.w),
-                                    margin: EdgeInsets.only(
-                                        left: 6.0.w, right: 6.0.w, top: 20.0.w),
+                                    margin: EdgeInsets.only(left: 6.0.w, right: 6.0.w, top: 0.0.w),
                                     child: TextField(
                                       controller: ptinController,
                                       style: kLableSignUpTextStyle,
@@ -102,16 +108,21 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                     ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.fromLTRB(
-                                        6.0.w, 1.0.w, 6.0.w, 0),
+                                    margin: EdgeInsets.fromLTRB(6.0.w, 1.0.w, 6.0.w, 0),
                                     child: Divider(
                                       height: 5.0,
                                       color: Colors.black87,
                                     ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.symmetric(
-                                        vertical: 0.0, horizontal: 6.0.w),
+                                    margin: EdgeInsets.only(left: 6.0.w, right: 6.0.w, top: 2.0.w),
+                                    child: Text(
+                                      'CTEC ID',
+                                      style: kLableSignUpHintLableStyle,
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 6.0.w),
                                     child: TextField(
                                       controller: ctecController,
                                       style: kLableSignUpTextStyle,
@@ -124,16 +135,21 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                     ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.fromLTRB(
-                                        6.0.w, 1.0.w, 6.0.w, 0),
+                                    margin: EdgeInsets.fromLTRB(6.0.w, 1.0.w, 6.0.w, 0),
                                     child: Divider(
                                       height: 5.0,
                                       color: Colors.black87,
                                     ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.symmetric(
-                                        vertical: 0.0, horizontal: 6.0.w),
+                                    margin: EdgeInsets.only(left: 6.0.w, right: 6.0.w, top: 2.0.w),
+                                    child: Text(
+                                      'CFP ID',
+                                      style: kLableSignUpHintLableStyle,
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 6.0.w),
                                     child: TextField(
                                       controller: cfpController,
                                       style: kLableSignUpTextStyle,
@@ -146,8 +162,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                     ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.fromLTRB(
-                                        6.0.w, 1.0.w, 6.0.w, 0),
+                                    margin: EdgeInsets.fromLTRB(6.0.w, 1.0.w, 6.0.w, 0),
                                     child: Divider(
                                       height: 5.0,
                                       color: Colors.black87,
@@ -155,8 +170,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      scaffoldState.currentState
-                                          .showBottomSheet(
+                                      scaffoldState.currentState.showBottomSheet(
                                         (context) => Container(
                                           color: Colors.white,
                                           height: 70.0.h,
@@ -176,31 +190,24 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                                   decoration: BoxDecoration(
                                                     color: Color(0xF0F3F5F9),
                                                     // color: Colors.blueGrey,
-                                                    borderRadius:
-                                                        BorderRadius.only(
-                                                      topRight:
-                                                          Radius.circular(30.0),
-                                                      topLeft:
-                                                          Radius.circular(30.0),
+                                                    borderRadius: BorderRadius.only(
+                                                      topRight: Radius.circular(30.0),
+                                                      topLeft: Radius.circular(30.0),
                                                     ),
                                                   ),
                                                   child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: <Widget>[
                                                       GestureDetector(
                                                         onTap: () {
-                                                          Navigator.pop(
-                                                              context);
+                                                          Navigator.pop(context);
                                                         },
                                                         child: Container(
                                                           width: 20.0.w,
                                                           child: Center(
                                                             child: Text(
                                                               'Cancel',
-                                                              style:
-                                                                  kDateTestimonials,
+                                                              style: kDateTestimonials,
                                                             ),
                                                           ),
                                                         ),
@@ -228,72 +235,38 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                                 Expanded(
                                                   child: ListView.builder(
                                                     itemCount: arrCountCountry,
-                                                    itemBuilder:
-                                                        (context, index) {
+                                                    itemBuilder: (context, index) {
                                                       return GestureDetector(
                                                         onTap: () {
                                                           setState(() {
-                                                            selectedCountryName =
-                                                                respCountry['payload']
-                                                                        [
-                                                                        'country']
-                                                                    [
-                                                                    index]['name'];
-                                                            selectedCountryId =
-                                                                respCountry['payload']
-                                                                        [
-                                                                        'country']
-                                                                    [
-                                                                    index]['id'];
-                                                            isCountrySelected =
-                                                                true;
-                                                            isStateSelected =
-                                                                false;
-                                                            isCitySelected =
-                                                                false;
-                                                            selectedStateName =
-                                                                '';
-                                                            selectedCityName =
-                                                                '';
+                                                            selectedCountryName = respCountry['payload']['country'][index]['name'];
+                                                            selectedCountryId = respCountry['payload']['country'][index]['id'];
+                                                            isCountrySelected = true;
+                                                            isStateSelected = false;
+                                                            isCitySelected = false;
+                                                            selectedStateName = '';
+                                                            selectedCityName = '';
                                                             selectedStateId = 0;
                                                             selectedCityId = 0;
 
-                                                            getStateNameApi(
-                                                                selectedCountryId);
-                                                            Navigator.pop(
-                                                                context);
+                                                            getStateNameApi(selectedCountryId);
+                                                            Navigator.pop(context);
                                                           });
                                                         },
                                                         child: Container(
-                                                          margin: EdgeInsets
-                                                              .fromLTRB(
-                                                                  3.0.w,
-                                                                  3.0.w,
-                                                                  3.0.w,
-                                                                  0.0),
+                                                          margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
                                                           height: 12.0.w,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        7.0),
-                                                            color: Color(
-                                                                0xF0F3F5F9),
+                                                          decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.circular(7.0),
+                                                            color: Color(0xF0F3F5F9),
                                                             // color: Colors.blueGrey,
                                                           ),
                                                           child: Container(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                                    left: 3.5.w,
-                                                                    top: 3.5.w),
+                                                            padding: EdgeInsets.only(left: 3.5.w, top: 3.5.w),
                                                             child: Text(
                                                               '${respCountry['payload']['country'][index]['name']}',
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .start,
-                                                              style:
-                                                                  kDataSingleSelectionBottomNav,
+                                                              textAlign: TextAlign.start,
+                                                              style: kDataSingleSelectionBottomNav,
                                                             ),
                                                           ),
                                                         ),
@@ -309,22 +282,16 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                     },
                                     child: Container(
                                       color: Colors.white,
-                                      padding: EdgeInsets.fromLTRB(
-                                          6.0.w, 4.0.w, 8.5.w, 4.0.w),
+                                      padding: EdgeInsets.fromLTRB(6.0.w, 4.0.w, 8.5.w, 4.0.w),
                                       child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                           Text(
-                                            selectedCountryName == ''
-                                                ? 'Country'
-                                                : selectedCountryName,
+                                            selectedCountryName == '' ? 'Country' : selectedCountryName,
                                             style: TextStyle(
                                               fontFamily: 'Whitney Bold',
                                               fontSize: 15.0.sp,
-                                              color: isCountrySelected
-                                                  ? Colors.black
-                                                  : Color(0xFFBDBFCA),
+                                              color: isCountrySelected ? Colors.black : Color(0xFFBDBFCA),
                                             ),
                                           ),
                                           Icon(FontAwesomeIcons.caretDown),
@@ -333,8 +300,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                     ),
                                   ),
                                   Container(
-                                    margin:
-                                        EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
                                     child: Divider(
                                       height: 5.0,
                                       color: Colors.black87,
@@ -350,8 +316,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                           ),
                                         );
                                       } else {
-                                        scaffoldState.currentState
-                                            .showBottomSheet(
+                                        scaffoldState.currentState.showBottomSheet(
                                           (context) => Container(
                                             color: Colors.white,
                                             height: 70.0.h,
@@ -360,10 +325,8 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                                 // color: Colors.grey[900],
                                                 color: Colors.white,
                                                 borderRadius: BorderRadius.only(
-                                                  topRight:
-                                                      Radius.circular(30.0),
-                                                  topLeft:
-                                                      Radius.circular(30.0),
+                                                  topRight: Radius.circular(30.0),
+                                                  topLeft: Radius.circular(30.0),
                                                 ),
                                               ),
                                               child: Column(
@@ -373,33 +336,24 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                                     decoration: BoxDecoration(
                                                       color: Color(0xF0F3F5F9),
                                                       // color: Colors.blueGrey,
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                        topRight:
-                                                            Radius.circular(
-                                                                30.0),
-                                                        topLeft:
-                                                            Radius.circular(
-                                                                30.0),
+                                                      borderRadius: BorderRadius.only(
+                                                        topRight: Radius.circular(30.0),
+                                                        topLeft: Radius.circular(30.0),
                                                       ),
                                                     ),
                                                     child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                       children: <Widget>[
                                                         GestureDetector(
                                                           onTap: () {
-                                                            Navigator.pop(
-                                                                context);
+                                                            Navigator.pop(context);
                                                           },
                                                           child: Container(
                                                             width: 20.0.w,
                                                             child: Center(
                                                               child: Text(
                                                                 'Cancel',
-                                                                style:
-                                                                    kDateTestimonials,
+                                                                style: kDateTestimonials,
                                                               ),
                                                             ),
                                                           ),
@@ -409,8 +363,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                                           child: Center(
                                                             child: Text(
                                                               'State',
-                                                              style:
-                                                                  kOthersTitle,
+                                                              style: kOthersTitle,
                                                             ),
                                                           ),
                                                         ),
@@ -428,73 +381,36 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                                   Expanded(
                                                     child: ListView.builder(
                                                       itemCount: arrCountState,
-                                                      itemBuilder:
-                                                          (context, index) {
+                                                      itemBuilder: (context, index) {
                                                         return GestureDetector(
                                                           onTap: () {
                                                             setState(() {
-                                                              selectedStateName =
-                                                                  respState['payload']
-                                                                              [
-                                                                              'state']
-                                                                          [
-                                                                          index]
-                                                                      ['name'];
-                                                              selectedStateId =
-                                                                  respState['payload']
-                                                                          [
-                                                                          'state']
-                                                                      [
-                                                                      index]['id'];
-                                                              isCountrySelected =
-                                                                  true;
-                                                              isStateSelected =
-                                                                  true;
-                                                              isCitySelected =
-                                                                  false;
-                                                              selectedCityName =
-                                                                  '';
-                                                              selectedCityId =
-                                                                  0;
+                                                              selectedStateName = respState['payload']['state'][index]['name'];
+                                                              selectedStateId = respState['payload']['state'][index]['id'];
+                                                              isCountrySelected = true;
+                                                              isStateSelected = true;
+                                                              isCitySelected = false;
+                                                              selectedCityName = '';
+                                                              selectedCityId = 0;
 
-                                                              getCityNameApi(
-                                                                  selectedStateId);
-                                                              Navigator.pop(
-                                                                  context);
+                                                              getCityNameApi(selectedStateId);
+                                                              Navigator.pop(context);
                                                             });
                                                           },
                                                           child: Container(
-                                                            margin: EdgeInsets
-                                                                .fromLTRB(
-                                                                    3.0.w,
-                                                                    3.0.w,
-                                                                    3.0.w,
-                                                                    0.0),
+                                                            margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
                                                             height: 12.0.w,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          7.0),
-                                                              color: Color(
-                                                                  0xF0F3F5F9),
+                                                            decoration: BoxDecoration(
+                                                              borderRadius: BorderRadius.circular(7.0),
+                                                              color: Color(0xF0F3F5F9),
                                                               // color: Colors.blueGrey,
                                                             ),
                                                             child: Container(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      left:
-                                                                          3.5.w,
-                                                                      top: 3.5
-                                                                          .w),
+                                                              padding: EdgeInsets.only(left: 3.5.w, top: 3.5.w),
                                                               child: Text(
                                                                 '${respState['payload']['state'][index]['name']}',
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .start,
-                                                                style:
-                                                                    kDataSingleSelectionBottomNav,
+                                                                textAlign: TextAlign.start,
+                                                                style: kDataSingleSelectionBottomNav,
                                                               ),
                                                             ),
                                                           ),
@@ -511,22 +427,16 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                     },
                                     child: Container(
                                       color: Colors.white,
-                                      padding: EdgeInsets.fromLTRB(
-                                          6.0.w, 4.0.w, 8.5.w, 4.0.w),
+                                      padding: EdgeInsets.fromLTRB(6.0.w, 4.0.w, 8.5.w, 4.0.w),
                                       child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                           Text(
-                                            selectedStateName == ''
-                                                ? 'State'
-                                                : selectedStateName,
+                                            selectedStateName == '' ? 'State' : selectedStateName,
                                             style: TextStyle(
                                               fontFamily: 'Whitney Bold',
                                               fontSize: 15.0.sp,
-                                              color: isStateSelected
-                                                  ? Colors.black
-                                                  : Color(0xFFBDBFCA),
+                                              color: isStateSelected ? Colors.black : Color(0xFFBDBFCA),
                                             ),
                                           ),
                                           Icon(FontAwesomeIcons.caretDown),
@@ -535,8 +445,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                     ),
                                   ),
                                   Container(
-                                    margin:
-                                        EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
                                     child: Divider(
                                       height: 5.0,
                                       color: Colors.black87,
@@ -552,8 +461,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                           ),
                                         );
                                       } else {
-                                        scaffoldState.currentState
-                                            .showBottomSheet(
+                                        scaffoldState.currentState.showBottomSheet(
                                           (context) => Container(
                                             color: Colors.white,
                                             height: 70.0.h,
@@ -562,10 +470,8 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                                 // color: Colors.grey[900],
                                                 color: Colors.white,
                                                 borderRadius: BorderRadius.only(
-                                                  topRight:
-                                                      Radius.circular(30.0),
-                                                  topLeft:
-                                                      Radius.circular(30.0),
+                                                  topRight: Radius.circular(30.0),
+                                                  topLeft: Radius.circular(30.0),
                                                 ),
                                               ),
                                               child: Column(
@@ -575,33 +481,24 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                                     decoration: BoxDecoration(
                                                       color: Color(0xF0F3F5F9),
                                                       // color: Colors.blueGrey,
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                        topRight:
-                                                            Radius.circular(
-                                                                30.0),
-                                                        topLeft:
-                                                            Radius.circular(
-                                                                30.0),
+                                                      borderRadius: BorderRadius.only(
+                                                        topRight: Radius.circular(30.0),
+                                                        topLeft: Radius.circular(30.0),
                                                       ),
                                                     ),
                                                     child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                       children: <Widget>[
                                                         GestureDetector(
                                                           onTap: () {
-                                                            Navigator.pop(
-                                                                context);
+                                                            Navigator.pop(context);
                                                           },
                                                           child: Container(
                                                             width: 20.0.w,
                                                             child: Center(
                                                               child: Text(
                                                                 'Cancel',
-                                                                style:
-                                                                    kDateTestimonials,
+                                                                style: kDateTestimonials,
                                                               ),
                                                             ),
                                                           ),
@@ -611,8 +508,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                                           child: Center(
                                                             child: Text(
                                                               'City',
-                                                              style:
-                                                                  kOthersTitle,
+                                                              style: kOthersTitle,
                                                             ),
                                                           ),
                                                         ),
@@ -630,66 +526,32 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                                   Expanded(
                                                     child: ListView.builder(
                                                       itemCount: arrCountCity,
-                                                      itemBuilder:
-                                                          (context, index) {
+                                                      itemBuilder: (context, index) {
                                                         return GestureDetector(
                                                           onTap: () {
                                                             setState(() {
-                                                              selectedCityName =
-                                                                  respCity['payload']
-                                                                              [
-                                                                              'city']
-                                                                          [
-                                                                          index]
-                                                                      ['name'];
-                                                              selectedCityId =
-                                                                  respCity['payload']
-                                                                          [
-                                                                          'city']
-                                                                      [
-                                                                      index]['id'];
-                                                              isCountrySelected =
-                                                                  true;
-                                                              isStateSelected =
-                                                                  true;
-                                                              isCitySelected =
-                                                                  true;
-                                                              Navigator.pop(
-                                                                  context);
+                                                              selectedCityName = respCity['payload']['city'][index]['name'];
+                                                              selectedCityId = respCity['payload']['city'][index]['id'];
+                                                              isCountrySelected = true;
+                                                              isStateSelected = true;
+                                                              isCitySelected = true;
+                                                              Navigator.pop(context);
                                                             });
                                                           },
                                                           child: Container(
-                                                            margin: EdgeInsets
-                                                                .fromLTRB(
-                                                                    3.0.w,
-                                                                    3.0.w,
-                                                                    3.0.w,
-                                                                    0.0),
+                                                            margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
                                                             height: 12.0.w,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          7.0),
-                                                              color: Color(
-                                                                  0xF0F3F5F9),
+                                                            decoration: BoxDecoration(
+                                                              borderRadius: BorderRadius.circular(7.0),
+                                                              color: Color(0xF0F3F5F9),
                                                               // color: Colors.blueGrey,
                                                             ),
                                                             child: Container(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      left:
-                                                                          3.5.w,
-                                                                      top: 3.5
-                                                                          .w),
+                                                              padding: EdgeInsets.only(left: 3.5.w, top: 3.5.w),
                                                               child: Text(
                                                                 '${respCity['payload']['city'][index]['name']}',
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .start,
-                                                                style:
-                                                                    kDataSingleSelectionBottomNav,
+                                                                textAlign: TextAlign.start,
+                                                                style: kDataSingleSelectionBottomNav,
                                                               ),
                                                             ),
                                                           ),
@@ -706,22 +568,16 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                     },
                                     child: Container(
                                       color: Colors.white,
-                                      padding: EdgeInsets.fromLTRB(
-                                          6.0.w, 4.0.w, 8.5.w, 4.0.w),
+                                      padding: EdgeInsets.fromLTRB(6.0.w, 4.0.w, 8.5.w, 4.0.w),
                                       child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                           Text(
-                                            selectedCityName == ''
-                                                ? 'City'
-                                                : selectedCityName,
+                                            selectedCityName == '' ? 'City' : selectedCityName,
                                             style: TextStyle(
                                               fontFamily: 'Whitney Bold',
                                               fontSize: 15.0.sp,
-                                              color: isCitySelected
-                                                  ? Colors.black
-                                                  : Color(0xFFBDBFCA),
+                                              color: isCitySelected ? Colors.black : Color(0xFFBDBFCA),
                                             ),
                                           ),
                                           Icon(FontAwesomeIcons.caretDown),
@@ -730,16 +586,14 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                     ),
                                   ),
                                   Container(
-                                    margin:
-                                        EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
                                     child: Divider(
                                       height: 5.0,
                                       color: Colors.black87,
                                     ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.symmetric(
-                                        vertical: 0.0, horizontal: 6.0.w),
+                                    margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 6.0.w),
                                     child: TextField(
                                       controller: zipCodeController,
                                       style: kLableSignUpTextStyle,
@@ -752,30 +606,24 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                     ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.fromLTRB(
-                                        6.0.w, 1.0.w, 6.0.w, 0),
+                                    margin: EdgeInsets.fromLTRB(6.0.w, 1.0.w, 6.0.w, 0),
                                     child: Divider(
                                       height: 5.0,
                                       color: Colors.black87,
                                     ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.fromLTRB(
-                                        6.0.w, 10.0.w, 6.0.w, 0),
+                                    margin: EdgeInsets.fromLTRB(6.0.w, 10.0.w, 6.0.w, 0),
                                     child: Row(
                                       children: <Widget>[
                                         GestureDetector(
                                           onTap: () {
                                             setState(() {
-                                              isTermsAccepted
-                                                  ? isTermsAccepted = false
-                                                  : isTermsAccepted = true;
+                                              isTermsAccepted ? isTermsAccepted = false : isTermsAccepted = true;
                                             });
                                           },
                                           child: Icon(
-                                            isTermsAccepted
-                                                ? FontAwesomeIcons.checkSquare
-                                                : FontAwesomeIcons.square,
+                                            isTermsAccepted ? FontAwesomeIcons.checkSquare : FontAwesomeIcons.square,
                                           ),
                                         ),
                                         RichText(
@@ -786,8 +634,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                               color: Color(0xFFBDBFCA),
                                             ),
                                             children: <TextSpan>[
-                                              TextSpan(
-                                                  text: '  I accept these'),
+                                              TextSpan(text: '  I accept these'),
                                               TextSpan(
                                                 text: ' Terms and Conditions',
                                                 style: TextStyle(
@@ -806,11 +653,9 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                     height: 20.0.w,
                                   ),
                                   Container(
-                                    margin:
-                                        EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         Text(
                                           'SignUp',
@@ -868,8 +713,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
     var connectivityResult = await (Connectivity().checkConnectivity());
     print('Connectivity Result is : $connectivityResult');
 
-    if ((connectivityResult == ConnectivityResult.mobile) ||
-        (connectivityResult == ConnectivityResult.wifi)) {
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
       respCountry = await getCountryList();
       print('Response for Country list api is : $respCountry');
 
@@ -892,8 +736,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
     } else {
       scaffoldState.currentState.showSnackBar(
         SnackBar(
-          content:
-              Text("Please check your internet connectivity and try again"),
+          content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 3),
         ),
       );
@@ -905,8 +748,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
     print('Selected Country ID : $selectedCountryId');
 
     var connectivityResult = await (Connectivity().checkConnectivity());
-    if ((connectivityResult == ConnectivityResult.mobile) ||
-        (connectivityResult == ConnectivityResult.wifi)) {
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
       respState = await getStateList(selectedCountryId.toString());
       print('Response for State list api is : $respState');
 
@@ -930,8 +772,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
     } else {
       scaffoldState.currentState.showSnackBar(
         SnackBar(
-          content:
-              Text("Please check your internet connectivity and try again"),
+          content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 3),
         ),
       );
@@ -941,8 +782,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
   void getCityNameApi(int selectedStateId) async {
     isLoaderShowing = true;
     var connectivityResult = await (Connectivity().checkConnectivity());
-    if ((connectivityResult == ConnectivityResult.mobile) ||
-        (connectivityResult == ConnectivityResult.wifi)) {
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
       respCity = await getCityList(selectedStateId.toString());
       print('Response for City list api is : $respCity');
 
@@ -966,8 +806,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
     } else {
       scaffoldState.currentState.showSnackBar(
         SnackBar(
-          content:
-              Text("Please check your internet connectivity and try again"),
+          content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 3),
         ),
       );
