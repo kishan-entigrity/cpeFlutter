@@ -363,15 +363,14 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                           icon: FontAwesomeIcons.arrowRight,
                                           onPressed: () async {
                                             ConstSignUp.strFname = fnameController.text;
-
-                                            Navigator.push(
+                                            /*Navigator.push(
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) => SignUpScreen2(),
                                                 // SignUpScreen3(),
                                               ),
-                                            );
-                                            // checkForValidations();
+                                            );*/
+                                            checkForValidations();
                                           },
                                         ),
                                       ],
@@ -599,30 +598,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
           duration: Duration(seconds: 5),
         ),
       );
-    }
-    /*else if (selectedCountryId == 0) {
-      scaffoldState.currentState.showSnackBar(
-        SnackBar(
-          content: Text(countryMsg),
-          duration: Duration(seconds: 5),
-        ),
-      );
-    } else if (selectedStateId == 0) {
-      scaffoldState.currentState.showSnackBar(
-        SnackBar(
-          content: Text(stateMsg),
-          duration: Duration(seconds: 5),
-        ),
-      );
-    } else if (selectedCityId == 0) {
-      scaffoldState.currentState.showSnackBar(
-        SnackBar(
-          content: Text(cityMsg),
-          duration: Duration(seconds: 5),
-        ),
-      );
-    } */
-    else {
+    } else {
       print('Validation passed..');
       Navigator.push(
         context,

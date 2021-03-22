@@ -307,6 +307,17 @@ const String selectIndustryMsg = 'Please select industry';
 const String selectPrefCredsMsg = 'Please select professional credentials';
 const String selectAddiQualificationMsg = 'Please select additional qualifications';
 
+const String ptinInfoMsg = 'PTIN number is required, if you are an Enrolled Agent and you want myCPE to report your attendance to the IRS';
+const String ctecInfoMsg = 'CTEC ID is required, if you are an California Registered Tax Professional (CRTP) and you want myCPE to report your '
+    'attendance to the California Tax Education Council.';
+const String cfpInfoMsg = 'CFP Board ID is required, if you are an Certified Financial Planner (CFP) and you want myCPE to report your attendance '
+    'to the CFP Board.';
+
+const String termsConditionMsg = 'Please accept terms and conditions by accepting the checkbox.';
+
+const String ptinLenght = 'PTIN number should not more than 8 digits';
+const String ctecLenght = 'CTEC Id should not more than 6 digits';
+
 const String sharedPrefsNot = 'Prefs not available';
 const String urlnotFound = 'Oops we didn\'t found url';
 

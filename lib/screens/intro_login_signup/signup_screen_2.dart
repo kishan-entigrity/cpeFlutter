@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
-import 'package:cpe_flutter/components/TopBar.dart';
 import 'package:cpe_flutter/components/round_icon_button.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/hashmap.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/signup_screen_3.dart';
@@ -102,7 +101,43 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                   color: Colors.white,
                   child: Column(
                     children: <Widget>[
-                      TopBar(Colors.white, 'Sign Up'),
+                      Row(
+                        children: <Widget>[
+                          // BackIcon(),
+                          GestureDetector(
+                            onTap: () {
+                              ConstSignUp.strCompanyName = companyNameController.text;
+                              Navigator.pop(context);
+                            },
+                            child: Flexible(
+                              flex: 2,
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Icon(
+                                  FontAwesomeIcons.angleLeft,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Flexible(
+                            flex: 12,
+                            child: Center(
+                              child: Text(
+                                'Sign Up',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18.0,
+                                  fontFamily: 'Whitney Semi Bold',
+                                ),
+                              ),
+                            ),
+                          ),
+                          Flexible(
+                            flex: 2,
+                            child: Text(''),
+                          ),
+                        ],
+                      ),
                       Expanded(
                         child: SingleChildScrollView(
                           physics: ClampingScrollPhysics(),
@@ -156,7 +191,6 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                           children: <Widget>[
                                                             GestureDetector(
                                                               onTap: () {
-                                                                ConstSignUp.strCompanyName = companyNameController.text;
                                                                 Navigator.pop(context);
                                                               },
                                                               child: Container(
@@ -685,13 +719,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                           icon: FontAwesomeIcons.arrowRight,
                                           onPressed: () async {
                                             ConstSignUp.strCompanyName = companyNameController.text;
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) => SignUpScreen3(),
-                                              ),
-                                            );
-                                            // checkForValidations();
+                                            checkForValidation();
                                           },
                                         ),
                                       ],
@@ -898,6 +926,8 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
       ConstSignUp.organizationSize = '';
       ConstSignUp.organizationSize = ConstSignUp.orgSizeList[index];
       ConstSignUp.isOrganizationSizeSelected = true;
+
+      FocusManager.instance.primaryFocus.unfocus();
     });
   }
 
@@ -905,6 +935,9 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
     setState(() {
       ConstSignUp.jobTitle = ConstSignUp.listJobTitle[index].name;
       ConstSignUp.isJobTitleSelected = true;
+      ConstSignUp.jobTitleId = ConstSignUp.listJobTitle[index].id;
+
+      FocusManager.instance.primaryFocus.unfocus();
     });
   }
 
@@ -912,6 +945,9 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
     setState(() {
       ConstSignUp.industry = ConstSignUp.listIndustries[index].name;
       ConstSignUp.isIndustrySelected = true;
+      ConstSignUp.industryId = ConstSignUp.listIndustries[index].id;
+
+      FocusManager.instance.primaryFocus.unfocus();
     });
   }
 
@@ -920,6 +956,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
       ConstSignUp.listProfCreds[index].isSelected = false;
       setState(() {
         ConstSignUp.smallTitles.remove(ConstSignUp.listProfCreds[index].shortTitle);
+        ConstSignUp.smallTitlesId.remove(ConstSignUp.listProfCreds[index].id.toString());
         print('Length of smallTitles : ${ConstSignUp.smallTitles.length}');
         print('Data for smallTitles : ${ConstSignUp.smallTitles.toString()}');
       });
@@ -927,9 +964,57 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
       ConstSignUp.listProfCreds[index].isSelected = true;
       setState(() {
         ConstSignUp.smallTitles.add(ConstSignUp.listProfCreds[index].shortTitle);
+        ConstSignUp.smallTitlesId.add(ConstSignUp.listProfCreds[index].id.toString());
         print('Length of smallTitles : ${ConstSignUp.smallTitles.length}');
         print('Data for smallTitles : ${ConstSignUp.smallTitles.toString()}');
       });
+    }
+    FocusManager.instance.primaryFocus.unfocus();
+  }
+
+  void checkForValidation() {
+    if (ConstSignUp.strCompanyName == '' || ConstSignUp.strCompanyName.length == 0) {
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(companyEmptyMsg),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } else if (ConstSignUp.organizationSize == '' || ConstSignUp.organizationSize.length == 0) {
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(selectOrganizationSizeMsg),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } else if (ConstSignUp.jobTitle == '' || ConstSignUp.jobTitle.length == 0) {
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(selectJobTitleMsg),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } else if (ConstSignUp.industry == '' || ConstSignUp.industry.length == 0) {
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(selectIndustryMsg),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } else if (ConstSignUp.smallTitles.length == 0) {
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(selectPrefCredsMsg),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SignUpScreen3(),
+        ),
+      );
     }
   }
 }
