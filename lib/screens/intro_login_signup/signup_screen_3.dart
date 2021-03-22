@@ -1174,14 +1174,36 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
       print('API response is : $respRegistration');
       respRegistrationMessage = respRegistration['message'];
       if (respRegistration['success']) {
-        scaffoldState.currentState.showSnackBar(
+        showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) => new AlertDialog(
+                title: new Text('Registration', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
+                content: new Text(respRegistrationMessage),
+                actions: <Widget>[
+                  new FlatButton(
+                    onPressed: () => setState(() {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => IntroScreen(),
+                        ),
+                      );
+                    }), // this line dismisses the dialog
+                    child: new Text('ok', style: new TextStyle(fontSize: 18.0)),
+                  )
+                ],
+              ),
+            ) ??
+            false;
+        /*scaffoldState.currentState.showSnackBar(
           SnackBar(
             content: Text(respRegistrationMessage),
             duration: Duration(seconds: 3),
           ),
-        );
+        );*/
         // cleanData();
-        ConstSignUp.cleanSignUpData();
+        /*ConstSignUp.cleanSignUpData();
         Future.delayed(const Duration(seconds: 3), () {
           setState(() {
             Navigator.push(
@@ -1191,7 +1213,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
               ),
             );
           });
-        });
+        });*/
       } else {
         scaffoldState.currentState.showSnackBar(
           SnackBar(
