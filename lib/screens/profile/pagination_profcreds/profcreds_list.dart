@@ -41,6 +41,13 @@ class User_type {
   String _homePage;
   String _signupForm;
   String _status;
+  bool _isSelected = false;
+
+  bool get isSelected => _isSelected;
+
+  set isSelected(bool isSelected) {
+    this._isSelected = isSelected;
+  }
 
   int get id => _id;
   String get title => _title;

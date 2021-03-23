@@ -4,6 +4,7 @@ import 'package:cpe_flutter/screens/home_screen.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info/package_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -19,6 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    getVersion();
     getUserData();
     /*new Future.delayed(const Duration(seconds: 5), () {
       setState(() {
@@ -135,5 +137,18 @@ class _SplashScreenState extends State<SplashScreen> {
     } else {
       print('Oops we didnt get data on shared prefs');
     }*/
+  }
+
+  void getVersion() async {
+    if (Platform.isAndroid) {
+      print('Device Type is Android');
+      PackageInfo packageInfo = await PackageInfo.fromPlatform();
+      String versionName = packageInfo.version;
+      String versionCode = packageInfo.buildNumber;
+      print('Version name : $versionName');
+      print('version code : $versionCode');
+    } else if (Platform.isIOS) {
+      print('Device Type is iOS');
+    }
   }
 }
