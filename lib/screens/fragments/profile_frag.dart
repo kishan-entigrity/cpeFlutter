@@ -58,297 +58,305 @@ class _ProfileFragState extends State<ProfileFrag> {
         ),
       ),*/
       body: new WillPopScope(
-          child: SingleChildScrollView(
-            child: SafeArea(
-              child: Column(
+          child: SafeArea(
+            child: Container(
+              child: Stack(
                 children: <Widget>[
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          // builder: (context) => PaginationSample(),
-                          builder: (context) => SamplePagination(),
-                          // builder: (context) => NewsListPage(),
-                        ),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Center(
-                        child: Text(
-                          'Profile',
-                          style: TextStyle(
-                            fontSize: 13.5.sp,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1,
-                            fontFamily: 'Whitney Semi Bold',
+                  Positioned(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: <Widget>[
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  // builder: (context) => PaginationSample(),
+                                  builder: (context) => SamplePagination(),
+                                  // builder: (context) => NewsListPage(),
+                                ),
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Center(
+                                child: Text(
+                                  'Profile',
+                                  style: TextStyle(
+                                    fontSize: 13.5.sp,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 1,
+                                    fontFamily: 'Whitney Semi Bold',
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Stack(
-                    children: <Widget>[
-                      Positioned(
-                        child: Visibility(
-                          visible: isLoaderShowing ? false : true,
-                          child: Column(
+                          Stack(
                             children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 0.0),
-                                child: Center(
-                                  child: CircleAvatar(
-                                    radius: 14.0.w,
-                                    backgroundImage: NetworkImage(strProfilePic),
+                              Positioned(
+                                child: Visibility(
+                                  visible: isLoaderShowing ? false : true,
+                                  child: Column(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 0.0),
+                                        child: Center(
+                                          child: CircleAvatar(
+                                            radius: 14.0.w,
+                                            backgroundImage: NetworkImage(strProfilePic),
+                                          ),
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          if (resp.isNotEmpty) {
+                                            var respStr = resp.toString();
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => UserProfile(resp['payload']['data']),
+                                                // builder: (context) => UserProfile(respStr),
+                                              ),
+                                            );
+                                          } else {
+                                            _scaffoldKey.currentState.showSnackBar(
+                                              SnackBar(
+                                                content: Text("Oops we are getting issue while loading data."),
+                                                duration: Duration(seconds: 5),
+                                              ),
+                                            );
+                                          }
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: Center(
+                                            child: Text(
+                                              isGuestMode ? 'Guest User' : '$strFName $strLName',
+                                              style: TextStyle(
+                                                fontSize: 19.0.sp,
+                                                fontWeight: FontWeight.bold,
+                                                letterSpacing: 1,
+                                                fontFamily: 'Whitney Bold',
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(30.0.sp),
+                                            topRight: Radius.circular(30.0.sp),
+                                          ),
+                                        ),
+                                        child: Column(
+                                          children: <Widget>[
+                                            // Notification settings controller..
+                                            SizedBox(
+                                              height: 20.0.sp,
+                                            ),
+                                            // profile_cell(),
+                                            Visibility(
+                                              visible: isGuestMode ? false : true,
+                                              child: profile_cell(
+                                                childIcon: FontAwesomeIcons.solidBell,
+                                                strLable: "Notification",
+                                                onPress: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) => Notifications(),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                            // My Credit controller..
+                                            Visibility(
+                                              visible: isGuestMode ? false : true,
+                                              child: profile_cell(
+                                                childIcon: FontAwesomeIcons.creditCard,
+                                                strLable: "My Credit",
+                                                onPress: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) => MyCredit(),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                            // My Transaction controller..
+                                            Visibility(
+                                              visible: isGuestMode ? false : true,
+                                              child: profile_cell(
+                                                childIcon: FontAwesomeIcons.creditCard,
+                                                strLable: "My Transaction",
+                                                onPress: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) => MyTranscation(),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                            // FAQ Controller..
+                                            profile_cell(
+                                              childIcon: FontAwesomeIcons.solidQuestionCircle,
+                                              strLable: "FAQs",
+                                              onPress: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) => FAQ(),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                            // Change password controller..
+                                            Visibility(
+                                              visible: isGuestMode ? false : true,
+                                              child: profile_cell(
+                                                childIcon: FontAwesomeIcons.lock,
+                                                strLable: "Change Password",
+                                                onPress: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) => ChangePassword(),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                            // Provacy policy controller..
+                                            profile_cell(
+                                              childIcon: FontAwesomeIcons.solidFile,
+                                              strLable: "Privacy Policy",
+                                              onPress: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) => PrivacyPolicy(),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                            Divider(
+                                              height: 1.0,
+                                              color: Colors.black,
+                                            ),
+                                            // Terms and condition controller..
+                                            profile_cell(
+                                              childIcon: FontAwesomeIcons.solidFile,
+                                              strLable: "Terms & Condition",
+                                              onPress: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) => TermsCondition(),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                            // Chat with US controller..
+                                            profile_cell(
+                                              childIcon: FontAwesomeIcons.solidComments,
+                                              strLable: "Chat with us",
+                                              onPress: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) => TermsCondition(),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                            // Contact us controller..
+                                            profile_cell(
+                                              childIcon: FontAwesomeIcons.solidEnvelope,
+                                              strLable: "Contact Us",
+                                              onPress: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) => ContactUs(),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                            // Logout controller if in Guest mode is false..
+                                            Visibility(
+                                              visible: isGuestMode ? false : true,
+                                              child: profile_cell(
+                                                childIcon: FontAwesomeIcons.signOutAlt,
+                                                strLable: "Logout",
+                                                onPress: () {
+                                                  logoutUser();
+                                                },
+                                              ),
+                                            ),
+                                            // Login controller if in guest mode true..
+                                            Visibility(
+                                              visible: isGuestMode ? true : false,
+                                              child: profile_cell(
+                                                childIcon: FontAwesomeIcons.signInAlt,
+                                                strLable: "Login",
+                                                onPress: () {
+                                                  logoutUser();
+                                                  /*Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) => Login(),
+                                                  ),
+                                                );*/
+                                                },
+                                              ),
+                                            ),
+                                            // Review US controller..
+                                            profile_cell(
+                                              childIcon: FontAwesomeIcons.solidStar,
+                                              strLable: "Review US",
+                                              onPress: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) => TermsCondition(),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                            SizedBox(
+                                              width: double.infinity,
+                                              height: 60.0,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  if (resp.isNotEmpty) {
-                                    var respStr = resp.toString();
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => UserProfile(resp['payload']['data']),
-                                        // builder: (context) => UserProfile(respStr),
-                                      ),
-                                    );
-                                  } else {
-                                    _scaffoldKey.currentState.showSnackBar(
-                                      SnackBar(
-                                        content: Text("Oops we are getting issue while loading data."),
-                                        duration: Duration(seconds: 5),
-                                      ),
-                                    );
-                                  }
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Center(
-                                    child: Text(
-                                      isGuestMode ? 'Guest User' : '$strFName $strLName',
-                                      style: TextStyle(
-                                        fontSize: 19.0.sp,
-                                        fontWeight: FontWeight.bold,
-                                        letterSpacing: 1,
-                                        fontFamily: 'Whitney Bold',
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(30.0.sp),
-                                    topRight: Radius.circular(30.0.sp),
-                                  ),
-                                ),
-                                child: Column(
-                                  children: <Widget>[
-                                    // Notification settings controller..
-                                    SizedBox(
-                                      height: 20.0.sp,
-                                    ),
-                                    // profile_cell(),
-                                    Visibility(
-                                      visible: isGuestMode ? false : true,
-                                      child: profile_cell(
-                                        childIcon: FontAwesomeIcons.solidBell,
-                                        strLable: "Notification",
-                                        onPress: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => Notifications(),
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                    // My Credit controller..
-                                    Visibility(
-                                      visible: isGuestMode ? false : true,
-                                      child: profile_cell(
-                                        childIcon: FontAwesomeIcons.creditCard,
-                                        strLable: "My Credit",
-                                        onPress: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => MyCredit(),
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                    // My Transaction controller..
-                                    Visibility(
-                                      visible: isGuestMode ? false : true,
-                                      child: profile_cell(
-                                        childIcon: FontAwesomeIcons.creditCard,
-                                        strLable: "My Transaction",
-                                        onPress: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => MyTranscation(),
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                    // FAQ Controller..
-                                    profile_cell(
-                                      childIcon: FontAwesomeIcons.solidQuestionCircle,
-                                      strLable: "FAQs",
-                                      onPress: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => FAQ(),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                    // Change password controller..
-                                    Visibility(
-                                      visible: isGuestMode ? false : true,
-                                      child: profile_cell(
-                                        childIcon: FontAwesomeIcons.lock,
-                                        strLable: "Change Password",
-                                        onPress: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => ChangePassword(),
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                    // Provacy policy controller..
-                                    profile_cell(
-                                      childIcon: FontAwesomeIcons.solidFile,
-                                      strLable: "Privacy Policy",
-                                      onPress: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => PrivacyPolicy(),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                    Divider(
-                                      height: 1.0,
-                                      color: Colors.black,
-                                    ),
-                                    // Terms and condition controller..
-                                    profile_cell(
-                                      childIcon: FontAwesomeIcons.solidFile,
-                                      strLable: "Terms & Condition",
-                                      onPress: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => TermsCondition(),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                    // Chat with US controller..
-                                    profile_cell(
-                                      childIcon: FontAwesomeIcons.solidComments,
-                                      strLable: "Chat with us",
-                                      onPress: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => TermsCondition(),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                    // Contact us controller..
-                                    profile_cell(
-                                      childIcon: FontAwesomeIcons.solidEnvelope,
-                                      strLable: "Contact Us",
-                                      onPress: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => ContactUs(),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                    // Logout controller if in Guest mode is false..
-                                    Visibility(
-                                      visible: isGuestMode ? false : true,
-                                      child: profile_cell(
-                                        childIcon: FontAwesomeIcons.signOutAlt,
-                                        strLable: "Logout",
-                                        onPress: () {
-                                          logoutUser();
-                                        },
-                                      ),
-                                    ),
-                                    // Login controller if in guest mode true..
-                                    Visibility(
-                                      visible: isGuestMode ? true : false,
-                                      child: profile_cell(
-                                        childIcon: FontAwesomeIcons.signInAlt,
-                                        strLable: "Login",
-                                        onPress: () {
-                                          logoutUser();
-                                          /*Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => Login(),
-                                            ),
-                                          );*/
-                                        },
-                                      ),
-                                    ),
-                                    // Review US controller..
-                                    profile_cell(
-                                      childIcon: FontAwesomeIcons.solidStar,
-                                      strLable: "Review US",
-                                      onPress: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => TermsCondition(),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                    SizedBox(
-                                      width: double.infinity,
-                                      height: 60.0,
-                                    ),
-                                  ],
                                 ),
                               ),
                             ],
                           ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Visibility(
+                    visible: isLoaderShowing ? true : false,
+                    child: Positioned(
+                      child: Container(
+                        child: Center(
+                          child: CircularProgressIndicator(),
                         ),
                       ),
-                      Visibility(
-                        visible: isLoaderShowing ? true : false,
-                        child: Positioned(
-                          child: Container(
-                            child: Center(
-                              child: CircularProgressIndicator(),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ],
               ),
