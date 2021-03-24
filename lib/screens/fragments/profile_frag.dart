@@ -4,7 +4,6 @@ import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
 import 'package:cpe_flutter/screens/profile/change_password.dart';
 import 'package:cpe_flutter/screens/profile/contact_us.dart';
 import 'package:cpe_flutter/screens/profile/faq.dart';
-import 'package:cpe_flutter/screens/profile/my_credit.dart';
 import 'package:cpe_flutter/screens/profile/my_transaction.dart';
 import 'package:cpe_flutter/screens/profile/notification.dart';
 import 'package:cpe_flutter/screens/profile/privacy_policy.dart';
@@ -18,6 +17,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../rest_api.dart';
 import '../profile/contact_us.dart';
+import 'certificate_frag.dart';
 
 class ProfileFrag extends StatefulWidget {
   @override
@@ -183,7 +183,8 @@ class _ProfileFragState extends State<ProfileFrag> {
                                                   Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
-                                                      builder: (context) => MyCredit(),
+                                                      // builder: (context) => MyCredit(),
+                                                      builder: (context) => CertificateFrag(),
                                                     ),
                                                   );
                                                 },
