@@ -85,6 +85,7 @@ class _UserProfileState extends State<UserProfile> {
   Map mapProfCredsT = new Map<dynamic, bool>();
   static List<String> smallTitles = [];
   static List<String> smallTitlesId = [];
+  static var user_type_ids = '';
 
   var isJobTitleSelected = false;
   var isIndustrySelected = false;
@@ -126,6 +127,10 @@ class _UserProfileState extends State<UserProfile> {
 
   var dataIntentProfCreds;
   var dataIntentProfCredsSize;
+
+  var respEditProf;
+  var respEditProfStatus;
+  var respEditProfMessage;
 
   Future<List<Job_title>> getJobTitleList(String authToken) async {
     String urls = 'https://my-cpe.com/api/v3/job-title/list';
@@ -190,6 +195,8 @@ class _UserProfileState extends State<UserProfile> {
       list_industries = List.from(data_indus).map<Industries_list>((item) => Industries_list.fromJson(item)).toList();
     }
 
+    smallTitles.clear();
+    smallTitlesId.clear();
     getProfessionalCreds(authToken);
 
     return list_industries;
@@ -223,10 +230,6 @@ class _UserProfileState extends State<UserProfile> {
     } else {
       list_profcreds = List.from(data_prof).map<User_type>((item) => User_type.fromJson(item)).toList();
     }
-
-    /*for (int i = 0; i < list_profcreds.length; i++) {
-      print('data on forloop pos : ${list_profcreds[i].id}');
-    }*/
 
     for (int j = 0; j < dataIntentProfCredsSize; j++) {
       print('Data for the inner loop is : ${dataIntentProfCreds[j]['id']}');
@@ -362,6 +365,8 @@ class _UserProfileState extends State<UserProfile> {
       strCompany = dataIntent['company_name'];
       strJobTitleName = dataIntent['jobtitle_name'];
       industryName = dataIntent['industry_name'];
+      industryId = dataIntent['industry_id'];
+      strOrgSize = dataIntent['co_emp_size'];
 
       selectedCountryName = dataIntent['country'];
       selectedStateName = dataIntent['state'];
@@ -370,8 +375,17 @@ class _UserProfileState extends State<UserProfile> {
       selectedStateId = dataIntent['state_id'];
       selectedCityId = dataIntent['city_id'];
       strZipCode = dataIntent['zipcode'];
-      strPTIN = dataIntent['ptin_number'];
-      strCTEC = dataIntent['ctec_id'];
+      if (dataIntent['ptin_number'].toString().startsWith('P')) {
+        strPTIN = dataIntent['ptin_number'].toString().substring(1);
+      } else {
+        strPTIN = dataIntent['ptin_number'];
+      }
+
+      if (dataIntent['ctec_id'].toString().startsWith('A')) {
+        strCTEC = dataIntent['ctec_id'].toString().substring(1);
+      } else {
+        strCTEC = dataIntent['ctec_id'];
+      }
       dataIntentProfCreds = dataIntent['professional_cred_cert'];
       dataIntentProfCredsSize = dataIntent['professional_cred_cert'].length;
 
@@ -577,7 +591,7 @@ class _UserProfileState extends State<UserProfile> {
                             Container(
                               margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
                               child: TextField(
-                                enabled: isEditable,
+                                enabled: false,
                                 controller: emailController,
                                 style: kLableSignUpTextStyle,
                                 keyboardType: TextInputType.emailAddress,
@@ -1790,12 +1804,15 @@ class _UserProfileState extends State<UserProfile> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Text(
-                                      'Submit',
+                                      'Update',
                                       style: kButtonLabelTextStyle,
                                     ),
                                     RoundIconButton(
                                       icon: FontAwesomeIcons.arrowRight,
-                                      onPressed: () async {},
+                                      onPressed: () async {
+                                        print('Clicked on update button');
+                                        checkForValidations();
+                                      },
                                     ),
                                   ],
                                 ),
@@ -1961,5 +1978,245 @@ class _UserProfileState extends State<UserProfile> {
 
       FocusManager.instance.primaryFocus.unfocus();
     });
+  }
+
+  void checkForValidations() {
+    if (fnameController.text == '' || fnameController.text.length == 0) {
+      print('Validation failed for fName');
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(fnameEmptyMsg),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } else if (lnameController.text == '' || lnameController.text.length == 0) {
+      print('Validation failed for lName');
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(lnameEmptyMsg),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } else if (phoneController.text == '' || phoneController.text.length == 0) {
+      print('Validation failed for empty phone');
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(phoneEmptyMsg),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } else if (phoneController.text.trim().length < 10 || phoneController.text.trim().length > 10) {
+      print('Validation failed for invalid length phone');
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(phoneLengthMsg),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } else if (companyNameController.text == '' || companyNameController.text.length == 0) {
+      print('Validation failed for company');
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(companyEmptyMsg),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } else if (strOrgSize == '' || strOrgSize.length == 0) {
+      print('Validation failed for organization size');
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(selectOrganizationSizeMsg),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } else if (strJobTitleName == '' || strJobTitleName.length == 0) {
+      print('Validation failed for job title');
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(selectJobTitleMsg),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } else if (industryName == '' || industryName.length == 0) {
+      print('Validation failed for industry');
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(selectIndustryMsg),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } else if (smallTitles.length == 0) {
+      print('Validation failed for prof creds');
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(selectPrefCredsMsg),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } else if (ptinController.text.length > 8) {
+      print('Validation failed for ptin');
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(ptinLenght),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } else if (ctecController.text.length > 6) {
+      print('Validation failed for ctec');
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(ctecLenght),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } else if (selectedCountryId == 0) {
+      print('Validation failed for country');
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(countryMsg),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } else if (selectedStateId == 0) {
+      print('Validation failed for state');
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(stateMsg),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } else if (selectedCityId == 0) {
+      print('Validation failed for city');
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(cityMsg),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } else {
+      print('Validation passed..');
+      checkForInternet();
+    }
+  }
+
+  void checkForInternet() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
+      setState(() {
+        // strPTIN = 'P$strPTIN';
+        strPTIN = 'P${ptinController.text}';
+        // strCTEC = 'A$strCTEC';
+        strCTEC = 'A${ctecController.text}';
+        for (int i = 0; i < smallTitlesId.length; i++) {
+          // print('SmallTitleIds : ${ConstSignUp.smallTitlesId.toString()}');
+          if (i == 0) {
+            user_type_ids = smallTitlesId[i].toString();
+          } else {
+            user_type_ids = user_type_ids + ',' + smallTitlesId[i].toString();
+          }
+        }
+      });
+      isLoaderShowing = true;
+      print('Edit Profile FName : ${fnameController.text.toString()}');
+      print('Edit Profile LName : ${lnameController.text.toString()}');
+      print('Edit Profile CountryID : ${selectedCountryId.toString()}');
+      print('Edit Profile StateID : ${selectedStateId.toString()}');
+      print('Edit Profile CityID : ${selectedCityId.toString()}');
+      print('Edit Profile Company Name : ${companyNameController.text.toString()}');
+      print('Edit Profile Mobile Number : ${mobileController.text.toString()}');
+      print('Edit Profile Phone Number : ${phoneController.text.toString()}');
+      print('Edit Profile ZipCode : ${zipCodeController.text.toString()}');
+      print('Edit Profile PTIN : ${strPTIN}');
+      print('Edit Profile CTEC : ${strCTEC}');
+      print('Edit Profile Org Size : ${strOrgSize}');
+      print('Edit Profile Job Title ID : ${jobTitleId.toString()}');
+      print('Edit Profile Industry ID : ${industryId.toString()}');
+      print('Edit Profile User Type : ${user_type_ids.toString()}');
+      EditProfileCall();
+    } else {
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text("Please check your internet connectivity and try again"),
+          duration: Duration(seconds: 5),
+        ),
+      );
+    }
+  }
+
+  Future<String> EditProfileCall() async {
+    String urls = 'https://my-cpe.com/api/v3/edit-profile';
+
+    final response = await http.post(
+      urls,
+      headers: {
+        'Accept': 'Application/json',
+        'Authorization': '$_authToken',
+      },
+      body: {
+        'first_name': fnameController.text.toString(),
+        'last_name': lnameController.text.toString(),
+        // 'email': ConstSignUp.strEmail.toString(),
+        // 'password': ConstSignUp.strPass.toString(),
+        // 'confirm_password': ConstSignUp.strConfPass.toString(),
+        'country_id': selectedCountryId.toString(),
+        'state_id': selectedStateId.toString(),
+        'city_id': selectedCityId.toString(),
+        'firm_name': companyNameController.text.toString(),
+        'contact_no': mobileController.text.toString(),
+        'phone': phoneController.text.toString(),
+        'zipcode': zipCodeController.text.toString(),
+        'ptin': strPTIN,
+        'ctec_id': strCTEC,
+        'co_emp_size': strOrgSize,
+        'jobtitle_id': jobTitleId.toString(),
+        'industry_id': industryId.toString(),
+        'professional_cred_cert': user_type_ids.toString(),
+      },
+    );
+
+    this.setState(() {
+      respEditProf = jsonDecode(response.body);
+      isLoaderShowing = false;
+    });
+
+    setState(() {
+      print('API response is : $respEditProf');
+      respEditProfMessage = respEditProf['message'];
+      if (respEditProf['success']) {
+        showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) => new AlertDialog(
+                title: new Text('Edit Profile', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
+                content: new Text(respEditProfMessage),
+                actions: <Widget>[
+                  new FlatButton(
+                    onPressed: () => setState(() {
+                      isEditable = false;
+                      Navigator.pop(context);
+                      /*Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => IntroScreen(),
+                        ),
+                      );*/
+                    }), // this line dismisses the dialog
+                    child: new Text('ok', style: new TextStyle(fontSize: 18.0)),
+                  )
+                ],
+              ),
+            ) ??
+            false;
+      } else {
+        scaffoldState.currentState.showSnackBar(
+          SnackBar(
+            content: Text(respEditProfMessage),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+    });
+
+    return 'Success';
   }
 }
