@@ -124,6 +124,9 @@ class _UserProfileState extends State<UserProfile> {
   var selectedCityId = 0;
   bool isCitySelected = false;
 
+  var dataIntentProfCreds;
+  var dataIntentProfCredsSize;
+
   Future<List<Job_title>> getJobTitleList(String authToken) async {
     String urls = 'https://my-cpe.com/api/v3/job-title/list';
 
@@ -224,6 +227,17 @@ class _UserProfileState extends State<UserProfile> {
     /*for (int i = 0; i < list_profcreds.length; i++) {
       print('data on forloop pos : ${list_profcreds[i].id}');
     }*/
+
+    for (int j = 0; j < dataIntentProfCredsSize; j++) {
+      print('Data for the inner loop is : ${dataIntentProfCreds[j]['id']}');
+      for (int i = 0; i < list_profcreds.length; i++) {
+        if (dataIntentProfCreds[j]['id'].toString() == list_profcreds[i].id.toString()) {
+          list_profcreds[i].isSelected = true;
+          smallTitles.add(list_profcreds[i].shortTitle.toString());
+          smallTitlesId.add(list_profcreds[i].id.toString());
+        }
+      }
+    }
     getCountryListAPI();
 
     return list_profcreds;
@@ -349,12 +363,31 @@ class _UserProfileState extends State<UserProfile> {
       strJobTitleName = dataIntent['jobtitle_name'];
       industryName = dataIntent['industry_name'];
 
+      selectedCountryName = dataIntent['country'];
+      selectedStateName = dataIntent['state'];
+      selectedCityName = dataIntent['city'];
       selectedCountryId = dataIntent['country_id'];
       selectedStateId = dataIntent['state_id'];
       selectedCityId = dataIntent['city_id'];
       strZipCode = dataIntent['zipcode'];
       strPTIN = dataIntent['ptin_number'];
       strCTEC = dataIntent['ctec_id'];
+      dataIntentProfCreds = dataIntent['professional_cred_cert'];
+      dataIntentProfCredsSize = dataIntent['professional_cred_cert'].length;
+
+      print('dataIntentProfCreds size is : ${dataIntentProfCredsSize}');
+
+      if (selectedCountryName != '') {
+        isCountrySelected = true;
+      }
+
+      if (selectedStateName != '') {
+        isStateSelected = true;
+      }
+
+      if (selectedCityName != '') {
+        isCitySelected = true;
+      }
 
       jobTitleId = dataIntent['jobtitle_id'];
       // industryId = dataIntent['industry_id'];

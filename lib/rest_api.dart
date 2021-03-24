@@ -101,6 +101,10 @@ Future getViewProfile(String authToken) async {
     'Accept': 'Application/json',
     'Authorization': authToken,
   });
+  if (response.statusCode == 401) {
+    print('401 error code on the profile');
+    // forceLogoutCall();
+  }
   var convertDataToJson = jsonDecode(response.body);
   return convertDataToJson;
 }
