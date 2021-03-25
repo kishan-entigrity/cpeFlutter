@@ -12,6 +12,7 @@ import 'package:http/http.dart' as http;
 import 'package:sizer/sizer.dart';
 
 import '../../constant.dart';
+import '../../rest_api.dart';
 import 'intro_screen.dart';
 import 'model/city_list_model.dart';
 import 'model/country_list_model.dart';
@@ -814,7 +815,8 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
   }
 
   Future<List<Country>> getCountryListAPI() async {
-    String urls = 'https://my-cpe.com/api/v3/country';
+    // String urls = 'https://my-cpe.com/api/v3/country';
+    String urls = URLs.BASE_URL + 'country';
 
     final response = await http.get(
       urls,
@@ -846,7 +848,8 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
   }
 
   Future<List<State_Name>> getStateNameListAPI(int selectedCountryId) async {
-    String urls = 'https://my-cpe.com/api/v3/state';
+    // String urls = 'https://my-cpe.com/api/v3/state';
+    String urls = URLs.BASE_URL + 'state';
 
     final response = await http.post(
       urls,
@@ -881,7 +884,8 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
   }
 
   Future<List<City>> getCityNameListAPI(int selectedStateId) async {
-    String urls = 'https://my-cpe.com/api/v3/city';
+    // String urls = 'https://my-cpe.com/api/v3/city';
+    String urls = URLs.BASE_URL + 'city';
 
     final response = await http.post(
       urls,
@@ -1135,7 +1139,8 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
   }
 
   Future<String> takeAPICallRegistration() async {
-    String urls = 'https://my-cpe.com/api/v3/registration';
+    // String urls = 'https://my-cpe.com/api/v3/registration';
+    String urls = URLs.BASE_URL + 'registration';
 
     final response = await http.post(
       urls,

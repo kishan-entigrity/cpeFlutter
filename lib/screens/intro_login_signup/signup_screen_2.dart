@@ -817,7 +817,8 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
   }
 
   Future<List<Job_title>> getJobTitles() async {
-    String urls = 'https://my-cpe.com/api/v3/job-title/list';
+    // String urls = 'https://my-cpe.com/api/v3/job-title/list';
+    String urls = URLs.BASE_URL + 'job-title/list';
 
     final response = await http.get(
       urls,
@@ -852,7 +853,8 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
 
   Future<List<Industries_list>> getIndustries() async {
     isLoaderShowing = true;
-    String urls = 'https://my-cpe.com/api/v3/industry/list';
+    // String urls = 'https://my-cpe.com/api/v3/industry/list';
+    String urls = URLs.BASE_URL + 'industry/list';
 
     final response = await http.get(
       urls,
@@ -888,7 +890,8 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
 
   Future<List<User_type>> getProfessionalCredsAPI() async {
     isLoaderShowing = true;
-    String urls = 'https://my-cpe.com/api/v3/user-type';
+    // String urls = 'https://my-cpe.com/api/v3/user-type';
+    String urls = URLs.BASE_URL + 'user-type';
 
     final response = await http.get(
       urls,

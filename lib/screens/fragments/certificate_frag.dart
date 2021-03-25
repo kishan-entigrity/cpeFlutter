@@ -13,6 +13,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../rest_api.dart';
 import 'model_credit/credit_model.dart';
 
 class CertificateFrag extends StatefulWidget {
@@ -46,7 +47,8 @@ class _CertificateFragState extends State<CertificateFrag> {
   double progress = 0;
 
   Future<List<My_credits>> getMyTransactionList(String authToken, String start, String limit, String filterType) async {
-    String urls = 'https://my-cpe.com/api/v3/my-credits';
+    // String urls = 'https://my-cpe.com/api/v3/my-credits';
+    String urls = URLs.BASE_URL + 'my-credits';
 
     final response = await http.post(
       urls,

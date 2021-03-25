@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../rest_api.dart';
+
 class PaginationSample extends StatefulWidget {
   @override
   _PaginationSampleState createState() => _PaginationSampleState();
@@ -28,8 +30,8 @@ class _PaginationSampleState extends State<PaginationSample> {
 
   Future<String> getDataWebinarList(String authToken, String start, String limit, String topic_of_interest, String subject_area,
       String webinar_key_text, String webinar_type, String date_filter, String filter_price) async {
-    // String urls = URLs.BASE_URL + 'webinar/list';
-    String urls = 'https://my-cpe.com/api/v3/webinar/list';
+    String urls = URLs.BASE_URL + 'webinar/list';
+    // String urls = 'https://my-cpe.com/api/v3/webinar/list';
 
     final response = await http.post(
       urls,

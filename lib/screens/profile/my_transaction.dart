@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constant.dart';
+import '../../rest_api.dart';
 
 class MyTranscation extends StatefulWidget {
   @override
@@ -31,8 +32,8 @@ class _MyTranscationState extends State<MyTranscation> {
   var data_web;
 
   Future<List<Transaction>> getMyTransactionList(String authToken, String start, String limit) async {
-    // String urls = URLs.BASE_URL + 'webinar/list';
-    String urls = 'https://my-cpe.com/api/v3/payment-transaction';
+    // String urls = 'https://my-cpe.com/api/v3/payment-transaction';
+    String urls = URLs.BASE_URL + 'payment-transaction';
 
     final response = await http.post(
       urls,

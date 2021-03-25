@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constant.dart';
+import '../../rest_api.dart';
 import 'model/review_question_model.dart';
 
 class ReviewQuestions extends StatefulWidget {
@@ -49,7 +50,8 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
 
   Future<List<Review_questions>> getReviewQuestionList(String authToken) async {
     // String urls = URLs.BASE_URL + 'webinar/list';
-    String urls = 'https://my-cpe.com/api/v3/webinar/review-questions';
+    // String urls = 'https://my-cpe.com/api/v3/webinar/review-questions';
+    String urls = URLs.BASE_URL + 'webinar/review-questions';
 
     final response = await http.post(
       urls,
@@ -85,7 +87,8 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
   }
 
   Future<String> getReviewAnswer(String authToken, String questionList, answerList) async {
-    String urls = 'https://my-cpe.com/api/v3/webinar/review-answer';
+    // String urls = 'https://my-cpe.com/api/v3/webinar/review-answer';
+    String urls = URLs.BASE_URL + 'webinar/review-answer';
 
     final response = await http.post(
       urls,

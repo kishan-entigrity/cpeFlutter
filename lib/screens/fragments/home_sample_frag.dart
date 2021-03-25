@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tags/flutter_tags.dart';
 import 'package:http/http.dart' as http;
 
+import '../../rest_api.dart';
+
 class HomeSampleFrag extends StatefulWidget {
   @override
   _HomeSampleFragState createState() => _HomeSampleFragState();
@@ -48,7 +50,8 @@ class _HomeSampleFragState extends State<HomeSampleFrag> {
   var data;
 
   Future<String> getData() async {
-    var response = await http.get(Uri.encodeFull("https://my-cpe.com/api/v3/topic-of-interest/list"));
+    // var response = await http.get(Uri.encodeFull("https://my-cpe.com/api/v3/topic-of-interest/list"));
+    var response = await http.get(Uri.encodeFull(URLs.BASE_URL + "topic-of-interest/list"));
 
     this.setState(() {
       // data = JSON.decode(response.body);

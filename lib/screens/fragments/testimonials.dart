@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constant.dart';
+import '../../rest_api.dart';
 
 class Testimonials extends StatefulWidget {
   Testimonials(this.webinarId);
@@ -41,7 +42,8 @@ class _TestimonialsState extends State<Testimonials> {
   Future<List<Webinar_testimonial>> getMyTransactionList(String authToken, String start, String limit) async {
     // Future<String> getMyTransactionList(String authToken, String start, String limit) async {
     // String urls = URLs.BASE_URL + 'webinar/list';
-    String urls = 'https://my-cpe.com/api/v3/webinar/testimonial';
+    // String urls = 'https://my-cpe.com/api/v3/webinar/testimonial';
+    String urls = URLs.BASE_URL + 'webinar/testimonial';
 
     final response = await http.post(
       urls,

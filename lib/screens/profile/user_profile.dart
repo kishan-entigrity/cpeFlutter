@@ -17,6 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constant.dart';
+import '../../rest_api.dart';
 
 class UserProfile extends StatefulWidget {
   UserProfile(this.data);
@@ -133,7 +134,8 @@ class _UserProfileState extends State<UserProfile> {
   var respEditProfMessage;
 
   Future<List<Job_title>> getJobTitleList(String authToken) async {
-    String urls = 'https://my-cpe.com/api/v3/job-title/list';
+    // String urls = 'https://my-cpe.com/api/v3/job-title/list';
+    String urls = URLs.BASE_URL + 'job-title/list';
 
     final response = await http.get(
       urls,
@@ -167,7 +169,8 @@ class _UserProfileState extends State<UserProfile> {
   }
 
   Future<List<Industries_list>> getIndustryList(String authToken) async {
-    String urls = 'https://my-cpe.com/api/v3/industry/list';
+    // String urls = 'https://my-cpe.com/api/v3/industry/list';
+    String urls = URLs.BASE_URL + 'industry/list';
 
     final response = await http.get(
       urls,
@@ -203,7 +206,8 @@ class _UserProfileState extends State<UserProfile> {
   }
 
   Future<List<User_type>> getProfessionalCreds(String authToken) async {
-    String urls = 'https://my-cpe.com/api/v3/user-type';
+    // String urls = 'https://my-cpe.com/api/v3/user-type';
+    String urls = URLs.BASE_URL + 'user-type';
 
     final response = await http.get(
       urls,
@@ -247,7 +251,8 @@ class _UserProfileState extends State<UserProfile> {
   }
 
   Future<List<Country>> getCountryListAPI() async {
-    String urls = 'https://my-cpe.com/api/v3/country';
+    // String urls = 'https://my-cpe.com/api/v3/country';
+    String urls = URLs.BASE_URL + 'country';
 
     final response = await http.get(
       urls,
@@ -279,7 +284,8 @@ class _UserProfileState extends State<UserProfile> {
   }
 
   Future<List<State_Name>> getStateNameListAPI(int selectedCountryId) async {
-    String urls = 'https://my-cpe.com/api/v3/state';
+    // String urls = 'https://my-cpe.com/api/v3/state';
+    String urls = URLs.BASE_URL + 'state';
 
     final response = await http.post(
       urls,
@@ -314,7 +320,8 @@ class _UserProfileState extends State<UserProfile> {
   }
 
   Future<List<City>> getCityNameListAPI(int selectedStateId) async {
-    String urls = 'https://my-cpe.com/api/v3/city';
+    // String urls = 'https://my-cpe.com/api/v3/city';
+    String urls = URLs.BASE_URL + 'city';
 
     final response = await http.post(
       urls,
@@ -2144,7 +2151,8 @@ class _UserProfileState extends State<UserProfile> {
   }
 
   Future<String> EditProfileCall() async {
-    String urls = 'https://my-cpe.com/api/v3/edit-profile';
+    // String urls = 'https://my-cpe.com/api/v3/edit-profile';
+    String urls = URLs.BASE_URL + 'edit-profile';
 
     final response = await http.post(
       urls,

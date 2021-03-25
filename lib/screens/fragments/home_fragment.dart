@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constant.dart';
+import '../../rest_api.dart';
 import '../webinar_details/webinar_details_new.dart';
 import 'model_recentwebinar/recent_webinar_data.dart';
 
@@ -56,8 +57,8 @@ class _HomeFragmentState extends State<HomeFragment> {
 
   Future<List<Webinar>> getDataWebinarList(String authToken, String start, String limit, String topic_of_interest, String subject_area,
       String webinar_key_text, String webinar_type, String date_filter, String filter_price) async {
-    // String urls = URLs.BASE_URL + 'webinar/list';
-    String urls = 'https://my-cpe.com/api/v3/webinar/list';
+    String urls = URLs.BASE_URL + 'webinar/list';
+    // String urls = 'https://my-cpe.com/api/v3/webinar/list';
 
     final response = await http.post(
       urls,

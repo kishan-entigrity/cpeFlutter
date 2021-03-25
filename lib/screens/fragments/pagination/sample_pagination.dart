@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../rest_api.dart';
+
 class SamplePagination extends StatefulWidget {
   @override
   _SamplePaginationState createState() => _SamplePaginationState();
@@ -32,13 +34,14 @@ class _SamplePaginationState extends State<SamplePagination> {
 
   bool isLast = false;
 
-  static const String webListUrl = "https://my-cpe.com/api/v3/webinar/list";
+  // static const String webListUrl = "https://my-cpe.com/api/v3/webinar/list";
+  static const String webListUrl = URLs.BASE_URL + "webinar/list";
 
   // Future<String> getDataWebinarList(String authToken, String start, String limit, String topic_of_interest, String subject_area,
   Future<List<Webinar>> getDataWebinarList(String authToken, String start, String limit, String topic_of_interest, String subject_area,
       String webinar_key_text, String webinar_type, String date_filter, String filter_price) async {
-    // String urls = URLs.BASE_URL + 'webinar/list';
-    String urls = 'https://my-cpe.com/api/v3/webinar/list';
+    String urls = URLs.BASE_URL + 'webinar/list';
+    // String urls = 'https://my-cpe.com/api/v3/webinar/list';
 
     final response = await http.post(
       urls,

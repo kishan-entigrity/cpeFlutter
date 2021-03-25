@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constant.dart';
+import '../../rest_api.dart';
 
 class Notifications extends StatefulWidget {
   @override
@@ -34,7 +35,7 @@ class _NotificationsState extends State<Notifications> {
 
   Future<List<Notification_list>> getMyTransactionList(String authToken, String start, String limit) async {
     // String urls = URLs.BASE_URL + 'webinar/list';
-    String urls = 'https://my-cpe.com/api/v3/notification';
+    String urls = URLs.BASE_URL + 'notification';
 
     final response = await http.post(
       urls,
