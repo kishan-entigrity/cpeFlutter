@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class URLs {
-  static const String BASE_URL = 'https://my-cpe.com/api/v3/';
+  // static const String BASE_URL = 'https://my-cpe.com/api/v3/';
+  static const String BASE_URL = 'https://my-cpe.com/api/v4/';
 }
 
 Future loginUser(String email, String password, String device_id, String device_token, String device_type) async {
