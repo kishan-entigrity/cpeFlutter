@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/screens/fragments/pagination/webinar_list.dart';
 import 'package:cpe_flutter/screens/profile/notification.dart';
+import 'package:cpe_flutter/screens/webinar_details/webinar_details_new.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -9,10 +11,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../constant.dart';
 import '../../rest_api.dart';
-import '../webinar_details/webinar_details_new.dart';
 import 'model_recentwebinar/recent_webinar_data.dart';
 
 class HomeFragment extends StatefulWidget {
@@ -21,6 +23,8 @@ class HomeFragment extends StatefulWidget {
 }
 
 class _HomeFragmentState extends State<HomeFragment> {
+  final scaffoldState = GlobalKey<ScaffoldState>();
+
   List<int> tempInt = [1, 4, 5, 7];
   int arrCount = 0;
   int arrCountRecent = 0;
@@ -42,6 +46,8 @@ class _HomeFragmentState extends State<HomeFragment> {
   String strWebinarType = "live";
   String strFilterPrice = "";
   String strWebinarTypeIntent = "";
+  String strDateFilter = '';
+  List<String> dateList = ['Today', 'Tomorrow', 'Next 7 Days', 'Next 30 Days'];
 
   bool isProgressShowing = false;
   bool isLoaderShowing = false;
@@ -54,6 +60,9 @@ class _HomeFragmentState extends State<HomeFragment> {
 
   TextEditingController searchController = TextEditingController();
   var searchKey = "";
+
+  var respStatus;
+  var respMessage;
 
   Future<List<Webinar>> getDataWebinarList(String authToken, String start, String limit, String topic_of_interest, String subject_area,
       String webinar_key_text, String webinar_type, String date_filter, String filter_price) async {
@@ -148,6 +157,7 @@ class _HomeFragmentState extends State<HomeFragment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldState,
       /*appBar: AppBar(
         title: Text(
           'My Webinar App Bar',
@@ -498,25 +508,30 @@ class _HomeFragmentState extends State<HomeFragment> {
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30.0),
-                              border: Border.all(color: Colors.black, width: 1.0),
-                              color: Color(0xFFFFFFFF),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                vertical: 9.0,
-                                horizontal: 18.0,
+                        GestureDetector(
+                          onTap: () {
+                            selectDateFilter();
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30.0),
+                                border: Border.all(color: Colors.black, width: 1.0),
+                                color: Color(0xFFFFFFFF),
                               ),
-                              child: Text(
-                                'Date',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 11.0.sp,
-                                  fontFamily: 'Whitney Medium',
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 9.0,
+                                  horizontal: 18.0,
+                                ),
+                                child: Text(
+                                  'Date',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 11.0.sp,
+                                    fontFamily: 'Whitney Medium',
+                                  ),
                                 ),
                               ),
                             ),
@@ -968,7 +983,7 @@ class _HomeFragmentState extends State<HomeFragment> {
 
   void selectPremiumFilter() {
     setState(() {
-      if (isPremium) {
+      /*if (isPremium) {
         isPremium = false;
       } else {
         isPremium = true;
@@ -982,8 +997,17 @@ class _HomeFragmentState extends State<HomeFragment> {
         strFilterPrice = "0";
       } else {
         strFilterPrice = "";
+      }*/
+      if (isPremium) {
+        isPremium = false;
+        isFree = true;
+      } else {
+        isPremium = true;
+        isFree = false;
       }
-
+      strFilterPrice = "1";
+      list.clear();
+      start = 0;
       isProgressShowing = true;
       this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
     });
@@ -991,7 +1015,7 @@ class _HomeFragmentState extends State<HomeFragment> {
 
   void selectFreeFilter() {
     setState(() {
-      if (isFree) {
+      /*if (isFree) {
         isFree = false;
       } else {
         isFree = true;
@@ -1005,10 +1029,115 @@ class _HomeFragmentState extends State<HomeFragment> {
         strFilterPrice = "0";
       } else {
         strFilterPrice = "";
+      }*/
+      if (isFree) {
+        isFree = false;
+        isPremium = true;
+      } else {
+        isFree = true;
+        isPremium = false;
       }
-
+      strFilterPrice = "0";
+      list.clear();
+      start = 0;
       isProgressShowing = true;
       this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+    });
+  }
+
+  void selectDateFilter() {
+    setState(() {
+      showModalBottomSheet(
+          context: context,
+          builder: (builder) {
+            return StatefulBuilder(
+              builder: (BuildContext context, void Function(void Function()) setState) {
+                return Container(
+                  height: 150.0.w,
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        height: 17.0.w,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: Container(
+                                width: 20.0.w,
+                                child: Center(
+                                  child: Text(
+                                    'Cancel',
+                                    style: kDateTestimonials,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: 50.0.w,
+                              child: Center(
+                                child: Text(
+                                  'Date',
+                                  style: kOthersTitle,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: 20.0.w,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: dateList.length,
+                          itemBuilder: (context, index) {
+                            return ConstrainedBox(
+                              constraints: BoxConstraints(
+                                minHeight: 15.0.w,
+                              ),
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    // clickEventOrgSize(index);
+                                    clickEventDateFilter(index);
+                                  });
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
+                                  decoration: BoxDecoration(
+                                    color: strDateFilter == dateList[index] ? themeYellow : Colors.teal,
+                                    borderRadius: BorderRadius.circular(7.0),
+                                    // color: Colors.teal,
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Text(
+                                            dateList[index],
+                                            textAlign: TextAlign.start,
+                                            style: kDataSingleSelectionBottomNav,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          });
     });
   }
 
@@ -1022,7 +1151,7 @@ class _HomeFragmentState extends State<HomeFragment> {
     });*/
   }
 
-  void getIdWebinar(int index) {
+  void getIdWebinar(int index) async {
     // int webinarId = data['payload']['webinar'][index]['id'];
     int webinarId = list[index].id;
     String strWebinarId = webinarId.toString();
@@ -1030,7 +1159,66 @@ class _HomeFragmentState extends State<HomeFragment> {
     strWebinarTypeIntent = list[index].webinarType;
     print('Id for the webinar is : $webinarId');
     print('String for strWebinarID : $strWebinarId');
-    String sampleIntnent = 'HelloWorld';
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
+      setState(() {
+        isLoaderShowing = true;
+      });
+      // registerWebinar(list[index].id);
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      bool checkValue = preferences.getBool("check");
+      print('Check value is : $checkValue');
+
+      if (checkValue != null) {
+        setState(() {
+          isLoaderShowing = true;
+        });
+
+        if (checkValue) {
+          String token = preferences.getString("spToken");
+          _authToken = 'Bearer $token';
+          print('Auth Token from SP is : $_authToken');
+
+          if (list[index].fee == 'FREE' || list[index].fee == '') {
+            // This is the free webinar.. take register webinar API call directly..
+            registerWebinar(index, list[index].id);
+          } else {
+            // Check for the card is added or not.. if card is added then take register api call..
+            // If the card is not added then redirect to payment link from here..
+            print('Is card saved status : ${list[index].isCardSave}');
+            if (list[index].isCardSave) {
+              print('Is card saved status : ${list[index].isCardSave}');
+              // Take API call for the Register webinar..
+              // If webinar registered successfully redirect to webinar details screen..
+              registerWebinar(index, list[index].id);
+            } else {
+              // const url = "https://flutter.io";
+              var url = list[index].paymentLink.toString();
+              if (await canLaunch(url))
+                await launch(url);
+              else
+                // can't launch url, there is some error
+                throw "Could not launch $url";
+            }
+            print('Payment redirection link : ${list[index].paymentLink.toString()}');
+          }
+        } else {
+          // Redirect to login POPUP
+        }
+      } else {
+        // Redirect to login POPUP
+      }
+    } else {
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text("Please check your internet connectivity and try again"),
+          duration: Duration(seconds: 5),
+        ),
+      );
+      setState(() {
+        isLoaderShowing = false;
+      });
+    }
     // Now redirect to webinar details from here..
     /*Navigator.push(
       context,
@@ -1047,12 +1235,12 @@ class _HomeFragmentState extends State<HomeFragment> {
         ),
       ),
     );*/
-    Navigator.push(
+    /*Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) =>
                 // WebinarDetails('resultText Sender', webinarId)));
-                WebinarDetailsNew(strWebinarTypeIntent, webinarId)));
+                WebinarDetailsNew(strWebinarTypeIntent, webinarId)));*/
   }
 
   checkForPrice(int index) {
@@ -1253,6 +1441,38 @@ class _HomeFragmentState extends State<HomeFragment> {
         print('Check value : $checkValue');
         preferences.clear();
       }
+    }
+  }
+
+  void clickEventDateFilter(int index) {
+    setState(() {
+      strDateFilter = dateList[index].toString();
+    });
+  }
+
+  void registerWebinar(int index, int id) async {
+    isLoaderShowing = true;
+    var resp = await registerWebinarAPI(_authToken, list[index].id.toString(), list[index].scheduleId.toString());
+    print('Response is : $resp');
+
+    respStatus = resp['success'];
+    respMessage = resp['message'];
+
+    isLoaderShowing = false;
+    if (respStatus) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => WebinarDetailsNew(strWebinarTypeIntent, list[index].id),
+        ),
+      );
+    } else {
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(respMessage),
+          duration: Duration(seconds: 5),
+        ),
+      );
     }
   }
 }
