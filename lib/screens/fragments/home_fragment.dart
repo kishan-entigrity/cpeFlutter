@@ -1170,9 +1170,9 @@ class _HomeFragmentState extends State<HomeFragment> {
       print('Check value is : $checkValue');
 
       if (checkValue != null) {
-        setState(() {
+        /*setState(() {
           isLoaderShowing = true;
-        });
+        });*/
 
         if (checkValue) {
           String token = preferences.getString("spToken");
@@ -1181,7 +1181,8 @@ class _HomeFragmentState extends State<HomeFragment> {
 
           if (list[index].fee == 'FREE' || list[index].fee == '') {
             // This is the free webinar.. take register webinar API call directly..
-            registerWebinar(index, list[index].id);
+            print('Fees for the webinar is : ${list[index].fee}');
+            registerWebinar(_authToken, index, list[index].id);
           } else {
             // Check for the card is added or not.. if card is added then take register api call..
             // If the card is not added then redirect to payment link from here..
@@ -1190,7 +1191,7 @@ class _HomeFragmentState extends State<HomeFragment> {
               print('Is card saved status : ${list[index].isCardSave}');
               // Take API call for the Register webinar..
               // If webinar registered successfully redirect to webinar details screen..
-              registerWebinar(index, list[index].id);
+              registerWebinar(_authToken, index, list[index].id);
             } else {
               // const url = "https://flutter.io";
               var url = list[index].paymentLink.toString();
@@ -1450,9 +1451,10 @@ class _HomeFragmentState extends State<HomeFragment> {
     });
   }
 
-  void registerWebinar(int index, int id) async {
+  void registerWebinar(String _authToken_1, int index, int id) async {
+    print('API call for register webinar webinarID : ${list[index].id.toString()} :: scheduleID : ${list[index].scheduleId.toString()}');
     isLoaderShowing = true;
-    var resp = await registerWebinarAPI(_authToken, list[index].id.toString(), list[index].scheduleId.toString());
+    var resp = await registerWebinarAPI(_authToken_1, list[index].id.toString(), list[index].scheduleId.toString());
     print('Response is : $resp');
 
     respStatus = resp['success'];
