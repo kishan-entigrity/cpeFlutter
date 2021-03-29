@@ -1,5 +1,6 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/screens/fragments/pagination/sample_pagination.dart';
+import 'package:cpe_flutter/screens/fragments/test_class_1.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
 import 'package:cpe_flutter/screens/profile/change_password.dart';
 import 'package:cpe_flutter/screens/profile/contact_us.dart';
@@ -273,7 +274,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
-                                                    builder: (context) => TermsCondition(),
+                                                    builder: (context) => TestClass1(),
                                                   ),
                                                 );
                                               },

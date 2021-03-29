@@ -16,7 +16,7 @@ class childWebinarStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 15.5.w,
+      height: 16.0.w,
       width: double.infinity,
       color: Colors.white,
       child: Column(

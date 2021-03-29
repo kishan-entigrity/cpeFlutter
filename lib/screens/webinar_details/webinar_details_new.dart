@@ -262,7 +262,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
               top: 0.0,
               right: 0.0,
               left: 0.0,
-              bottom: 15.5.w,
+              bottom: 16.0.w,
               child: Container(
                 color: Colors.white,
                 child: Column(
@@ -430,7 +430,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Container(
-                                height: 51.0.w,
+                                height: 58.0.w,
                                 width: double.infinity,
                                 color: Colors.red,
                                 child: FlickVideoPlayer(
@@ -474,7 +474,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                           child: Text(
                                             // '${data['payload']['webinar'][index]['webinar_title']}',
                                             // '${list[index].webinarTitle}',
-                                            '${webDetailsObj['webinar_title']}',
+                                            // '${webDetailsObj['webinar_title']}',
+                                            '$webinarTitle',
                                             style: TextStyle(
                                               fontFamily: 'Whitney Bold',
                                               fontSize: 16.0.sp,
@@ -493,7 +494,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                               child: Text(
                                                 // '${data['payload']['webinar'][index]['speaker_name']}',
                                                 // '${list[index].speakerName}',
-                                                '${webDetailsObj['about_presententer']['name']}',
+                                                // '${webDetailsObj['about_presententer']['name']}',
+                                                '$presenterName',
                                                 style: TextStyle(
                                                   fontFamily: 'Whitney Semi Bold',
                                                   fontSize: 13.0.sp,
@@ -603,7 +605,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                 },
                                 strTitle: 'Testimonials',
                                 cardChild:
-                                    childCardTestimonials('Description Data Testimonials', respTestimonials, webDetailsObj['webinar_id'].toString()),
+                                    // childCardTestimonials('Description Data Testimonials', respTestimonials, webDetailsObj['webinar_id'].toString()),
+                                    childCardTestimonials('Description Data Testimonials', respTestimonials, webinarId.toString()),
                                 flagExpand: isTestimonialsExpanded),
                             ExpandedCard(
                                 onPress: () {
@@ -807,7 +810,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
     if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
       var resp = await video_duration(userToken, webinarId, finalCurrentDuration, presentationDuration);
 
-      print('Response for change password api is : $resp');
+      print('Response for video Status api is : $resp');
 
       respStatus = resp['success'];
       respMessage = resp['message'];
@@ -815,6 +818,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       if (respStatus) {
         if (resp['payload']['video_status']) {
           stopBasicTimer();
+          // Here we need to take API call again as we need to update states for buttons..
+          webinarDetailsAPI();
         } else {
           setState(() {
             watched = resp['payload']['watched'];

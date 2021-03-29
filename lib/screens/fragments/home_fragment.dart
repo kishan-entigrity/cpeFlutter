@@ -999,8 +999,8 @@ class _HomeFragmentState extends State<HomeFragment> {
         strFilterPrice = "";
       }*/
       if (isPremium) {
-        isPremium = false;
-        isFree = true;
+        // isPremium = false;
+        // isFree = true;
       } else {
         isPremium = true;
         isFree = false;
@@ -1031,8 +1031,8 @@ class _HomeFragmentState extends State<HomeFragment> {
         strFilterPrice = "";
       }*/
       if (isFree) {
-        isFree = false;
-        isPremium = true;
+        // isFree = false;
+        // isPremium = true;
       } else {
         isFree = true;
         isPremium = false;
