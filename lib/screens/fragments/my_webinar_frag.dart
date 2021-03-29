@@ -1,7 +1,10 @@
 import 'dart:convert';
 
-import 'package:cpe_flutter/screens/fragments/pagination/webinar_list.dart';
+// import 'package:cpe_flutter/screens/fragments/pagination/webinar_list.dart';
+import 'package:cpe_flutter/screens/fragments/model_mywebinar/list_mywebinar.dart';
+import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
 import 'package:cpe_flutter/screens/profile/notification.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -23,6 +26,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
   int arrCount = 0;
   var data;
   var data_web;
+  var data_msg = '';
 
   int start = 0;
 
@@ -33,9 +37,21 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
   bool isFree = false;
   bool isCPD1 = false;
 
+  bool isUpcomingWeb = true;
+  bool isPendingEva = false;
+  bool isDidNotAttend = false;
+  bool isPollMissed = false;
+  bool isCompleted = false;
+
+  bool isEnrolledSS = false;
+  bool isQuizPendingSS = false;
+  bool isPendinEvaSS = false;
+  bool isCompletedSS = false;
+
   String _authToken = "";
 
   String strWebinarType = "live";
+  String strFilterType = '2';
   String strFilterPrice = "";
   String strWebinarTypeIntent = "";
 
@@ -50,10 +66,14 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
   TextEditingController searchController = TextEditingController();
   var searchKey = "";
 
+  bool isUserLoggedIn = false;
+
   // Future<String> getDataWebinarList(
-  Future<List<Webinar>> getDataWebinarList(String authToken, String start, String limit, String topic_of_interest, String subject_area,
-      String webinar_key_text, String webinar_type, String date_filter, String filter_price) async {
-    String urls = URLs.BASE_URL + 'webinar/list';
+  Future<List<Webinar>> getDataWebinarList(String authToken, String start, String limit, String webinar_type, String filter_type) async {
+    // String urls = URLs.BASE_URL + 'webinar/list';
+    print('Request params are : authToken : $authToken :: start : $start :: limit : $limit :: webinar_type : $webinar_type :: filter_type : '
+        '$filter_type');
+    String urls = URLs.BASE_URL + 'webinar/mywebinars';
     // String urls = 'https://my-cpe.com/api/v3/webinar/list';
     // String urls = 'https://my-cpe.com/api/v3/webinar/my-webinar';
 
@@ -66,19 +86,22 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       body: {
         'start': start,
         'limit': limit,
-        'topic_of_interest': topic_of_interest,
-        'subject_area': subject_area,
-        'webinar_key_text': webinar_key_text,
         'webinar_type': webinar_type,
-        'date_filter': date_filter,
-        'filter_price': filter_price,
+        'filter_type': filter_type,
       },
     );
 
     this.setState(() {
       // data = JSON.decode(response.body);
+      if (response.statusCode == 401) {
+        // Force Logout User..
+        print('Get response for 401 need to force logout user..');
+        logoutUser();
+      }
+
       data = jsonDecode(response.body);
       isLoaderShowing = false;
+      data_msg = data['message'];
       if (data['payload']['is_last']) {
         isLast = true;
       } else {
@@ -117,12 +140,6 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
         }
       }
     });
-
-    /*this.getDataWebinarList(
-        '', '0', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
-    print('init State isLive : $isLive');
-    print('init State isSelfStudy : $isSelfStudy');*/
-    // this.getDataWebinarList('', '0', '10', '', '', '', 'self_study', '', '0');
   }
 
   @override
@@ -134,15 +151,6 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /*appBar: AppBar(
-        title: Text(
-          'My Webinar App Bar',
-          style: TextStyle(
-            fontSize: 30.0,
-            color: Colors.teal,
-          ),
-        ),
-      ),*/
       body: SafeArea(
         child: Stack(
           children: <Widget>[
@@ -184,20 +192,23 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                             padding: EdgeInsets.all(10.0),
                             child: Row(
                               children: <Widget>[
-                                GestureDetector(
-                                  onTap: () {
-                                    print('Clicked on the search icon..');
-                                    setState(() {
-                                      isSearch = true;
-                                    });
-                                  },
-                                  child: Container(
-                                    width: 30.0.sp,
-                                    height: double.infinity,
-                                    color: Color(0xFFF3F5F9),
-                                    child: Icon(
-                                      FontAwesomeIcons.search,
-                                      size: 12.0.sp,
+                                Visibility(
+                                  visible: false,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      print('Clicked on the search icon..');
+                                      setState(() {
+                                        isSearch = true;
+                                      });
+                                    },
+                                    child: Container(
+                                      width: 30.0.sp,
+                                      height: double.infinity,
+                                      color: Color(0xFFF3F5F9),
+                                      child: Icon(
+                                        FontAwesomeIcons.search,
+                                        size: 12.0.sp,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -227,59 +238,8 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                       ],
                     ),
                   ),
-                  /*child: Container(
-                    height: 60.0,
-                    width: double.infinity,
-                    color: Color(0xFFF3F5F9),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Flexible(
-                          flex: 2,
-                          child: Container(
-                            padding: EdgeInsets.all(10.0),
-                            width: 20.0.sp,
-                          ),
-                        ),
-                        Flexible(
-                          flex: 8,
-                          child: Center(
-                            child: Text(
-                              'My Webinar',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 15.0.sp,
-                                fontFamily: 'Whitney Semi Bold',
-                              ),
-                            ),
-                          ),
-                        ),
-                        Flexible(
-                          flex: 2,
-                          child: GestureDetector(
-                            onTap: () {
-                              print('Clicked on the search icon..');
-                              setState(() {
-                                isSearch = true;
-                              });
-                            },
-                            child: Container(
-                              color: Color(0xFFF3F5F9),
-                              width: 20.0.sp,
-                              height: double.infinity,
-                              padding: EdgeInsets.all(10.0),
-                              child: Icon(
-                                FontAwesomeIcons.search,
-                                size: 12.0.sp,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),*/
                 ),
-                Visibility(
+                /*Visibility(
                   visible: isSearch,
                   child: Container(
                     height: 60.0,
@@ -357,499 +317,921 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                       ),
                     ),
                   ),
-                ),
+                ),*/
                 Container(
                   height: 1.0,
                   width: double.infinity,
                   color: Colors.blueGrey,
                 ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
-                    child: Row(
-                      children: <Widget>[
-                        /*selectedFilterWidget(
-                      str: 'Test Filter',
-                    ),*/
-                        selectedFilterWidget(
-                          str: 'Hot Topics',
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30.0),
-                              border: Border.all(color: Colors.black, width: 1.0),
-                              color: Color(0xFFFFFFFF),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                vertical: 9.0,
-                                horizontal: 18.0,
-                              ),
-                              child: Text(
-                                'Topics',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 11.0.sp,
-                                  fontFamily: 'Whitney Medium',
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            selectLiveFilter();
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                            child: Container(
-                              decoration: isLive
-                                  ? BoxDecoration(
-                                      borderRadius: BorderRadius.circular(18.0),
-                                      color: Color(0xFF607083),
-                                    )
-                                  : BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30.0),
-                                      border: Border.all(color: Colors.black, width: 1.0),
-                                      color: Color(0xFFFFFFFF),
-                                    ),
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: 9.0,
-                                  horizontal: 18.0,
-                                ),
-                                child: Text(
-                                  'Live Webinars',
-                                  style: TextStyle(
-                                    color: isLive ? Colors.white : Colors.black,
-                                    fontSize: 11.0.sp,
-                                    fontFamily: 'Whitney Medium',
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            selectSelfStudyFilter();
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                            child: Container(
-                              decoration: isSelfStudy
-                                  ? BoxDecoration(
-                                      borderRadius: BorderRadius.circular(18.0),
-                                      color: Color(0xFF607083),
-                                    )
-                                  : BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30.0),
-                                      border: Border.all(color: Colors.black, width: 1.0),
-                                      color: Color(0xFFFFFFFF),
-                                    ),
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: 9.0,
-                                  horizontal: 18.0,
-                                ),
-                                child: Text(
-                                  'Self Study',
-                                  style: TextStyle(
-                                    color: isSelfStudy ? Colors.white : Colors.black,
-                                    fontSize: 11.0.sp,
-                                    fontFamily: 'Whitney Medium',
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            selectPremiumFilter();
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                            child: Container(
-                              decoration: isPremium
-                                  ? BoxDecoration(
-                                      borderRadius: BorderRadius.circular(18.0),
-                                      color: Color(0xFF607083),
-                                    )
-                                  : BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30.0),
-                                      border: Border.all(color: Colors.black, width: 1.0),
-                                      color: Color(0xFFFFFFFF),
-                                    ),
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: 9.0,
-                                  horizontal: 18.0,
-                                ),
-                                child: Text(
-                                  'Premium',
-                                  style: TextStyle(
-                                    color: isPremium ? Colors.white : Colors.black,
-                                    fontSize: 11.0.sp,
-                                    fontFamily: 'Whitney Medium',
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            selectFreeFilter();
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                            child: Container(
-                              decoration: isFree
-                                  ? BoxDecoration(
-                                      borderRadius: BorderRadius.circular(18.0),
-                                      color: Color(0xFF607083),
-                                    )
-                                  : BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30.0),
-                                      border: Border.all(color: Colors.black, width: 1.0),
-                                      color: Color(0xFFFFFFFF),
-                                    ),
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: 9.0,
-                                  horizontal: 18.0,
-                                ),
-                                child: Text(
-                                  'Free',
-                                  style: TextStyle(
-                                    color: isFree ? Colors.white : Colors.black,
-                                    fontSize: 11.0.sp,
-                                    fontFamily: 'Whitney Medium',
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30.0),
-                              border: Border.all(color: Colors.black, width: 1.0),
-                              color: Color(0xFFFFFFFF),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                vertical: 9.0,
-                                horizontal: 18.0,
-                              ),
-                              child: Text(
-                                'Date',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 11.0.sp,
-                                  fontFamily: 'Whitney Medium',
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: selectCPDFilter(),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                            child: Container(
-                              decoration: isCPD1
-                                  ? BoxDecoration(
-                                      borderRadius: BorderRadius.circular(18.0),
-                                      color: Color(0xFF607083),
-                                    )
-                                  : BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30.0),
-                                      border: Border.all(color: Colors.black, width: 1.0),
-                                      color: Color(0xFFFFFFFF),
-                                    ),
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: 9.0,
-                                  horizontal: 18.0,
-                                ),
-                                child: Text(
-                                  'CPD',
-                                  style: TextStyle(
-                                    color: isCPD1 ? Colors.white : Colors.black,
-                                    fontSize: 11.0.sp,
-                                    fontFamily: 'Whitney Medium',
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
                 Expanded(
-                  child: (list != null && list.isNotEmpty)
-                      ? ListView.builder(
-                          controller: _scrollController,
-                          shrinkWrap: true,
-                          // itemCount: arrCount,
-                          itemCount: list.length + 1,
-                          itemBuilder: (context, index) {
-                            return (index == list.length)
-                                ? isLast
-                                    ? Container(
-                                        height: 20.0,
-                                      )
-                                    : Padding(
-                                        padding: EdgeInsets.symmetric(vertical: 20.0),
-                                        child: Center(
-                                          child: CircularProgressIndicator(),
-                                        ),
-                                      )
-                                : GestureDetector(
-                                    onTap: () {
-                                      print('Clicked on index pos : $index');
-                                    },
-                                    child: Container(
-                                      // margin: EdgeInsets.only(top: 10.0),
-                                      margin: EdgeInsets.fromLTRB(3.5.w, 0.0.h, 3.5.w, 2.0.h),
+                  child: Container(
+                    child: !isUserLoggedIn
+                        ? Container(
+                            color: testColor,
+                            child: Center(
+                              child: Container(
+                                height: 80.0.w,
+                                width: 70.0.w,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      margin: EdgeInsets.only(top: 20.0.sp),
+                                      height: 25.0.w,
+                                      width: 25.0.w,
                                       decoration: BoxDecoration(
-                                        // color: Color(0xFFFFC803),
-                                        color: index % 2 == 0 ? Color(0xFFFFC803) : Color(0xFF00B1FD),
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(15.0),
+                                        color: Colors.red,
+                                        borderRadius: BorderRadius.circular(25.0.w),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          '!',
+                                          style: TextStyle(
+                                            fontSize: 15.0.w,
+                                            color: Colors.white,
+                                            fontFamily: 'Whitney Bold',
+                                          ),
                                         ),
                                       ),
-                                      height: 70.0.w,
-                                      child: Stack(
-                                        children: [
-                                          Positioned(
-                                            top: 0,
-                                            left: 0,
-                                            right: 0,
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Padding(
-                                                  padding: const EdgeInsets.only(top: 15.0),
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: <Widget>[
-                                                      ConstrainedBox(
-                                                        constraints: BoxConstraints(minWidth: 28.0.w),
-                                                        child: Container(
-                                                          margin: EdgeInsets.only(left: 15.0),
-                                                          height: 4.0.h,
-                                                          decoration: BoxDecoration(
-                                                            borderRadius: BorderRadius.circular(5.0),
-                                                            color: Colors.white,
-                                                          ),
-                                                          child: Padding(
-                                                            padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
-                                                            child: Center(
-                                                              child: Text(
-                                                                  // '${data['payload']['webinar'][index]['webinar_type']}',
-                                                                  '${list[index].webinarType}',
-                                                                  style:
-                                                                      // kWebinarButtonLabelTextStyleGreen,
-                                                                      TextStyle(
-                                                                    fontFamily: 'Whitney Semi Bold',
-                                                                    fontSize: 12.5.sp,
-                                                                    color: Color(0xFF00A81B),
-                                                                  )),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      ConstrainedBox(
-                                                        constraints: BoxConstraints(minWidth: 28.0.w),
-                                                        child: Container(
-                                                          height: 4.0.h,
-                                                          decoration: BoxDecoration(
-                                                            borderRadius: BorderRadius.circular(5.0),
-                                                            color: Colors.white,
-                                                          ),
-                                                          child: Padding(
-                                                            padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
-                                                            child: Center(
-                                                              child: Text(
-                                                                  // '${data['payload']['webinar'][index]['cpa_credit']}',
-                                                                  '${list[index].cpaCredit}',
-                                                                  style:
-                                                                      // kWebinarButtonLabelTextStyle,
-                                                                      TextStyle(
-                                                                    fontFamily: 'Whitney Semi Bold',
-                                                                    fontSize: 12.5.sp,
-                                                                    color: Colors.black,
-                                                                  )),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      ConstrainedBox(
-                                                        constraints: BoxConstraints(minWidth: 28.0.w),
-                                                        child: Container(
-                                                          margin: EdgeInsets.only(right: 15.0),
-                                                          height: 4.0.h,
-                                                          decoration: BoxDecoration(
-                                                            borderRadius: BorderRadius.circular(5.0),
-                                                            color: Colors.white,
-                                                          ),
-                                                          child: Padding(
-                                                            padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
-                                                            child: Center(
-                                                              child: Text(
-                                                                  // '\$ ${data['payload']['webinar'][index]['fee']}',
-                                                                  '${checkForPrice(index)}',
-                                                                  style:
-                                                                      // kWebinarButtonLabelTextStyle,
-                                                                      TextStyle(
-                                                                    fontFamily: 'Whitney Semi Bold',
-                                                                    fontSize: 12.5.sp,
-                                                                    color: Colors.black,
-                                                                  )),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
-                                                  child: Flexible(
-                                                    child: Text(
-                                                      // '${data['payload']['webinar'][index]['webinar_title']}',
-                                                      '${list[index].webinarTitle}',
-                                                      style: TextStyle(
-                                                        fontFamily: 'Whitney Bold',
-                                                        fontSize: 16.0.sp,
-                                                        color: index % 2 == 0 ? Colors.black : Colors.white,
-                                                      ),
-                                                      maxLines: 2,
-                                                      overflow: TextOverflow.ellipsis,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
-                                                  child: Row(
-                                                    children: [
-                                                      Flexible(
-                                                        child: Text(
-                                                          // '${data['payload']['webinar'][index]['speaker_name']}',
-                                                          '${list[index].speakerName}',
-                                                          style: TextStyle(
-                                                            fontFamily: 'Whitney Semi Bold',
-                                                            fontSize: 13.0.sp,
-                                                            color: index % 2 == 0 ? Colors.black : Colors.white,
-                                                          ),
-                                                          overflow: TextOverflow.ellipsis,
-                                                          maxLines: 2,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
-                                                  child: Row(
-                                                    children: [
-                                                      Text(
-                                                        // '${data['payload']['webinar'][index]['start_date']} - ${data['payload']['webinar'][index]['start_time']} - ${data['payload']['webinar'][index]['time_zone']}',
-                                                        '${displayDateCondition(index)}',
-                                                        style: TextStyle(
-                                                          fontFamily: 'Whitney Semi Bold',
-                                                          fontSize: 13.0.sp,
-                                                          color: index % 2 == 0 ? Colors.black : Colors.white,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        'Oops',
+                                        style: TextStyle(
+                                          fontSize: 20.0.sp,
+                                          color: Colors.black,
+                                          fontFamily: 'Whitney Bold',
+                                        ),
+                                      ),
+                                      padding: EdgeInsets.all(10.0),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.symmetric(horizontal: 20.0.sp),
+                                      child: Text(
+                                        'You need to login first for accessing this window.',
+                                        style: TextStyle(
+                                          fontSize: 14.0.sp,
+                                          color: Colors.black45,
+                                          fontFamily: 'Whitney Medium',
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            logoutUser();
+                                          });
+                                        },
+                                        child: Container(
+                                          margin: EdgeInsets.symmetric(vertical: 5.0.w, horizontal: 5.0.w),
+                                          height: 15.0.w,
+                                          width: double.infinity,
+                                          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+                                          decoration: BoxDecoration(
+                                            color: themeYellow,
+                                            borderRadius: BorderRadius.circular(10.0),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              'Ok',
+                                              style: TextStyle(
+                                                fontSize: 12.0.sp,
+                                                color: Colors.white,
+                                                fontFamily: 'Whitney Bold',
+                                              ),
                                             ),
                                           ),
-                                          Positioned(
-                                            bottom: 18.0,
-                                            left: 18.0,
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                print('Clicked on register button index is : $index');
-                                                getIdWebinar(index);
-                                                // 1. Take an API call for relevent action from here..
-                                                // 2. Before this need to verify user is logged in or not..
-                                                // 3. If not then redirect to Login screen and then back here..
-                                                // 4. If user is logged in then need to check for webinar is free or not..
-                                                // 5. If the webinar is free then have to check for isCardSaved or not..
-                                                // 6. Take a Register API call from there onwards..
-                                              },
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  // color: Color(0xFFC2900D),
-                                                  color: Color(0x23000000),
-                                                  borderRadius: BorderRadius.all(
-                                                    Radius.circular(5.0),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
+                        : Column(
+                            children: <Widget>[
+                              SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+                                  child: Row(
+                                    children: <Widget>[
+                                      GestureDetector(
+                                        onTap: () {
+                                          selectLiveFilter();
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                          child: Container(
+                                            decoration: isLive
+                                                ? BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(18.0),
+                                                    border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                    color: Color(0xFF607083),
+                                                  )
+                                                : BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(30.0),
+                                                    border: Border.all(color: Colors.black, width: 1.0),
+                                                    color: Color(0xFFFFFFFF),
                                                   ),
-                                                ),
-                                                height: 11.5.w,
-                                                width: 35.0.w,
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: <Widget>[
-                                                    Padding(
-                                                      padding: const EdgeInsets.all(8.0),
-                                                      child: Text(
-                                                        // '${data['payload']['webinar'][index]['status']}',
-                                                        '${list[index].status}',
-                                                        style: TextStyle(
-                                                          fontFamily: 'Whitney Semi Bold',
-                                                          fontSize: 14.0.sp,
-                                                          color: Colors.white,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding: EdgeInsets.all(5.0),
-                                                      child: Icon(
-                                                        FontAwesomeIcons.angleRight,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                  ],
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: 9.0,
+                                                horizontal: 18.0,
+                                              ),
+                                              child: Text(
+                                                'Live Webinars',
+                                                style: TextStyle(
+                                                  color: isLive ? Colors.white : Colors.black,
+                                                  fontSize: 11.0.sp,
+                                                  fontFamily: 'Whitney Medium',
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          Positioned(
-                                            bottom: 0,
-                                            right: 0,
-                                            child: Image.asset(
-                                              'assets/avatar_bottom_right.png',
-                                              height: 36.0.w,
-                                              width: 36.0.w,
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          selectSelfStudyFilter();
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                          child: Container(
+                                            decoration: isSelfStudy
+                                                ? BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(18.0),
+                                                    border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                    color: Color(0xFF607083),
+                                                  )
+                                                : BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(30.0),
+                                                    border: Border.all(color: Colors.black, width: 1.0),
+                                                    color: Color(0xFFFFFFFF),
+                                                  ),
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: 9.0,
+                                                horizontal: 18.0,
+                                              ),
+                                              child: Text(
+                                                'Self Study',
+                                                style: TextStyle(
+                                                  color: isSelfStudy ? Colors.white : Colors.black,
+                                                  fontSize: 11.0.sp,
+                                                  fontFamily: 'Whitney Medium',
+                                                ),
+                                              ),
                                             ),
                                           ),
-                                        ],
+                                        ),
                                       ),
+                                      Visibility(
+                                        visible: isLive ? true : false,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            selectUpcomingWebinarFilter();
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                            child: Container(
+                                              decoration: isUpcomingWeb
+                                                  ? BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(18.0),
+                                                      border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                      color: Color(0xFF607083),
+                                                    )
+                                                  : BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(30.0),
+                                                      border: Border.all(color: Colors.black, width: 1.0),
+                                                      color: Color(0xFFFFFFFF),
+                                                    ),
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                  vertical: 9.0,
+                                                  horizontal: 18.0,
+                                                ),
+                                                child: Text(
+                                                  'Upcoming webinar',
+                                                  style: TextStyle(
+                                                    color: isUpcomingWeb ? Colors.white : Colors.black,
+                                                    fontSize: 11.0.sp,
+                                                    fontFamily: 'Whitney Medium',
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: isLive ? true : false,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            selectForPendingEvaluationFilter();
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                            child: Container(
+                                              decoration: isPendingEva
+                                                  ? BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(18.0),
+                                                      border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                      color: Color(0xFF607083),
+                                                    )
+                                                  : BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(30.0),
+                                                      border: Border.all(color: Colors.black, width: 1.0),
+                                                      color: Color(0xFFFFFFFF),
+                                                    ),
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                  vertical: 9.0,
+                                                  horizontal: 18.0,
+                                                ),
+                                                child: Text(
+                                                  'Pending Evaluation',
+                                                  style: TextStyle(
+                                                    color: isPendingEva ? Colors.white : Colors.black,
+                                                    fontSize: 11.0.sp,
+                                                    fontFamily: 'Whitney Medium',
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: isLive ? true : false,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            selectDidNotAttendFilter();
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                            child: Container(
+                                              decoration: isDidNotAttend
+                                                  ? BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(18.0),
+                                                      border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                      color: Color(0xFF607083),
+                                                    )
+                                                  : BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(30.0),
+                                                      border: Border.all(color: Colors.black, width: 1.0),
+                                                      color: Color(0xFFFFFFFF),
+                                                    ),
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                  vertical: 9.0,
+                                                  horizontal: 18.0,
+                                                ),
+                                                child: Text(
+                                                  'Did not attend',
+                                                  style: TextStyle(
+                                                    color: isDidNotAttend ? Colors.white : Colors.black,
+                                                    fontSize: 11.0.sp,
+                                                    fontFamily: 'Whitney Medium',
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: isLive ? true : false,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            selectPollMissedFilter();
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                            child: Container(
+                                              decoration: isPollMissed
+                                                  ? BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(18.0),
+                                                      border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                      color: Color(0xFF607083),
+                                                    )
+                                                  : BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(30.0),
+                                                      border: Border.all(color: Colors.black, width: 1.0),
+                                                      color: Color(0xFFFFFFFF),
+                                                    ),
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                  vertical: 9.0,
+                                                  horizontal: 18.0,
+                                                ),
+                                                child: Text(
+                                                  'Poll Missed',
+                                                  style: TextStyle(
+                                                    color: isPollMissed ? Colors.white : Colors.black,
+                                                    fontSize: 11.0.sp,
+                                                    fontFamily: 'Whitney Medium',
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: isLive ? true : false,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            selectCompletedFilter();
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                            child: Container(
+                                              decoration: isCompleted
+                                                  ? BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(18.0),
+                                                      border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                      color: Color(0xFF607083),
+                                                    )
+                                                  : BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(30.0),
+                                                      border: Border.all(color: Colors.black, width: 1.0),
+                                                      color: Color(0xFFFFFFFF),
+                                                    ),
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                  vertical: 9.0,
+                                                  horizontal: 18.0,
+                                                ),
+                                                child: Text(
+                                                  'Completed',
+                                                  style: TextStyle(
+                                                    color: isCompleted ? Colors.white : Colors.black,
+                                                    fontSize: 11.0.sp,
+                                                    fontFamily: 'Whitney Medium',
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: isSelfStudy ? true : false,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            selectEnrolledSSFilter();
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                            child: Container(
+                                              decoration: isEnrolledSS
+                                                  ? BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(18.0),
+                                                      border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                      color: Color(0xFF607083),
+                                                    )
+                                                  : BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(30.0),
+                                                      border: Border.all(color: Colors.black, width: 1.0),
+                                                      color: Color(0xFFFFFFFF),
+                                                    ),
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                  vertical: 9.0,
+                                                  horizontal: 18.0,
+                                                ),
+                                                child: Text(
+                                                  'Enrolled',
+                                                  style: TextStyle(
+                                                    color: isEnrolledSS ? Colors.white : Colors.black,
+                                                    fontSize: 11.0.sp,
+                                                    fontFamily: 'Whitney Medium',
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: isSelfStudy ? true : false,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            selectQuizPendingSSFilter();
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                            child: Container(
+                                              decoration: isQuizPendingSS
+                                                  ? BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(18.0),
+                                                      border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                      color: Color(0xFF607083),
+                                                    )
+                                                  : BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(30.0),
+                                                      border: Border.all(color: Colors.black, width: 1.0),
+                                                      color: Color(0xFFFFFFFF),
+                                                    ),
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                  vertical: 9.0,
+                                                  horizontal: 18.0,
+                                                ),
+                                                child: Text(
+                                                  'Quiz Pending',
+                                                  style: TextStyle(
+                                                    color: isQuizPendingSS ? Colors.white : Colors.black,
+                                                    fontSize: 11.0.sp,
+                                                    fontFamily: 'Whitney Medium',
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: isSelfStudy ? true : false,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            selectPendingEvaluationSSFilter();
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                            child: Container(
+                                              decoration: isPendinEvaSS
+                                                  ? BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(18.0),
+                                                      border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                      color: Color(0xFF607083),
+                                                    )
+                                                  : BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(30.0),
+                                                      border: Border.all(color: Colors.black, width: 1.0),
+                                                      color: Color(0xFFFFFFFF),
+                                                    ),
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                  vertical: 9.0,
+                                                  horizontal: 18.0,
+                                                ),
+                                                child: Text(
+                                                  'Pending Evaluation',
+                                                  style: TextStyle(
+                                                    color: isPendinEvaSS ? Colors.white : Colors.black,
+                                                    fontSize: 11.0.sp,
+                                                    fontFamily: 'Whitney Medium',
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: isSelfStudy ? true : false,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            selectCompletedSSFilter();
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                            child: Container(
+                                              decoration: isCompletedSS
+                                                  ? BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(18.0),
+                                                      border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                      color: Color(0xFF607083),
+                                                    )
+                                                  : BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(30.0),
+                                                      border: Border.all(color: Colors.black, width: 1.0),
+                                                      color: Color(0xFFFFFFFF),
+                                                    ),
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                  vertical: 9.0,
+                                                  horizontal: 18.0,
+                                                ),
+                                                child: Text(
+                                                  'Completed',
+                                                  style: TextStyle(
+                                                    color: isCompletedSS ? Colors.white : Colors.black,
+                                                    fontSize: 11.0.sp,
+                                                    fontFamily: 'Whitney Medium',
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      /*GestureDetector(
+                            onTap: () {
+                              selectPremiumFilter();
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                              child: Container(
+                                decoration: isPremium
+                                    ? BoxDecoration(
+                                        borderRadius: BorderRadius.circular(18.0),
+                                        color: Color(0xFF607083),
+                                      )
+                                    : BoxDecoration(
+                                        borderRadius: BorderRadius.circular(30.0),
+                                        border: Border.all(color: Colors.black, width: 1.0),
+                                        color: Color(0xFFFFFFFF),
+                                      ),
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: 9.0,
+                                    horizontal: 18.0,
+                                  ),
+                                  child: Text(
+                                    'Premium',
+                                    style: TextStyle(
+                                      color: isPremium ? Colors.white : Colors.black,
+                                      fontSize: 11.0.sp,
+                                      fontFamily: 'Whitney Medium',
                                     ),
-                                  );
-                          },
-                        )
-                      : Container(
-                          child: Center(
-                            child: CircularProgressIndicator(),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
+                          GestureDetector(
+                            onTap: () {
+                              selectFreeFilter();
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                              child: Container(
+                                decoration: isFree
+                                    ? BoxDecoration(
+                                        borderRadius: BorderRadius.circular(18.0),
+                                        color: Color(0xFF607083),
+                                      )
+                                    : BoxDecoration(
+                                        borderRadius: BorderRadius.circular(30.0),
+                                        border: Border.all(color: Colors.black, width: 1.0),
+                                        color: Color(0xFFFFFFFF),
+                                      ),
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: 9.0,
+                                    horizontal: 18.0,
+                                  ),
+                                  child: Text(
+                                    'Free',
+                                    style: TextStyle(
+                                      color: isFree ? Colors.white : Colors.black,
+                                      fontSize: 11.0.sp,
+                                      fontFamily: 'Whitney Medium',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30.0),
+                                border: Border.all(color: Colors.black, width: 1.0),
+                                color: Color(0xFFFFFFFF),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 9.0,
+                                  horizontal: 18.0,
+                                ),
+                                child: Text(
+                                  'Date',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 11.0.sp,
+                                    fontFamily: 'Whitney Medium',
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: selectCPDFilter(),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                              child: Container(
+                                decoration: isCPD1
+                                    ? BoxDecoration(
+                                        borderRadius: BorderRadius.circular(18.0),
+                                        color: Color(0xFF607083),
+                                      )
+                                    : BoxDecoration(
+                                        borderRadius: BorderRadius.circular(30.0),
+                                        border: Border.all(color: Colors.black, width: 1.0),
+                                        color: Color(0xFFFFFFFF),
+                                      ),
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: 9.0,
+                                    horizontal: 18.0,
+                                  ),
+                                  child: Text(
+                                    'CPD',
+                                    style: TextStyle(
+                                      color: isCPD1 ? Colors.white : Colors.black,
+                                      fontSize: 11.0.sp,
+                                      fontFamily: 'Whitney Medium',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),*/
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Container(
+                                  child: isLoaderShowing
+                                      ? Center(
+                                          child: CircularProgressIndicator(),
+                                        )
+                                      : (list != null && list.isNotEmpty)
+                                          ? ListView.builder(
+                                              controller: _scrollController,
+                                              shrinkWrap: true,
+                                              // itemCount: arrCount,
+                                              itemCount: list.length + 1,
+                                              itemBuilder: (context, index) {
+                                                return (index == list.length)
+                                                    ? isLast
+                                                        ? Container(
+                                                            height: 20.0,
+                                                          )
+                                                        : Padding(
+                                                            padding: EdgeInsets.symmetric(vertical: 20.0),
+                                                            child: Center(
+                                                              child: CircularProgressIndicator(),
+                                                            ),
+                                                          )
+                                                    : GestureDetector(
+                                                        onTap: () {
+                                                          print('Clicked on index pos : $index');
+                                                        },
+                                                        child: Container(
+                                                          // margin: EdgeInsets.only(top: 10.0),
+                                                          margin: EdgeInsets.fromLTRB(3.5.w, 0.0.h, 3.5.w, 2.0.h),
+                                                          decoration: BoxDecoration(
+                                                            // color: Color(0xFFFFC803),
+                                                            color: index % 2 == 0 ? Color(0xFFFFC803) : Color(0xFF00B1FD),
+                                                            borderRadius: BorderRadius.all(
+                                                              Radius.circular(15.0),
+                                                            ),
+                                                          ),
+                                                          height: 70.0.w,
+                                                          child: Stack(
+                                                            children: [
+                                                              Positioned(
+                                                                top: 0,
+                                                                left: 0,
+                                                                right: 0,
+                                                                child: Column(
+                                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  children: <Widget>[
+                                                                    Padding(
+                                                                      padding: const EdgeInsets.only(top: 15.0),
+                                                                      child: Row(
+                                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                        children: <Widget>[
+                                                                          ConstrainedBox(
+                                                                            constraints: BoxConstraints(minWidth: 28.0.w),
+                                                                            child: Container(
+                                                                              margin: EdgeInsets.only(left: 15.0),
+                                                                              height: 4.0.h,
+                                                                              decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.circular(5.0),
+                                                                                color: Colors.white,
+                                                                              ),
+                                                                              child: Padding(
+                                                                                padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+                                                                                child: Center(
+                                                                                  child: Text(
+                                                                                      // '${data['payload']['webinar'][index]['webinar_type']}',
+                                                                                      '${list[index].webinarType}',
+                                                                                      style:
+                                                                                          // kWebinarButtonLabelTextStyleGreen,
+                                                                                          TextStyle(
+                                                                                        fontFamily: 'Whitney Semi Bold',
+                                                                                        fontSize: 12.5.sp,
+                                                                                        color: Color(0xFF00A81B),
+                                                                                      )),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          ConstrainedBox(
+                                                                            constraints: BoxConstraints(minWidth: 28.0.w),
+                                                                            child: Container(
+                                                                              height: 4.0.h,
+                                                                              decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.circular(5.0),
+                                                                                color: Colors.white,
+                                                                              ),
+                                                                              child: Padding(
+                                                                                padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+                                                                                child: Center(
+                                                                                  child: Text(
+                                                                                      // '${data['payload']['webinar'][index]['cpa_credit']}',
+                                                                                      '${list[index].cpaCredit}',
+                                                                                      style:
+                                                                                          // kWebinarButtonLabelTextStyle,
+                                                                                          TextStyle(
+                                                                                        fontFamily: 'Whitney Semi Bold',
+                                                                                        fontSize: 12.5.sp,
+                                                                                        color: Colors.black,
+                                                                                      )),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          ConstrainedBox(
+                                                                            constraints: BoxConstraints(minWidth: 28.0.w),
+                                                                            child: Container(
+                                                                              margin: EdgeInsets.only(right: 15.0),
+                                                                              height: 4.0.h,
+                                                                              decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.circular(5.0),
+                                                                                color: Colors.white,
+                                                                              ),
+                                                                              child: Padding(
+                                                                                padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+                                                                                child: Center(
+                                                                                  child: Text(
+                                                                                      // '\$ ${data['payload']['webinar'][index]['fee']}',
+                                                                                      '${checkForPrice(index)}',
+                                                                                      style:
+                                                                                          // kWebinarButtonLabelTextStyle,
+                                                                                          TextStyle(
+                                                                                        fontFamily: 'Whitney Semi Bold',
+                                                                                        fontSize: 12.5.sp,
+                                                                                        color: Colors.black,
+                                                                                      )),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
+                                                                      child: Flexible(
+                                                                        child: Text(
+                                                                          // '${data['payload']['webinar'][index]['webinar_title']}',
+                                                                          '${list[index].webinarTitle}',
+                                                                          style: TextStyle(
+                                                                            fontFamily: 'Whitney Bold',
+                                                                            fontSize: 16.0.sp,
+                                                                            color: index % 2 == 0 ? Colors.black : Colors.white,
+                                                                          ),
+                                                                          maxLines: 2,
+                                                                          overflow: TextOverflow.ellipsis,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
+                                                                      child: Row(
+                                                                        children: [
+                                                                          Flexible(
+                                                                            child: Text(
+                                                                              // '${data['payload']['webinar'][index]['speaker_name']}',
+                                                                              '${list[index].speakerName}',
+                                                                              style: TextStyle(
+                                                                                fontFamily: 'Whitney Semi Bold',
+                                                                                fontSize: 13.0.sp,
+                                                                                color: index % 2 == 0 ? Colors.black : Colors.white,
+                                                                              ),
+                                                                              overflow: TextOverflow.ellipsis,
+                                                                              maxLines: 2,
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
+                                                                      child: Row(
+                                                                        children: [
+                                                                          Text(
+                                                                            // '${data['payload']['webinar'][index]['start_date']} - ${data['payload']['webinar'][index]['start_time']} - ${data['payload']['webinar'][index]['time_zone']}',
+                                                                            '${displayDateCondition(index)}',
+                                                                            style: TextStyle(
+                                                                              fontFamily: 'Whitney Semi Bold',
+                                                                              fontSize: 13.0.sp,
+                                                                              color: index % 2 == 0 ? Colors.black : Colors.white,
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              Positioned(
+                                                                bottom: 18.0,
+                                                                left: 18.0,
+                                                                child: GestureDetector(
+                                                                  onTap: () {
+                                                                    print('Clicked on register button index is : $index');
+                                                                    getIdWebinar(index);
+                                                                    // 1. Take an API call for relevent action from here..
+                                                                    // 2. Before this need to verify user is logged in or not..
+                                                                    // 3. If not then redirect to Login screen and then back here..
+                                                                    // 4. If user is logged in then need to check for webinar is free or not..
+                                                                    // 5. If the webinar is free then have to check for isCardSaved or not..
+                                                                    // 6. Take a Register API call from there onwards..
+                                                                  },
+                                                                  child: ConstrainedBox(
+                                                                    constraints: BoxConstraints(
+                                                                      minWidth: 35.0.w,
+                                                                    ),
+                                                                    child: Container(
+                                                                      decoration: BoxDecoration(
+                                                                        // color: Color(0xFFC2900D),
+                                                                        color: Color(0x23000000),
+                                                                        borderRadius: BorderRadius.all(
+                                                                          Radius.circular(5.0),
+                                                                        ),
+                                                                      ),
+                                                                      height: 11.5.w,
+                                                                      child: Row(
+                                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                        children: <Widget>[
+                                                                          Padding(
+                                                                            padding: const EdgeInsets.all(8.0),
+                                                                            child: Text(
+                                                                              // '${data['payload']['webinar'][index]['status']}',
+                                                                              '${list[index].status}',
+                                                                              style: TextStyle(
+                                                                                fontFamily: 'Whitney Semi Bold',
+                                                                                fontSize: 14.0.sp,
+                                                                                color: Colors.white,
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          Padding(
+                                                                            padding: EdgeInsets.all(5.0),
+                                                                            child: Icon(
+                                                                              FontAwesomeIcons.angleRight,
+                                                                              color: Colors.white,
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Positioned(
+                                                                bottom: 0,
+                                                                right: 0,
+                                                                child: Image.asset(
+                                                                  'assets/avatar_bottom_right.png',
+                                                                  height: 36.0.w,
+                                                                  width: 36.0.w,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      );
+                                              },
+                                            )
+                                          : Center(
+                                              child: Text(
+                                                // 'Oops no data found for this user..',
+                                                '$data_msg',
+                                                style: kValueLableWebinarDetailExpand,
+                                              ),
+                                            ),
+                                ),
+                              ),
+                            ],
+                          ),
+                  ),
                 ),
               ],
             )),
@@ -871,6 +1253,19 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
 
   void selectLiveFilter() {
     setState(() {
+      isUpcomingWeb = true;
+      isPendingEva = false;
+      isDidNotAttend = false;
+      isPollMissed = false;
+      isCompleted = false;
+
+      isEnrolledSS = false;
+      isQuizPendingSS = false;
+      isPendinEvaSS = false;
+      isCompletedSS = false;
+
+      strFilterType = '2';
+
       strWebinarType = "live";
       isLive = true;
       isSelfStudy = false;
@@ -879,12 +1274,26 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       list.clear();
       start = 0;
 
-      this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+      // this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+      this.getDataWebinarList('$_authToken', '0', '10', '$strWebinarType', '$strFilterType');
     });
   }
 
   void selectSelfStudyFilter() {
     setState(() {
+      isUpcomingWeb = false;
+      isPendingEva = false;
+      isDidNotAttend = false;
+      isPollMissed = false;
+      isCompleted = false;
+
+      isEnrolledSS = true;
+      isQuizPendingSS = false;
+      isPendinEvaSS = false;
+      isCompletedSS = false;
+
+      strFilterType = '7';
+
       strWebinarType = "self_study";
       isLive = false;
       isSelfStudy = true;
@@ -893,11 +1302,12 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       list.clear();
       start = 0;
 
-      this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+      // this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+      this.getDataWebinarList('$_authToken', '0', '10', '$strWebinarType', '$strFilterType');
     });
   }
 
-  void selectPremiumFilter() {
+  /*void selectPremiumFilter() {
     setState(() {
       if (isPremium) {
         isPremium = false;
@@ -941,17 +1351,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       isProgressShowing = true;
       this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
     });
-  }
-
-  selectCPDFilter() {
-    /*setState(() {
-      if (isCPD1) {
-        isCPD1 = false;
-      } else {
-        isCPD1 = true;
-      }
-    });*/
-  }
+  }*/
 
   void getIdWebinar(int index) {
     // int webinarId = data['payload']['webinar'][index]['id'];
@@ -990,7 +1390,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
     // String strFee = data['payload']['webinar'][index]['fee'];
     String strFee = list[index].fee;
     String finalFee = "";
-    if (strFee == "FREE") {
+    if (strFee == "FREE" || strFee == '') {
       finalFee = 'FREE';
     } else {
       // finalFee = 'data["payload']['webinar'][index]['fee"]';
@@ -1001,6 +1401,204 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
     return finalFee;
   }
 
+  void selectUpcomingWebinarFilter() {
+    setState(() {
+      isUpcomingWeb = true;
+      isPendingEva = false;
+      isDidNotAttend = false;
+      isPollMissed = false;
+      isCompleted = false;
+
+      isEnrolledSS = false;
+      isQuizPendingSS = false;
+      isPendinEvaSS = false;
+      isCompletedSS = false;
+
+      isProgressShowing = true;
+
+      strFilterType = '2';
+      list.clear();
+      start = 0;
+      this.getDataWebinarList('$_authToken', '0', '10', '$strWebinarType', '$strFilterType');
+    });
+  }
+
+  void selectForPendingEvaluationFilter() {
+    setState(() {
+      isUpcomingWeb = false;
+      isPendingEva = true;
+      isDidNotAttend = false;
+      isPollMissed = false;
+      isCompleted = false;
+
+      isEnrolledSS = false;
+      isQuizPendingSS = false;
+      isPendinEvaSS = false;
+      isCompletedSS = false;
+
+      isProgressShowing = true;
+
+      strFilterType = '3';
+      list.clear();
+      start = 0;
+      this.getDataWebinarList('$_authToken', '0', '10', '$strWebinarType', '$strFilterType');
+    });
+  }
+
+  void selectDidNotAttendFilter() {
+    setState(() {
+      isUpcomingWeb = false;
+      isPendingEva = false;
+      isDidNotAttend = true;
+      isPollMissed = false;
+      isCompleted = false;
+
+      isEnrolledSS = false;
+      isQuizPendingSS = false;
+      isPendinEvaSS = false;
+      isCompletedSS = false;
+
+      isProgressShowing = true;
+
+      strFilterType = '4';
+      list.clear();
+      start = 0;
+      this.getDataWebinarList('$_authToken', '0', '10', '$strWebinarType', '$strFilterType');
+    });
+  }
+
+  void selectPollMissedFilter() {
+    setState(() {
+      isUpcomingWeb = false;
+      isPendingEva = false;
+      isDidNotAttend = false;
+      isPollMissed = true;
+      isCompleted = false;
+
+      isEnrolledSS = false;
+      isQuizPendingSS = false;
+      isPendinEvaSS = false;
+      isCompletedSS = false;
+
+      isProgressShowing = true;
+
+      strFilterType = '5';
+      list.clear();
+      start = 0;
+      this.getDataWebinarList('$_authToken', '0', '10', '$strWebinarType', '$strFilterType');
+    });
+  }
+
+  void selectCompletedFilter() {
+    setState(() {
+      isUpcomingWeb = false;
+      isPendingEva = false;
+      isDidNotAttend = false;
+      isPollMissed = false;
+      isCompleted = true;
+
+      isEnrolledSS = false;
+      isQuizPendingSS = false;
+      isPendinEvaSS = false;
+      isCompletedSS = false;
+
+      isProgressShowing = true;
+
+      strFilterType = '1';
+      list.clear();
+      start = 0;
+      this.getDataWebinarList('$_authToken', '0', '10', '$strWebinarType', '$strFilterType');
+    });
+  }
+
+  void selectEnrolledSSFilter() {
+    setState(() {
+      isUpcomingWeb = false;
+      isPendingEva = false;
+      isDidNotAttend = false;
+      isPollMissed = false;
+      isCompleted = false;
+
+      isEnrolledSS = true;
+      isQuizPendingSS = false;
+      isPendinEvaSS = false;
+      isCompletedSS = false;
+
+      isProgressShowing = true;
+
+      strFilterType = '7';
+      list.clear();
+      start = 0;
+      this.getDataWebinarList('$_authToken', '0', '10', '$strWebinarType', '$strFilterType');
+    });
+  }
+
+  void selectQuizPendingSSFilter() {
+    setState(() {
+      isUpcomingWeb = false;
+      isPendingEva = false;
+      isDidNotAttend = false;
+      isPollMissed = false;
+      isCompleted = false;
+
+      isEnrolledSS = false;
+      isQuizPendingSS = true;
+      isPendinEvaSS = false;
+      isCompletedSS = false;
+
+      isProgressShowing = true;
+
+      strFilterType = '8';
+      list.clear();
+      start = 0;
+      this.getDataWebinarList('$_authToken', '0', '10', '$strWebinarType', '$strFilterType');
+    });
+  }
+
+  void selectPendingEvaluationSSFilter() {
+    setState(() {
+      isUpcomingWeb = false;
+      isPendingEva = false;
+      isDidNotAttend = false;
+      isPollMissed = false;
+      isCompleted = false;
+
+      isEnrolledSS = false;
+      isQuizPendingSS = false;
+      isPendinEvaSS = true;
+      isCompletedSS = false;
+
+      isProgressShowing = true;
+
+      strFilterType = '9';
+      list.clear();
+      start = 0;
+      this.getDataWebinarList('$_authToken', '0', '10', '$strWebinarType', '$strFilterType');
+    });
+  }
+
+  void selectCompletedSSFilter() {
+    setState(() {
+      isUpcomingWeb = false;
+      isPendingEva = false;
+      isDidNotAttend = false;
+      isPollMissed = false;
+      isCompleted = false;
+
+      isEnrolledSS = false;
+      isQuizPendingSS = false;
+      isPendinEvaSS = false;
+      isCompletedSS = true;
+
+      isProgressShowing = true;
+
+      strFilterType = '6';
+      list.clear();
+      start = 0;
+      this.getDataWebinarList('$_authToken', '0', '10', '$strWebinarType', '$strFilterType');
+    });
+  }
+
   displayDateCondition(int index) {
     // '${data['payload']['webinar'][index]['start_date']} - ${data['payload']['webinar'][index]['start_time']} - ${data['payload']['webinar'][index]['time_zone']}',
     // String strStartDate = data['payload']['webinar'][index]['start_date'];
@@ -1009,19 +1607,6 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
     String month = "";
     String year = "";
 
-    /*if (month == "01") {
-      month = "Jan";
-    } else if (month == "02") {
-    } else if (month == "03") {
-    } else if (month == "04") {
-    } else if (month == "05") {
-    } else if (month == "06") {
-    } else if (month == "07") {
-    } else if (month == "08") {
-    } else if (month == "09") {
-    } else if (month == "10") {
-    } else if (month == "11") {
-    } else {}*/
     String updatedDate = "";
     if (strStartDate == "") {
       updatedDate = "";
@@ -1127,26 +1712,45 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       });
 
       if (checkValue) {
-        String token = preferences.getString("spToken");
-        _authToken = 'Bearer $token';
-        print('Auth Token from SP is : $_authToken');
+        setState(() {
+          isUserLoggedIn = true;
+          String token = preferences.getString("spToken");
+          _authToken = 'Bearer $token';
+          print('Auth Token from SP is : $_authToken');
+        });
 
-        this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+        // this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+        strWebinarType = 'live';
+        strFilterType = '2';
+        this.getDataWebinarList('$_authToken', '$start', '10', '$strWebinarType', '$strFilterType');
         // print('init State isLive : $isLive');
         // print('init State isSelfStudy : $isSelfStudy');
       } else {
-        this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+        // this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+        setState(() {
+          isUserLoggedIn = false;
+        });
+        strWebinarType = 'live';
+        strFilterType = '2';
+        this.getDataWebinarList('', '$start', '10', '$strWebinarType', '$strFilterType');
         // print('init State isLive : $isLive');
         // print('init State isSelfStudy : $isSelfStudy');
         print('Check value : $checkValue');
         preferences.clear();
       }
     } else {
-      this.getDataWebinarList('', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+      // this.getDataWebinarList('', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+      // print('Entered init else part for the checkforSP');
+      setState(() {
+        isUserLoggedIn = false;
+      });
+      /*strWebinarType = 'live';
+      strFilterType = '2';
+      this.getDataWebinarList('', '$start', '10', '$strWebinarType', '$strFilterType');
       // print('init State isLive : $isLive');
       // print('init State isSelfStudy : $isSelfStudy');
       print('Check value : $checkValue');
-      preferences.clear();
+      preferences.clear();*/
     }
   }
 
@@ -1162,11 +1766,17 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
           _authToken = 'Bearer $token';
           print('Auth Token from SP is : $_authToken');
 
-          this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+          // this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+          strWebinarType = 'live';
+          strFilterType = '2';
+          this.getDataWebinarList('', '$start', '10', '$strWebinarType', '$strFilterType');
           // print('init State isLive : $isLive');
           // print('init State isSelfStudy : $isSelfStudy');
         } else {
-          this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+          // this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+          strWebinarType = 'live';
+          strFilterType = '2';
+          this.getDataWebinarList('', '$start', '10', '$strWebinarType', '$strFilterType');
           // print('init State isLive : $isLive');
           // print('init State isSelfStudy : $isSelfStudy');
           print('Check value : $checkValue');
@@ -1176,7 +1786,10 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
     } else {
       if (!isLast) {
         start = start + 10;
-        this.getDataWebinarList('', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+        // this.getDataWebinarList('', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+        strWebinarType = 'live';
+        strFilterType = '2';
+        this.getDataWebinarList('', '$start', '10', '$strWebinarType', '$strFilterType');
         // print('init State isLive : $isLive');
         // print('init State isSelfStudy : $isSelfStudy');
         print('Check value : $checkValue');
@@ -1184,39 +1797,15 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       }
     }
   }
-}
 
-class selectedFilterWidget extends StatelessWidget {
-  selectedFilterWidget({this.str});
-
-  final String str;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      // padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-      padding: const EdgeInsets.fromLTRB(8.0, 8.0, 4.0, 8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(18.0),
-          color: Color(0xFF607083),
+  void logoutUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+    // Navigator.pushAndRemoveUntil(context, newRoute, (route) => false)
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) => IntroScreen(),
         ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: 9.0,
-            horizontal: 18.0,
-          ),
-          child: Text(
-            // 'Hot Topics',
-            str,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 11.0.sp,
-              fontFamily: 'Whitney Medium',
-            ),
-          ),
-        ),
-      ),
-    );
+        (Route<dynamic> route) => false);
   }
 }

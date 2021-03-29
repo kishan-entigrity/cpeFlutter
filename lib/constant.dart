@@ -321,4 +321,15 @@ const String ctecLenght = 'CTEC Id should not more than 6 digits';
 const String sharedPrefsNot = 'Prefs not available';
 const String urlnotFound = 'Oops we didn\'t found url';
 
+const String strUpcomingNotFound = 'No Webinar Available';
+const String strPendingEvoNotFound = 'No Pending Evalution Available';
+const String strDidNotAttendNotFound = 'No Attendees Available';
+const String strPollMissedNotFound = 'No Attendees Available';
+const String strCompletedNotFound = 'No Completed Webinar Available';
+
+const String strEnrolledSSNotFound = 'No Completed Webinar Available';
+const String strQuizPendingSSNotFound = 'No Completed Webinar Available';
+const String strPendingEvoSSNotFound = 'No Pending Evaluation Available';
+const String strCompletedSSNotFound = 'No Completed Webinar Available';
+
 const bool isFromSubmitReview = false;
