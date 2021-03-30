@@ -339,3 +339,11 @@ const String strPendingEvoSSNotFound = 'No Pending Evaluation Available';
 const String strCompletedSSNotFound = 'No Completed Webinar Available';
 
 const bool isFromSubmitReview = false;
+
+const String strCardNameEmpty = 'Enter card holder name';
+const String strCardNumberEmpty = 'Enter card number';
+const String strCardNumberValid = 'Please enter a valid card no.';
+const String strExpMonthEmpty = 'Enter expire month';
+const String strExpMonthValid = 'Please enter valid expire month';
+const String strExpYearEmpty = 'Enter  expire year';
+const String strCVVEmpty = 'Enter Enter CVV';
