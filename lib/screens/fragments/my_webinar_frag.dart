@@ -1414,7 +1414,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       isPendinEvaSS = false;
       isCompletedSS = false;
 
-      isProgressShowing = true;
+      isLoaderShowing = true;
 
       strFilterType = '2';
       list.clear();
@@ -1436,7 +1436,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       isPendinEvaSS = false;
       isCompletedSS = false;
 
-      isProgressShowing = true;
+      isLoaderShowing = true;
 
       strFilterType = '3';
       list.clear();
@@ -1458,7 +1458,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       isPendinEvaSS = false;
       isCompletedSS = false;
 
-      isProgressShowing = true;
+      isLoaderShowing = true;
 
       strFilterType = '4';
       list.clear();
@@ -1480,7 +1480,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       isPendinEvaSS = false;
       isCompletedSS = false;
 
-      isProgressShowing = true;
+      isLoaderShowing = true;
 
       strFilterType = '5';
       list.clear();
@@ -1502,7 +1502,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       isPendinEvaSS = false;
       isCompletedSS = false;
 
-      isProgressShowing = true;
+      isLoaderShowing = true;
 
       strFilterType = '1';
       list.clear();
@@ -1524,7 +1524,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       isPendinEvaSS = false;
       isCompletedSS = false;
 
-      isProgressShowing = true;
+      isLoaderShowing = true;
 
       strFilterType = '7';
       list.clear();
@@ -1546,7 +1546,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       isPendinEvaSS = false;
       isCompletedSS = false;
 
-      isProgressShowing = true;
+      isLoaderShowing = true;
 
       strFilterType = '8';
       list.clear();
@@ -1568,7 +1568,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       isPendinEvaSS = true;
       isCompletedSS = false;
 
-      isProgressShowing = true;
+      isLoaderShowing = true;
 
       strFilterType = '9';
       list.clear();
@@ -1590,7 +1590,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       isPendinEvaSS = false;
       isCompletedSS = true;
 
-      isProgressShowing = true;
+      isLoaderShowing = true;
 
       strFilterType = '6';
       list.clear();

@@ -213,6 +213,12 @@ const kWebinarButtonLabelTextStyleWhite = TextStyle(
   color: Colors.white,
 );
 
+final kWebinarButtonLabelTextStyleWhite13 = TextStyle(
+  fontFamily: 'Whitney Semi Bold',
+  fontSize: 13.0.sp,
+  color: Colors.white,
+);
+
 final kWebinarButtonLabelTextStyleWhiteTest = TextStyle(
   fontFamily: 'Whitney Semi Bold',
   fontSize: 15.0.sp,

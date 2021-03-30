@@ -2,6 +2,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/screens/fragments/pagination/sample_pagination.dart';
 import 'package:cpe_flutter/screens/fragments/test_class_1.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
+import 'package:cpe_flutter/screens/profile/cards_frag.dart';
 import 'package:cpe_flutter/screens/profile/change_password.dart';
 import 'package:cpe_flutter/screens/profile/contact_us.dart';
 import 'package:cpe_flutter/screens/profile/faq.dart';
@@ -202,6 +203,22 @@ class _ProfileFragState extends State<ProfileFrag> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) => MyTranscation(),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                            // My Transaction controller..
+                                            Visibility(
+                                              visible: isGuestMode ? false : true,
+                                              child: profile_cell(
+                                                childIcon: FontAwesomeIcons.creditCard,
+                                                strLable: "Cards",
+                                                onPress: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) => CardFrag(),
                                                     ),
                                                   );
                                                 },
