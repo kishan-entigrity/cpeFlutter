@@ -1052,14 +1052,14 @@ class _CardFragState extends State<CardFrag> {
     } else if (strSelectedMonth == '') {
       _scaffoldKey.currentState.showSnackBar(
         SnackBar(
-          content: Text(strExpMonthEmpty),
+          content: Text(strExpMonthSelect),
           duration: Duration(seconds: 5),
         ),
       );
     } else if (strSelectedYear == '') {
       _scaffoldKey.currentState.showSnackBar(
         SnackBar(
-          content: Text(strExpYearEmpty),
+          content: Text(strExpYearSelect),
           duration: Duration(seconds: 5),
         ),
       );

@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/screens/fragments/pagination/webinar_list.dart';
+import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
 import 'package:cpe_flutter/screens/profile/notification.dart';
 import 'package:cpe_flutter/screens/webinar_details/webinar_details_new.dart';
 import 'package:flutter/cupertino.dart';
@@ -61,6 +63,12 @@ class _HomeFragmentState extends State<HomeFragment> {
 
   var respStatus;
   var respMessage;
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController cardNumberController = TextEditingController();
+  TextEditingController expMonthController = TextEditingController();
+  TextEditingController expYearController = TextEditingController();
+  TextEditingController cvvController = TextEditingController();
 
   Future<List<Webinar>> getDataWebinarList(String authToken, String start, String limit, String topic_of_interest, String subject_area,
       String webinar_key_text, String webinar_type, String date_filter, String filter_price) async {
@@ -1157,6 +1165,68 @@ class _HomeFragmentState extends State<HomeFragment> {
     strWebinarTypeIntent = list[index].webinarType;
     print('Id for the webinar is : $webinarId');
     print('String for strWebinarID : $strWebinarId');
+
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
+      if (strWebinarTypeIntent.toLowerCase() == 'live') {
+        print('Webinar Type is live');
+      } else if (strWebinarTypeIntent.toLowerCase() == 'self_study' || strWebinarTypeIntent.toLowerCase() == 'on-demand') {
+        print('Webinar Type is self_study');
+        if (list[index].status.toLowerCase() == 'register') {
+          // Need to verify the user is logged in or not..
+          // If user is not logged in then hava to show alert popup for login..
+          // else have to check for the pricing..
+          // if the webinar is free then
+          SharedPreferences preferences = await SharedPreferences.getInstance();
+          bool checkValue = preferences.getBool("check");
+          print('Check value is : $checkValue');
+          if (checkValue != null) {
+            if (checkValue) {
+              if (list[index].fee == 'FREE' || list[index].fee == '') {
+                // Here are the free webinars so we can register these webinar directly and redirect user to webinar details screen..
+              } else {
+                // Here we need to check for card status..
+                // If card is saved then have to register webinar and redirect user to webinar details screen..
+                // Else we need to redirect user to the add card screen..
+                showCustomCardPopup(index, list[index].fee.toString());
+              }
+            } else {
+              loginPopup();
+            }
+          } else {
+            loginPopup();
+          }
+          print('webinar status is : ${list[index].status.toLowerCase()}');
+        } else if (list[index].status.toLowerCase() == 'quiz pending') {
+          redirectToDetails(index);
+        } else if (list[index].status.toLowerCase() == 'resume watching') {
+          redirectToDetails(index);
+        } else if (list[index].status.toLowerCase() == 'watch now') {
+          redirectToDetails(index);
+        } else if (list[index].status.toLowerCase() == 'enrolled') {
+          redirectToDetails(index);
+        } else if (list[index].status.toLowerCase() == 'pending evaluation') {
+          redirectToDetails(index);
+        } else if (list[index].status.toLowerCase() == 'completed') {
+          redirectToDetails(index);
+        } else {
+          print('Couldn\'t handle the case on selfstudy webinars.');
+        }
+      } else {
+        print('Webinar Type is not found');
+      }
+    } else {
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text("Please check your internet connectivity and try again"),
+          duration: Duration(seconds: 5),
+        ),
+      );
+      setState(() {
+        isLoaderShowing = false;
+      });
+    }
+
     /*var connectivityResult = await (Connectivity().checkConnectivity());
     if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
       setState(() {
@@ -1234,12 +1304,12 @@ class _HomeFragmentState extends State<HomeFragment> {
         ),
       ),
     );*/
-    Navigator.push(
+    /*Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) =>
                 // WebinarDetails('resultText Sender', webinarId)));
-                WebinarDetailsNew(strWebinarTypeIntent, webinarId)));
+                WebinarDetailsNew(strWebinarTypeIntent, webinarId)));*/
   }
 
   checkForPrice(int index) {
@@ -1475,6 +1545,366 @@ class _HomeFragmentState extends State<HomeFragment> {
       );
     }
   }
+
+  void redirectToDetails(int index) {
+    int webinarId = list[index].id;
+    String strWebinarId = webinarId.toString();
+    strWebinarTypeIntent = list[index].webinarType;
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) => WebinarDetailsNew(strWebinarTypeIntent, webinarId)));
+  }
+
+  void logoutUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) => IntroScreen(),
+        ),
+        (Route<dynamic> route) => false);
+  }
+
+  void loginPopup() {
+    showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text('Login', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
+            content: new Text('You need to login in to application first for registering webinar'),
+            actions: <Widget>[
+              new FlatButton(
+                onPressed: () {
+                  // this line exits the app.
+                  logoutUser();
+                },
+                child: new Text('Yes', style: new TextStyle(fontSize: 18.0)),
+              ),
+              new FlatButton(
+                onPressed: () => Navigator.pop(context), // this line dismisses the dialog
+                child: new Text('No', style: new TextStyle(fontSize: 18.0)),
+              )
+            ],
+          ),
+        ) ??
+        false;
+  }
+
+  void showCustomCardPopup(int index, String fee) {
+    showGeneralDialog(
+        context: context,
+        barrierDismissible: true,
+        barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierColor: Colors.black45,
+        transitionDuration: const Duration(milliseconds: 200),
+        pageBuilder: (BuildContext buildContext, Animation animation, Animation secondaryAnimation) {
+          return Center(
+            child: Material(
+              borderRadius: BorderRadius.circular(10.0.sp),
+              color: Colors.white,
+              child: Container(
+                width: 80.0.w,
+                height: 60.0.h,
+                // padding: EdgeInsets.all(10.0.sp),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top: 10.0.sp, left: 10.0.sp),
+                        child: Text(
+                          'Add new Card',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14.5.sp,
+                            fontFamily: 'Whitney Semi Bold',
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left: 10.0.sp, right: 10.0.sp, top: 5.0.w),
+                        child: Text(
+                          'Name on Card',
+                          style: kLableSignUpHintLableStyle,
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 10.0.sp),
+                        child: TextField(
+                          controller: nameController,
+                          style: kLableSignUpTextStyle,
+                          keyboardType: TextInputType.name,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'John Smith',
+                            hintStyle: kLableSignUpHintStyle,
+                          ),
+                          textInputAction: TextInputAction.next,
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.fromLTRB(10.0.sp, 0, 10.0.sp, 0),
+                        child: Divider(
+                          height: 5.0,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left: 10.0.sp, right: 10.0.sp, top: 2.0.w),
+                        child: Text(
+                          'Credit card number',
+                          style: kLableSignUpHintLableStyle,
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 10.0.sp),
+                        child: TextField(
+                          controller: cardNumberController,
+                          style: kLableSignUpTextStyle,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: '5052 6525 5548 6246',
+                            hintStyle: kLableSignUpHintStyle,
+                          ),
+                          textInputAction: TextInputAction.next,
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.fromLTRB(10.0.sp, 0, 10.0.sp, 0),
+                        child: Divider(
+                          height: 5.0,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Container(
+                                  margin: EdgeInsets.only(left: 10.0.sp, right: 10.0.sp, top: 2.0.w),
+                                  child: Text(
+                                    'Month',
+                                    style: kLableSignUpHintLableStyle,
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 10.0.sp),
+                                  child: TextField(
+                                    controller: expMonthController,
+                                    style: kLableSignUpTextStyle,
+                                    keyboardType: TextInputType.number,
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: 'MM',
+                                      hintStyle: kLableSignUpHintStyle,
+                                    ),
+                                    textInputAction: TextInputAction.next,
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(10.0.sp, 0, 10.0.sp, 0),
+                                  child: Divider(
+                                    height: 5.0,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Container(
+                                  margin: EdgeInsets.only(left: 10.0.sp, right: 10.0.sp, top: 2.0.w),
+                                  child: Text(
+                                    'Year',
+                                    style: kLableSignUpHintLableStyle,
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 10.0.sp),
+                                  child: TextField(
+                                    controller: expYearController,
+                                    style: kLableSignUpTextStyle,
+                                    keyboardType: TextInputType.number,
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: 'YYYY',
+                                      hintStyle: kLableSignUpHintStyle,
+                                    ),
+                                    textInputAction: TextInputAction.next,
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(10.0.sp, 0, 10.0.sp, 0),
+                                  child: Divider(
+                                    height: 5.0,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Container(
+                                  margin: EdgeInsets.only(left: 10.0.sp, right: 10.0.sp, top: 2.0.w),
+                                  child: Text(
+                                    'CVV',
+                                    style: kLableSignUpHintLableStyle,
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 10.0.sp),
+                                  child: TextField(
+                                    controller: cvvController,
+                                    style: kLableSignUpTextStyle,
+                                    obscureText: true,
+                                    keyboardType: TextInputType.number,
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: 'CVV',
+                                      hintStyle: kLableSignUpHintStyle,
+                                    ),
+                                    textInputAction: TextInputAction.next,
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(10.0.sp, 0, 10.0.sp, 0),
+                                  child: Divider(
+                                    height: 5.0,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          print('Clicked on paynow Button');
+                          checkForCardValidation();
+                        },
+                        child: Container(
+                          height: 30.0.sp,
+                          margin: EdgeInsets.symmetric(horizontal: 10.0.sp, vertical: 18.0.sp),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0.sp),
+                            color: themeYellow,
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Pay Now \$$fee',
+                              style: TextStyle(
+                                fontSize: 12.0.sp,
+                                fontFamily: 'Whitney Semi Bold',
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        });
+  }
+
+  void checkForCardValidation() {
+    if (nameController.text == '' || nameController.text.length == 0) {
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(strCardNameEmpty),
+          duration: Duration(seconds: 5),
+        ),
+      );
+    } else if (cardNumberController.text == '' || cardNumberController.text.length == 0) {
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(strCardNumberEmpty),
+          duration: Duration(seconds: 5),
+        ),
+      );
+    } else if (cardNumberController.text.length < 16) {
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(strCardNumberValid),
+          duration: Duration(seconds: 5),
+        ),
+      );
+    } else if (expMonthController.text == '' || expMonthController.text.length == 0) {
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(strExpMonthEmpty),
+          duration: Duration(seconds: 5),
+        ),
+      );
+    } else if (expMonthController.text.length > 2 || int.parse(expMonthController.text) > 12) {
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(strExpMonthValid),
+          duration: Duration(seconds: 5),
+        ),
+      );
+    } else if (expYearController.text == '' || expYearController.text.length == 0) {
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(strExpyearEmpty),
+          duration: Duration(seconds: 5),
+        ),
+      );
+    } else if (expYearController.text.length > 4 || int.parse(expYearController.text) > 2050 || int.parse(expYearController.text) < 2021) {
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(strExpYearValid),
+          duration: Duration(seconds: 5),
+        ),
+      );
+    } else if (cvvController.text == '' || cvvController.text.length == 0) {
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(strCVVEmpty),
+          duration: Duration(seconds: 5),
+        ),
+      );
+    } else if (cvvController.text.length > 3) {
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(strCVVValid),
+          duration: Duration(seconds: 5),
+        ),
+      );
+    } else {
+      // All validations passed..
+      print('All validation passed for add card');
+      // addCardAPI();
+    }
+  }
+
+  /*void clickEventMonth(int index) {
+    setState(() {
+      ConstSignUp.strSelectedMonth = ConstSignUp.monthList[index].toString();
+      FocusManager.instance.primaryFocus.unfocus();
+      Navigator.pop(context);
+    });
+  }
+
+  void clickEventYear(int index) {
+    setState(() {
+      ConstSignUp.strSelectedYear = ConstSignUp.yearList[index].toString();
+      FocusManager.instance.primaryFocus.unfocus();
+      Navigator.pop(context);
+    });
+  }*/
 }
 
 class selectedFilterWidget extends StatelessWidget {
