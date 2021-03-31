@@ -26,6 +26,7 @@ class _CardFragState extends State<CardFrag> {
   List<Saved_cards> listCards;
 
   var data;
+  var dataAddCard;
   int arrCount = 0;
   var data_web;
 
@@ -153,18 +154,14 @@ class _CardFragState extends State<CardFrag> {
     return 'Success';
   }
 
-  Future<String> addUserCardAPI(String authToken) async {
-    String urls = URLs.BASE_URL + 'user-payment/make-primary-card';
+  Future<String> deleteUserCard(String authToken, String cardId) async {
+    String urls = URLs.BASE_URL + 'user-payment/delete-card';
 
     final response = await http.post(urls, headers: {
       'Accept': 'Application/json',
       'Authorization': '$authToken',
     }, body: {
-      'card_number': '${cardNumberController.text.toString()}',
-      'cardholdername': '${nameController.text.toString()}',
-      'exp_month': strSelectedMonth.toString(),
-      'exp_year': strSelectedYear.toString(),
-      'cvv': '${cvvController.text.toString()}',
+      'cardID': '$cardId',
     });
 
     this.setState(() {
@@ -174,6 +171,9 @@ class _CardFragState extends State<CardFrag> {
     });
     if (data['success']) {
       print('Status after updating primary card is : ${data['success']}');
+      isLoaderShowing = true;
+      listCards.clear();
+      getCardsList(_authToken);
       /*for (int i = 0; i < listCards.length; i++) {
         setState(() {
           listCards[i].defaultCard = '0';
@@ -190,6 +190,69 @@ class _CardFragState extends State<CardFrag> {
           duration: Duration(seconds: 3),
         ),
       );
+    } else {
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          content: Text('${data['message']}'),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    }
+
+    print('API response is : $data');
+
+    return 'Success';
+  }
+
+  Future<String> addUserCardAPI(String authToken) async {
+    String urls = URLs.BASE_URL + 'user-payment/add-card';
+
+    final response = await http.post(urls, headers: {
+      'Accept': 'Application/json',
+      'Authorization': '$authToken',
+    }, body: {
+      'card_number': '${cardNumberController.text.toString()}',
+      'cardholdername': '${nameController.text.toString()}',
+      'exp_month': strSelectedMonth.toString(),
+      'exp_year': strSelectedYear.toString(),
+      'cvv': '${cvvController.text.toString()}',
+    });
+
+    this.setState(() {
+      // data = JSON.decode(response.body);
+      dataAddCard = jsonDecode(response.body);
+      isLoaderShowing = false;
+    });
+    print('Response for API is : $dataAddCard');
+
+    if (dataAddCard['success']) {
+      print('Status after updating primary card is : ${dataAddCard['success']}');
+      isLoaderShowing = true;
+      listCards.clear();
+      setState(() {
+        nameController.text = '';
+        cardNumberController.text = '';
+        strSelectedMonth = '';
+        strSelectedYear = '';
+        cvvController.text = '';
+      });
+      getCardsList(_authToken);
+      /*for (int i = 0; i < listCards.length; i++) {
+        setState(() {
+          listCards[i].defaultCard = '0';
+          print('Card ID from list : ${listCards[i].id} API ID : $cardId');
+          if (listCards[i].id.toString() == cardId.toString()) {
+            listCards[i].defaultCard = '1';
+            print('Updated state for the default card is : ${listCards[i].defaultCard}');
+          }
+        });
+      }*/
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          content: Text('${dataAddCard['message']}'),
+          duration: Duration(seconds: 3),
+        ),
+      );
 
       isLoaderShowing = true;
       listCards.clear();
@@ -197,7 +260,7 @@ class _CardFragState extends State<CardFrag> {
     } else {
       _scaffoldKey.currentState.showSnackBar(
         SnackBar(
-          content: Text('${data['message']}'),
+          content: Text('${dataAddCard['message']}'),
           duration: Duration(seconds: 3),
         ),
       );
@@ -900,14 +963,6 @@ class _CardFragState extends State<CardFrag> {
                                                             borderRadius: BorderRadius.circular(10.0.w),
                                                           ),
                                                           child: Center(
-                                                            /*child: Text(
-                                                    'Remove',
-                                                    style: TextStyle(
-                                                      fontSize: 12.0.sp,
-                                                      color: Colors.white,
-                                                      fontFamily: 'Whitney Medium',
-                                                    ),
-                                                  ),*/
                                                             child: Icon(
                                                               FontAwesomeIcons.trash,
                                                               size: 10.0.sp,
@@ -988,7 +1043,11 @@ class _CardFragState extends State<CardFrag> {
   void deleteCardAPI(int id) async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
-      this.getCardsList('$_authToken');
+      // this.getCardsList('$_authToken');
+      setState(() {
+        isLoaderShowing = true;
+      });
+      this.deleteUserCard('$_authToken', id.toString());
     } else {
       _scaffoldKey.currentState.showSnackBar(
         SnackBar(
@@ -1074,6 +1133,7 @@ class _CardFragState extends State<CardFrag> {
   void clickEventMonth(int index) {
     setState(() {
       strSelectedMonth = monthList[index].toString();
+      FocusManager.instance.primaryFocus.unfocus();
       Navigator.pop(context);
     });
   }
@@ -1081,6 +1141,7 @@ class _CardFragState extends State<CardFrag> {
   void clickEventYear(int index) {
     setState(() {
       strSelectedYear = yearList[index].toString();
+      FocusManager.instance.primaryFocus.unfocus();
       Navigator.pop(context);
     });
   }
