@@ -89,7 +89,7 @@ class _CardFragState extends State<CardFrag> {
     });
 
     // print(data[1]["title"]);
-    print('API response is : $data');
+    print('GetCards List API response is : $data');
     arrCount = data['payload']['saved_cards'].length;
     data_web = data['payload']['saved_cards'];
     print('Size for array is : $arrCount');
@@ -227,9 +227,9 @@ class _CardFragState extends State<CardFrag> {
 
     if (dataAddCard['success']) {
       print('Status after updating primary card is : ${dataAddCard['success']}');
-      isLoaderShowing = true;
-      listCards.clear();
       setState(() {
+        isLoaderShowing = true;
+        listCards.clear();
         nameController.text = '';
         cardNumberController.text = '';
         strSelectedMonth = '';
@@ -253,10 +253,6 @@ class _CardFragState extends State<CardFrag> {
           duration: Duration(seconds: 3),
         ),
       );
-
-      isLoaderShowing = true;
-      listCards.clear();
-      getCardsList(_authToken);
     } else {
       _scaffoldKey.currentState.showSnackBar(
         SnackBar(
@@ -522,17 +518,6 @@ class _CardFragState extends State<CardFrag> {
                                       strSelectedMonth == '' ? 'MM' : strSelectedMonth,
                                       style: kLableSignUpTextStyle,
                                     ),
-                                    /*child: TextField(
-                                        controller: expMonthController,
-                                        style: kLableSignUpTextStyle,
-                                        keyboardType: TextInputType.number,
-                                        decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          hintText: 'MM',
-                                          hintStyle: kLableSignUpHintStyle,
-                                        ),
-                                        textInputAction: TextInputAction.next,
-                                      ),*/
                                   ),
                                   Container(
                                     margin: EdgeInsets.fromLTRB(10.0.sp, 0, 10.0.sp, 0),
@@ -656,17 +641,6 @@ class _CardFragState extends State<CardFrag> {
                                       strSelectedYear == '' ? 'YYYY' : strSelectedYear,
                                       style: kLableSignUpTextStyle,
                                     ),
-                                    /*child: TextField(
-                                      controller: expYearController,
-                                      style: kLableSignUpTextStyle,
-                                      keyboardType: TextInputType.number,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: 'YYYY',
-                                        hintStyle: kLableSignUpHintStyle,
-                                      ),
-                                      textInputAction: TextInputAction.next,
-                                    ),*/
                                   ),
                                   Container(
                                     margin: EdgeInsets.fromLTRB(10.0.sp, 0, 10.0.sp, 0),
@@ -736,31 +710,6 @@ class _CardFragState extends State<CardFrag> {
                           ),
                         ),
                       ),
-                      /*Container(
-                        height: 50.0.sp,
-                        width: double.infinity,
-                        // color: Colors.teal,
-                        margin: EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0.sp),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              'Save Card',
-                              style: kButtonLabelTextStyle,
-                            ),
-                            RoundIconButton(
-                              icon: FontAwesomeIcons.arrowRight,
-                              onPressed: () async {
-                                // getUserData();
-                              },
-                            ),
-                            */ /*FloatingActionButton(
-                      onPressed: null,
-                      backgroundColor: Color(0xFFFBB42C),
-                    ),*/ /*
-                          ],
-                        ),
-                      ),*/
                       Container(
                         margin: EdgeInsets.only(top: 30.0.sp, left: 10.0.sp),
                         child: Text(
