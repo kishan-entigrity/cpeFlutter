@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:connectivity/connectivity.dart';
+import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -83,6 +84,10 @@ class _CardFragState extends State<CardFrag> {
     );
 
     this.setState(() {
+      if (response.statusCode == 401) {
+        logoutUser();
+      }
+
       // data = JSON.decode(response.body);
       data = jsonDecode(response.body);
       isLoaderShowing = false;
@@ -1110,5 +1115,16 @@ class _CardFragState extends State<CardFrag> {
         ),
       );
     }
+  }
+
+  void logoutUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+    // Navigator.pushAndRemoveUntil(context, newRoute, (route) => false)
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) => IntroScreen(),
+        ),
+        (Route<dynamic> route) => false);
   }
 }

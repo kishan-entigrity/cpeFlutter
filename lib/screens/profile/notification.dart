@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
 import 'package:cpe_flutter/screens/profile/notification_settings.dart';
 import 'package:cpe_flutter/screens/profile/pagination_notification/notification_list_data.dart';
 import 'package:flutter/cupertino.dart';
@@ -51,6 +52,11 @@ class _NotificationsState extends State<Notifications> {
 
     this.setState(() {
       // data = JSON.decode(response.body);
+      if (response.statusCode == 401) {
+        print('Get response for 401 need to force logout user..');
+        logoutUser();
+      }
+
       data = jsonDecode(response.body);
       isLoaderShowing = false;
       if (data['payload']['is_last']) {
@@ -316,5 +322,16 @@ class _NotificationsState extends State<Notifications> {
     // return timeStamp;
     // return formattedDate;
     return date.toString();
+  }
+
+  void logoutUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+    // Navigator.pushAndRemoveUntil(context, newRoute, (route) => false)
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) => IntroScreen(),
+        ),
+        (Route<dynamic> route) => false);
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
 import 'package:cpe_flutter/screens/profile/pagination_my_transaction/my_transaction_list.dart';
 import 'package:cpe_flutter/screens/profile/pdf_preview_transaction.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +49,9 @@ class _MyTranscationState extends State<MyTranscation> {
     );
 
     this.setState(() {
+      if (response.statusCode == 401) {
+        logoutUser();
+      }
       // data = JSON.decode(response.body);
       data = jsonDecode(response.body);
       isLoaderShowing = false;
@@ -347,5 +351,16 @@ class _MyTranscationState extends State<MyTranscation> {
         );
       }
     }
+  }
+
+  void logoutUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+    // Navigator.pushAndRemoveUntil(context, newRoute, (route) => false)
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) => IntroScreen(),
+        ),
+        (Route<dynamic> route) => false);
   }
 }

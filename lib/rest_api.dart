@@ -29,8 +29,13 @@ Future changePassword(String authToken, String current_password, String new_pass
     },
     body: {'current_password': current_password, 'new_password': new_password, 'confirm_password': confirm_password},
   );
-  var convertDataToJson = jsonDecode(response.body);
-  return convertDataToJson;
+  if (response.statusCode == 401) {
+    // var convertDataToJson = jsonDecode(response.body);
+    return 'err401';
+  } else {
+    var convertDataToJson = jsonDecode(response.body);
+    return convertDataToJson;
+  }
 }
 
 Future registerWebinarAPI(String authToken, String webinar_id, String schedule_id) async {

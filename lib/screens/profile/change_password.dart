@@ -1,6 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/round_icon_button.dart';
 import 'package:cpe_flutter/constant.dart';
+import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -249,47 +250,61 @@ class _ChangePasswordState extends State<ChangePassword> {
         preferences.clear();
       }
 
-      if ((connectivityResult == ConnectivityResult.mobile) ||
-          (connectivityResult == ConnectivityResult.wifi)) {
-        var resp =
-            await changePassword(_authToken, _oldPass, _newPass, _confirmPass);
+      if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
+        var resp = await changePassword(_authToken, _oldPass, _newPass, _confirmPass);
         print('Response for change password api is : $resp');
 
-        respStatus = resp['success'];
-        respMessage = resp['message'];
-
-        if (respStatus) {
-          _scaffoldKey.currentState.showSnackBar(
-            SnackBar(
-              content: Text('$respMessage'),
-              duration: Duration(seconds: 3),
-            ),
-          );
-          // Have to redirect to main profile screen again..
-          Future.delayed(const Duration(seconds: 3), () {
-            if (Navigator.canPop(context)) {
-              Navigator.pop(context);
-            } else {
-              SystemNavigator.pop();
-            }
-          });
+        if (resp == 'err401') {
+          print('change pass found error with 401');
+          logoutUser();
         } else {
-          _scaffoldKey.currentState.showSnackBar(
-            SnackBar(
-              content: Text('$respMessage'),
-              duration: Duration(seconds: 3),
-            ),
-          );
+          print('change pass Everything seems to be fine');
+          respStatus = resp['success'];
+          respMessage = resp['message'];
+
+          if (respStatus) {
+            _scaffoldKey.currentState.showSnackBar(
+              SnackBar(
+                content: Text('$respMessage'),
+                duration: Duration(seconds: 3),
+              ),
+            );
+            // Have to redirect to main profile screen again..
+            Future.delayed(const Duration(seconds: 3), () {
+              if (Navigator.canPop(context)) {
+                Navigator.pop(context);
+              } else {
+                SystemNavigator.pop();
+              }
+            });
+          } else {
+            _scaffoldKey.currentState.showSnackBar(
+              SnackBar(
+                content: Text('$respMessage'),
+                duration: Duration(seconds: 3),
+              ),
+            );
+          }
         }
       } else {
         _scaffoldKey.currentState.showSnackBar(
           SnackBar(
-            content:
-                Text("Please check your internet connectivity and try again"),
+            content: Text("Please check your internet connectivity and try again"),
             duration: Duration(seconds: 3),
           ),
         );
       }
     }
+  }
+
+  void logoutUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+    // Navigator.pushAndRemoveUntil(context, newRoute, (route) => false)
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) => IntroScreen(),
+        ),
+        (Route<dynamic> route) => false);
   }
 }
