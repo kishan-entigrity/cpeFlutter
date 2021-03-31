@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/screens/fragments/pagination/webinar_list.dart';
 import 'package:cpe_flutter/screens/profile/notification.dart';
 import 'package:cpe_flutter/screens/webinar_details/webinar_details_new.dart';
@@ -11,7 +10,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../constant.dart';
 import '../../rest_api.dart';
@@ -1159,7 +1157,7 @@ class _HomeFragmentState extends State<HomeFragment> {
     strWebinarTypeIntent = list[index].webinarType;
     print('Id for the webinar is : $webinarId');
     print('String for strWebinarID : $strWebinarId');
-    var connectivityResult = await (Connectivity().checkConnectivity());
+    /*var connectivityResult = await (Connectivity().checkConnectivity());
     if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
       setState(() {
         isLoaderShowing = true;
@@ -1170,9 +1168,9 @@ class _HomeFragmentState extends State<HomeFragment> {
       print('Check value is : $checkValue');
 
       if (checkValue != null) {
-        /*setState(() {
+        */ /*setState(() {
           isLoaderShowing = true;
-        });*/
+        });*/ /*
 
         if (checkValue) {
           String token = preferences.getString("spToken");
@@ -1219,7 +1217,7 @@ class _HomeFragmentState extends State<HomeFragment> {
       setState(() {
         isLoaderShowing = false;
       });
-    }
+    }*/
     // Now redirect to webinar details from here..
     /*Navigator.push(
       context,
@@ -1236,12 +1234,12 @@ class _HomeFragmentState extends State<HomeFragment> {
         ),
       ),
     );*/
-    /*Navigator.push(
+    Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) =>
                 // WebinarDetails('resultText Sender', webinarId)));
-                WebinarDetailsNew(strWebinarTypeIntent, webinarId)));*/
+                WebinarDetailsNew(strWebinarTypeIntent, webinarId)));
   }
 
   checkForPrice(int index) {

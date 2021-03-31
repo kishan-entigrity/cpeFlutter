@@ -29,6 +29,9 @@ class _CardFragState extends State<CardFrag> {
   int arrCount = 0;
   var data_web;
 
+  var strSelectedMonth = '';
+  var strSelectedYear = '';
+
   List<String> monthList = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
   List<String> yearList = [
     '2021',
@@ -45,28 +48,26 @@ class _CardFragState extends State<CardFrag> {
     '2032',
     '2033',
     '2034',
-    '2022',
-    '2022',
-    '2022',
-    '2022',
-    '2022',
-    '2022',
-    '2022',
-    '2022',
-    '2022',
-    '2022',
-    '2022',
-    '2022',
-    '2022',
-    '2022',
-    '2022',
-    '2022'
+    '2035',
+    '2036',
+    '2037',
+    '2038',
+    '2039',
+    '2040',
+    '2041',
+    '2042',
+    '2043',
+    '2044',
+    '2045',
+    '2046',
+    '2047',
+    '2048',
+    '2049',
+    '2050'
   ];
 
   TextEditingController nameController = TextEditingController();
   TextEditingController cardNumberController = TextEditingController();
-  TextEditingController expMonthController = TextEditingController();
-  TextEditingController expYearController = TextEditingController();
   TextEditingController cvvController = TextEditingController();
 
   Future<List<Saved_cards>> getCardsList(String authToken) async {
@@ -84,11 +85,6 @@ class _CardFragState extends State<CardFrag> {
       // data = JSON.decode(response.body);
       data = jsonDecode(response.body);
       isLoaderShowing = false;
-      /*if (data['payload']['is_last']) {
-        isLast = true;
-      } else {
-        isLast = false;
-      }*/
     });
 
     // print(data[1]["title"]);
@@ -121,11 +117,6 @@ class _CardFragState extends State<CardFrag> {
       // data = JSON.decode(response.body);
       data = jsonDecode(response.body);
       isLoaderShowing = false;
-      /*if (data['payload']['is_last']) {
-        isLast = true;
-      } else {
-        isLast = false;
-      }*/
     });
     if (data['success']) {
       print('Status after updating primary card is : ${data['success']}');
@@ -157,18 +148,62 @@ class _CardFragState extends State<CardFrag> {
       );
     }
 
-    // print(data[1]["title"]);
     print('API response is : $data');
-    /*arrCount = data['payload']['saved_cards'].length;
-    data_web = data['payload']['saved_cards'];
-    print('Size for array is : $arrCount');
 
-    if (listCards != null && listCards.isNotEmpty) {
-      listCards.addAll(List.from(data_web).map<Saved_cards>((item) => Saved_cards.fromJson(item)).toList());
+    return 'Success';
+  }
+
+  Future<String> addUserCardAPI(String authToken) async {
+    String urls = URLs.BASE_URL + 'user-payment/make-primary-card';
+
+    final response = await http.post(urls, headers: {
+      'Accept': 'Application/json',
+      'Authorization': '$authToken',
+    }, body: {
+      'card_number': '${cardNumberController.text.toString()}',
+      'cardholdername': '${nameController.text.toString()}',
+      'exp_month': strSelectedMonth.toString(),
+      'exp_year': strSelectedYear.toString(),
+      'cvv': '${cvvController.text.toString()}',
+    });
+
+    this.setState(() {
+      // data = JSON.decode(response.body);
+      data = jsonDecode(response.body);
+      isLoaderShowing = false;
+    });
+    if (data['success']) {
+      print('Status after updating primary card is : ${data['success']}');
+      /*for (int i = 0; i < listCards.length; i++) {
+        setState(() {
+          listCards[i].defaultCard = '0';
+          print('Card ID from list : ${listCards[i].id} API ID : $cardId');
+          if (listCards[i].id.toString() == cardId.toString()) {
+            listCards[i].defaultCard = '1';
+            print('Updated state for the default card is : ${listCards[i].defaultCard}');
+          }
+        });
+      }*/
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          content: Text('${data['message']}'),
+          duration: Duration(seconds: 3),
+        ),
+      );
+
+      isLoaderShowing = true;
+      listCards.clear();
+      getCardsList(_authToken);
     } else {
-      listCards = List.from(data_web).map<Saved_cards>((item) => Saved_cards.fromJson(item)).toList();
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          content: Text('${data['message']}'),
+          duration: Duration(seconds: 3),
+        ),
+      );
     }
-    print('Cards List size is : ${listCards.length}');*/
+
+    print('API response is : $data');
 
     return 'Success';
   }
@@ -371,14 +406,13 @@ class _CardFragState extends State<CardFrag> {
                                                         child: GestureDetector(
                                                           onTap: () {
                                                             setState(() {
-                                                              // clickEventOrgSize(index);
+                                                              clickEventMonth(index);
                                                             });
                                                           },
                                                           child: Container(
                                                             margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
                                                             decoration: BoxDecoration(
-                                                              // color: strOrgSize == orgSizeList[index] ? themeYellow : Colors.teal,
-                                                              color: Colors.teal,
+                                                              color: strSelectedMonth == monthList[index] ? themeYellow : Colors.teal,
                                                               borderRadius: BorderRadius.circular(7.0),
                                                               // color: Colors.teal,
                                                             ),
@@ -388,7 +422,6 @@ class _CardFragState extends State<CardFrag> {
                                                                 children: <Widget>[
                                                                   Expanded(
                                                                     child: Text(
-                                                                      // list[index].shortTitle,
                                                                       monthList[index],
                                                                       textAlign: TextAlign.start,
                                                                       style: kDataSingleSelectionBottomNav,
@@ -423,7 +456,7 @@ class _CardFragState extends State<CardFrag> {
                                   Container(
                                     margin: EdgeInsets.symmetric(vertical: 4.0.w, horizontal: 10.0.sp),
                                     child: Text(
-                                      'MM',
+                                      strSelectedMonth == '' ? 'MM' : strSelectedMonth,
                                       style: kLableSignUpTextStyle,
                                     ),
                                     /*child: TextField(
@@ -450,38 +483,137 @@ class _CardFragState extends State<CardFrag> {
                             ),
                           ),
                           Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Container(
-                                  margin: EdgeInsets.only(left: 10.0.sp, right: 10.0.sp, top: 2.0.w),
-                                  child: Text(
-                                    'Year',
-                                    style: kLableSignUpHintLableStyle,
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 10.0.sp),
-                                  child: TextField(
-                                    controller: expYearController,
-                                    style: kLableSignUpTextStyle,
-                                    keyboardType: TextInputType.number,
-                                    decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: 'YYYY',
-                                      hintStyle: kLableSignUpHintStyle,
+                            child: GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                    context: context,
+                                    builder: (builder) {
+                                      return StatefulBuilder(
+                                        builder: (BuildContext context, void Function(void Function()) setState) {
+                                          return Container(
+                                            height: 150.0.w,
+                                            child: Column(
+                                              children: <Widget>[
+                                                Container(
+                                                  height: 17.0.w,
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: <Widget>[
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          Navigator.pop(context);
+                                                        },
+                                                        child: Container(
+                                                          width: 20.0.w,
+                                                          child: Center(
+                                                            child: Text(
+                                                              'Cancel',
+                                                              style: kDateTestimonials,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        width: 50.0.w,
+                                                        child: Center(
+                                                          child: Text(
+                                                            'Year',
+                                                            style: kOthersTitle,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        width: 20.0.w,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: ListView.builder(
+                                                    itemCount: yearList.length,
+                                                    itemBuilder: (context, index) {
+                                                      return ConstrainedBox(
+                                                        constraints: BoxConstraints(
+                                                          minHeight: 15.0.w,
+                                                        ),
+                                                        child: GestureDetector(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              clickEventYear(index);
+                                                            });
+                                                          },
+                                                          child: Container(
+                                                            margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
+                                                            decoration: BoxDecoration(
+                                                              color: strSelectedYear == yearList[index] ? themeYellow : Colors.teal,
+                                                              borderRadius: BorderRadius.circular(7.0),
+                                                              // color: Colors.teal,
+                                                            ),
+                                                            child: Padding(
+                                                              padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
+                                                              child: Row(
+                                                                children: <Widget>[
+                                                                  Expanded(
+                                                                    child: Text(
+                                                                      // list[index].shortTitle,
+                                                                      yearList[index],
+                                                                      textAlign: TextAlign.start,
+                                                                      style: kDataSingleSelectionBottomNav,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    });
+                              },
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Container(
+                                    margin: EdgeInsets.only(left: 10.0.sp, right: 10.0.sp, top: 2.0.w),
+                                    child: Text(
+                                      'Year',
+                                      style: kLableSignUpHintLableStyle,
                                     ),
-                                    textInputAction: TextInputAction.next,
                                   ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(10.0.sp, 0, 10.0.sp, 0),
-                                  child: Divider(
-                                    height: 5.0,
-                                    color: Colors.black87,
+                                  Container(
+                                    margin: EdgeInsets.symmetric(vertical: 4.0.w, horizontal: 10.0.sp),
+                                    child: Text(
+                                      strSelectedYear == '' ? 'YYYY' : strSelectedYear,
+                                      style: kLableSignUpTextStyle,
+                                    ),
+                                    /*child: TextField(
+                                      controller: expYearController,
+                                      style: kLableSignUpTextStyle,
+                                      keyboardType: TextInputType.number,
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: 'YYYY',
+                                        hintStyle: kLableSignUpHintStyle,
+                                      ),
+                                      textInputAction: TextInputAction.next,
+                                    ),*/
                                   ),
-                                ),
-                              ],
+                                  Container(
+                                    margin: EdgeInsets.fromLTRB(10.0.sp, 0, 10.0.sp, 0),
+                                    child: Divider(
+                                      height: 5.0,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           Expanded(
@@ -498,7 +630,7 @@ class _CardFragState extends State<CardFrag> {
                                 Container(
                                   margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 10.0.sp),
                                   child: TextField(
-                                    controller: cardNumberController,
+                                    controller: cvvController,
                                     style: kLableSignUpTextStyle,
                                     obscureText: true,
                                     keyboardType: TextInputType.number,
@@ -904,17 +1036,66 @@ class _CardFragState extends State<CardFrag> {
           duration: Duration(seconds: 5),
         ),
       );
-    } else if (expMonthController.text == '' || expMonthController.text.length == 0) {
+    } else if (strSelectedMonth == '') {
       _scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text(strExpMonthEmpty),
           duration: Duration(seconds: 5),
         ),
       );
-    } else if (expMonthController.text.length > 2 || int.parse(expMonthController.text) > 12) {
+    } else if (strSelectedYear == '') {
       _scaffoldKey.currentState.showSnackBar(
         SnackBar(
-          content: Text(strExpMonthValid),
+          content: Text(strExpYearEmpty),
+          duration: Duration(seconds: 5),
+        ),
+      );
+    } else if (cvvController.text == '' || cvvController.text.length == 0) {
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          content: Text(strCVVEmpty),
+          duration: Duration(seconds: 5),
+        ),
+      );
+    } else if (cvvController.text.length > 3) {
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          content: Text(strCVVValid),
+          duration: Duration(seconds: 5),
+        ),
+      );
+    } else {
+      // All validations passed..
+      print('All validation passed for add card');
+      addCardAPI();
+    }
+  }
+
+  void clickEventMonth(int index) {
+    setState(() {
+      strSelectedMonth = monthList[index].toString();
+      Navigator.pop(context);
+    });
+  }
+
+  void clickEventYear(int index) {
+    setState(() {
+      strSelectedYear = yearList[index].toString();
+      Navigator.pop(context);
+    });
+  }
+
+  void addCardAPI() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
+      setState(() {
+        isLoaderShowing = true;
+      });
+      this.addUserCardAPI('$_authToken');
+    } else {
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 5),
         ),
       );

@@ -347,3 +347,4 @@ const String strExpMonthEmpty = 'Enter expire month';
 const String strExpMonthValid = 'Please enter valid expire month';
 const String strExpYearEmpty = 'Enter  expire year';
 const String strCVVEmpty = 'Enter Enter CVV';
+const String strCVVValid = 'Please enter valid CVV';
