@@ -180,6 +180,7 @@ class _TestimonialsState extends State<Testimonials> {
                           return this.getMyTransactionList('$_authToken', '$start', '200');
                         },
                         child: ListView.builder(
+                          physics: AlwaysScrollableScrollPhysics(),
                           controller: _scrollController,
                           shrinkWrap: true,
                           // itemCount: arrCount,

@@ -582,359 +582,368 @@ class _HomeFragmentState extends State<HomeFragment> {
                 ),
                 Expanded(
                   child: (list != null && list.isNotEmpty)
-                      ? ListView.builder(
-                          controller: _scrollController,
-                          shrinkWrap: true,
-                          // itemCount: arrCount,
-                          itemCount: list.length + 1,
-                          itemBuilder: (context, index) {
-                            return (index == list.length)
-                                ? isLast
-                                    ? Container(
-                                        height: 20.0,
-                                      )
-                                    : Padding(
-                                        padding: EdgeInsets.symmetric(vertical: 20.0),
-                                        child: Center(
-                                          child: CircularProgressIndicator(),
-                                        ),
-                                      )
-                                // : (index == 0 && isSelfStudy && arrCountRecent != 0 && start == 0)
-                                : (index == 0 && isSelfStudy && arrCountRecent > 0)
-                                    ? Column(
-                                        children: <Widget>[
-                                          Container(
-                                            padding: EdgeInsets.symmetric(horizontal: 12.0.sp),
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: <Widget>[
-                                                Text(
-                                                  'Continue Watch',
-                                                  style: TextStyle(
-                                                    fontSize: 11.0.sp,
-                                                    fontFamily: 'Whitney Semi Bold',
-                                                  ),
-                                                ),
-                                                Icon(
-                                                  FontAwesomeIcons.angleRight,
-                                                  color: Colors.black,
-                                                  size: 12.0.sp,
-                                                ),
-                                              ],
-                                            ),
+                      ? RefreshIndicator(
+                          onRefresh: () {
+                            print('On refresh is called..');
+                            start = 0;
+                            list.clear();
+                            return this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+                          },
+                          child: ListView.builder(
+                            controller: _scrollController,
+                            shrinkWrap: true,
+                            physics: AlwaysScrollableScrollPhysics(),
+                            // itemCount: arrCount,
+                            itemCount: list.length + 1,
+                            itemBuilder: (context, index) {
+                              return (index == list.length)
+                                  ? isLast
+                                      ? Container(
+                                          height: 20.0,
+                                        )
+                                      : Padding(
+                                          padding: EdgeInsets.symmetric(vertical: 20.0),
+                                          child: Center(
+                                            child: CircularProgressIndicator(),
                                           ),
-                                          Container(
-                                            height: 40.0.w,
-                                            child: ListView.builder(
-                                              scrollDirection: Axis.horizontal,
-                                              itemCount: recentList.length,
-                                              shrinkWrap: true,
-                                              itemBuilder: (context, index) {
-                                                return Container(
-                                                  margin: EdgeInsets.fromLTRB(3.5.w, 1.0.h, 0.0, 2.0.h),
-                                                  height: 40.0.w,
-                                                  width: 65.0.w,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(10.0.sp),
-                                                    color: Colors.teal,
+                                        )
+                                  // : (index == 0 && isSelfStudy && arrCountRecent != 0 && start == 0)
+                                  : (index == 0 && isSelfStudy && arrCountRecent > 0)
+                                      ? Column(
+                                          children: <Widget>[
+                                            Container(
+                                              padding: EdgeInsets.symmetric(horizontal: 12.0.sp),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: <Widget>[
+                                                  Text(
+                                                    'Continue Watch',
+                                                    style: TextStyle(
+                                                      fontSize: 11.0.sp,
+                                                      fontFamily: 'Whitney Semi Bold',
+                                                    ),
                                                   ),
-                                                  child: Stack(
-                                                    children: <Widget>[
-                                                      Positioned(
-                                                        child: Image.asset(
-                                                          'assets/bg_image_recent.png',
-                                                          height: 40.0.w,
-                                                          width: 65.0.w,
-                                                          fit: BoxFit.fill,
+                                                  Icon(
+                                                    FontAwesomeIcons.angleRight,
+                                                    color: Colors.black,
+                                                    size: 12.0.sp,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Container(
+                                              height: 40.0.w,
+                                              child: ListView.builder(
+                                                scrollDirection: Axis.horizontal,
+                                                itemCount: recentList.length,
+                                                shrinkWrap: true,
+                                                itemBuilder: (context, index) {
+                                                  return Container(
+                                                    margin: EdgeInsets.fromLTRB(3.5.w, 1.0.h, 0.0, 2.0.h),
+                                                    height: 40.0.w,
+                                                    width: 65.0.w,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(10.0.sp),
+                                                      color: Colors.teal,
+                                                    ),
+                                                    child: Stack(
+                                                      children: <Widget>[
+                                                        Positioned(
+                                                          child: Image.asset(
+                                                            'assets/bg_image_recent.png',
+                                                            height: 40.0.w,
+                                                            width: 65.0.w,
+                                                            fit: BoxFit.fill,
+                                                          ),
                                                         ),
-                                                      ),
-                                                      Positioned(
-                                                        child: Container(
-                                                          height: double.infinity,
-                                                          child: Stack(
-                                                            children: <Widget>[
-                                                              Positioned(
-                                                                child: Text(
-                                                                  recentList[index].webinarTitle,
-                                                                  style: TextStyle(
-                                                                    fontSize: 10.0.sp,
-                                                                    color: Colors.white,
-                                                                    fontFamily: 'Whitney Bold',
-                                                                  ),
-                                                                  maxLines: 3,
-                                                                  overflow: TextOverflow.ellipsis,
-                                                                ),
-                                                              ),
-                                                              Positioned(
-                                                                bottom: 0.0,
-                                                                child: GestureDetector(
-                                                                  onTap: () {
-                                                                    print('Clicked on index position : $index');
-                                                                    print('Clicked on ID : ${recentList[index].id}');
-                                                                    getIdWebinar(index);
-                                                                  },
-                                                                  child: Container(
-                                                                    height: 25.0.sp,
-                                                                    width: 25.0.sp,
-                                                                    decoration: BoxDecoration(
-                                                                      borderRadius: BorderRadius.circular(25.0.sp),
+                                                        Positioned(
+                                                          child: Container(
+                                                            height: double.infinity,
+                                                            child: Stack(
+                                                              children: <Widget>[
+                                                                Positioned(
+                                                                  child: Text(
+                                                                    recentList[index].webinarTitle,
+                                                                    style: TextStyle(
+                                                                      fontSize: 10.0.sp,
                                                                       color: Colors.white,
+                                                                      fontFamily: 'Whitney Bold',
                                                                     ),
-                                                                    padding: EdgeInsets.all(7.0.sp),
-                                                                    child: Image.asset(
-                                                                      'assets/cpe_icon.png',
+                                                                    maxLines: 3,
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                  ),
+                                                                ),
+                                                                Positioned(
+                                                                  bottom: 0.0,
+                                                                  child: GestureDetector(
+                                                                    onTap: () {
+                                                                      print('Clicked on index position : $index');
+                                                                      print('Clicked on ID : ${recentList[index].id}');
+                                                                      getIdWebinar(index);
+                                                                    },
+                                                                    child: Container(
+                                                                      height: 25.0.sp,
+                                                                      width: 25.0.sp,
+                                                                      decoration: BoxDecoration(
+                                                                        borderRadius: BorderRadius.circular(25.0.sp),
+                                                                        color: Colors.white,
+                                                                      ),
+                                                                      padding: EdgeInsets.all(7.0.sp),
+                                                                      child: Image.asset(
+                                                                        'assets/cpe_icon.png',
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                            ],
+                                                              ],
+                                                            ),
+                                                            padding: EdgeInsets.all(10.0.sp),
                                                           ),
-                                                          padding: EdgeInsets.all(10.0.sp),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      /*Text('Horizontal row here..')*/
+                                      : GestureDetector(
+                                          onTap: () {
+                                            print('Clicked on index pos : $index');
+                                          },
+                                          child: Container(
+                                            // margin: EdgeInsets.only(top: 10.0),
+                                            margin: EdgeInsets.fromLTRB(3.5.w, 0.0.h, 3.5.w, 2.0.h),
+                                            decoration: BoxDecoration(
+                                              // color: Color(0xFFFFC803),
+                                              color: index % 2 == 0 ? Color(0xFFFFC803) : Color(0xFF00B1FD),
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(15.0),
+                                              ),
+                                            ),
+                                            height: 70.0.w,
+                                            child: Stack(
+                                              children: [
+                                                Positioned(
+                                                  top: 0,
+                                                  left: 0,
+                                                  right: 0,
+                                                  child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: <Widget>[
+                                                      Padding(
+                                                        padding: const EdgeInsets.only(top: 15.0),
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: <Widget>[
+                                                            ConstrainedBox(
+                                                              constraints: BoxConstraints(minWidth: 28.0.w),
+                                                              child: Container(
+                                                                margin: EdgeInsets.only(left: 15.0),
+                                                                height: 4.0.h,
+                                                                decoration: BoxDecoration(
+                                                                  borderRadius: BorderRadius.circular(5.0),
+                                                                  color: Colors.white,
+                                                                ),
+                                                                child: Padding(
+                                                                  padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+                                                                  child: Center(
+                                                                    child: Text(
+                                                                        // '${data['payload']['webinar'][index]['webinar_type']}',
+                                                                        '${list[index].webinarType}',
+                                                                        style:
+                                                                            // kWebinarButtonLabelTextStyleGreen,
+                                                                            TextStyle(
+                                                                          fontFamily: 'Whitney Semi Bold',
+                                                                          fontSize: 12.5.sp,
+                                                                          color: Color(0xFF00A81B),
+                                                                        )),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            ConstrainedBox(
+                                                              constraints: BoxConstraints(minWidth: 28.0.w),
+                                                              child: Container(
+                                                                height: 4.0.h,
+                                                                decoration: BoxDecoration(
+                                                                  borderRadius: BorderRadius.circular(5.0),
+                                                                  color: Colors.white,
+                                                                ),
+                                                                child: Padding(
+                                                                  padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+                                                                  child: Center(
+                                                                    child: Text(
+                                                                        // '${data['payload']['webinar'][index]['cpa_credit']}',
+                                                                        '${list[index].cpaCredit}',
+                                                                        style:
+                                                                            // kWebinarButtonLabelTextStyle,
+                                                                            TextStyle(
+                                                                          fontFamily: 'Whitney Semi Bold',
+                                                                          fontSize: 12.5.sp,
+                                                                          color: Colors.black,
+                                                                        )),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            ConstrainedBox(
+                                                              constraints: BoxConstraints(minWidth: 28.0.w),
+                                                              child: Container(
+                                                                margin: EdgeInsets.only(right: 15.0),
+                                                                height: 4.0.h,
+                                                                decoration: BoxDecoration(
+                                                                  borderRadius: BorderRadius.circular(5.0),
+                                                                  color: Colors.white,
+                                                                ),
+                                                                child: Padding(
+                                                                  padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+                                                                  child: Center(
+                                                                    child: Text(
+                                                                        // '\$ ${data['payload']['webinar'][index]['fee']}',
+                                                                        '${checkForPrice(index)}',
+                                                                        style:
+                                                                            // kWebinarButtonLabelTextStyle,
+                                                                            TextStyle(
+                                                                          fontFamily: 'Whitney Semi Bold',
+                                                                          fontSize: 12.5.sp,
+                                                                          color: Colors.black,
+                                                                        )),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
                                                       ),
-                                                    ],
-                                                  ),
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    /*Text('Horizontal row here..')*/
-                                    : GestureDetector(
-                                        onTap: () {
-                                          print('Clicked on index pos : $index');
-                                        },
-                                        child: Container(
-                                          // margin: EdgeInsets.only(top: 10.0),
-                                          margin: EdgeInsets.fromLTRB(3.5.w, 0.0.h, 3.5.w, 2.0.h),
-                                          decoration: BoxDecoration(
-                                            // color: Color(0xFFFFC803),
-                                            color: index % 2 == 0 ? Color(0xFFFFC803) : Color(0xFF00B1FD),
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(15.0),
-                                            ),
-                                          ),
-                                          height: 70.0.w,
-                                          child: Stack(
-                                            children: [
-                                              Positioned(
-                                                top: 0,
-                                                left: 0,
-                                                right: 0,
-                                                child: Column(
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: <Widget>[
-                                                    Padding(
-                                                      padding: const EdgeInsets.only(top: 15.0),
-                                                      child: Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                        children: <Widget>[
-                                                          ConstrainedBox(
-                                                            constraints: BoxConstraints(minWidth: 28.0.w),
-                                                            child: Container(
-                                                              margin: EdgeInsets.only(left: 15.0),
-                                                              height: 4.0.h,
-                                                              decoration: BoxDecoration(
-                                                                borderRadius: BorderRadius.circular(5.0),
-                                                                color: Colors.white,
-                                                              ),
-                                                              child: Padding(
-                                                                padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
-                                                                child: Center(
-                                                                  child: Text(
-                                                                      // '${data['payload']['webinar'][index]['webinar_type']}',
-                                                                      '${list[index].webinarType}',
-                                                                      style:
-                                                                          // kWebinarButtonLabelTextStyleGreen,
-                                                                          TextStyle(
-                                                                        fontFamily: 'Whitney Semi Bold',
-                                                                        fontSize: 12.5.sp,
-                                                                        color: Color(0xFF00A81B),
-                                                                      )),
-                                                                ),
-                                                              ),
+                                                      Padding(
+                                                        padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
+                                                        child: Flexible(
+                                                          child: Text(
+                                                            // '${data['payload']['webinar'][index]['webinar_title']}',
+                                                            '${list[index].webinarTitle}',
+                                                            style: TextStyle(
+                                                              fontFamily: 'Whitney Bold',
+                                                              fontSize: 16.0.sp,
+                                                              color: index % 2 == 0 ? Colors.black : Colors.white,
                                                             ),
+                                                            maxLines: 2,
+                                                            overflow: TextOverflow.ellipsis,
                                                           ),
-                                                          ConstrainedBox(
-                                                            constraints: BoxConstraints(minWidth: 28.0.w),
-                                                            child: Container(
-                                                              height: 4.0.h,
-                                                              decoration: BoxDecoration(
-                                                                borderRadius: BorderRadius.circular(5.0),
-                                                                color: Colors.white,
-                                                              ),
-                                                              child: Padding(
-                                                                padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
-                                                                child: Center(
-                                                                  child: Text(
-                                                                      // '${data['payload']['webinar'][index]['cpa_credit']}',
-                                                                      '${list[index].cpaCredit}',
-                                                                      style:
-                                                                          // kWebinarButtonLabelTextStyle,
-                                                                          TextStyle(
-                                                                        fontFamily: 'Whitney Semi Bold',
-                                                                        fontSize: 12.5.sp,
-                                                                        color: Colors.black,
-                                                                      )),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          ConstrainedBox(
-                                                            constraints: BoxConstraints(minWidth: 28.0.w),
-                                                            child: Container(
-                                                              margin: EdgeInsets.only(right: 15.0),
-                                                              height: 4.0.h,
-                                                              decoration: BoxDecoration(
-                                                                borderRadius: BorderRadius.circular(5.0),
-                                                                color: Colors.white,
-                                                              ),
-                                                              child: Padding(
-                                                                padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
-                                                                child: Center(
-                                                                  child: Text(
-                                                                      // '\$ ${data['payload']['webinar'][index]['fee']}',
-                                                                      '${checkForPrice(index)}',
-                                                                      style:
-                                                                          // kWebinarButtonLabelTextStyle,
-                                                                          TextStyle(
-                                                                        fontFamily: 'Whitney Semi Bold',
-                                                                        fontSize: 12.5.sp,
-                                                                        color: Colors.black,
-                                                                      )),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
-                                                      child: Flexible(
-                                                        child: Text(
-                                                          // '${data['payload']['webinar'][index]['webinar_title']}',
-                                                          '${list[index].webinarTitle}',
-                                                          style: TextStyle(
-                                                            fontFamily: 'Whitney Bold',
-                                                            fontSize: 16.0.sp,
-                                                            color: index % 2 == 0 ? Colors.black : Colors.white,
-                                                          ),
-                                                          maxLines: 2,
-                                                          overflow: TextOverflow.ellipsis,
                                                         ),
                                                       ),
-                                                    ),
-                                                    Padding(
-                                                      padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
-                                                      child: Row(
-                                                        children: [
-                                                          Flexible(
-                                                            child: Text(
-                                                              // '${data['payload']['webinar'][index]['speaker_name']}',
-                                                              '${list[index].speakerName}',
+                                                      Padding(
+                                                        padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
+                                                        child: Row(
+                                                          children: [
+                                                            Flexible(
+                                                              child: Text(
+                                                                // '${data['payload']['webinar'][index]['speaker_name']}',
+                                                                '${list[index].speakerName}',
+                                                                style: TextStyle(
+                                                                  fontFamily: 'Whitney Semi Bold',
+                                                                  fontSize: 13.0.sp,
+                                                                  color: index % 2 == 0 ? Colors.black : Colors.white,
+                                                                ),
+                                                                overflow: TextOverflow.ellipsis,
+                                                                maxLines: 2,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
+                                                        child: Row(
+                                                          children: [
+                                                            Text(
+                                                              // '${data['payload']['webinar'][index]['start_date']} - ${data['payload']['webinar'][index]['start_time']} - ${data['payload']['webinar'][index]['time_zone']}',
+                                                              '${displayDateCondition(index)}',
                                                               style: TextStyle(
                                                                 fontFamily: 'Whitney Semi Bold',
                                                                 fontSize: 13.0.sp,
                                                                 color: index % 2 == 0 ? Colors.black : Colors.white,
                                                               ),
-                                                              overflow: TextOverflow.ellipsis,
-                                                              maxLines: 2,
                                                             ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
-                                                      child: Row(
-                                                        children: [
-                                                          Text(
-                                                            // '${data['payload']['webinar'][index]['start_date']} - ${data['payload']['webinar'][index]['start_time']} - ${data['payload']['webinar'][index]['time_zone']}',
-                                                            '${displayDateCondition(index)}',
-                                                            style: TextStyle(
-                                                              fontFamily: 'Whitney Semi Bold',
-                                                              fontSize: 13.0.sp,
-                                                              color: index % 2 == 0 ? Colors.black : Colors.white,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Positioned(
-                                                bottom: 18.0,
-                                                left: 18.0,
-                                                child: GestureDetector(
-                                                  onTap: () {
-                                                    print('Clicked on register button index is : $index');
-                                                    getIdWebinar(index);
-                                                    // 1. Take an API call for relevent action from here..
-                                                    // 2. Before this need to verify user is logged in or not..
-                                                    // 3. If not then redirect to Login screen and then back here..
-                                                    // 4. If user is logged in then need to check for webinar is free or not..
-                                                    // 5. If the webinar is free then have to check for isCardSaved or not..
-                                                    // 6. Take a Register API call from there onwards..
-                                                  },
-                                                  child: ConstrainedBox(
-                                                    constraints: BoxConstraints(
-                                                      minWidth: 35.0.w,
-                                                    ),
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                        // color: Color(0xFFC2900D),
-                                                        color: Color(0x23000000),
-                                                        borderRadius: BorderRadius.all(
-                                                          Radius.circular(5.0),
+                                                          ],
                                                         ),
                                                       ),
-                                                      height: 11.5.w,
-                                                      child: Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                        children: <Widget>[
-                                                          Padding(
-                                                            padding: const EdgeInsets.all(8.0),
-                                                            child: Text(
-                                                              // '${data['payload']['webinar'][index]['status']}',
-                                                              '${list[index].status}',
-                                                              style: TextStyle(
-                                                                fontFamily: 'Whitney Semi Bold',
-                                                                fontSize: 14.0.sp,
+                                                    ],
+                                                  ),
+                                                ),
+                                                Positioned(
+                                                  bottom: 18.0,
+                                                  left: 18.0,
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      print('Clicked on register button index is : $index');
+                                                      getIdWebinar(index);
+                                                      // 1. Take an API call for relevent action from here..
+                                                      // 2. Before this need to verify user is logged in or not..
+                                                      // 3. If not then redirect to Login screen and then back here..
+                                                      // 4. If user is logged in then need to check for webinar is free or not..
+                                                      // 5. If the webinar is free then have to check for isCardSaved or not..
+                                                      // 6. Take a Register API call from there onwards..
+                                                    },
+                                                    child: ConstrainedBox(
+                                                      constraints: BoxConstraints(
+                                                        minWidth: 35.0.w,
+                                                      ),
+                                                      child: Container(
+                                                        decoration: BoxDecoration(
+                                                          // color: Color(0xFFC2900D),
+                                                          color: Color(0x23000000),
+                                                          borderRadius: BorderRadius.all(
+                                                            Radius.circular(5.0),
+                                                          ),
+                                                        ),
+                                                        height: 11.5.w,
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: <Widget>[
+                                                            Padding(
+                                                              padding: const EdgeInsets.all(8.0),
+                                                              child: Text(
+                                                                // '${data['payload']['webinar'][index]['status']}',
+                                                                '${list[index].status}',
+                                                                style: TextStyle(
+                                                                  fontFamily: 'Whitney Semi Bold',
+                                                                  fontSize: 14.0.sp,
+                                                                  color: Colors.white,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding: EdgeInsets.all(5.0),
+                                                              child: Icon(
+                                                                FontAwesomeIcons.angleRight,
                                                                 color: Colors.white,
                                                               ),
                                                             ),
-                                                          ),
-                                                          Padding(
-                                                            padding: EdgeInsets.all(5.0),
-                                                            child: Icon(
-                                                              FontAwesomeIcons.angleRight,
-                                                              color: Colors.white,
-                                                            ),
-                                                          ),
-                                                        ],
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                              Positioned(
-                                                bottom: 0,
-                                                right: 0,
-                                                child: Image.asset(
-                                                  'assets/avatar_bottom_right.png',
-                                                  height: 36.0.w,
-                                                  width: 36.0.w,
+                                                Positioned(
+                                                  bottom: 0,
+                                                  right: 0,
+                                                  child: Image.asset(
+                                                    'assets/avatar_bottom_right.png',
+                                                    height: 36.0.w,
+                                                    width: 36.0.w,
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      );
-                          },
+                                        );
+                            },
+                          ),
                         )
                       : Container(
                           child: Center(

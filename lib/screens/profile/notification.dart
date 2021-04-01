@@ -192,6 +192,7 @@ class _NotificationsState extends State<Notifications> {
                           return this.getMyTransactionList('$_authToken', '$start', '10');
                         },
                         child: ListView.builder(
+                          physics: AlwaysScrollableScrollPhysics(),
                           controller: _scrollController,
                           shrinkWrap: true,
                           // itemCount: arrCount,

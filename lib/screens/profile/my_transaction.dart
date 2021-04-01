@@ -172,6 +172,7 @@ class _MyTranscationState extends State<MyTranscation> {
                           return this.getMyTransactionList('$_authToken', '$start', '10');
                         },
                         child: ListView.builder(
+                          physics: AlwaysScrollableScrollPhysics(),
                           controller: _scrollController,
                           shrinkWrap: true,
                           // itemCount: arrCount,
