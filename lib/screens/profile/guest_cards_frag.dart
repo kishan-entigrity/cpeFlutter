@@ -727,31 +727,46 @@ class _GuestCardFragState extends State<GuestCardFrag> {
                                             );
                                           });
                                     },
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Container(
-                                          margin: EdgeInsets.only(left: 10.0.sp, right: 10.0.sp, top: 2.0.w),
-                                          child: Text(
-                                            'Month',
-                                            style: kLableSignUpHintLableStyle,
+                                    child: Container(
+                                      color: Colors.white,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Container(
+                                            margin: EdgeInsets.only(left: 10.0.sp, right: 10.0.sp, top: 2.0.w),
+                                            child: Text(
+                                              'Month',
+                                              style: kLableSignUpHintLableStyle,
+                                            ),
                                           ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.symmetric(vertical: 4.0.w, horizontal: 10.0.sp),
-                                          child: Text(
-                                            strSelectedMonth == '' ? 'MM' : strSelectedMonth,
-                                            style: kLableSignUpTextStyle,
+                                          Container(
+                                            margin: EdgeInsets.only(right: 14.0.sp),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: <Widget>[
+                                                Container(
+                                                  margin: EdgeInsets.symmetric(vertical: 4.0.w, horizontal: 10.0.sp),
+                                                  child: Text(
+                                                    strSelectedMonth == '' ? 'MM' : strSelectedMonth,
+                                                    style: kLableSignUpTextStyle,
+                                                  ),
+                                                ),
+                                                Icon(
+                                                  FontAwesomeIcons.caretDown,
+                                                  size: 14.0.sp,
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.fromLTRB(10.0.sp, 0, 10.0.sp, 0),
-                                          child: Divider(
-                                            height: 5.0,
-                                            color: Colors.black87,
+                                          Container(
+                                            margin: EdgeInsets.fromLTRB(10.0.sp, 0, 10.0.sp, 0),
+                                            child: Divider(
+                                              height: 5.0,
+                                              color: Colors.black87,
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -850,31 +865,45 @@ class _GuestCardFragState extends State<GuestCardFrag> {
                                             );
                                           });
                                     },
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Container(
-                                          margin: EdgeInsets.only(left: 10.0.sp, right: 10.0.sp, top: 2.0.w),
-                                          child: Text(
-                                            'Year',
-                                            style: kLableSignUpHintLableStyle,
+                                    child: Container(
+                                      color: Colors.white,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Container(
+                                            margin: EdgeInsets.only(left: 10.0.sp, right: 10.0.sp, top: 2.0.w),
+                                            child: Text(
+                                              'Year',
+                                              style: kLableSignUpHintLableStyle,
+                                            ),
                                           ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.symmetric(vertical: 4.0.w, horizontal: 10.0.sp),
-                                          child: Text(
-                                            strSelectedYear == '' ? 'YYYY' : strSelectedYear,
-                                            style: kLableSignUpTextStyle,
+                                          Container(
+                                            margin: EdgeInsets.only(right: 14.0.sp),
+                                            child: Row(
+                                              children: <Widget>[
+                                                Container(
+                                                  margin: EdgeInsets.symmetric(vertical: 4.0.w, horizontal: 10.0.sp),
+                                                  child: Text(
+                                                    strSelectedYear == '' ? 'YYYY' : strSelectedYear,
+                                                    style: kLableSignUpTextStyle,
+                                                  ),
+                                                ),
+                                                Icon(
+                                                  FontAwesomeIcons.caretDown,
+                                                  size: 14.0.sp,
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.fromLTRB(10.0.sp, 0, 10.0.sp, 0),
-                                          child: Divider(
-                                            height: 5.0,
-                                            color: Colors.black87,
+                                          Container(
+                                            margin: EdgeInsets.fromLTRB(10.0.sp, 0, 10.0.sp, 0),
+                                            child: Divider(
+                                              height: 5.0,
+                                              color: Colors.black87,
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
