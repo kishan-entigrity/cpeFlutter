@@ -177,7 +177,7 @@ class _TestimonialsState extends State<Testimonials> {
                           print('On refresh is called..');
                           start = 0;
                           list.clear();
-                          this.getMyTransactionList('$_authToken', '$start', '200');
+                          return this.getMyTransactionList('$_authToken', '$start', '200');
                         },
                         child: ListView.builder(
                           controller: _scrollController,

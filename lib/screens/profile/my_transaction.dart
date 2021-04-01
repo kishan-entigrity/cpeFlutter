@@ -169,7 +169,7 @@ class _MyTranscationState extends State<MyTranscation> {
                           print('On refresh is called..');
                           start = 0;
                           list.clear();
-                          this.getMyTransactionList('$_authToken', '$start', '10');
+                          return this.getMyTransactionList('$_authToken', '$start', '10');
                         },
                         child: ListView.builder(
                           controller: _scrollController,
