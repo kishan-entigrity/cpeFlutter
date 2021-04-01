@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/screens/fragments/pagination/webinar_list.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
+import 'package:cpe_flutter/screens/profile/guest_cards_frag.dart';
 import 'package:cpe_flutter/screens/profile/notification.dart';
 import 'package:cpe_flutter/screens/webinar_details/webinar_details_new.dart';
 import 'package:flutter/cupertino.dart';
@@ -1188,7 +1189,17 @@ class _HomeFragmentState extends State<HomeFragment> {
                 // Here we need to check for card status..
                 // If card is saved then have to register webinar and redirect user to webinar details screen..
                 // Else we need to redirect user to the add card screen..
-                showCustomCardPopup(index, list[index].fee.toString());
+
+                // showCustomCardPopup(index, list[index].fee.toString());
+                int webinarId = list[index].id;
+                // String strWebinarId = webinarId.toString();
+                strWebinarTypeIntent = list[index].webinarType;
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => GuestCardFrag(list[index].fee.toString(), webinarId, strWebinarTypeIntent),
+                  ),
+                );
               }
             } else {
               loginPopup();
