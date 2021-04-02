@@ -16,6 +16,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../constant.dart';
 import '../../rest_api.dart';
+import 'model_hot_topics/list_hot_topics.dart';
 import 'model_recentwebinar/recent_webinar_data.dart';
 
 class HomeFragment extends StatefulWidget {
@@ -32,6 +33,9 @@ class _HomeFragmentState extends State<HomeFragment> {
   var data;
   var data_web;
   var data_recent;
+  int arrCountHotTopics = 0;
+  var dataHotTopics;
+  var dataHotTopicsList;
 
   int start = 0;
 
@@ -54,6 +58,8 @@ class _HomeFragmentState extends State<HomeFragment> {
   bool isLoaderShowing = false;
   List<Webinar> list;
   List<RecentWebinars> recentList;
+  List<Hot_topics> listHotTopics;
+  static List<String> hotTopicsId = [];
 
   bool isLast = false;
   bool isSearch = false;
@@ -132,10 +138,43 @@ class _HomeFragmentState extends State<HomeFragment> {
     return list;
   }
 
+  Future<List<Hot_topics>> getHotTopics() async {
+    String urls = URLs.BASE_URL + 'hot-topics';
+
+    final response = await http.get(
+      urls,
+      headers: {
+        'Accept': 'Application/json',
+        // 'Authorization': '$authToken',
+      },
+    );
+
+    this.setState(() {
+      dataHotTopics = jsonDecode(response.body);
+      isLoaderShowing = false;
+    });
+
+    // print(data[1]["title"]);
+    print('API response hot topics is : $dataHotTopics');
+    arrCountHotTopics = dataHotTopics['payload']['hot_topics'].length;
+    dataHotTopicsList = dataHotTopics['payload']['hot_topics'];
+    print('Size for array is : $arrCountHotTopics');
+
+    if (listHotTopics != null && list.isNotEmpty) {
+      listHotTopics.addAll(List.from(dataHotTopicsList).map<Hot_topics>((item) => Hot_topics.fromJson(item)).toList());
+    } else {
+      listHotTopics = List.from(dataHotTopicsList).map<Hot_topics>((item) => Hot_topics.fromJson(item)).toList();
+    }
+
+    return listHotTopics;
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    // hotTopicsId.clear();
+    checkForInternet();
 
     checkForSP();
 
@@ -352,8 +391,44 @@ class _HomeFragmentState extends State<HomeFragment> {
                         /*selectedFilterWidget(
                       str: 'Test Filter',
                     ),*/
-                        selectedFilterWidget(
+                        /*selectedFilterWidget(
                           str: 'Hot Topics',
+                        ),*/
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              selectHotTopicsFilter();
+                            });
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                            child: Container(
+                              decoration: hotTopicsId.length > 0
+                                  ? BoxDecoration(
+                                      borderRadius: BorderRadius.circular(18.0),
+                                      color: Color(0xFF607083),
+                                    )
+                                  : BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                      border: Border.all(color: Colors.black, width: 1.0),
+                                      color: Color(0xFFFFFFFF),
+                                    ),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 9.0,
+                                  horizontal: 18.0,
+                                ),
+                                child: Text(
+                                  'Hot Topics',
+                                  style: TextStyle(
+                                    color: hotTopicsId.length > 0 ? Colors.white : Colors.black,
+                                    fontSize: 11.0.sp,
+                                    fontFamily: 'Whitney Medium',
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
@@ -1157,6 +1232,117 @@ class _HomeFragmentState extends State<HomeFragment> {
     });
   }
 
+  void selectHotTopicsFilter() {
+    // if (listHotTopics.length == 0) {
+    if (arrCountHotTopics == 0) {
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text("Oops we didn't get Hot Topics"),
+          duration: Duration(seconds: 3),
+        ),
+      );
+      Future.delayed(const Duration(seconds: 3), () {
+        // Take API call for getting hot topics again..
+        print('API call for get Hot Topics is needed..');
+      });
+    } else {
+      setState(() {
+        showModalBottomSheet(
+            context: context,
+            builder: (builder) {
+              return StatefulBuilder(
+                builder: (BuildContext context, void Function(void Function()) setState) {
+                  return Container(
+                    height: 150.0.w,
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          height: 17.0.w,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Container(
+                                  width: 20.0.w,
+                                  child: Center(
+                                    child: Text(
+                                      'Cancel',
+                                      style: kDateTestimonials,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: 50.0.w,
+                                child: Center(
+                                  child: Text(
+                                    'Hot Topics',
+                                    style: kOthersTitle,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: 20.0.w,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: arrCountHotTopics,
+                            itemBuilder: (context, index) {
+                              return ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  minHeight: 15.0.w,
+                                ),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      // clickEventDateFilter(index);
+                                      clickEventHotTopics(index);
+                                    });
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
+                                    decoration: BoxDecoration(
+                                      color: listHotTopics[index].isSelected ? themeYellow : Colors.teal,
+                                      // color: Colors.teal,
+                                      borderRadius: BorderRadius.circular(7.0),
+                                      // color: Colors.teal,
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: Text(
+                                              listHotTopics[index].name,
+                                              textAlign: TextAlign.start,
+                                              style: kDataSingleSelectionBottomNav,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            });
+      });
+    }
+  }
+
   selectCPDFilter() {
     /*setState(() {
       if (isCPD1) {
@@ -1910,7 +2096,39 @@ class _HomeFragmentState extends State<HomeFragment> {
     }
   }
 
-  /*void clickEventMonth(int index) {
+  void checkForInternet() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    print('Connectivity Result is : $connectivityResult');
+
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
+      getHotTopics();
+    } else {
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text("Please check your internet connectivity and try again"),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    }
+  }
+
+  void clickEventHotTopics(int index) {
+    if (listHotTopics[index].isSelected) {
+      setState(() {
+        listHotTopics[index].isSelected = false;
+        hotTopicsId.remove(listHotTopics[index].id.toString());
+        print('Lenght for hotTopicsId on remove is : ${hotTopicsId.length}');
+      });
+    } else {
+      setState(() {
+        listHotTopics[index].isSelected = true;
+        hotTopicsId.add(listHotTopics[index].id.toString());
+        print('Lenght for hotTopicsId on Add is : ${hotTopicsId.length}');
+      });
+    }
+  }
+
+/*void clickEventMonth(int index) {
     setState(() {
       ConstSignUp.strSelectedMonth = ConstSignUp.monthList[index].toString();
       FocusManager.instance.primaryFocus.unfocus();
