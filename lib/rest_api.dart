@@ -4,8 +4,8 @@ import 'package:http/http.dart' as http;
 
 class URLs {
   // static const String BASE_URL = 'https://my-cpe.com/api/v3/';
-  static const String BASE_URL = 'https://my-cpe.com/api/v4/';
-  // static const String BASE_URL = 'https://testing-website.in/api/v4/';
+  // static const String BASE_URL = 'https://my-cpe.com/api/v4/';
+  static const String BASE_URL = 'https://testing-website.in/api/v4/';
 }
 
 Future loginUser(String email, String password, String device_id, String device_token, String device_type) async {
@@ -38,21 +38,6 @@ Future changePassword(String authToken, String current_password, String new_pass
   }
 }
 
-Future registerWebinarAPI(String authToken, String webinar_id, String schedule_id) async {
-  String urls = URLs.BASE_URL + 'webinar/register-webinar';
-  final response = await http.post(
-    urls,
-    headers: {
-      'Accept': 'Application/json',
-      'Authorization': authToken,
-    },
-    body: {'webinar_id': webinar_id, 'schedule_id': schedule_id},
-  );
-
-  var convertDataToJson = jsonDecode(response.body);
-  return convertDataToJson;
-}
-
 Future video_duration(String authToken, String webinar_id, String play_time_duration, String presentation_length) async {
   String urls = URLs.BASE_URL + 'webinar/video-duration';
   final response = await http.post(
@@ -80,6 +65,48 @@ Future contactUs(String email, String subject) async {
       'Subject': subject,
     },
   );
+  var convertDataToJson = jsonDecode(response.body);
+  return convertDataToJson;
+}
+
+Future registerWebinarAPI(String authToken, String webinar_id, String schedule_id) async {
+  String urls = URLs.BASE_URL + 'webinar/register-webinar';
+  final response = await http.post(
+    urls,
+    headers: {
+      'Accept': 'Application/json',
+      'Authorization': authToken,
+    },
+    body: {'webinar_id': webinar_id, 'schedule_id': schedule_id},
+  );
+
+  var convertDataToJson = jsonDecode(response.body);
+  return convertDataToJson;
+}
+
+Future registerPaidWebinarAPI(String authToken, String webinar_id, String schedule_id, String card_id, String is_card, String card_number,
+    String exp_month, String exp_year, String cvv, String new_card, String card_holder_name) async {
+  String urls = URLs.BASE_URL + 'webinar/register-webinar';
+  final response = await http.post(
+    urls,
+    headers: {
+      'Accept': 'Application/json',
+      'Authorization': authToken,
+    },
+    body: {
+      'webinar_id': webinar_id,
+      'schedule_id': schedule_id,
+      'card_id': card_id,
+      'is_card': is_card,
+      'card_number': card_number,
+      'exp_month': exp_month,
+      'exp_year': exp_year,
+      'cvv': cvv,
+      'new_card': new_card,
+      'card_holder_name': card_holder_name,
+    },
+  );
+
   var convertDataToJson = jsonDecode(response.body);
   return convertDataToJson;
 }

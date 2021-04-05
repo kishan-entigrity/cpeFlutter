@@ -1366,6 +1366,37 @@ class _HomeFragmentState extends State<HomeFragment> {
     if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
       if (strWebinarTypeIntent.toLowerCase() == 'live') {
         print('Webinar Type is live');
+        if (list[index].status.toLowerCase() == 'register') {
+          SharedPreferences preferences = await SharedPreferences.getInstance();
+          bool checkValue = preferences.getBool("check");
+          print('Check value is : $checkValue');
+          if (checkValue != null) {
+            if (checkValue) {
+              if (list[index].fee == 'FREE' || list[index].fee == '') {
+              } else {
+                // Here we need to check for card status..
+                // If card is saved then have to register webinar and redirect user to webinar details screen..
+                // Else we need to redirect user to the add card screen..
+
+                // showCustomCardPopup(index, list[index].fee.toString());
+                int webinarId = list[index].id;
+                String scheduleId = list[index].scheduleId.toString();
+                // String strWebinarId = webinarId.toString();
+                strWebinarTypeIntent = list[index].webinarType;
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => GuestCardFrag(list[index].fee.toString(), webinarId, strWebinarTypeIntent, scheduleId),
+                  ),
+                );
+              }
+            } else {
+              loginPopup();
+            }
+          } else {
+            loginPopup();
+          }
+        }
       } else if (strWebinarTypeIntent.toLowerCase() == 'self_study' || strWebinarTypeIntent.toLowerCase() == 'on-demand') {
         print('Webinar Type is self_study');
         if (list[index].status.toLowerCase() == 'register') {
@@ -1387,12 +1418,13 @@ class _HomeFragmentState extends State<HomeFragment> {
 
                 // showCustomCardPopup(index, list[index].fee.toString());
                 int webinarId = list[index].id;
+                String scheduleId = list[index].scheduleId.toString();
                 // String strWebinarId = webinarId.toString();
                 strWebinarTypeIntent = list[index].webinarType;
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => GuestCardFrag(list[index].fee.toString(), webinarId, strWebinarTypeIntent),
+                    builder: (context) => GuestCardFrag(list[index].fee.toString(), webinarId, strWebinarTypeIntent, scheduleId),
                   ),
                 );
               }

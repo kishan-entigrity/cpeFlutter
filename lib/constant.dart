@@ -340,14 +340,14 @@ const String strCompletedSSNotFound = 'No Completed Webinar Available';
 
 const bool isFromSubmitReview = false;
 
-const String strCardNameEmpty = 'Enter card holder name';
-const String strCardNumberEmpty = 'Enter card number';
+const String strCardNameEmpty = 'Please enter card holder name';
+const String strCardNumberEmpty = 'Please enter card number';
 const String strCardNumberValid = 'Please enter a valid card no.';
-const String strExpMonthSelect = 'Select expire month';
+const String strExpMonthSelect = 'Please select expire month';
 const String strExpMonthValid = 'Please enter valid expire month';
 const String strExpYearValid = 'Please enter valid expire year';
-const String strExpYearSelect = 'Select expire year';
-const String strCVVEmpty = 'Enter Enter CVV';
+const String strExpYearSelect = 'Please select expire year';
+const String strCVVEmpty = 'Please enter CVV';
 const String strCVVValid = 'Please enter valid CVV';
 const String strExpMonthEmpty = 'Please enter expire month';
 const String strExpyearEmpty = 'Please enter expire year';
