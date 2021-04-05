@@ -396,8 +396,10 @@ class _CardFragState extends State<CardFrag> {
                           controller: cardNumberController,
                           style: kLableSignUpTextStyle,
                           keyboardType: TextInputType.number,
+                          maxLength: 16,
                           decoration: InputDecoration(
                             border: InputBorder.none,
+                            counter: SizedBox.shrink(),
                             hintText: '5052 6525 5548 6246',
                             hintStyle: kLableSignUpHintStyle,
                           ),
@@ -705,8 +707,10 @@ class _CardFragState extends State<CardFrag> {
                                     style: kLableSignUpTextStyle,
                                     obscureText: true,
                                     keyboardType: TextInputType.number,
+                                    maxLength: 3,
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
+                                      counter: SizedBox.shrink(),
                                       hintText: 'CVV',
                                       hintStyle: kLableSignUpHintStyle,
                                     ),

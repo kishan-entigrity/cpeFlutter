@@ -660,8 +660,10 @@ class _GuestCardFragState extends State<GuestCardFrag> {
                                       controller: cardNumberController,
                                       style: kLableSignUpTextStyle,
                                       keyboardType: TextInputType.number,
+                                      maxLength: 16,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
+                                        counter: SizedBox.shrink(),
                                         hintText: '5052 6525 5548 6246',
                                         hintStyle: kLableSignUpHintStyle,
                                       ),
@@ -968,8 +970,10 @@ class _GuestCardFragState extends State<GuestCardFrag> {
                                                 controller: cvvController,
                                                 style: kLableSignUpTextStyle,
                                                 obscureText: true,
+                                                maxLength: 3,
                                                 keyboardType: TextInputType.number,
                                                 decoration: InputDecoration(
+                                                  counter: SizedBox.shrink(),
                                                   border: InputBorder.none,
                                                   hintText: 'CVV',
                                                   hintStyle: kLableSignUpHintStyle,
