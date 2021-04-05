@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/screens/home_screen.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,14 +8,22 @@ import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../rest_api.dart';
+
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   String _email;
   // String _password;
+
+  var resp;
+  var respStatus;
+  var respMessage;
 
   @override
   void initState() {
@@ -42,6 +51,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.blueGrey,
       body: Column(
         children: <Widget>[
@@ -147,8 +157,24 @@ class _SplashScreenState extends State<SplashScreen> {
       String versionCode = packageInfo.buildNumber;
       print('Version name : $versionName');
       print('version code : $versionCode');
+
+      getVersionCheckAPI(versionName, versionCode);
     } else if (Platform.isIOS) {
       print('Device Type is iOS');
+    }
+  }
+
+  void getVersionCheckAPI(String versionName, String versionCode) async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
+      resp = await versionCheck(versionName);
+    } else {
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          content: Text("Please check your internet connectivity and try again"),
+          duration: Duration(seconds: 3),
+        ),
+      );
     }
   }
 }

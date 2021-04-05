@@ -19,6 +19,21 @@ Future loginUser(String email, String password, String device_id, String device_
   return convertDataToJson;
 }
 
+Future versionCheck(String current_version) async {
+  String urls = URLs.BASE_URL + 'get-version';
+  final response = await http.post(
+    urls,
+    headers: {
+      'Accept': 'Application/json',
+      // 'Authorization': 'Bearer $authToken',
+    },
+    body: {'current_version': current_version},
+  );
+
+  var convertDataToJson = jsonDecode(response.body);
+  return convertDataToJson;
+}
+
 Future changePassword(String authToken, String current_password, String new_password, String confirm_password) async {
   String urls = URLs.BASE_URL + 'change-password';
   final response = await http.post(
