@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // HomeSampleFrag(),
     HomeFragment(),
     MyWebinarFrag(),
-    CertificateFrag(),
+    CertificateFrag(false),
     PremiumFrag(),
     ProfileFrag(),
   ];
@@ -404,7 +404,7 @@ class _HomeScreenState extends State<HomeScreen> {
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    currentScreen = CertificateFrag();
+                    currentScreen = CertificateFrag(false);
                     currentTab = 2;
                   });
                 },

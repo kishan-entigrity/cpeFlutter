@@ -186,7 +186,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                                                     context,
                                                     MaterialPageRoute(
                                                       // builder: (context) => MyCredit(),
-                                                      builder: (context) => CertificateFrag(),
+                                                      builder: (context) => CertificateFrag(true),
                                                     ),
                                                   );
                                                 },

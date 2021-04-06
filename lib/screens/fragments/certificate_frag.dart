@@ -6,6 +6,7 @@ import 'package:cpe_flutter/constant.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_gallery_saver/image_gallery_saver.dart';
@@ -18,11 +19,19 @@ import '../../rest_api.dart';
 import 'model_credit/credit_model.dart';
 
 class CertificateFrag extends StatefulWidget {
+  CertificateFrag(this.isFromProfile);
+
+  final bool isFromProfile;
+
   @override
-  _CertificateFragState createState() => _CertificateFragState();
+  _CertificateFragState createState() => _CertificateFragState(isFromProfile);
 }
 
 class _CertificateFragState extends State<CertificateFrag> {
+  _CertificateFragState(this.isFromProfile);
+
+  final bool isFromProfile;
+
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   ScrollController _scrollController = new ScrollController();
   bool isLoaderShowing = false;
@@ -101,6 +110,8 @@ class _CertificateFragState extends State<CertificateFrag> {
     print('Enter into myTransaction screen');
     checkForInternet();
 
+    print('State fot the isFromProfile : $isFromProfile');
+
     _scrollController.addListener(() {
       if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
         print('Scroll Controller is called here status for isLast is : $isLast');
@@ -125,322 +136,354 @@ class _CertificateFragState extends State<CertificateFrag> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Container(
-              height: 70.0,
-              width: double.infinity,
-              child: Row(
-                children: <Widget>[
-                  GestureDetector(
-                    child: Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          FontAwesomeIcons.angleLeft,
-                        ),
-                      ),
-                      flex: 1,
-                    ),
-                    onTap: () {
-                      print('Back button is pressed..');
-                      Navigator.pop(context);
-                    },
-                  ),
-                  Flexible(
-                    child: Center(
-                      child: Text(
-                        'My Certificates',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14.5.sp,
-                          fontFamily: 'Whitney Semi Bold',
-                        ),
-                      ),
-                    ),
-                    flex: 8,
-                  ),
-                  Flexible(
-                    child: Text(''),
-                    flex: 1,
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              height: 0.5,
-              color: Colors.black,
-            ),
-            Expanded(
-              child: Container(
-                color: Colors.white,
-                child: Stack(
-                  children: <Widget>[
-                    Positioned(
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            height: 25.0.sp,
-                            // margin: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 5.0.w),
-                            margin: EdgeInsets.all(4.0.w),
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: testColor,
-                              borderRadius: BorderRadius.circular(6.0),
+      body: new WillPopScope(
+          child: SafeArea(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  height: 70.0,
+                  width: double.infinity,
+                  child: Row(
+                    children: <Widget>[
+                      Visibility(
+                        visible: isFromProfile ? true : false,
+                        child: GestureDetector(
+                          onTap: () {
+                            print('Back button is pressed..');
+                            Navigator.pop(context);
+                          },
+                          child: Flexible(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Icon(
+                                FontAwesomeIcons.angleLeft,
+                              ),
                             ),
-                            child: Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      clickEventAll();
-                                    },
-                                    child: Container(
-                                      height: double.infinity,
-                                      margin: isAllSelected ? EdgeInsets.all(1.0) : EdgeInsets.all(0.0),
-                                      decoration: BoxDecoration(
-                                        color: isAllSelected ? themeBlueLight : testColor,
-                                        borderRadius: BorderRadius.circular(6.0),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          'All',
-                                          style: TextStyle(
-                                            fontSize: 10.0.sp,
-                                            color: isAllSelected ? Colors.white : Colors.black87,
-                                            fontFamily: 'Whitney Medium',
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Visibility(
-                                  visible: isAllSelected
-                                      ? false
-                                      : isLiveSelected
-                                          ? false
-                                          : true,
-                                  child: Container(
-                                    height: double.infinity,
-                                    width: 0.5,
-                                    color: Colors.black45,
-                                    margin: EdgeInsets.symmetric(vertical: 3.5.sp),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      clickEventLive();
-                                    },
-                                    child: Container(
-                                      height: double.infinity,
-                                      margin: isLiveSelected ? EdgeInsets.all(1.0) : EdgeInsets.all(0.0),
-                                      decoration: BoxDecoration(
-                                        color: isLiveSelected ? themeBlueLight : testColor,
-                                        borderRadius: BorderRadius.circular(6.0),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          'Live',
-                                          style: TextStyle(
-                                            fontSize: 10.0.sp,
-                                            color: isLiveSelected ? Colors.white : Colors.black87,
-                                            fontFamily: 'Whitney Medium',
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Visibility(
-                                  visible: isSSSelected
-                                      ? false
-                                      : isLiveSelected
-                                          ? false
-                                          : true,
-                                  child: Container(
-                                    height: double.infinity,
-                                    width: 0.5,
-                                    color: Colors.black45,
-                                    margin: EdgeInsets.symmetric(vertical: 3.5.sp),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      clickEventSS();
-                                    },
-                                    child: Container(
-                                      margin: isSSSelected ? EdgeInsets.all(1.0) : EdgeInsets.all(0.0),
-                                      height: double.infinity,
-                                      decoration: BoxDecoration(
-                                        color: isSSSelected ? themeBlueLight : testColor,
-                                        borderRadius: BorderRadius.circular(6.0),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          'Self-Study',
-                                          style: TextStyle(
-                                            fontSize: 10.0.sp,
-                                            color: isSSSelected ? Colors.white : Colors.black87,
-                                            fontFamily: 'Whitney Medium',
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                            flex: 1,
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        child: Center(
+                          child: Text(
+                            'My Certificates',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14.5.sp,
+                              fontFamily: 'Whitney Semi Bold',
                             ),
                           ),
-                          Expanded(
-                            child: Container(
-                                margin: EdgeInsets.symmetric(horizontal: 4.0.w),
-                                child: isLoaderShowing
-                                    ? Center(
-                                        child: CircularProgressIndicator(),
-                                      )
-                                    : (listCredit != null && listCredit.isNotEmpty)
-                                        ? RefreshIndicator(
-                                            onRefresh: () {
-                                              print('On refresh is called..');
-                                              start = 0;
-                                              listCredit.clear();
-                                              return this.getMyTransactionList('$_authToken', '$start', '10', filterType);
-                                            },
-                                            child: ListView.builder(
-                                              physics: AlwaysScrollableScrollPhysics(),
-                                              controller: _scrollController,
-                                              shrinkWrap: true,
-                                              itemCount: listCredit.length + 1,
-                                              itemBuilder: (context, index) {
-                                                return ConstrainedBox(
-                                                  constraints: BoxConstraints(
-                                                    minHeight: 50.0,
-                                                  ),
-                                                  child: (index == listCredit.length)
-                                                      ? isLast
-                                                          ? Container(
-                                                              height: 20.0,
-                                                            )
-                                                          : Padding(
-                                                              padding: EdgeInsets.symmetric(vertical: 20.0),
-                                                              child: Center(
-                                                                child: CircularProgressIndicator(),
+                        ),
+                        flex: 8,
+                      ),
+                      Flexible(
+                        child: Text(''),
+                        flex: 1,
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  height: 0.5,
+                  color: Colors.black,
+                ),
+                Expanded(
+                  child: Container(
+                    color: Colors.white,
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned(
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                height: 25.0.sp,
+                                // margin: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 5.0.w),
+                                margin: EdgeInsets.all(4.0.w),
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: testColor,
+                                  borderRadius: BorderRadius.circular(6.0),
+                                ),
+                                child: Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          clickEventAll();
+                                        },
+                                        child: Container(
+                                          height: double.infinity,
+                                          margin: isAllSelected ? EdgeInsets.all(1.0) : EdgeInsets.all(0.0),
+                                          decoration: BoxDecoration(
+                                            color: isAllSelected ? themeBlueLight : testColor,
+                                            borderRadius: BorderRadius.circular(6.0),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              'All',
+                                              style: TextStyle(
+                                                fontSize: 10.0.sp,
+                                                color: isAllSelected ? Colors.white : Colors.black87,
+                                                fontFamily: 'Whitney Medium',
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible: isAllSelected
+                                          ? false
+                                          : isLiveSelected
+                                              ? false
+                                              : true,
+                                      child: Container(
+                                        height: double.infinity,
+                                        width: 0.5,
+                                        color: Colors.black45,
+                                        margin: EdgeInsets.symmetric(vertical: 3.5.sp),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          clickEventLive();
+                                        },
+                                        child: Container(
+                                          height: double.infinity,
+                                          margin: isLiveSelected ? EdgeInsets.all(1.0) : EdgeInsets.all(0.0),
+                                          decoration: BoxDecoration(
+                                            color: isLiveSelected ? themeBlueLight : testColor,
+                                            borderRadius: BorderRadius.circular(6.0),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              'Live',
+                                              style: TextStyle(
+                                                fontSize: 10.0.sp,
+                                                color: isLiveSelected ? Colors.white : Colors.black87,
+                                                fontFamily: 'Whitney Medium',
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible: isSSSelected
+                                          ? false
+                                          : isLiveSelected
+                                              ? false
+                                              : true,
+                                      child: Container(
+                                        height: double.infinity,
+                                        width: 0.5,
+                                        color: Colors.black45,
+                                        margin: EdgeInsets.symmetric(vertical: 3.5.sp),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          clickEventSS();
+                                        },
+                                        child: Container(
+                                          margin: isSSSelected ? EdgeInsets.all(1.0) : EdgeInsets.all(0.0),
+                                          height: double.infinity,
+                                          decoration: BoxDecoration(
+                                            color: isSSSelected ? themeBlueLight : testColor,
+                                            borderRadius: BorderRadius.circular(6.0),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              'Self-Study',
+                                              style: TextStyle(
+                                                fontSize: 10.0.sp,
+                                                color: isSSSelected ? Colors.white : Colors.black87,
+                                                fontFamily: 'Whitney Medium',
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                child: Container(
+                                    margin: EdgeInsets.symmetric(horizontal: 4.0.w),
+                                    child: isLoaderShowing
+                                        ? Center(
+                                            child: CircularProgressIndicator(),
+                                          )
+                                        : (listCredit != null && listCredit.isNotEmpty)
+                                            ? RefreshIndicator(
+                                                onRefresh: () {
+                                                  print('On refresh is called..');
+                                                  start = 0;
+                                                  listCredit.clear();
+                                                  return this.getMyTransactionList('$_authToken', '$start', '10', filterType);
+                                                },
+                                                child: ListView.builder(
+                                                  physics: AlwaysScrollableScrollPhysics(),
+                                                  controller: _scrollController,
+                                                  shrinkWrap: true,
+                                                  itemCount: listCredit.length + 1,
+                                                  itemBuilder: (context, index) {
+                                                    return ConstrainedBox(
+                                                      constraints: BoxConstraints(
+                                                        minHeight: 50.0,
+                                                      ),
+                                                      child: (index == listCredit.length)
+                                                          ? isLast
+                                                              ? Container(
+                                                                  height: 20.0,
+                                                                )
+                                                              : Padding(
+                                                                  padding: EdgeInsets.symmetric(vertical: 20.0),
+                                                                  child: Center(
+                                                                    child: CircularProgressIndicator(),
+                                                                  ),
+                                                                )
+                                                          : Container(
+                                                              decoration: BoxDecoration(
+                                                                borderRadius: BorderRadius.circular(10.0),
+                                                                color: testColor,
+                                                                // color: Colors.blueGrey,
                                                               ),
-                                                            )
-                                                      : Container(
-                                                          decoration: BoxDecoration(
-                                                            borderRadius: BorderRadius.circular(10.0),
-                                                            color: testColor,
-                                                            // color: Colors.blueGrey,
-                                                          ),
-                                                          margin: EdgeInsets.only(bottom: 8.0.sp),
-                                                          padding: EdgeInsets.symmetric(
-                                                            vertical: 15.0,
-                                                            horizontal: 10.0,
-                                                          ),
-                                                          child: Column(
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                            children: <Widget>[
-                                                              Text(
-                                                                '${listCredit[index].webinarTitle}',
-                                                                style: TextStyle(
-                                                                  fontSize: 14.5.sp,
-                                                                  fontFamily: 'Whitney Medium',
-                                                                ),
+                                                              margin: EdgeInsets.only(bottom: 8.0.sp),
+                                                              padding: EdgeInsets.symmetric(
+                                                                vertical: 15.0,
+                                                                horizontal: 10.0,
                                                               ),
-                                                              Row(
+                                                              child: Column(
+                                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                                 children: <Widget>[
-                                                                  Container(
-                                                                    child: Text(
-                                                                      '${listCredit[index].speakerName}',
-                                                                      style: TextStyle(
-                                                                        color: Colors.black87,
-                                                                        fontSize: 11.5.sp,
-                                                                        fontFamily: 'Whitney Medium',
-                                                                      ),
+                                                                  Text(
+                                                                    '${listCredit[index].webinarTitle}',
+                                                                    style: TextStyle(
+                                                                      fontSize: 14.5.sp,
+                                                                      fontFamily: 'Whitney Medium',
                                                                     ),
-                                                                    width: 42.0.w,
                                                                   ),
-                                                                  Container(
-                                                                    child: Text(
-                                                                      '${listCredit[index].hostDate}',
-                                                                      style: TextStyle(
-                                                                        color: Color(0x501F2227),
-                                                                        fontSize: 11.5.sp,
-                                                                        fontFamily: 'Whitney Medium',
+                                                                  Row(
+                                                                    children: <Widget>[
+                                                                      Container(
+                                                                        child: Text(
+                                                                          '${listCredit[index].speakerName}',
+                                                                          style: TextStyle(
+                                                                            color: Colors.black87,
+                                                                            fontSize: 11.5.sp,
+                                                                            fontFamily: 'Whitney Medium',
+                                                                          ),
+                                                                        ),
+                                                                        width: 42.0.w,
                                                                       ),
-                                                                    ),
-                                                                    width: 34.0.w,
-                                                                  ),
-                                                                  GestureDetector(
-                                                                    onTap: () {
-                                                                      print('Clicked on position : ${listCredit[index].webinarId}');
-                                                                      for (int i = 0; i < listCredit[index].certificateLink.length; i++) {
-                                                                        downloadFile(index, i);
-                                                                      }
-                                                                    },
-                                                                    child: Container(
-                                                                      height: 30.0.sp,
-                                                                      width: 30.0.sp,
-                                                                      decoration: BoxDecoration(
-                                                                        color: themeYellow,
-                                                                        borderRadius: BorderRadius.circular(30.0.sp),
+                                                                      Container(
+                                                                        child: Text(
+                                                                          '${listCredit[index].hostDate}',
+                                                                          style: TextStyle(
+                                                                            color: Color(0x501F2227),
+                                                                            fontSize: 11.5.sp,
+                                                                            fontFamily: 'Whitney Medium',
+                                                                          ),
+                                                                        ),
+                                                                        width: 34.0.w,
                                                                       ),
-                                                                      padding: EdgeInsets.all(10.0),
-                                                                      /*child: Icon(
-                                                                  FontAwesomeIcons.download,
-                                                                  color: Colors.white,
-                                                                  size: 11.0.sp,
-                                                                ),*/
-                                                                      child: Image.asset(
-                                                                        'assets/download.png',
+                                                                      GestureDetector(
+                                                                        onTap: () {
+                                                                          print('Clicked on position : ${listCredit[index].webinarId}');
+                                                                          for (int i = 0; i < listCredit[index].certificateLink.length; i++) {
+                                                                            downloadFile(index, i);
+                                                                          }
+                                                                        },
+                                                                        child: Container(
+                                                                          height: 30.0.sp,
+                                                                          width: 30.0.sp,
+                                                                          decoration: BoxDecoration(
+                                                                            color: themeYellow,
+                                                                            borderRadius: BorderRadius.circular(30.0.sp),
+                                                                          ),
+                                                                          padding: EdgeInsets.all(10.0),
+                                                                          /*child: Icon(
+                                                                    FontAwesomeIcons.download,
+                                                                    color: Colors.white,
+                                                                    size: 11.0.sp,
+                                                                  ),*/
+                                                                          child: Image.asset(
+                                                                            'assets/download.png',
+                                                                          ),
+                                                                        ),
                                                                       ),
-                                                                    ),
+                                                                    ],
                                                                   ),
                                                                 ],
                                                               ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                );
-                                              },
-                                            ),
-                                          )
-                                        : Center(
-                                            child: Text(
-                                              'Oops no data found for this user..',
-                                              style: kValueLableWebinarDetailExpand,
-                                            ),
-                                          )),
+                                                            ),
+                                                    );
+                                                  },
+                                                ),
+                                              )
+                                            : Center(
+                                                child: Text(
+                                                  'Oops no data found for this user..',
+                                                  style: kValueLableWebinarDetailExpand,
+                                                ),
+                                              )),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                      child: Visibility(
-                        visible: loading ? true : false,
-                        child: Container(
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              valueColor: new AlwaysStoppedAnimation<Color>(Colors.black),
+                        ),
+                        Positioned(
+                          child: Visibility(
+                            visible: loading ? true : false,
+                            child: Container(
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  valueColor: new AlwaysStoppedAnimation<Color>(Colors.black),
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+          onWillPop: _onWillPop),
     );
+  }
+
+  Future<bool> _onWillPop() {
+    return isFromProfile
+        ? popFunction()
+        : showDialog(
+              context: context,
+              builder: (context) => new AlertDialog(
+                title: new Text('Confirm Exit?', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
+                content: new Text('Are you sure you want to exit the app?'),
+                actions: <Widget>[
+                  new FlatButton(
+                    onPressed: () {
+                      // this line exits the app.
+                      SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+                    },
+                    child: new Text('Yes', style: new TextStyle(fontSize: 18.0)),
+                  ),
+                  new FlatButton(
+                    onPressed: () => Navigator.pop(context),
+                    // this line dismisses the dialog
+                    child: new Text('No', style: new TextStyle(fontSize: 18.0)),
+                  )
+                ],
+              ),
+            ) ??
+            false;
   }
 
   void clickEventAll() {
@@ -625,5 +668,9 @@ class _CertificateFragState extends State<CertificateFrag> {
           builder: (context) => IntroScreen(),
         ),
         (Route<dynamic> route) => false);
+  }
+
+  popFunction() {
+    Navigator.pop(context);
   }
 }
