@@ -1812,7 +1812,48 @@ class _HomeFragmentState extends State<HomeFragment> {
 
   void clickEventDateFilter(int index) {
     setState(() {
-      strDateFilter = dateList[index].toString();
+      if (dateList[index].toString().toLowerCase() == 'today') {
+        // strDateFilter = dateList[index].toString();
+        setState(() {
+          strDateFilter = '1';
+          isProgressShowing = true;
+
+          list.clear();
+          start = 0;
+
+          this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateFilter', '$strFilterPrice');
+        });
+      } else if (dateList[index].toString().toLowerCase() == 'tomorrow') {
+        setState(() {
+          strDateFilter = '2';
+          isProgressShowing = true;
+
+          list.clear();
+          start = 0;
+
+          this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateFilter', '$strFilterPrice');
+        });
+      } else if (dateList[index].toString().toLowerCase() == 'next 7 days') {
+        setState(() {
+          strDateFilter = '3';
+          isProgressShowing = true;
+
+          list.clear();
+          start = 0;
+
+          this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateFilter', '$strFilterPrice');
+        });
+      } else if (dateList[index].toString().toLowerCase() == 'next 30 days') {
+        setState(() {
+          strDateFilter = '4';
+          isProgressShowing = true;
+
+          list.clear();
+          start = 0;
+
+          this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateFilter', '$strFilterPrice');
+        });
+      }
     });
   }
 
