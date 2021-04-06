@@ -273,12 +273,22 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                           print('Clicked on large button status');
                           if (status.toLowerCase() == 'quiz pending') {
                             print('Status is QUIZ pending');
-                            Navigator.push(
+                            /*Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => FinalQuizScreen(webDetailsObj['webinar_id']),
                               ),
-                            );
+                            );*/
+                            Navigator.of(context)
+                                .push(
+                              MaterialPageRoute(
+                                builder: (context) => FinalQuizScreen(webDetailsObj['webinar_id']),
+                              ),
+                            )
+                                .then((_) {
+                              // Call setState() here or handle this appropriately
+                              checkForSP();
+                            });
                           } else if (status.toLowerCase() == 'Register Webinar') {
                             print('Status is register webinar');
                           } else {
@@ -344,12 +354,22 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                             child: GestureDetector(
                               onTap: () {
                                 print('Clicked on review question button');
-                                Navigator.push(
+                                /*Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => ReviewQuestions(webDetailsObj['webinar_id']),
                                   ),
-                                );
+                                );*/
+                                Navigator.of(context)
+                                    .push(
+                                  MaterialPageRoute(
+                                    builder: (context) => ReviewQuestions(webDetailsObj['webinar_id']),
+                                  ),
+                                )
+                                    .then((_) {
+                                  // Call setState() here or handle this appropriately
+                                  checkForSP();
+                                });
                               },
                               child: Container(
                                 height: 10.2.w,
