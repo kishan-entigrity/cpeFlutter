@@ -82,6 +82,16 @@ class _HomeFragmentState extends State<HomeFragment> {
     String urls = URLs.BASE_URL + 'webinar/list';
     // String urls = 'https://my-cpe.com/api/v3/webinar/list';
 
+    print('Request Params authToken : $authToken');
+    print('Request Params start : $start');
+    print('Request Params limit : $limit');
+    print('Request Params topic_of_interest : $topic_of_interest');
+    print('Request Params subject_area : $subject_area');
+    print('Request Params webinar_key_text : $webinar_key_text');
+    print('Request Params webinar_type : $webinar_type');
+    print('Request Params date_filter : $date_filter');
+    print('Request Params filter_price : $filter_price');
+
     final response = await http.post(
       urls,
       headers: {
@@ -668,7 +678,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                             print('On refresh is called..');
                             start = 0;
                             list.clear();
-                            return this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+                            return this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
                           },
                           child: ListView.builder(
                             controller: _scrollController,
