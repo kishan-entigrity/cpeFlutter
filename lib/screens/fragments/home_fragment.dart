@@ -406,6 +406,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                               decoration: hotTopicsId.length > 0
                                   ? BoxDecoration(
                                       borderRadius: BorderRadius.circular(18.0),
+                                      border: Border.all(color: Color(0xFF607083), width: 1.0),
                                       color: Color(0xFF607083),
                                     )
                                   : BoxDecoration(
@@ -464,6 +465,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                               decoration: isLive
                                   ? BoxDecoration(
                                       borderRadius: BorderRadius.circular(18.0),
+                                      border: Border.all(color: Color(0xFF607083), width: 1.0),
                                       color: Color(0xFF607083),
                                     )
                                   : BoxDecoration(
@@ -498,6 +500,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                               decoration: isSelfStudy
                                   ? BoxDecoration(
                                       borderRadius: BorderRadius.circular(18.0),
+                                      border: Border.all(color: Color(0xFF607083), width: 1.0),
                                       color: Color(0xFF607083),
                                     )
                                   : BoxDecoration(
@@ -532,6 +535,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                               decoration: isPremium
                                   ? BoxDecoration(
                                       borderRadius: BorderRadius.circular(18.0),
+                                      border: Border.all(color: Color(0xFF607083), width: 1.0),
                                       color: Color(0xFF607083),
                                     )
                                   : BoxDecoration(
@@ -566,6 +570,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                               decoration: isFree
                                   ? BoxDecoration(
                                       borderRadius: BorderRadius.circular(18.0),
+                                      border: Border.all(color: Color(0xFF607083), width: 1.0),
                                       color: Color(0xFF607083),
                                     )
                                   : BoxDecoration(
@@ -627,6 +632,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                               decoration: isCPD1
                                   ? BoxDecoration(
                                       borderRadius: BorderRadius.circular(18.0),
+                                      border: Border.all(color: Color(0xFF607083), width: 1.0),
                                       color: Color(0xFF607083),
                                     )
                                   : BoxDecoration(
