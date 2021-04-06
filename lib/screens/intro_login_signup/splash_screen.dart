@@ -5,8 +5,10 @@ import 'package:cpe_flutter/screens/home_screen.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:package_info/package_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../rest_api.dart';
 
@@ -22,15 +24,23 @@ class _SplashScreenState extends State<SplashScreen> {
   // String _password;
 
   var resp;
+  var respPayload;
   var respStatus;
   var respMessage;
+  var current_version;
+  var is_update = false;
+  var is_force_update = false;
+  var update_message = '';
+  var is_logout = false;
+
+  var playStoreURL = 'https://play.google.com/store/apps/details?id=com.myCPE';
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getVersion();
-    getUserData();
+    // getUserData();
     /*new Future.delayed(const Duration(seconds: 5), () {
       setState(() {
         Navigator.push(
@@ -82,7 +92,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
         print('Email on Login Screen getCredential method is : $eml');
         // print('Password on Login Screen getCredential method is : $pass');
-        new Future.delayed(const Duration(seconds: 5), () {
+        // new Future.delayed(const Duration(seconds: 5), () {
+        new Future.delayed(const Duration(seconds: 1), () {
           setState(() {
             /*Navigator.pushReplacement(
               context,
@@ -158,16 +169,91 @@ class _SplashScreenState extends State<SplashScreen> {
       print('Version name : $versionName');
       print('version code : $versionCode');
 
-      getVersionCheckAPI(versionName, versionCode);
+      getVersionCheckAPI(versionName, versionCode, 'A');
     } else if (Platform.isIOS) {
       print('Device Type is iOS');
     }
   }
 
-  void getVersionCheckAPI(String versionName, String versionCode) async {
+  void getVersionCheckAPI(String versionName, String versionCode, String device_type) async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
-      resp = await versionCheck(versionName);
+      resp = await versionCheck(versionName, device_type);
+      // resp = await versionCheck('1.2', device_type);
+      if (resp['success']) {
+        respPayload = resp['payload']['data'];
+        if (respPayload['is_update']) {
+          if (respPayload['is_force_update']) {
+            // This is the force update.. Need to show update message there and with update and close buttons..
+            showDialog(
+                  context: context,
+                  builder: (context) => new AlertDialog(
+                    title: new Text('Update App', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
+                    content: new Text('${respPayload['update_message']}'),
+                    actions: <Widget>[
+                      new FlatButton(
+                        onPressed: () {
+                          // this line exits the app.
+                          // SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+                          if (respPayload['is_logout']) {
+                            logoutUser();
+                          } else {
+                            redirectPlayStoreURL();
+                          }
+                        },
+                        child: new Text('Yes', style: new TextStyle(fontSize: 18.0)),
+                      ),
+                      new FlatButton(
+                        // onPressed: () => Navigator.pop(context), // this line dismisses the dialog
+                        onPressed: () => SystemChannels.platform.invokeMethod('SystemNavigator.pop'), // this line dismisses the dialog
+                        child: new Text('Close', style: new TextStyle(fontSize: 18.0)),
+                      )
+                    ],
+                  ),
+                ) ??
+                false;
+          } else {
+            // This is the regular update.. Need to show update message there and with yes and no buttons..
+            showDialog(
+                  context: context,
+                  builder: (context) => new AlertDialog(
+                    title: new Text('Update App', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
+                    content: new Text('${respPayload['update_message']}'),
+                    actions: <Widget>[
+                      new FlatButton(
+                        onPressed: () {
+                          // this line exits the app.
+                          // SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+                          if (respPayload['is_logout']) {
+                            logoutUser();
+                          } else {
+                            redirectPlayStoreURL();
+                          }
+                        },
+                        child: new Text('Yes', style: new TextStyle(fontSize: 18.0)),
+                      ),
+                      new FlatButton(
+                        // onPressed: () => Navigator.pop(context), // this line dismisses the dialog
+                        onPressed: () => getUserData(), // this line dismisses the dialog
+                        child: new Text('No', style: new TextStyle(fontSize: 18.0)),
+                      )
+                    ],
+                  ),
+                ) ??
+                false;
+          }
+        } else {
+          // There is no need to update the app and proceed to further screens..
+          getUserData();
+        }
+      } else {
+        _scaffoldKey.currentState.showSnackBar(
+          SnackBar(
+            content: Text('${resp['message']}'),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
     } else {
       _scaffoldKey.currentState.showSnackBar(
         SnackBar(
@@ -176,5 +262,15 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       );
     }
+  }
+
+  void redirectPlayStoreURL() async {
+    await canLaunch(playStoreURL) ? await launch(playStoreURL) : throw 'Could not launch $playStoreURL';
+  }
+
+  void logoutUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+    redirectPlayStoreURL();
   }
 }

@@ -19,7 +19,7 @@ Future loginUser(String email, String password, String device_id, String device_
   return convertDataToJson;
 }
 
-Future versionCheck(String current_version) async {
+Future versionCheck(String current_version, String device_type) async {
   String urls = URLs.BASE_URL + 'get-version';
   final response = await http.post(
     urls,
@@ -27,7 +27,7 @@ Future versionCheck(String current_version) async {
       'Accept': 'Application/json',
       // 'Authorization': 'Bearer $authToken',
     },
-    body: {'current_version': current_version},
+    body: {'current_version': current_version, 'device_type': device_type},
   );
 
   var convertDataToJson = jsonDecode(response.body);
