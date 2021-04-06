@@ -791,7 +791,7 @@ class _UserProfileState extends State<UserProfile> {
                                                             child: Container(
                                                               margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
                                                               decoration: BoxDecoration(
-                                                                color: strOrgSize == orgSizeList[index] ? themeYellow : Colors.teal,
+                                                                color: strOrgSize == orgSizeList[index] ? themeYellow : testColor,
                                                                 borderRadius: BorderRadius.circular(7.0),
                                                                 // color: Colors.teal,
                                                               ),
@@ -912,7 +912,7 @@ class _UserProfileState extends State<UserProfile> {
                                                               margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
                                                               decoration: BoxDecoration(
                                                                 borderRadius: BorderRadius.circular(7.0),
-                                                                color: strJobTitleName == list_job_title[index].name ? themeYellow : Colors.teal,
+                                                                color: strJobTitleName == list_job_title[index].name ? themeYellow : testColor,
                                                               ),
                                                               child: Padding(
                                                                 padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
@@ -1033,7 +1033,7 @@ class _UserProfileState extends State<UserProfile> {
                                                               margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
                                                               decoration: BoxDecoration(
                                                                 borderRadius: BorderRadius.circular(7.0),
-                                                                color: list_industries[index].name == industryName ? themeYellow : Colors.teal,
+                                                                color: list_industries[index].name == industryName ? themeYellow : testColor,
                                                               ),
                                                               child: Padding(
                                                                 padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
@@ -1154,7 +1154,7 @@ class _UserProfileState extends State<UserProfile> {
                                                               margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
                                                               decoration: BoxDecoration(
                                                                 borderRadius: BorderRadius.circular(7.0),
-                                                                color: list_profcreds[index].isSelected ? themeYellow : Colors.teal,
+                                                                color: list_profcreds[index].isSelected ? themeYellow : testColor,
                                                               ),
                                                               child: Padding(
                                                                 padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
@@ -1468,7 +1468,7 @@ class _UserProfileState extends State<UserProfile> {
                                                               margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
                                                               decoration: BoxDecoration(
                                                                 borderRadius: BorderRadius.circular(7.0),
-                                                                color: listCountry[index].id == selectedCountryId ? themeYellow : Colors.teal,
+                                                                color: listCountry[index].id == selectedCountryId ? themeYellow : testColor,
                                                               ),
                                                               child: Padding(
                                                                 padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
@@ -1595,7 +1595,7 @@ class _UserProfileState extends State<UserProfile> {
                                                               margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
                                                               decoration: BoxDecoration(
                                                                 borderRadius: BorderRadius.circular(7.0),
-                                                                color: listState[index].id == selectedStateId ? themeYellow : Colors.teal,
+                                                                color: listState[index].id == selectedStateId ? themeYellow : testColor,
                                                               ),
                                                               child: Padding(
                                                                 padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
@@ -1722,7 +1722,7 @@ class _UserProfileState extends State<UserProfile> {
                                                               margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
                                                               decoration: BoxDecoration(
                                                                 borderRadius: BorderRadius.circular(7.0),
-                                                                color: listCity[index].id == selectedCityId ? themeYellow : Colors.teal,
+                                                                color: listCity[index].id == selectedCityId ? themeYellow : testColor,
                                                                 // color: Colors.teal,
                                                               ),
                                                               child: Padding(

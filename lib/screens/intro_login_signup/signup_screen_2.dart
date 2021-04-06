@@ -238,8 +238,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                                     borderRadius: BorderRadius.circular(7.0),
                                                                     color: ConstSignUp.organizationSize == ConstSignUp.orgSizeList[index]
                                                                         ? themeYellow
-                                                                        : Colors.teal,
-                                                                    // color: Colors.teal,
+                                                                        : testColor,
                                                                   ),
                                                                   child: Padding(
                                                                     padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
@@ -362,7 +361,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                                     borderRadius: BorderRadius.circular(7.0),
                                                                     color: ConstSignUp.jobTitle == ConstSignUp.listJobTitle[index].name
                                                                         ? themeYellow
-                                                                        : Colors.teal,
+                                                                        : testColor,
                                                                   ),
                                                                   child: Padding(
                                                                     padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
@@ -482,7 +481,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                                     borderRadius: BorderRadius.circular(7.0),
                                                                     color: ConstSignUp.listIndustries[index].name == ConstSignUp.industry
                                                                         ? themeYellow
-                                                                        : Colors.teal,
+                                                                        : testColor,
                                                                   ),
                                                                   child: Padding(
                                                                     padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
@@ -600,7 +599,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                                   margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
                                                                   decoration: BoxDecoration(
                                                                     borderRadius: BorderRadius.circular(7.0),
-                                                                    color: ConstSignUp.listProfCreds[index].isSelected ? themeYellow : Colors.teal,
+                                                                    color: ConstSignUp.listProfCreds[index].isSelected ? themeYellow : testColor,
                                                                   ),
                                                                   child: Padding(
                                                                     padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),

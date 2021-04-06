@@ -1244,7 +1244,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                 child: Container(
                                   margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
                                   decoration: BoxDecoration(
-                                    color: strDateFilter == dateList[index] ? themeYellow : Colors.teal,
+                                    color: strDateFilter == dateList[index] ? themeYellow : testColor,
                                     borderRadius: BorderRadius.circular(7.0),
                                     // color: Colors.teal,
                                   ),
@@ -1353,7 +1353,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                   child: Container(
                                     margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
                                     decoration: BoxDecoration(
-                                      color: listHotTopics[index].isSelected ? themeYellow : Colors.teal,
+                                      color: listHotTopics[index].isSelected ? themeYellow : testColor,
                                       // color: Colors.teal,
                                       borderRadius: BorderRadius.circular(7.0),
                                       // color: Colors.teal,

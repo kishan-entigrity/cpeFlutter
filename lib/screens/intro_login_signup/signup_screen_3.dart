@@ -370,7 +370,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                                                     borderRadius: BorderRadius.circular(7.0),
                                                                     color: ConstSignUp.listCountry[index].name == ConstSignUp.selectedCountryName
                                                                         ? themeYellow
-                                                                        : Colors.teal,
+                                                                        : testColor,
                                                                   ),
                                                                   child: Padding(
                                                                     padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
@@ -498,7 +498,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                                                       borderRadius: BorderRadius.circular(7.0),
                                                                       color: ConstSignUp.listState[index].name == ConstSignUp.selectedStateName
                                                                           ? themeYellow
-                                                                          : Colors.teal,
+                                                                          : testColor,
                                                                     ),
                                                                     child: Padding(
                                                                       padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
@@ -627,8 +627,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                                                       borderRadius: BorderRadius.circular(7.0),
                                                                       color: ConstSignUp.listCity[index].name == ConstSignUp.selectedCityName
                                                                           ? themeYellow
-                                                                          : Colors.teal,
-                                                                      // color: Colors.teal,
+                                                                          : testColor,
                                                                     ),
                                                                     child: Padding(
                                                                       padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
