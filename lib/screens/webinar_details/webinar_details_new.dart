@@ -2,13 +2,15 @@ import 'dart:async';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
+import 'package:cpe_flutter/screens/final_quiz/final_quiz_screen.dart';
 import 'package:cpe_flutter/screens/profile/notification.dart';
+import 'package:cpe_flutter/screens/review_questions/review_questions.dart';
+import 'package:cpe_flutter/screens/video_player/videoPlayer.dart';
 import 'package:cpe_flutter/screens/webinar_details/ExpandedCard.dart';
 import 'package:cpe_flutter/screens/webinar_details/WebinarSpeakerName_OnDemand.dart';
 import 'package:cpe_flutter/screens/webinar_details/WebinarTitleOnDemand.dart';
 import 'package:cpe_flutter/screens/webinar_details/childCardDetails.dart';
 import 'package:cpe_flutter/screens/webinar_details/childCardOthers.dart';
-import 'package:cpe_flutter/screens/webinar_details/childWebinarStatus.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +20,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../constant.dart';
 import '../../rest_api.dart';
 import 'childCardCompany.dart';
 import 'childCardDescription.dart';
@@ -256,7 +259,120 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
               bottom: 0.0,
               right: 0.0,
               left: 0.0,
-              child: childWebinarStatus(status, isSingleStatusRow, webDetailsObj),
+              // child: childWebinarStatus(status, isSingleStatusRow, webDetailsObj),
+              child: Container(
+                height: 16.0.w,
+                width: double.infinity,
+                color: Colors.white,
+                child: Column(
+                  children: <Widget>[
+                    Visibility(
+                      visible: isSingleStatusRow ? true : false,
+                      child: GestureDetector(
+                        onTap: () {
+                          print('Clicked on large button status');
+                          if (status.toLowerCase() == 'quiz pending') {
+                            print('Status is QUIZ pending');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => FinalQuizScreen(webDetailsObj['webinar_id']),
+                              ),
+                            );
+                          } else if (status.toLowerCase() == 'Register Webinar') {
+                            print('Status is register webinar');
+                          } else {
+                            print('Went to else part..');
+                          }
+
+                          /*Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => VideoPlayerFlickker(webDetailsObj),
+                    ),
+                  );*/
+                        },
+                        child: Container(
+                          height: 10.2.w,
+                          margin: EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0),
+                            color: themeYellow,
+                          ),
+                          child: Center(
+                            child: Text(
+                              convertCamelCase(status),
+                              style: kWebinarStatusBig,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: isSingleStatusRow ? false : true,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                print('Clicked on small button status');
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => VideoPlayerFlickker(webDetailsObj),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                height: 10.2.w,
+                                margin: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 10.0, right: 5.0),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  color: themeYellow,
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    convertCamelCase(status),
+                                    style: kWebinarStatusSmall,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                print('Clicked on review question button');
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ReviewQuestions(webDetailsObj['webinar_id']),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                height: 10.2.w,
+                                margin: EdgeInsets.only(top: 10.0, bottom: 10.0, right: 10.0, left: 5.0),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  color: themeBlueLight,
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Review Question',
+                                    style: kWebinarStatusSmall,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
             Positioned(
               top: 0.0,

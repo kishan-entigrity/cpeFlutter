@@ -1442,19 +1442,17 @@ class _HomeFragmentState extends State<HomeFragment> {
           } else {
             loginPopup();
           }
-        } else if (list[index].status.toLowerCase() == 'Completed') {
+        } else if (list[index].status.toLowerCase() == 'completed') {
           redirectToDetails(index);
-        } else if (list[index].status.toLowerCase() == 'In Progress') {
+        } else if (list[index].status.toLowerCase() == 'in progress') {
           redirectToDetails(index);
-        } else if (list[index].status.toLowerCase() == 'Pending Evaluation') {
+        } else if (list[index].status.toLowerCase() == 'pending evaluation') {
           redirectToDetails(index);
-        } else if (list[index].status.toLowerCase() == 'In Progress') {
+        } else if (list[index].status.toLowerCase() == 'my certificate') {
           redirectToDetails(index);
-        } else if (list[index].status.toLowerCase() == 'My Certificate') {
+        } else if (list[index].status.toLowerCase() == 'join webinar') {
           redirectToDetails(index);
-        } else if (list[index].status.toLowerCase() == 'Join Webinar') {
-          redirectToDetails(index);
-        } else if (list[index].status.toLowerCase() == 'Watch now') {
+        } else if (list[index].status.toLowerCase() == 'watch now') {
           redirectToDetails(index);
         }
       } else if (strWebinarTypeIntent.toLowerCase() == 'self_study' || strWebinarTypeIntent.toLowerCase() == 'on-demand') {
