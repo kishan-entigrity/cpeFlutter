@@ -1389,6 +1389,7 @@ class _HomeFragmentState extends State<HomeFragment> {
           if (checkValue != null) {
             if (checkValue) {
               if (list[index].fee == 'FREE' || list[index].fee == '') {
+                registerWebinar(_authToken, index, webinarId);
               } else {
                 // Here we need to check for card status..
                 // If card is saved then have to register webinar and redirect user to webinar details screen..
@@ -1412,6 +1413,20 @@ class _HomeFragmentState extends State<HomeFragment> {
           } else {
             loginPopup();
           }
+        } else if (list[index].status.toLowerCase() == 'Completed') {
+          redirectToDetails(index);
+        } else if (list[index].status.toLowerCase() == 'In Progress') {
+          redirectToDetails(index);
+        } else if (list[index].status.toLowerCase() == 'Pending Evaluation') {
+          redirectToDetails(index);
+        } else if (list[index].status.toLowerCase() == 'In Progress') {
+          redirectToDetails(index);
+        } else if (list[index].status.toLowerCase() == 'My Certificate') {
+          redirectToDetails(index);
+        } else if (list[index].status.toLowerCase() == 'Join Webinar') {
+          redirectToDetails(index);
+        } else if (list[index].status.toLowerCase() == 'Watch now') {
+          redirectToDetails(index);
         }
       } else if (strWebinarTypeIntent.toLowerCase() == 'self_study' || strWebinarTypeIntent.toLowerCase() == 'on-demand') {
         print('Webinar Type is self_study');
@@ -1427,6 +1442,7 @@ class _HomeFragmentState extends State<HomeFragment> {
             if (checkValue) {
               if (list[index].fee == 'FREE' || list[index].fee == '') {
                 // Here are the free webinars so we can register these webinar directly and redirect user to webinar details screen..
+                registerWebinar(_authToken, index, webinarId);
               } else {
                 // Here we need to check for card status..
                 // If card is saved then have to register webinar and redirect user to webinar details screen..
