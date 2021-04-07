@@ -433,7 +433,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                       horizontal: 18.0,
                                     ),
                                     child: Text(
-                                      'Hot Topics',
+                                      'Topics',
                                       style: TextStyle(
                                         color: hotTopicsId.length > 0 ? Colors.white : Colors.black,
                                         fontSize: 11.0.sp,
@@ -444,7 +444,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                 ),
                               ),
                             ),
-                            Padding(
+                            /*Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
                               child: Container(
                                 decoration: BoxDecoration(
@@ -467,7 +467,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                   ),
                                 ),
                               ),
-                            ),
+                            ),*/
                             GestureDetector(
                               onTap: () {
                                 selectLiveFilter();
@@ -1100,7 +1100,7 @@ class _HomeFragmentState extends State<HomeFragment> {
       list.clear();
       start = 0;
 
-      this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+      this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
     });
   }
 
@@ -1114,7 +1114,7 @@ class _HomeFragmentState extends State<HomeFragment> {
       list.clear();
       start = 0;
 
-      this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+      this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
     });
   }
 
@@ -1325,7 +1325,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                 width: 50.0.w,
                                 child: Center(
                                   child: Text(
-                                    'Hot Topics',
+                                    'Topics',
                                     style: kOthersTitle,
                                   ),
                                 ),
@@ -1362,12 +1362,34 @@ class _HomeFragmentState extends State<HomeFragment> {
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
                                       child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                           Expanded(
                                             child: Text(
                                               listHotTopics[index].name,
                                               textAlign: TextAlign.start,
                                               style: kDataSingleSelectionBottomNav,
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible: listHotTopics[index].hot_topic.toString() == '1' ? true : false,
+                                            child: Container(
+                                              padding: EdgeInsets.only(left: 5.0.sp, right: 5.0.sp),
+                                              child: Center(
+                                                child: Text(
+                                                  'HOT TOPIC',
+                                                  style: TextStyle(
+                                                    fontSize: 8.0.sp,
+                                                    fontFamily: 'Whitney Bold',
+                                                    color: Colors.red,
+                                                  ),
+                                                ),
+                                              ),
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(2.0.sp),
+                                                border: Border.all(color: Colors.red, width: 1.0.sp),
+                                                // color: Color(0xFF607083),
+                                              ),
                                             ),
                                           ),
                                         ],

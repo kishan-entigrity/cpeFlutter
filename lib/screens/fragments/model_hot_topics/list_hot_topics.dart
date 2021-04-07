@@ -33,30 +33,35 @@ class List_hot_topics {
 class Hot_topics {
   int _id;
   String _name;
+  String _hot_topics;
   bool _isSelected = false;
 
   int get id => _id;
   String get name => _name;
+  String get hot_topic => _hot_topics;
   bool get isSelected => _isSelected;
 
   set isSelected(bool isSelected) {
     this._isSelected = isSelected;
   }
 
-  Hot_topics({int id, String name}) {
+  Hot_topics({int id, String name, String hot_topics}) {
     _id = id;
     _name = name;
+    _hot_topics = hot_topic;
   }
 
   Hot_topics.fromJson(dynamic json) {
     _id = json["id"];
     _name = json["name"];
+    _hot_topics = json["hot_topic"];
   }
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
     map["id"] = _id;
     map["name"] = _name;
+    map["hot_topic"] = _hot_topics;
     return map;
   }
 }
