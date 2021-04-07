@@ -65,6 +65,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       status = '',
       startDate = '',
       startTime = '',
+      strTimeZone = '',
       isCardSave = false,
       learningObjective = '',
       programDescription = '',
@@ -162,6 +163,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
           status = webDetailsObj['status'];
           startDate = webDetailsObj['start_date'];
           startTime = webDetailsObj['start_time'];
+          strTimeZone = webDetailsObj['time_zone'];
           isCardSave = webDetailsObj['is_card_save'];
           whyShouldAttend = webDetailsObj['why_should_attend'];
           overviewOfTopic = webDetailsObj['overview_of_topic'];
@@ -650,9 +652,10 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                           children: [
                                             Text(
                                               // '${data['payload']['webinar'][index]['start_date']} - ${data['payload']['webinar'][index]['start_time']} - ${data['payload']['webinar'][index]['time_zone']}',
+                                              // '$startDate - $startTime - $strTimeZone',
                                               // '${webDetailsObj['start_date']}',
-                                              // '${displayDateCondition(index)}',
-                                              '31 Dec, 02:30 PM EST',
+                                              '${displayDateCondition()}',
+                                              // '31 Dec, 02:30 PM EST',
                                               style: TextStyle(
                                                 fontFamily: 'Whitney Semi Bold',
                                                 fontSize: 13.0.sp,
@@ -977,5 +980,106 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         ),
       );
     }
+  }
+
+  // displayDateCondition(index) {
+  displayDateCondition() {
+    // String strStartDate = list[index].startDate;
+    String day = "";
+    String month = "";
+    String year = "";
+
+    String updatedDate = "";
+    if (startDate == "") {
+      updatedDate = "";
+    } else {
+      var split = startDate.split('-');
+      day = split[2];
+      month = split[1];
+      year = split[0];
+
+      print('Day : $day');
+      print('Month : $month');
+      print('Year : $year');
+
+      switch (month) {
+        case "01":
+          {
+            month = "Jan";
+          }
+          break;
+
+        case "02":
+          {
+            month = "Feb";
+          }
+          break;
+
+        case "03":
+          {
+            month = "Mar";
+          }
+          break;
+
+        case "04":
+          {
+            month = "Apr";
+          }
+          break;
+
+        case "05":
+          {
+            month = "May";
+          }
+          break;
+
+        case "06":
+          {
+            month = "June";
+          }
+          break;
+
+        case "07":
+          {
+            month = "July";
+          }
+          break;
+
+        case "08":
+          {
+            month = "Aug";
+          }
+          break;
+
+        case "09":
+          {
+            month = "Sep";
+          }
+          break;
+
+        case "10":
+          {
+            month = "Oct";
+          }
+          break;
+
+        case "11":
+          {
+            month = "Nov";
+          }
+          break;
+
+        case "12":
+          {
+            month = "Dec";
+          }
+          break;
+      }
+      updatedDate =
+          // '$day $month $year - ${data['payload']['webinar'][index]['start_time']} - ${data['payload']['webinar'][index]['time_zone']}';
+          '$day $month $year - $startTime - $strTimeZone';
+    }
+
+    return (updatedDate);
   }
 }
