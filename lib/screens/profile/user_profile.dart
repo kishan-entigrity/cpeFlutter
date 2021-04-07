@@ -388,6 +388,24 @@ class _UserProfileState extends State<UserProfile> {
         strPTIN = dataIntent['ptin_number'];
       }
 
+      if (strPhone.contains('-')) {
+        print('Yes Phone number contains - ');
+        String s = strPhone;
+        int idx = s.indexOf("-");
+
+        strPhone = s.substring(0, idx).trim();
+        strExt = s.substring(idx + 1).trim();
+        print('Phone number is : ${s.substring(0, idx).trim()}');
+        print('Ext number is : ${s.substring(idx + 1).trim()}');
+      }
+
+      if (strPTIN.contains('-')) {
+        String s = strPTIN;
+        int idx = s.indexOf("-");
+
+        strPTIN = s.substring(idx + 1).trim();
+      }
+
       if (dataIntent['ctec_id'].toString().startsWith('A')) {
         strCTEC = dataIntent['ctec_id'].toString().substring(1);
       } else {
@@ -433,6 +451,7 @@ class _UserProfileState extends State<UserProfile> {
     lnameController.text = strLName;
     emailController.text = strEmail;
     phoneController.text = strPhone;
+    extController.text = strExt;
     mobileController.text = strMobile;
     companyNameController.text = strCompany;
     zipCodeController.text = strZipCode;
@@ -1256,7 +1275,7 @@ class _UserProfileState extends State<UserProfile> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Text(
-                                    'P',
+                                    'P-',
                                     style: kLableSignUpTextStyle,
                                   ),
                                   Expanded(
@@ -2111,7 +2130,7 @@ class _UserProfileState extends State<UserProfile> {
     if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
       setState(() {
         // strPTIN = 'P$strPTIN';
-        strPTIN = 'P${ptinController.text}';
+        strPTIN = 'P-${ptinController.text}';
         // strCTEC = 'A$strCTEC';
         strCTEC = 'A${ctecController.text}';
         for (int i = 0; i < smallTitlesId.length; i++) {

@@ -142,6 +142,7 @@ class _GuestCardFragState extends State<GuestCardFrag> {
         needToShowForm = false;
         isPaySelectedByCards = true;
         for (int i = 0; i < listCards.length; i++) {
+          print('Card ids in the loop is : ${listCards[i].id.toString()}');
           if (listCards[i].defaultCard.compareTo('1') == 0) {
             setState(() {
               isPaySelectedByCards = true;
@@ -1395,6 +1396,10 @@ class _GuestCardFragState extends State<GuestCardFrag> {
 
   void checkForValidation() async {
     print('State for isPaySelectded is : $isPaySelectedByCards');
+    print('Request params are : auth_token : $_authToken');
+    print('Request params are : webinar_id : $webinarId');
+    print('Request params are : scheduleID : $scheduleId');
+    print('Request params are : selectedCardID : $selectedCardId');
     var connectivityResult = await (Connectivity().checkConnectivity());
     if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
       if (isPaySelectedByCards) {

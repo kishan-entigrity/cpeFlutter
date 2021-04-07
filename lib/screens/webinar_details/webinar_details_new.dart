@@ -5,7 +5,6 @@ import 'package:cpe_flutter/components/SpinKitSample1.dart';
 import 'package:cpe_flutter/screens/final_quiz/final_quiz_screen.dart';
 import 'package:cpe_flutter/screens/profile/notification.dart';
 import 'package:cpe_flutter/screens/review_questions/review_questions.dart';
-import 'package:cpe_flutter/screens/video_player/videoPlayer.dart';
 import 'package:cpe_flutter/screens/webinar_details/ExpandedCard.dart';
 import 'package:cpe_flutter/screens/webinar_details/WebinarSpeakerName_OnDemand.dart';
 import 'package:cpe_flutter/screens/webinar_details/WebinarTitleOnDemand.dart';
@@ -212,6 +211,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
             } else if (status.toLowerCase() == 'watch now' || status.toLowerCase() == 'resume watching' || status.toLowerCase() == 'resume now') {
               // Now here in this case we need to check for the isAnswered or not..
               // isAnswered = webDetailsObj['review_answered']
+              print('Status for review answered is : $reviewAnswered');
               if (reviewAnswered) {
                 isSingleStatusRow = true;
               } else {
@@ -291,8 +291,16 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                               // Call setState() here or handle this appropriately
                               checkForSP();
                             });
-                          } else if (status.toLowerCase() == 'Register Webinar') {
+                          } else if (status.toLowerCase() == 'register webinar') {
                             print('Status is register webinar');
+                          } else if (status.toLowerCase() == 'resume watching' || status.toLowerCase() == 'watch now') {
+                            setState(() {
+                              isPlaying = true;
+                              flickManager = FlickManager(
+                                videoPlayerController: VideoPlayerController.network(videoUrl),
+                              );
+                              checkForVideoPlayerListener();
+                            });
                           } else {
                             print('Went to else part..');
                           }
@@ -329,12 +337,21 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                             child: GestureDetector(
                               onTap: () {
                                 print('Clicked on small button status');
-                                Navigator.push(
+                                /*Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => VideoPlayerFlickker(webDetailsObj),
                                   ),
-                                );
+                                );*/
+                                if (status.toLowerCase() == 'resume watching' || status.toLowerCase() == 'watch now') {
+                                  setState(() {
+                                    isPlaying = true;
+                                    flickManager = FlickManager(
+                                      videoPlayerController: VideoPlayerController.network(videoUrl),
+                                    );
+                                    checkForVideoPlayerListener();
+                                  });
+                                }
                               },
                               child: Container(
                                 height: 10.2.w,

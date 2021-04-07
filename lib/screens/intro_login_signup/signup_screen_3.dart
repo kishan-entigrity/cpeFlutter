@@ -1157,7 +1157,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
         'city_id': ConstSignUp.selectedCityId.toString(),
         'firm_name': ConstSignUp.strCompanyName.toString(),
         'contact_no': ConstSignUp.strMobile.toString(),
-        'phone': ConstSignUp.strPhone.toString(),
+        'phone': ConstSignUp.strPhone.toString() + '-' + ConstSignUp.strExt,
         'zipcode': ConstSignUp.strZipCode.toString(),
         'ptin': ConstSignUp.strPTIN.toString(),
         'ctec_id': ConstSignUp.strCTEC.toString(),

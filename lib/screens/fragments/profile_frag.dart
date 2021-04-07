@@ -284,17 +284,20 @@ class _ProfileFragState extends State<ProfileFrag> {
                                               },
                                             ),
                                             // Chat with US controller..
-                                            profile_cell(
-                                              childIcon: FontAwesomeIcons.solidComments,
-                                              strLable: "Chat with us",
-                                              onPress: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) => TestClass1(),
-                                                  ),
-                                                );
-                                              },
+                                            Visibility(
+                                              visible: false,
+                                              child: profile_cell(
+                                                childIcon: FontAwesomeIcons.solidComments,
+                                                strLable: "Chat with us",
+                                                onPress: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) => TestClass1(),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
                                             ),
                                             // Contact us controller..
                                             profile_cell(

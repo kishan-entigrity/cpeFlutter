@@ -417,6 +417,74 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                               )
                             : Column(
                                 children: <Widget>[
+                                  /*Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            selectLiveFilter();
+                                          },
+                                          child: Container(
+                                            margin: EdgeInsets.only(left: 10.0, top: 10.0, right: 5.0, bottom: 0.0),
+                                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                            decoration: isLive
+                                                ? BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(5.0),
+                                                    border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                    color: Color(0xFF607083),
+                                                  )
+                                                : BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(5.0),
+                                                    border: Border.all(color: Colors.black, width: 1.0),
+                                                    color: Color(0xFFFFFFFF),
+                                                  ),
+                                            child: Center(
+                                              child: Text(
+                                                'Live Webinars',
+                                                style: TextStyle(
+                                                  color: isLive ? Colors.white : Colors.black,
+                                                  fontSize: 11.0.sp,
+                                                  fontFamily: 'Whitney Medium',
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            selectSelfStudyFilter();
+                                          },
+                                          child: Container(
+                                            margin: EdgeInsets.only(left: 5.0, top: 10.0, right: 10.0, bottom: 00.0),
+                                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                            decoration: isSelfStudy
+                                                ? BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(5.0),
+                                                    border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                    color: Color(0xFF607083),
+                                                  )
+                                                : BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(5.0),
+                                                    border: Border.all(color: Colors.black, width: 1.0),
+                                                    color: Color(0xFFFFFFFF),
+                                                  ),
+                                            child: Center(
+                                              child: Text(
+                                                'Self Study',
+                                                style: TextStyle(
+                                                  color: isSelfStudy ? Colors.white : Colors.black,
+                                                  fontSize: 11.0.sp,
+                                                  fontFamily: 'Whitney Medium',
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),*/
                                   Row(
                                     children: <Widget>[
                                       Expanded(

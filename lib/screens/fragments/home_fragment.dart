@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:connectivity/connectivity.dart';
+import 'package:cpe_flutter/components/SpinKitSample1.dart';
 import 'package:cpe_flutter/screens/fragments/pagination/webinar_list.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
 import 'package:cpe_flutter/screens/profile/guest_cards_frag.dart';
@@ -1048,16 +1049,16 @@ class _HomeFragmentState extends State<HomeFragment> {
                     ),
                   ],
                 )),
-                /*Positioned(
-                bottom: 0.0,
-                right: 0.0,
-                left: 0.0,
-                top: 100.0,
-                child: Visibility(
-                  visible: isLoaderShowing ? true : false,
-                  child: SpinKitSample1(),
+                Positioned(
+                  bottom: 0.0,
+                  right: 0.0,
+                  left: 0.0,
+                  top: 100.0,
+                  child: Visibility(
+                    visible: isLoaderShowing ? true : false,
+                    child: SpinKitSample1(),
+                  ),
                 ),
-              ),*/
               ],
             ),
           ),
@@ -1146,7 +1147,7 @@ class _HomeFragmentState extends State<HomeFragment> {
       list.clear();
       start = 0;
       isProgressShowing = true;
-      this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+      this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
     });
   }
 
@@ -1441,6 +1442,9 @@ class _HomeFragmentState extends State<HomeFragment> {
           if (checkValue != null) {
             if (checkValue) {
               if (list[index].fee == 'FREE' || list[index].fee == '') {
+                setState(() {
+                  isLoaderShowing = true;
+                });
                 registerWebinar(_authToken, index, webinarId);
               } else {
                 // Here we need to check for card status..
@@ -1452,12 +1456,25 @@ class _HomeFragmentState extends State<HomeFragment> {
                 String scheduleId = list[index].scheduleId.toString();
                 // String strWebinarId = webinarId.toString();
                 strWebinarTypeIntent = list[index].webinarType;
-                Navigator.push(
+                /*Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => GuestCardFrag(list[index].fee.toString(), webinarId, strWebinarTypeIntent, scheduleId),
                   ),
-                );
+                );*/
+                Navigator.of(context)
+                    .push(
+                  MaterialPageRoute(
+                    builder: (context) => GuestCardFrag(list[index].fee.toString(), webinarId, strWebinarTypeIntent, scheduleId),
+                  ),
+                )
+                    .then((_) {
+                  // Call setState() here or handle this appropriately
+                  setState(() {
+                    list.clear();
+                  });
+                  checkForSP();
+                });
               }
             } else {
               loginPopup();
@@ -1492,6 +1509,10 @@ class _HomeFragmentState extends State<HomeFragment> {
             if (checkValue) {
               if (list[index].fee == 'FREE' || list[index].fee == '') {
                 // Here are the free webinars so we can register these webinar directly and redirect user to webinar details screen..
+                setState(() {
+                  // isProgressShowing = true;
+                  isLoaderShowing = true;
+                });
                 registerWebinar(_authToken, index, webinarId);
               } else {
                 // Here we need to check for card status..
@@ -1503,12 +1524,25 @@ class _HomeFragmentState extends State<HomeFragment> {
                 String scheduleId = list[index].scheduleId.toString();
                 // String strWebinarId = webinarId.toString();
                 strWebinarTypeIntent = list[index].webinarType;
-                Navigator.push(
+                /*Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => GuestCardFrag(list[index].fee.toString(), webinarId, strWebinarTypeIntent, scheduleId),
                   ),
-                );
+                );*/
+                Navigator.of(context)
+                    .push(
+                  MaterialPageRoute(
+                    builder: (context) => GuestCardFrag(list[index].fee.toString(), webinarId, strWebinarTypeIntent, scheduleId),
+                  ),
+                )
+                    .then((_) {
+                  // Call setState() here or handle this appropriately
+                  setState(() {
+                    list.clear();
+                  });
+                  checkForSP();
+                });
               }
             } else {
               loginPopup();
@@ -1884,20 +1918,38 @@ class _HomeFragmentState extends State<HomeFragment> {
   void registerWebinar(String _authToken_1, int index, int id) async {
     print('API call for register webinar webinarID : ${list[index].id.toString()} :: scheduleID : ${list[index].scheduleId.toString()}');
     isLoaderShowing = true;
+    // isProgressShowing = true;
     var resp = await registerWebinarAPI(_authToken_1, list[index].id.toString(), list[index].scheduleId.toString());
     print('Response is : $resp');
 
     respStatus = resp['success'];
     respMessage = resp['message'];
 
-    isLoaderShowing = false;
+    setState(() {
+      isLoaderShowing = false;
+      // isProgressShowing = false;
+    });
+
     if (respStatus) {
-      Navigator.push(
+      /*Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => WebinarDetailsNew(strWebinarTypeIntent, list[index].id),
         ),
-      );
+      );*/
+      Navigator.of(context)
+          .push(
+        MaterialPageRoute(
+          builder: (context) => WebinarDetailsNew(strWebinarTypeIntent, list[index].id),
+        ),
+      )
+          .then((_) {
+        // Call setState() here or handle this appropriately
+        setState(() {
+          list.clear();
+        });
+        checkForSP();
+      });
     } else {
       scaffoldState.currentState.showSnackBar(
         SnackBar(
@@ -1913,7 +1965,20 @@ class _HomeFragmentState extends State<HomeFragment> {
     String strWebinarId = webinarId.toString();
     strWebinarTypeIntent = list[index].webinarType;
 
-    Navigator.push(context, MaterialPageRoute(builder: (context) => WebinarDetailsNew(strWebinarTypeIntent, webinarId)));
+    /*Navigator.push(context, MaterialPageRoute(builder: (context) => WebinarDetailsNew(strWebinarTypeIntent, webinarId)));*/
+    Navigator.of(context)
+        .push(
+      MaterialPageRoute(
+        builder: (context) => WebinarDetailsNew(strWebinarTypeIntent, webinarId),
+      ),
+    )
+        .then((_) {
+      // Call setState() here or handle this appropriately
+      setState(() {
+        list.clear();
+      });
+      checkForSP();
+    });
   }
 
   void logoutUser() async {
