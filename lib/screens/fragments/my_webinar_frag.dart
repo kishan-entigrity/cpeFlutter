@@ -1132,6 +1132,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                                           : GestureDetector(
                                                               onTap: () {
                                                                 print('Clicked on index pos : $index');
+                                                                getIdWebinar(index);
                                                               },
                                                               child: Container(
                                                                 // margin: EdgeInsets.only(top: 10.0),

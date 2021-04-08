@@ -1086,8 +1086,9 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       funRedirectQuizPending();
     } else if (status.toLowerCase() == 'pending evaluation') {
       funRedirectEvaluationForm();
-    } else if (status.toLowerCase() == 'Completed') {
+    } else if (status.toLowerCase() == 'completed') {
       // Have to show alert popup for giving explanation regarding generating certificate..
+      showCompletedPopUp();
     } else if (status.toLowerCase() == 'my certificate') {
       //
     } else if (status.toLowerCase() == 'join webinar') {
@@ -1310,6 +1311,31 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
           builder: (context) => new AlertDialog(
             title: new Text('Join Webinar', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
             content: new Text('${webDetailsObj['zoom_link_verification_message']}'),
+            actions: <Widget>[
+              /*new FlatButton(
+                onPressed: () {
+                  // this line exits the app.
+                  logoutUser();
+                },
+                child: new Text('Yes', style: new TextStyle(fontSize: 18.0)),
+              ),*/
+              new FlatButton(
+                onPressed: () => Navigator.pop(context), // this line dismisses the dialog
+                child: new Text('Ok', style: new TextStyle(fontSize: 18.0)),
+              )
+            ],
+          ),
+        ) ??
+        false;
+  }
+
+  void showCompletedPopUp() {
+    showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text('Completed', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
+            content: new Text('You have successfully completed your webinar, your certificate will generate in few mins. Please come again and check '
+                'your certificate for this webinar'),
             actions: <Widget>[
               /*new FlatButton(
                 onPressed: () {

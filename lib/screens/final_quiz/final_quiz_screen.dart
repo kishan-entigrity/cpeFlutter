@@ -103,6 +103,7 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
         'webinar_id': webinarId.toString(),
         'question_id': questionList,
         'answers': answerList,
+        'percentage': correctAnsertPercentages.toString(),
       },
     );
 
