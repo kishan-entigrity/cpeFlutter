@@ -1,6 +1,12 @@
+import 'dart:io';
+
 import 'package:cpe_flutter/constant.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:sizer/sizer.dart';
 
 class childCardDetails extends StatefulWidget {
@@ -48,10 +54,7 @@ class _childCardDetailsState extends State<childCardDetails> {
   bool isThird = false;
   bool isFourth = false;
 
-  var strWhoTitle_1 = '',
-      strWhoTitle_2 = '',
-      strWhoTitle_3 = '',
-      strWhoTitle_4 = '';
+  var strWhoTitle_1 = '', strWhoTitle_2 = '', strWhoTitle_3 = '', strWhoTitle_4 = '';
 
   @override
   void initState() {
@@ -145,40 +148,24 @@ class _childCardDetailsState extends State<childCardDetails> {
       child: Column(
         children: <Widget>[
           detailsRowString('Cost', 'Provide 0 val', true),
-          detailsRowString(
-              'CPE Credits', '$credit', credit?.isEmpty ? false : true),
-          detailsRowString(
-              'CE Credits', '$ceCredit', ceCredit?.isEmpty ? false : true),
-          detailsRowString(
-              'CPD Credits', '$cpdCredit', cpdCredit?.isEmpty ? false : true),
-          detailsRowString('IRS Course Id', '$irsCourseId',
-              irsCourseId?.isEmpty ? false : true),
-          detailsRowString('CTEC Course Id', '$ctecCourseId',
-              ctecCourseId?.isEmpty ? false : true),
+          detailsRowString('CPE Credits', '$credit', credit?.isEmpty ? false : true),
+          detailsRowString('CE Credits', '$ceCredit', ceCredit?.isEmpty ? false : true),
+          detailsRowString('CPD Credits', '$cpdCredit', cpdCredit?.isEmpty ? false : true),
+          detailsRowString('IRS Course Id', '$irsCourseId', irsCourseId?.isEmpty ? false : true),
+          detailsRowString('CTEC Course Id', '$ctecCourseId', ctecCourseId?.isEmpty ? false : true),
           detailsRowString('Duration', calculateHrs(duration), true),
           detailsRowString('Subject Area', '$subjectArea', true),
           detailsRowString('Course Level', '$courseLevel', true),
           detailsRowString('Instructional Method', '$insructionalMethod', true),
           detailsRowString('Prerequisites', '$prerequisites', true),
           detailsRowString('Advance Preparation', '$advancePreparation', true),
-          detailsRowString('Recorded Date', '$recordDate',
-              recordDate?.isEmpty ? false : true),
-          detailsRowString('Published Date', '$publishedDate',
-              publishedDate?.isEmpty ? false : true),
-          detailsRowDownload('Presentation Handouts', true),
-          detailsRowDownload('Key Terms', true),
-          detailsRowDownload('Instructional Document', true),
+          detailsRowString('Recorded Date', '$recordDate', recordDate?.isEmpty ? false : true),
+          detailsRowString('Published Date', '$publishedDate', publishedDate?.isEmpty ? false : true),
+          detailsRowDownload('Presentation Handouts', true, webDetailsObj),
+          detailsRowDownload('Key Terms', true, webDetailsObj),
+          detailsRowDownload('Instructional Document', true, webDetailsObj),
           detailsRowWhoShouldAttend(
-              'Who should attend?',
-              true,
-              isFirst,
-              isSecond,
-              isThird,
-              isFourth,
-              strWhoTitle_1,
-              strWhoTitle_2,
-              strWhoTitle_3,
-              strWhoTitle_4),
+              'Who should attend?', true, isFirst, isSecond, isThird, isFourth, strWhoTitle_1, strWhoTitle_2, strWhoTitle_3, strWhoTitle_4),
           // divider(),
         ],
       ),
@@ -197,17 +184,8 @@ class _childCardDetailsState extends State<childCardDetails> {
 }
 
 class detailsRowWhoShouldAttend extends StatelessWidget {
-  detailsRowWhoShouldAttend(
-      this.strKey,
-      this.isRowVisible,
-      this.isFirst,
-      this.isSecond,
-      this.isThird,
-      this.isFourth,
-      this.strWhoTitle_1,
-      this.strWhoTitle_2,
-      this.strWhoTitle_3,
-      this.strWhoTitle_4);
+  detailsRowWhoShouldAttend(this.strKey, this.isRowVisible, this.isFirst, this.isSecond, this.isThird, this.isFourth, this.strWhoTitle_1,
+      this.strWhoTitle_2, this.strWhoTitle_3, this.strWhoTitle_4);
 
   final String strKey;
   final bool isRowVisible;
@@ -227,8 +205,7 @@ class detailsRowWhoShouldAttend extends StatelessWidget {
       child: Column(
         children: <Widget>[
           ConstrainedBox(
-            constraints:
-                BoxConstraints(minHeight: 40.0, minWidth: double.infinity),
+            constraints: BoxConstraints(minHeight: 40.0, minWidth: double.infinity),
             child: Row(
               children: <Widget>[
                 Flexible(
@@ -289,21 +266,39 @@ class whoShouldAttendCell extends StatelessWidget {
   }
 }
 
-class detailsRowDownload extends StatelessWidget {
-  detailsRowDownload(this.strKey, this.isRowVisible);
+class detailsRowDownload extends StatefulWidget {
+  detailsRowDownload(this.strKey, this.isRowVisible, this.webDetailsObj);
 
   final String strKey;
   final bool isRowVisible;
+  final webDetailsObj;
+
+  @override
+  _detailsRowDownloadState createState() => _detailsRowDownloadState(strKey, isRowVisible, webDetailsObj);
+}
+
+class _detailsRowDownloadState extends State<detailsRowDownload> {
+  _detailsRowDownloadState(this.strKey, this.isRowVisible, this.webDetailsObj);
+
+  final String strKey;
+  final bool isRowVisible;
+  final webDetailsObj;
+
+  bool loading = false;
+  double progress = 0;
+  var strUrl = '';
+  var strTitle = '';
+
+  final Dio dio = Dio();
 
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible: isRowVisible,
+      visible: widget.isRowVisible,
       child: Column(
         children: <Widget>[
           ConstrainedBox(
-            constraints:
-                BoxConstraints(minHeight: 40.0, minWidth: double.infinity),
+            constraints: BoxConstraints(minHeight: 40.0, minWidth: double.infinity),
             child: Row(
               children: <Widget>[
                 Flexible(
@@ -311,24 +306,38 @@ class detailsRowDownload extends StatelessWidget {
                     padding: EdgeInsets.symmetric(vertical: 5.0),
                     width: 165.0,
                     child: Text(
-                      strKey,
+                      widget.strKey,
                       style: kKeyLableWebinarDetailExpand,
                     ),
                   ),
                 ),
                 Flexible(
-                  child: Container(
-                    height: 28.0,
-                    width: 110.0,
-                    decoration: BoxDecoration(
-                      color: themeYellow,
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Download',
-                        // overflow: TextOverflow.ellipsis,
-                        style: kDownloadWebinarDetailExpand,
+                  child: GestureDetector(
+                    onTap: () {
+                      if (widget.strKey == 'Presentation Handouts') {
+                        print('Clicked on download presentation handsout');
+                        for (int i = 0; i < widget.webDetailsObj['presentation_handout'].length; i++) {
+                          downloadFile(i);
+                        }
+                      } else if (widget.strKey == 'Key Terms') {
+                        print('Clicked on download key terms');
+                      } else if (widget.strKey == 'Instructional Document') {
+                        print('Clicked on download instructional document');
+                      }
+                    },
+                    child: Container(
+                      height: 28.0,
+                      width: 110.0,
+                      decoration: BoxDecoration(
+                        color: themeYellow,
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Download',
+                          // overflow: TextOverflow.ellipsis,
+                          style: kDownloadWebinarDetailExpand,
+                        ),
                       ),
                     ),
                   ),
@@ -340,6 +349,89 @@ class detailsRowDownload extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void downloadFile(int i) async {
+    setState(() {
+      loading = true;
+      progress = 0;
+      strUrl = webDetailsObj['presentation_handout'][i].certificateLink.toString();
+      strTitle = 'presentation_handout_' + webDetailsObj['webinar_title'].toString() + '{$i}' + '.pdf';
+      print('STR URL IS : $strUrl');
+    });
+    bool downloaded = await saveVideo(strUrl, strTitle);
+    if (downloaded) {
+      print("File Downloaded");
+    } else {
+      print("Problem Downloading File");
+    }
+    setState(() {
+      loading = false;
+    });
+  }
+
+  Future<bool> saveVideo(String url, String fileName) async {
+    Directory directory;
+    try {
+      if (Platform.isAndroid) {
+        if (await _requestPermission(Permission.storage)) {
+          directory = await getExternalStorageDirectory();
+          String newPath = "";
+          print(directory);
+          List<String> paths = directory.path.split("/");
+          for (int x = 1; x < paths.length; x++) {
+            String folder = paths[x];
+            if (folder != "Android") {
+              newPath += "/" + folder;
+            } else {
+              break;
+            }
+          }
+          newPath = newPath + "/MyCPE";
+          directory = Directory(newPath);
+        } else {
+          return false;
+        }
+      } else {
+        if (await _requestPermission(Permission.photos)) {
+          directory = await getTemporaryDirectory();
+        } else {
+          return false;
+        }
+      }
+      File saveFile = File(directory.path + "/$fileName");
+      if (!await directory.exists()) {
+        await directory.create(recursive: true);
+      }
+      if (await directory.exists()) {
+        await dio.download(url, saveFile.path, onReceiveProgress: (value1, value2) {
+          // await dio.download(){
+          setState(() {
+            progress = value1 / value2;
+          });
+        });
+        if (Platform.isIOS) {
+          await ImageGallerySaver.saveFile(saveFile.path, isReturnPathOfIOS: true);
+        }
+        return true;
+      }
+      return false;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<bool> _requestPermission(Permission permission) async {
+    if (await permission.isGranted) {
+      return true;
+    } else {
+      var result = await permission.request();
+      if (result == PermissionStatus.granted) {
+        return true;
+      }
+    }
+    return false;
   }
 }
 
@@ -357,8 +449,7 @@ class detailsRowString extends StatelessWidget {
       child: Column(
         children: <Widget>[
           ConstrainedBox(
-            constraints:
-                BoxConstraints(minHeight: 11.0.w, minWidth: double.infinity),
+            constraints: BoxConstraints(minHeight: 11.0.w, minWidth: double.infinity),
             child: Row(
               children: <Widget>[
                 Flexible(
