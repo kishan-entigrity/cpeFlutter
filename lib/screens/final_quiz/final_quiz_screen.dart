@@ -533,6 +533,8 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
                                                           questionList = questionList + ',' + list[i].id.toString();
                                                         }
                                                       }
+                                                      print('Questions list : $questionList');
+                                                      print('Answers list : $answerList');
                                                       submitFinalQuizQuestion(questionList, answerList);
                                                     } else {
                                                       // Show alert message that user can see popup message..

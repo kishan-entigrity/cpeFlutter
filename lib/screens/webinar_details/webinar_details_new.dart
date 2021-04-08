@@ -1091,7 +1091,11 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
     } else if (status.toLowerCase() == 'my certificate') {
       //
     } else if (status.toLowerCase() == 'join webinar') {
-      funRedirectJoinWebinar();
+      if (webDetailsObj['zoom_link_status']) {
+        funRedirectJoinWebinar();
+      } else {
+        showDialogJoinWebinar();
+      }
     } else {
       print('Went to else part..');
     }
@@ -1298,5 +1302,29 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         ),
       );
     }
+  }
+
+  void showDialogJoinWebinar() {
+    showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text('Join Webinar', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
+            content: new Text('${webDetailsObj['zoom_link_verification_message']}'),
+            actions: <Widget>[
+              /*new FlatButton(
+                onPressed: () {
+                  // this line exits the app.
+                  logoutUser();
+                },
+                child: new Text('Yes', style: new TextStyle(fontSize: 18.0)),
+              ),*/
+              new FlatButton(
+                onPressed: () => Navigator.pop(context), // this line dismisses the dialog
+                child: new Text('Ok', style: new TextStyle(fontSize: 18.0)),
+              )
+            ],
+          ),
+        ) ??
+        false;
   }
 }
