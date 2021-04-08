@@ -808,6 +808,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                           : GestureDetector(
                                               onTap: () {
                                                 print('Clicked on index pos : $index');
+                                                redirectToDetails(index);
                                               },
                                               child: Container(
                                                 // margin: EdgeInsets.only(top: 10.0),
@@ -977,12 +978,6 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                         onTap: () {
                                                           print('Clicked on register button index is : $index');
                                                           getIdWebinar(index);
-                                                          // 1. Take an API call for relevent action from here..
-                                                          // 2. Before this need to verify user is logged in or not..
-                                                          // 3. If not then redirect to Login screen and then back here..
-                                                          // 4. If user is logged in then need to check for webinar is free or not..
-                                                          // 5. If the webinar is free then have to check for isCardSaved or not..
-                                                          // 6. Take a Register API call from there onwards..
                                                         },
                                                         child: ConstrainedBox(
                                                           constraints: BoxConstraints(
@@ -1179,7 +1174,7 @@ class _HomeFragmentState extends State<HomeFragment> {
       list.clear();
       start = 0;
       isProgressShowing = true;
-      this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+      this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
     });
   }
 
@@ -1803,9 +1798,9 @@ class _HomeFragmentState extends State<HomeFragment> {
     print('Check value is : $checkValue');
 
     if (checkValue != null) {
-      setState(() {
+      /*setState(() {
         isLoaderShowing = true;
-      });
+      });*/
 
       if (checkValue) {
         String token = preferences.getString("spToken");
@@ -1996,7 +1991,7 @@ class _HomeFragmentState extends State<HomeFragment> {
           context: context,
           builder: (context) => new AlertDialog(
             title: new Text('Login', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
-            content: new Text('You need to login in to application first for registering webinar'),
+            content: new Text('For registering this webinar you must need to login first'),
             actions: <Widget>[
               new FlatButton(
                 onPressed: () {

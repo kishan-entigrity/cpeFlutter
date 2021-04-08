@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
 import 'package:cpe_flutter/screens/final_quiz/final_quiz_screen.dart';
+import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
+import 'package:cpe_flutter/screens/profile/guest_cards_frag.dart';
 import 'package:cpe_flutter/screens/profile/notification.dart';
 import 'package:cpe_flutter/screens/review_questions/review_questions.dart';
 import 'package:cpe_flutter/screens/webinar_details/ExpandedCard.dart';
@@ -10,6 +12,7 @@ import 'package:cpe_flutter/screens/webinar_details/WebinarSpeakerName_OnDemand.
 import 'package:cpe_flutter/screens/webinar_details/WebinarTitleOnDemand.dart';
 import 'package:cpe_flutter/screens/webinar_details/childCardDetails.dart';
 import 'package:cpe_flutter/screens/webinar_details/childCardOthers.dart';
+import 'package:cpe_flutter/screens/webinar_details/evaluation_form.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +20,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../constant.dart';
@@ -43,6 +47,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   _WebinarDetailsNewState(this.strWebinarTypeIntent, this.webinarId);
 
   // final String resultText;
+  bool isUserLoggedIn = false;
   final String strWebinarTypeIntent;
   final int webinarId;
 
@@ -70,6 +75,9 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       programDescription = '',
       whyShouldAttend = '',
       overviewOfTopic = '';
+
+  var scheduleID;
+  var fee;
 
   var isPlaying = false;
   var reviewAnswered = false;
@@ -169,6 +177,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
           learningObjective = webDetailsObj['Learning_objective'];
           programDescription = webDetailsObj['program_description'];
           presenterObj = webDetailsObj['about_presententer'];
+          scheduleID = webDetailsObj['schedule_id'];
+          fee = webDetailsObj['cost'].toString();
           print('Whole object for presenter is : $presenterObj');
 
           reviewAnswered = webDetailsObj['review_answered'];
@@ -272,45 +282,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                       visible: isSingleStatusRow ? true : false,
                       child: GestureDetector(
                         onTap: () {
+                          clickEventStatus();
                           print('Clicked on large button status');
-                          if (status.toLowerCase() == 'quiz pending') {
-                            print('Status is QUIZ pending');
-                            /*Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => FinalQuizScreen(webDetailsObj['webinar_id']),
-                              ),
-                            );*/
-                            Navigator.of(context)
-                                .push(
-                              MaterialPageRoute(
-                                builder: (context) => FinalQuizScreen(webDetailsObj['webinar_id']),
-                              ),
-                            )
-                                .then((_) {
-                              // Call setState() here or handle this appropriately
-                              checkForSP();
-                            });
-                          } else if (status.toLowerCase() == 'register webinar') {
-                            print('Status is register webinar');
-                          } else if (status.toLowerCase() == 'resume watching' || status.toLowerCase() == 'watch now') {
-                            setState(() {
-                              isPlaying = true;
-                              flickManager = FlickManager(
-                                videoPlayerController: VideoPlayerController.network(videoUrl),
-                              );
-                              checkForVideoPlayerListener();
-                            });
-                          } else {
-                            print('Went to else part..');
-                          }
-
-                          /*Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => VideoPlayerFlickker(webDetailsObj),
-                    ),
-                  );*/
                         },
                         child: Container(
                           height: 10.2.w,
@@ -1098,5 +1071,232 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
     }
 
     return (updatedDate);
+  }
+
+  void launchURL(String _url) async {
+    await canLaunch(_url) ? await launch(_url) : throw 'Could not launch $_url';
+  }
+
+  void clickEventStatus() {
+    if (status.toLowerCase() == 'register webinar' || status.toLowerCase() == 'register') {
+      funRegisterWebinar();
+    } else if (status.toLowerCase() == 'resume watching' || status.toLowerCase() == 'watch now') {
+      funPlayVideo();
+    } else if (status.toLowerCase() == 'quiz pending') {
+      funRedirectQuizPending();
+    } else if (status.toLowerCase() == 'pending evaluation') {
+      funRedirectEvaluationForm();
+    } else if (status.toLowerCase() == 'Completed') {
+      // Have to show alert popup for giving explanation regarding generating certificate..
+    } else if (status.toLowerCase() == 'my certificate') {
+      //
+    } else if (status.toLowerCase() == 'join webinar') {
+      funRedirectJoinWebinar();
+    } else {
+      print('Went to else part..');
+    }
+  }
+
+  void funPlayVideo() {
+    setState(() {
+      isPlaying = true;
+      flickManager = FlickManager(
+        videoPlayerController: VideoPlayerController.network(videoUrl),
+      );
+      checkForVideoPlayerListener();
+    });
+  }
+
+  void funRedirectQuizPending() {
+    print('Status is QUIZ pending');
+    /*Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => FinalQuizScreen(webDetailsObj['webinar_id']),
+                              ),
+                            );*/
+    Navigator.of(context)
+        .push(
+      MaterialPageRoute(
+        builder: (context) => FinalQuizScreen(webDetailsObj['webinar_id']),
+      ),
+    )
+        .then((_) {
+      // Call setState() here or handle this appropriately
+      checkForSP();
+    });
+  }
+
+  void funRedirectEvaluationForm() {
+    // Now first we need to take and API call for the pending evaluation form link..
+    // If we get the evaluation form link then have to redirect to the eavaluation form screen with inline data as form link
+    Navigator.of(context)
+        .push(
+      MaterialPageRoute(
+        builder: (context) => EvaluationForm(),
+      ),
+    )
+        .then((_) {
+      // Call setState() here or handle this appropriately
+      checkForSP();
+    });
+  }
+
+  void funRedirectJoinWebinar() {
+    // here we need to check for the zoom_link_status and if not then show the pop-up message..
+    // If we have that status then redirect to that link from here..
+    var url =
+        "https://zoom.us/w/92056600703?tk=xzhOVl9nDeacxlQXdHHZ4OpFYYp3tD6YhJtS3HqU2ks.DQIAAAAVbwBAfxZjVjZiamV0VlRwaVJTUm95cnJqNFFnAAAAAAAAAAAAAAAAAAAAAAAAAAAA&uuid=WN_C16AFWZcR3SwGA5Gbd0XSQ";
+    launchURL(url);
+    // can't launch url, there is some error
+    throw "Could not launch $url";
+  }
+
+  void funRegisterWebinar() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    bool checkValue = preferences.getBool("check");
+
+    if (checkValue != null) {
+      setState(() {
+        isLoaderShowing = true;
+      });
+
+      if (checkValue) {
+        setState(() {
+          isUserLoggedIn = true;
+        });
+        registerWebinarCheckPrice();
+        // Here we need to take user register webinar api..
+      } else {
+        // this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+        setState(() {
+          isUserLoggedIn = false;
+        });
+        showLoginPopup();
+      }
+    } else {
+      // this.getDataWebinarList('', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+      // print('Entered init else part for the checkforSP');
+      setState(() {
+        isUserLoggedIn = false;
+      });
+      showLoginPopup();
+    }
+  }
+
+  void showLoginPopup() {
+    showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text('Login?', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
+            content: new Text('For registering this webinar you must need to login first'),
+            actions: <Widget>[
+              new FlatButton(
+                onPressed: () {
+                  // this line exits the app.
+                  logoutUser();
+                },
+                child: new Text('Yes', style: new TextStyle(fontSize: 18.0)),
+              ),
+              new FlatButton(
+                onPressed: () => Navigator.pop(context), // this line dismisses the dialog
+                child: new Text('No', style: new TextStyle(fontSize: 18.0)),
+              )
+            ],
+          ),
+        ) ??
+        false;
+  }
+
+  void logoutUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+    // Navigator.pushAndRemoveUntil(context, newRoute, (route) => false)
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          // builder: (context) => Login(),
+          builder: (context) => IntroScreen(),
+        ),
+        (Route<dynamic> route) => false);
+  }
+
+  void registerWebinarCheckPrice() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
+      if (strWebinarTypeIntent.toLowerCase() == 'live') {
+        // if (webDetailsObj.fee == 'FREE' || webDetailsObj.fee == '') {
+        if (fee == 'FREE' || fee == '') {
+          registerWebinarCall('Bearer $userToken', webinarId.toString(), scheduleID);
+        } else {
+          Navigator.of(context)
+              .push(
+            MaterialPageRoute(
+              builder: (context) => GuestCardFrag(fee, webinarId, strWebinarTypeIntent, scheduleID),
+            ),
+          )
+              .then((_) {
+            checkForSP();
+          });
+        }
+      } else if (strWebinarTypeIntent.toLowerCase() == 'self_study' || strWebinarTypeIntent.toLowerCase() == 'on-demand') {
+        // if (webDetailsObj.fee == 'FREE' || webDetailsObj.fee == '') {
+        if (fee == 'FREE' || fee == '') {
+          print('User token while register is : $userToken');
+          registerWebinarCall('Bearer $userToken', webinarId.toString(), scheduleID.toString());
+        } else {
+          Navigator.of(context)
+              .push(
+            MaterialPageRoute(
+              builder: (context) => GuestCardFrag(fee, webinarId, strWebinarTypeIntent, scheduleID.toString()),
+            ),
+          )
+              .then((_) {
+            checkForSP();
+          });
+        }
+      }
+    } else {
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          content: Text("Please check your internet connectivity and try again"),
+          duration: Duration(seconds: 5),
+        ),
+      );
+      setState(() {
+        isLoaderShowing = false;
+      });
+    }
+  }
+
+  void registerWebinarCall(String userToken, String webinarId, String scheduleID) async {
+    setState(() {
+      isLoaderShowing = true;
+    });
+
+    var resp = await registerWebinarAPI(userToken, webinarId, scheduleID);
+    print('Response is : $resp');
+
+    respStatus = resp['success'];
+    respMessage = resp['message'];
+    setState(() {
+      isLoaderShowing = false;
+    });
+
+    if (respStatus) {
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          content: Text(respMessage),
+          duration: Duration(seconds: 5),
+        ),
+      );
+      checkForSP();
+    } else {
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          content: Text(respMessage),
+          duration: Duration(seconds: 5),
+        ),
+      );
+    }
   }
 }
