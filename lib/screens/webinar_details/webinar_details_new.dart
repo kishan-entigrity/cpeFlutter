@@ -12,7 +12,6 @@ import 'package:cpe_flutter/screens/webinar_details/WebinarSpeakerName_OnDemand.
 import 'package:cpe_flutter/screens/webinar_details/WebinarTitleOnDemand.dart';
 import 'package:cpe_flutter/screens/webinar_details/childCardDetails.dart';
 import 'package:cpe_flutter/screens/webinar_details/childCardOthers.dart';
-import 'package:cpe_flutter/screens/webinar_details/evaluation_form.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +30,7 @@ import 'childCardOverviewofTopics.dart';
 import 'childCardPresenter.dart';
 import 'childCardTestimonials.dart';
 import 'childCardWhyShouldAttend.dart';
+import 'evaluation_form.dart';
 
 class WebinarDetailsNew extends StatefulWidget {
   WebinarDetailsNew(this.strWebinarTypeIntent, this.webinarId);
@@ -1084,7 +1084,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       funPlayVideo();
     } else if (status.toLowerCase() == 'quiz pending') {
       funRedirectQuizPending();
-    } else if (status.toLowerCase() == 'pending evaluation') {
+    } else if (status.toLowerCase() == 'pending evaluation' || status.toLowerCase() == 'pending evalution') {
       funRedirectEvaluationForm();
     } else if (status.toLowerCase() == 'completed') {
       // Have to show alert popup for giving explanation regarding generating certificate..
@@ -1135,16 +1135,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   void funRedirectEvaluationForm() {
     // Now first we need to take and API call for the pending evaluation form link..
     // If we get the evaluation form link then have to redirect to the eavaluation form screen with inline data as form link
-    Navigator.of(context)
-        .push(
-      MaterialPageRoute(
-        builder: (context) => EvaluationForm(),
-      ),
-    )
-        .then((_) {
-      // Call setState() here or handle this appropriately
-      checkForSP();
-    });
+    APIEvaluationFormLink();
   }
 
   void funRedirectJoinWebinar() {
@@ -1352,5 +1343,49 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
           ),
         ) ??
         false;
+  }
+
+  void APIEvaluationFormLink() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
+      setState(() {
+        isLoaderShowing = true;
+      });
+
+      var resp = await evaluationFormLink('Bearer $userToken', webinarId.toString());
+
+      // var resp = await evaluationFormLink(userToken, webinarId.toString());
+      print('Response is : $resp');
+
+      respStatus = resp['success'];
+      respMessage = resp['message'];
+
+      setState(() {
+        isLoaderShowing = false;
+      });
+
+      var evaluationLink = resp['payload']['link'].toString();
+
+      Navigator.of(context)
+          .push(
+        MaterialPageRoute(
+          builder: (context) => EvaluationForm(evaluationLink),
+        ),
+      )
+          .then((_) {
+        // Call setState() here or handle this appropriately
+        checkForSP();
+      });
+    } else {
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          content: Text("Please check your internet connectivity and try again"),
+          duration: Duration(seconds: 3),
+        ),
+      );
+      setState(() {
+        isLoaderShowing = false;
+      });
+    }
   }
 }

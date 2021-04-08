@@ -99,6 +99,21 @@ Future registerWebinarAPI(String authToken, String webinar_id, String schedule_i
   return convertDataToJson;
 }
 
+Future evaluationFormLink(String authToken, String webinar_id) async {
+  String urls = URLs.BASE_URL + 'webinar/evaluation-form-request';
+  final response = await http.post(
+    urls,
+    headers: {
+      'Accept': 'Application/json',
+      'Authorization': authToken,
+    },
+    body: {'webinar_id': webinar_id},
+  );
+
+  var convertDataToJson = jsonDecode(response.body);
+  return convertDataToJson;
+}
+
 Future registerPaidWebinarAPI(String authToken, String webinar_id, String schedule_id, String card_id, String is_card, String card_number,
     String exp_month, String exp_year, String cvv, String new_card, String card_holder_name) async {
   String urls = URLs.BASE_URL + 'webinar/register-webinar';

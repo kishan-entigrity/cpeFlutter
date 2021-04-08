@@ -6,12 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class EvaluationForm extends StatefulWidget{
+class EvaluationForm extends StatefulWidget {
+  EvaluationForm(this.strEvaLink);
+
+  final String strEvaLink;
   @override
-  _EvaluationFormState createState() => _EvaluationFormState();
+  _EvaluationFormState createState() => _EvaluationFormState(strEvaLink);
 }
 
 class _EvaluationFormState extends State<EvaluationForm> {
+  _EvaluationFormState(this.strEvaLink);
+
+  final String strEvaLink;
+
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final Completer<WebViewController> _controller = Completer<WebViewController>();
 
@@ -26,6 +33,7 @@ class _EvaluationFormState extends State<EvaluationForm> {
     super.initState();
 
     checkForInternet();
+    print('Evaluation form link is : $strEvaLink');
   }
 
   @override
@@ -90,7 +98,8 @@ class _EvaluationFormState extends State<EvaluationForm> {
                   // initialUrl: '$respLink',
                   // initialUrl: getAPICallPrivacyPolicy(),
                   // initialUrl: 'https://my-cpe.com/api/cms/get-privacy-policy',
-                  initialUrl: 'https://my-cpe.com/api/cms/get-faq',
+                  // initialUrl: 'https://my-cpe.com/api/cms/get-faq',
+                  initialUrl: '$strEvaLink',
                   javascriptMode: JavascriptMode.unrestricted,
                   onWebViewCreated: (WebViewController webViewController) {
                     _controller.complete(webViewController);
@@ -104,12 +113,11 @@ class _EvaluationFormState extends State<EvaluationForm> {
     );
   }
 
-  void checkForInternet() async{
+  void checkForInternet() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     print('Connectivity Result is : $connectivityResult');
 
     if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
-
     } else {
       _scaffoldKey.currentState.showSnackBar(
         SnackBar(

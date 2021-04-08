@@ -397,6 +397,19 @@ class _UserProfileState extends State<UserProfile> {
         strExt = s.substring(idx + 1).trim();
         print('Phone number is : ${s.substring(0, idx).trim()}');
         print('Ext number is : ${s.substring(idx + 1).trim()}');
+
+        setState(() {
+          strPhone = strPhone.replaceAll(' ', '');
+          strPhone = strPhone.replaceAll('(', '');
+          strPhone = strPhone.replaceAll(')', '');
+
+          print('After trimming number is like : $strPhone');
+
+          strMobile = strMobile.replaceAll(' ', '');
+          strMobile = strMobile.replaceAll('-', '');
+          strMobile = strMobile.replaceAll('(', '');
+          strMobile = strMobile.replaceAll(')', '');
+        });
       }
 
       if (strPTIN.contains('-')) {
