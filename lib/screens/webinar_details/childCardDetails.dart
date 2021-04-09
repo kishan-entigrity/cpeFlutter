@@ -355,7 +355,8 @@ class _detailsRowDownloadState extends State<detailsRowDownload> {
     setState(() {
       loading = true;
       progress = 0;
-      strUrl = webDetailsObj['presentation_handout'][i].certificateLink.toString();
+      // strUrl = webDetailsObj['presentation_handout'][i].certificateLink.toString();
+      strUrl = webDetailsObj['presentation_handout'][i].toString();
       strTitle = 'presentation_handout_' + webDetailsObj['webinar_title'].toString() + '{$i}' + '.pdf';
       print('STR URL IS : $strUrl');
     });

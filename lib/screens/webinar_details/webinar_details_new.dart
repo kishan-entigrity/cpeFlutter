@@ -317,13 +317,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                   ),
                                 );*/
                                 if (status.toLowerCase() == 'resume watching' || status.toLowerCase() == 'watch now') {
-                                  setState(() {
-                                    isPlaying = true;
-                                    flickManager = FlickManager(
-                                      videoPlayerController: VideoPlayerController.network(videoUrl),
-                                    );
-                                    checkForVideoPlayerListener();
-                                  });
+                                  funPlayVideo();
                                 }
                               },
                               child: Container(
@@ -527,13 +521,11 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                     child: GestureDetector(
                                       onTap: () {
                                         print('Click event on play button..: URL : $videoUrl');
-                                        setState(() {
-                                          isPlaying = true;
-                                          flickManager = FlickManager(
-                                            videoPlayerController: VideoPlayerController.network(videoUrl),
-                                          );
-                                          checkForVideoPlayerListener();
-                                        });
+                                        if (status.toLowerCase() == 'register') {
+                                          showRegisterPopup();
+                                        } else {
+                                          funPlayVideo();
+                                        }
                                       },
                                       child: Icon(
                                         FontAwesomeIcons.solidPlayCircle,
@@ -1197,6 +1189,23 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
               new FlatButton(
                 onPressed: () => Navigator.pop(context), // this line dismisses the dialog
                 child: new Text('No', style: new TextStyle(fontSize: 18.0)),
+              )
+            ],
+          ),
+        ) ??
+        false;
+  }
+
+  void showRegisterPopup() {
+    showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text('Register?', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
+            content: new Text('For watching this webinar you need to register this webinar first.'),
+            actions: <Widget>[
+              new FlatButton(
+                onPressed: () => Navigator.pop(context), // this line dismisses the dialog
+                child: new Text('Ok', style: new TextStyle(fontSize: 18.0)),
               )
             ],
           ),
