@@ -133,6 +133,8 @@ class _UserProfileState extends State<UserProfile> {
   var respEditProfStatus;
   var respEditProfMessage;
 
+  SharedPreferences sharedPreferences;
+
   Future<List<Job_title>> getJobTitleList(String authToken) async {
     // String urls = 'https://my-cpe.com/api/v3/job-title/list';
     String urls = URLs.BASE_URL + 'job-title/list';
@@ -397,20 +399,22 @@ class _UserProfileState extends State<UserProfile> {
         strExt = s.substring(idx + 1).trim();
         print('Phone number is : ${s.substring(0, idx).trim()}');
         print('Ext number is : ${s.substring(idx + 1).trim()}');
-
-        setState(() {
-          strPhone = strPhone.replaceAll(' ', '');
-          strPhone = strPhone.replaceAll('(', '');
-          strPhone = strPhone.replaceAll(')', '');
-
-          print('After trimming number is like : $strPhone');
-
-          strMobile = strMobile.replaceAll(' ', '');
-          strMobile = strMobile.replaceAll('-', '');
-          strMobile = strMobile.replaceAll('(', '');
-          strMobile = strMobile.replaceAll(')', '');
-        });
       }
+
+      setState(() {
+        strPhone = strPhone.replaceAll(' ', '');
+        strPhone = strPhone.replaceAll('(', '');
+        strPhone = strPhone.replaceAll(')', '');
+
+        print('After trimming number is like : $strPhone');
+
+        strMobile = strMobile.replaceAll(' ', '');
+        strMobile = strMobile.replaceAll('-', '');
+        strMobile = strMobile.replaceAll('(', '');
+        strMobile = strMobile.replaceAll(')', '');
+
+        print('Mobile number after trimming is : $strMobile');
+      });
 
       if (strPTIN.contains('-')) {
         String s = strPTIN;
@@ -2232,8 +2236,8 @@ class _UserProfileState extends State<UserProfile> {
                 actions: <Widget>[
                   new FlatButton(
                     onPressed: () => setState(() {
-                      isEditable = false;
-                      Navigator.pop(context);
+                      updateProfile();
+
                       /*Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -2258,5 +2262,15 @@ class _UserProfileState extends State<UserProfile> {
     });
 
     return 'Success';
+  }
+
+  void updateProfile() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString("spFName", fnameController.text.toString());
+    sharedPreferences.setString("spLName", lnameController.text.toString());
+    sharedPreferences.commit();
+
+    isEditable = false;
+    Navigator.pop(context);
   }
 }

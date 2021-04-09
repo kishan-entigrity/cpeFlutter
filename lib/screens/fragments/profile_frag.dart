@@ -114,13 +114,22 @@ class _ProfileFragState extends State<ProfileFrag> {
                                         onTap: () {
                                           if (resp.isNotEmpty) {
                                             var respStr = resp.toString();
-                                            Navigator.push(
+                                            Navigator.of(context)
+                                                .push(
+                                              MaterialPageRoute(
+                                                builder: (context) => UserProfile(resp['payload']['data']),
+                                              ),
+                                            )
+                                                .then((_) {
+                                              getUserData();
+                                            });
+                                            /*Navigator.push(
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) => UserProfile(resp['payload']['data']),
                                                 // builder: (context) => UserProfile(respStr),
                                               ),
-                                            );
+                                            );*/
                                           } else {
                                             _scaffoldKey.currentState.showSnackBar(
                                               SnackBar(
