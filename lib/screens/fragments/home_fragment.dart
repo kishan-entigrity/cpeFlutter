@@ -65,6 +65,8 @@ class _HomeFragmentState extends State<HomeFragment> {
   List<Hot_topics> listHotTopics;
   static List<String> hotTopicsId = [];
 
+  static var hot_topics_ids = '';
+
   bool isLast = false;
   bool isSearch = false;
   ScrollController _scrollController = new ScrollController();
@@ -82,13 +84,14 @@ class _HomeFragmentState extends State<HomeFragment> {
   TextEditingController cvvController = TextEditingController();
 
   Future<List<Webinar>> getDataWebinarList(String authToken, String start, String limit, String topic_of_interest, String subject_area,
-      String webinar_key_text, String webinar_type, String date_filter, String filter_price) async {
+      String webinar_key_text, String webinar_type, String date_filter, String filter_price, String hot_topics_ids) async {
     String urls = URLs.BASE_URL + 'webinar/list';
     // String urls = 'https://my-cpe.com/api/v3/webinar/list';
 
     print('Request Params authToken : $authToken');
     print('Request Params start : $start');
     print('Request Params limit : $limit');
+    print('Request Params hot_topics : $hot_topics_ids');
     print('Request Params topic_of_interest : $topic_of_interest');
     print('Request Params subject_area : $subject_area');
     print('Request Params webinar_key_text : $webinar_key_text');
@@ -111,6 +114,7 @@ class _HomeFragmentState extends State<HomeFragment> {
         'webinar_type': webinar_type,
         'date_filter': date_filter,
         'filter_price': filter_price,
+        'hot_topics': hot_topics_ids,
       },
     );
 
@@ -353,7 +357,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                                       list.clear();
                                       start = 0;
 
-                                      this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+                                      this.getDataWebinarList(
+                                          '', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice', '$hot_topics_ids');
                                     },
                                   ),
                                 ),
@@ -371,7 +376,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                                         list.clear();
                                         start = 0;
 
-                                        this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+                                        this.getDataWebinarList(
+                                            '', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice', '$hot_topics_ids');
                                       }
                                     });
                                   },
@@ -695,8 +701,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                                       print('On refresh is called..');
                                       start = 0;
                                       list.clear();
-                                      return this.getDataWebinarList(
-                                          '$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+                                      return this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '',
+                                          '$strFilterPrice', '$hot_topics_ids');
                                     },
                                     child: ListView.builder(
                                       controller: _scrollController,
@@ -1116,7 +1122,8 @@ class _HomeFragmentState extends State<HomeFragment> {
       list.clear();
       start = 0;
 
-      this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice');
+      this.getDataWebinarList(
+          '$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice', '$hot_topics_ids');
     });
   }
 
@@ -1133,7 +1140,7 @@ class _HomeFragmentState extends State<HomeFragment> {
       list.clear();
       start = 0;
 
-      this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+      this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice', '$hot_topics_ids');
     });
   }
 
@@ -1165,7 +1172,8 @@ class _HomeFragmentState extends State<HomeFragment> {
       list.clear();
       start = 0;
       isProgressShowing = true;
-      this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice');
+      this.getDataWebinarList(
+          '$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice', '$hot_topics_ids');
     });
   }
 
@@ -1197,7 +1205,8 @@ class _HomeFragmentState extends State<HomeFragment> {
       list.clear();
       start = 0;
       isProgressShowing = true;
-      this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice');
+      this.getDataWebinarList(
+          '$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice', '$hot_topics_ids');
     });
   }
 
@@ -1232,8 +1241,8 @@ class _HomeFragmentState extends State<HomeFragment> {
 
                                   isProgressShowing = true;
 
-                                  this.getDataWebinarList(
-                                      '$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+                                  this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '',
+                                      '$strFilterPrice', '$hot_topics_ids');
                                 });
                               },
                               child: Container(
@@ -1846,11 +1855,11 @@ class _HomeFragmentState extends State<HomeFragment> {
         _authToken = 'Bearer $token';
         print('Auth Token from SP is : $_authToken');
 
-        this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+        this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice', '$hot_topics_ids');
         // print('init State isLive : $isLive');
         // print('init State isSelfStudy : $isSelfStudy');
       } else {
-        this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+        this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice', '$hot_topics_ids');
         // print('init State isLive : $isLive');
         // print('init State isSelfStudy : $isSelfStudy');
         print('Check value : $checkValue');
@@ -1858,7 +1867,7 @@ class _HomeFragmentState extends State<HomeFragment> {
       }
     } else {
       print('check value is null....');
-      this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+      this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice', '$hot_topics_ids');
       // print('init State isLive : $isLive');
       // print('init State isSelfStudy : $isSelfStudy');
       print('Check value : $checkValue');
@@ -1878,11 +1887,11 @@ class _HomeFragmentState extends State<HomeFragment> {
           _authToken = 'Bearer $token';
           print('Auth Token from SP is : $_authToken');
 
-          this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+          this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice', '$hot_topics_ids');
           // print('init State isLive : $isLive');
           // print('init State isSelfStudy : $isSelfStudy');
         } else {
-          this.getDataWebinarList('', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+          this.getDataWebinarList('', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice', '$hot_topics_ids');
           // print('init State isLive : $isLive');
           // print('init State isSelfStudy : $isSelfStudy');
           print('Check value : $checkValue');
@@ -1892,7 +1901,7 @@ class _HomeFragmentState extends State<HomeFragment> {
     } else {
       if (!isLast) {
         start = start + 10;
-        this.getDataWebinarList('', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+        this.getDataWebinarList('', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice', '$hot_topics_ids');
         // print('init State isLive : $isLive');
         // print('init State isSelfStudy : $isSelfStudy');
         print('Check value : $checkValue');
@@ -1914,7 +1923,8 @@ class _HomeFragmentState extends State<HomeFragment> {
           list.clear();
           start = 0;
 
-          this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice');
+          this.getDataWebinarList(
+              '$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice', '$hot_topics_ids');
         });
       } else if (dateList[index].toString().toLowerCase() == 'tomorrow') {
         setState(() {
@@ -1924,7 +1934,8 @@ class _HomeFragmentState extends State<HomeFragment> {
           list.clear();
           start = 0;
 
-          this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice');
+          this.getDataWebinarList(
+              '$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice', '$hot_topics_ids');
         });
       } else if (dateList[index].toString().toLowerCase() == 'next 7 days') {
         setState(() {
@@ -1934,7 +1945,8 @@ class _HomeFragmentState extends State<HomeFragment> {
           list.clear();
           start = 0;
 
-          this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice');
+          this.getDataWebinarList(
+              '$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice', '$hot_topics_ids');
         });
       } else if (dateList[index].toString().toLowerCase() == 'next 30 days') {
         setState(() {
@@ -1944,7 +1956,8 @@ class _HomeFragmentState extends State<HomeFragment> {
           list.clear();
           start = 0;
 
-          this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice');
+          this.getDataWebinarList(
+              '$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice', '$hot_topics_ids');
         });
       }
     });
@@ -2374,12 +2387,46 @@ class _HomeFragmentState extends State<HomeFragment> {
         listHotTopics[index].isSelected = false;
         hotTopicsId.remove(listHotTopics[index].id.toString());
         print('Lenght for hotTopicsId on remove is : ${hotTopicsId.length}');
+        print('Hot Topics array is : ${hotTopicsId}');
+
+        for (int i = 0; i < hotTopicsId.length; i++) {
+          if (i == 0) {
+            hot_topics_ids = hotTopicsId[i].toString();
+          } else {
+            hot_topics_ids = hot_topics_ids + ',' + hotTopicsId[i].toString();
+          }
+        }
+
+        isProgressShowing = true;
+
+        list.clear();
+        start = 0;
+
+        this.getDataWebinarList(
+            '$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice', '$hot_topics_ids');
       });
     } else {
       setState(() {
         listHotTopics[index].isSelected = true;
         hotTopicsId.add(listHotTopics[index].id.toString());
         print('Lenght for hotTopicsId on Add is : ${hotTopicsId.length}');
+        print('Hot Topics array is : ${hotTopicsId}');
+
+        for (int i = 0; i < hotTopicsId.length; i++) {
+          if (i == 0) {
+            hot_topics_ids = hotTopicsId[i].toString();
+          } else {
+            hot_topics_ids = hot_topics_ids + ',' + hotTopicsId[i].toString();
+          }
+        }
+
+        isProgressShowing = true;
+
+        list.clear();
+        start = 0;
+
+        this.getDataWebinarList(
+            '$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice', '$hot_topics_ids');
       });
     }
   }
