@@ -46,6 +46,7 @@ class _HomeFragmentState extends State<HomeFragment> {
   bool isSelfStudy = false;
   bool isPremium = false;
   bool isFree = false;
+  bool isDateSelected = false;
   bool isCPD1 = false;
 
   String _authToken = "";
@@ -617,11 +618,17 @@ class _HomeFragmentState extends State<HomeFragment> {
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
                                 child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30.0),
-                                    border: Border.all(color: Colors.black, width: 1.0),
-                                    color: Color(0xFFFFFFFF),
-                                  ),
+                                  decoration: isDateSelected
+                                      ? BoxDecoration(
+                                          borderRadius: BorderRadius.circular(18.0),
+                                          border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                          color: Color(0xFF607083),
+                                        )
+                                      : BoxDecoration(
+                                          borderRadius: BorderRadius.circular(30.0),
+                                          border: Border.all(color: Colors.black, width: 1.0),
+                                          color: Color(0xFFFFFFFF),
+                                        ),
                                   child: Padding(
                                     padding: EdgeInsets.symmetric(
                                       vertical: 9.0,
@@ -630,7 +637,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                     child: Text(
                                       'Date',
                                       style: TextStyle(
-                                        color: Colors.black,
+                                        color: isDateSelected ? Colors.white : Colors.black,
                                         fontSize: 11.0.sp,
                                         fontFamily: 'Whitney Medium',
                                       ),
@@ -1109,7 +1116,7 @@ class _HomeFragmentState extends State<HomeFragment> {
       list.clear();
       start = 0;
 
-      this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+      this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice');
     });
   }
 
@@ -1118,6 +1125,9 @@ class _HomeFragmentState extends State<HomeFragment> {
       strWebinarType = "self_study";
       isLive = false;
       isSelfStudy = true;
+      isDateSelected = false;
+      strDateFilter = '';
+      strDateType = '';
       isProgressShowing = true;
 
       list.clear();
@@ -1155,7 +1165,7 @@ class _HomeFragmentState extends State<HomeFragment> {
       list.clear();
       start = 0;
       isProgressShowing = true;
-      this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+      this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice');
     });
   }
 
@@ -1187,7 +1197,7 @@ class _HomeFragmentState extends State<HomeFragment> {
       list.clear();
       start = 0;
       isProgressShowing = true;
-      this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+      this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice');
     });
   }
 
@@ -1210,6 +1220,21 @@ class _HomeFragmentState extends State<HomeFragment> {
                             GestureDetector(
                               onTap: () {
                                 Navigator.pop(context);
+                                setState(() {
+                                  isDateSelected = false;
+                                  strDateFilter = '';
+                                  isDateSelected = false;
+
+                                  strDateType = '';
+
+                                  list.clear();
+                                  start = 0;
+
+                                  isProgressShowing = true;
+
+                                  this.getDataWebinarList(
+                                      '$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
+                                });
                               },
                               child: Container(
                                 width: 20.0.w,
@@ -1878,6 +1903,7 @@ class _HomeFragmentState extends State<HomeFragment> {
   void clickEventDateFilter(int index) {
     setState(() {
       strDateFilter = dateList[index].toString();
+      isDateSelected = true;
 
       if (dateList[index].toString().toLowerCase() == 'today') {
         setState(() {
