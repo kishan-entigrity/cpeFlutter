@@ -117,6 +117,7 @@ class _HomeFragmentState extends State<HomeFragment> {
       // data = JSON.decode(response.body);
       data = jsonDecode(response.body);
       isLoaderShowing = false;
+      isProgressShowing = false;
       if (data['payload']['is_last']) {
         isLast = true;
       } else {
@@ -677,7 +678,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                     ),
                     Expanded(
                       child: Container(
-                        child: isLoaderShowing
+                        child: isProgressShowing
                             ? Center(
                                 child: CircularProgressIndicator(),
                               )
