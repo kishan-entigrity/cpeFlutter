@@ -65,7 +65,7 @@ class _HomeFragmentState extends State<HomeFragment> {
   List<Hot_topics> listHotTopics;
   static List<String> hotTopicsId = [];
 
-  static var hot_topics_ids = '';
+  var hot_topics_ids = '';
 
   bool isLast = false;
   bool isSearch = false;
@@ -2389,11 +2389,15 @@ class _HomeFragmentState extends State<HomeFragment> {
         print('Lenght for hotTopicsId on remove is : ${hotTopicsId.length}');
         print('Hot Topics array is : ${hotTopicsId}');
 
-        for (int i = 0; i < hotTopicsId.length; i++) {
-          if (i == 0) {
-            hot_topics_ids = hotTopicsId[i].toString();
-          } else {
-            hot_topics_ids = hot_topics_ids + ',' + hotTopicsId[i].toString();
+        if (hotTopicsId.length == 0) {
+          hot_topics_ids = '';
+        } else {
+          for (int i = 0; i < hotTopicsId.length; i++) {
+            if (i == 0) {
+              hot_topics_ids = hotTopicsId[i].toString();
+            } else {
+              hot_topics_ids = hot_topics_ids + ',' + hotTopicsId[i].toString();
+            }
           }
         }
 
@@ -2412,11 +2416,15 @@ class _HomeFragmentState extends State<HomeFragment> {
         print('Lenght for hotTopicsId on Add is : ${hotTopicsId.length}');
         print('Hot Topics array is : ${hotTopicsId}');
 
-        for (int i = 0; i < hotTopicsId.length; i++) {
-          if (i == 0) {
-            hot_topics_ids = hotTopicsId[i].toString();
-          } else {
-            hot_topics_ids = hot_topics_ids + ',' + hotTopicsId[i].toString();
+        if (hotTopicsId.length == 0) {
+          hot_topics_ids = '';
+        } else {
+          for (int i = 0; i < hotTopicsId.length; i++) {
+            if (i == 0) {
+              hot_topics_ids = hotTopicsId[i].toString();
+            } else {
+              hot_topics_ids = hot_topics_ids + ',' + hotTopicsId[i].toString();
+            }
           }
         }
 
