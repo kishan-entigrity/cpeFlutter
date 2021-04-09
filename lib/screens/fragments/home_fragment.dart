@@ -1836,9 +1836,10 @@ class _HomeFragmentState extends State<HomeFragment> {
     print('Check value is : $checkValue');
 
     if (checkValue != null) {
-      /*setState(() {
-        isLoaderShowing = true;
-      });*/
+      setState(() {
+        // isLoaderShowing = true;
+        isProgressShowing = true;
+      });
 
       if (checkValue) {
         String token = preferences.getString("spToken");
