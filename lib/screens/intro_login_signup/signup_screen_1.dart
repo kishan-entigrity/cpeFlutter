@@ -177,8 +177,10 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                       controller: phoneController,
                                       style: kLableSignUpTextStyle,
                                       keyboardType: TextInputType.number,
+                                      maxLength: 10,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
+                                        counter: SizedBox.shrink(),
                                         hintText: 'Phone Number',
                                         hintStyle: kLableSignUpHintStyle,
                                       ),
@@ -224,8 +226,10 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                             controller: mobileController,
                                             style: kLableSignUpTextStyle,
                                             keyboardType: TextInputType.number,
+                                            maxLength: 10,
                                             decoration: InputDecoration(
                                               border: InputBorder.none,
+                                              counter: SizedBox.shrink(),
                                               hintText: 'Mobile No.',
                                               hintStyle: kLableSignUpHintStyle,
                                             ),

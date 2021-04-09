@@ -660,8 +660,10 @@ class _UserProfileState extends State<UserProfile> {
                                 controller: phoneController,
                                 style: kLableSignUpTextStyle,
                                 keyboardType: TextInputType.number,
+                                maxLength: 10,
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
+                                  counter: SizedBox.shrink(),
                                   hintText: 'Phone Number',
                                   hintStyle: kLableSignUpHintStyle,
                                 ),
@@ -709,8 +711,10 @@ class _UserProfileState extends State<UserProfile> {
                                       controller: mobileController,
                                       style: kLableSignUpTextStyle,
                                       keyboardType: TextInputType.number,
+                                      maxLength: 10,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
+                                        counter: SizedBox.shrink(),
                                         hintText: 'Mobile No.',
                                         hintStyle: kLableSignUpHintStyle,
                                       ),
