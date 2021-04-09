@@ -77,192 +77,200 @@ class _ContactUsState extends State<ContactUs> {
                 ],
               ),
             ),
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.only(
-                left: 20.0,
-                top: 30.0,
-              ),
-              child: Text(
-                'Need Help?',
-                style: kLabelTitleTextStyle,
-              ),
-            ),
-            Container(
-              height: 60.0,
-              width: double.infinity,
-              margin: EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 0.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                color: Colors.white,
-              ),
-              child: GestureDetector(
-                onTap: () {
-                  launch("tel://9292976311");
-                },
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      height: 32.0,
-                      width: 32.0,
-                      margin: EdgeInsets.only(left: 14.0),
-                      decoration: BoxDecoration(
-                        color: themeYellow,
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      child: Icon(
-                        FontAwesomeIcons.phone,
-                        color: Colors.white,
-                        size: 16.0,
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 15.0),
-                      child: Text(
-                        '929-297-6311',
-                        style: TextStyle(
-                          fontSize: 17.0,
-                          fontFamily: 'Whitney Medium',
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              height: 60.0,
-              width: double.infinity,
-              margin: EdgeInsets.fromLTRB(20.0, 16.0, 20.0, 0.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                color: Colors.white,
-              ),
-              child: GestureDetector(
-                onTap: () {
-                  launch("mailto:support@my-cpe.com");
-                },
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      height: 32.0,
-                      width: 32.0,
-                      margin: EdgeInsets.only(left: 14.0),
-                      decoration: BoxDecoration(
-                        color: themeYellow,
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      child: Icon(
-                        FontAwesomeIcons.solidEnvelope,
-                        color: Colors.white,
-                        size: 16.0,
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 15.0),
-                      child: Text(
-                        'support@my-cpe.com',
-                        style: TextStyle(
-                          fontSize: 17.0,
-                          fontFamily: 'Whitney Medium',
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
             Expanded(
-              child: Container(
-                margin: EdgeInsets.only(
-                  top: 50.0,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(50.0),
-                    topRight: Radius.circular(50.0),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.only(
+                      left: 20.0,
+                      top: 30.0,
+                    ),
+                    child: Text(
+                      'Need Help?',
+                      style: kLabelTitleTextStyle,
+                    ),
                   ),
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      height: 40.0,
-                      width: double.infinity,
-                      margin: EdgeInsets.fromLTRB(40.0, 40.0, 40.0, 0.0),
-                      child: TextField(
-                        controller: emailController,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          hintText: 'email',
-                          contentPadding: EdgeInsets.only(
-                            left: 10.0,
-                            bottom: 10.0,
-                          ),
-                          border: UnderlineInputBorder(),
-                          hintStyle: TextStyle(
-                            fontSize: 20.0,
-                            fontFamily: 'Whitney Medium',
-                            color: Colors.black,
-                          ),
-                          prefixStyle: TextStyle(
-                            fontSize: 20.0,
-                            fontFamily: 'Whitney Medium',
-                            color: Colors.white,
-                          ),
-                        ),
-                        textInputAction: TextInputAction.next,
-                      ),
+                  Container(
+                    height: 50.0,
+                    width: double.infinity,
+                    margin: EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 0.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: Colors.white,
                     ),
-                    Container(
-                      height: 40.0,
-                      width: double.infinity,
-                      margin: EdgeInsets.fromLTRB(40.0, 50.0, 40.0, 0.0),
-                      child: TextFormField(
-                        controller: subjectController,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          hintText: 'subject',
-                          contentPadding: EdgeInsets.only(
-                            left: 10.0,
-                            bottom: 10.0,
-                          ),
-                          border: UnderlineInputBorder(),
-                          hintStyle: TextStyle(
-                            fontSize: 20.0,
-                            fontFamily: 'Whitney Medium',
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 100.0,
-                      width: double.infinity,
-                      // color: Colors.white,
-                      margin: EdgeInsets.fromLTRB(40.0, 50.0, 40.0, 0.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        launch("tel://9292976311");
+                      },
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text(
-                            'Send',
-                            style: kButtonLabelTextStyle,
+                          Container(
+                            height: 32.0,
+                            width: 32.0,
+                            margin: EdgeInsets.only(left: 14.0),
+                            decoration: BoxDecoration(
+                              color: themeYellow,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
+                            child: Icon(
+                              FontAwesomeIcons.phone,
+                              color: Colors.white,
+                              size: 16.0,
+                            ),
                           ),
-                          RoundIconButton(
-                            icon: FontAwesomeIcons.arrowRight,
-                            onPressed: () async {
-                              getUserData();
-                            },
+                          Container(
+                            margin: EdgeInsets.only(left: 15.0),
+                            child: Text(
+                              '929-297-6311',
+                              style: TextStyle(
+                                fontSize: 17.0,
+                                fontFamily: 'Whitney Medium',
+                              ),
+                            ),
                           ),
-                          /*FloatingActionButton(
-                    onPressed: null,
-                    backgroundColor: Color(0xFFFBB42C),
-                  ),*/
                         ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  Container(
+                    height: 50.0,
+                    width: double.infinity,
+                    margin: EdgeInsets.fromLTRB(20.0, 16.0, 20.0, 0.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: Colors.white,
+                    ),
+                    child: GestureDetector(
+                      onTap: () {
+                        launch("mailto:support@my-cpe.com");
+                      },
+                      child: Row(
+                        children: <Widget>[
+                          Container(
+                            height: 32.0,
+                            width: 32.0,
+                            margin: EdgeInsets.only(left: 14.0),
+                            decoration: BoxDecoration(
+                              color: themeYellow,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
+                            child: Icon(
+                              FontAwesomeIcons.solidEnvelope,
+                              color: Colors.white,
+                              size: 16.0,
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(left: 15.0),
+                            child: Text(
+                              'support@my-cpe.com',
+                              style: TextStyle(
+                                fontSize: 17.0,
+                                fontFamily: 'Whitney Medium',
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Container(
+                        margin: EdgeInsets.only(
+                          top: 50.0,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(50.0),
+                            topRight: Radius.circular(50.0),
+                          ),
+                        ),
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              height: 40.0,
+                              width: double.infinity,
+                              margin: EdgeInsets.fromLTRB(40.0, 30.0, 40.0, 0.0),
+                              child: TextField(
+                                controller: emailController,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  hintText: 'email',
+                                  contentPadding: EdgeInsets.only(
+                                    left: 10.0,
+                                    bottom: 10.0,
+                                  ),
+                                  border: UnderlineInputBorder(),
+                                  hintStyle: TextStyle(
+                                    fontSize: 20.0,
+                                    fontFamily: 'Whitney Medium',
+                                    color: Colors.black,
+                                  ),
+                                  prefixStyle: TextStyle(
+                                    fontSize: 20.0,
+                                    fontFamily: 'Whitney Medium',
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                textInputAction: TextInputAction.next,
+                              ),
+                            ),
+                            Container(
+                              height: 40.0,
+                              width: double.infinity,
+                              margin: EdgeInsets.fromLTRB(40.0, 40.0, 40.0, 0.0),
+                              child: TextFormField(
+                                controller: subjectController,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  hintText: 'subject',
+                                  contentPadding: EdgeInsets.only(
+                                    left: 10.0,
+                                    bottom: 10.0,
+                                  ),
+                                  border: UnderlineInputBorder(),
+                                  hintStyle: TextStyle(
+                                    fontSize: 20.0,
+                                    fontFamily: 'Whitney Medium',
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              height: 100.0,
+                              width: double.infinity,
+                              // color: Colors.white,
+                              margin: EdgeInsets.fromLTRB(40.0, 50.0, 40.0, 0.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    'Send',
+                                    style: kButtonLabelTextStyle,
+                                  ),
+                                  RoundIconButton(
+                                    icon: FontAwesomeIcons.arrowRight,
+                                    onPressed: () async {
+                                      getUserData();
+                                    },
+                                  ),
+                                  /*FloatingActionButton(
+                      onPressed: null,
+                      backgroundColor: Color(0xFFFBB42C),
+                  ),*/
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
@@ -312,8 +320,7 @@ class _ContactUsState extends State<ContactUs> {
     print('Connectivity Result is : $connectivityResult');
     print('Connectivity Result is empty');
 
-    if ((connectivityResult == ConnectivityResult.mobile) ||
-        (connectivityResult == ConnectivityResult.wifi)) {
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
       var resp = await contactUs(_email, _subject);
       print('Response is : $resp');
 
@@ -340,8 +347,7 @@ class _ContactUsState extends State<ContactUs> {
     } else {
       _scaffoldKey.currentState.showSnackBar(
         SnackBar(
-          content:
-              Text("Please check your internet connectivity and try again"),
+          content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 5),
         ),
       );
