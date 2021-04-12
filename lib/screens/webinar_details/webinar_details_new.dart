@@ -1094,7 +1094,11 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       funRedirectEvaluationForm();
     } else if (status.toLowerCase() == 'completed') {
       // Have to show alert popup for giving explanation regarding generating certificate..
-      showCompletedPopUp();
+      if (strWebinarTypeIntent.toLowerCase() == 'live') {
+        // Do nothing for this case..
+      } else {
+        showCompletedPopUp();
+      }
     } else if (status.toLowerCase() == 'my certificate') {
       // Check for the number of certificates here..
       // If we have single cerificate then redirect to certificate preview screen..
@@ -1142,7 +1146,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                 builder: (context) => FinalQuizScreen(webDetailsObj['webinar_id']),
                               ),
                             );*/
-    if(flickManager.flickVideoManager.isPlaying){
+    if (flickManager.flickVideoManager.isPlaying) {
       flickManager.flickControlManager.autoPause();
       // _timer.cancel();
       stopBasicTimer();
@@ -1410,7 +1414,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       });
 
       var evaluationLink = resp['payload']['link'].toString();
-      if(flickManager.flickVideoManager.isPlaying){
+      if (flickManager.flickVideoManager.isPlaying) {
         flickManager.flickControlManager.autoPause();
         // _timer.cancel();
         stopBasicTimer();
@@ -1505,8 +1509,9 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                               child: Container(
                                 margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
                                 decoration: BoxDecoration(
-                                  color:
-                                  selectedCertificateType == webDetailsObj['my_certificate_links'][pos]['certificate_type'] ? themeYellow : testColor,
+                                  color: selectedCertificateType == webDetailsObj['my_certificate_links'][pos]['certificate_type']
+                                      ? themeYellow
+                                      : testColor,
                                   // color: themeYellow,
                                   borderRadius: BorderRadius.circular(7.0),
                                   // color: Colors.teal,

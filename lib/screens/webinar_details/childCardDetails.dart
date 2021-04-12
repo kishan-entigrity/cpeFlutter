@@ -1,10 +1,11 @@
-import 'dart:io';
+import 'dart:isolate';
+import 'dart:ui';
 
 import 'package:cpe_flutter/constant.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sizer/sizer.dart';
@@ -55,6 +56,17 @@ class _childCardDetailsState extends State<childCardDetails> {
   bool isFourth = false;
 
   var strWhoTitle_1 = '', strWhoTitle_2 = '', strWhoTitle_3 = '', strWhoTitle_4 = '';
+
+  int progress = 0;
+  ReceivePort _receivePort = ReceivePort();
+
+  static downloadingCallback(id, status, progress) {
+    ///Looking up for a send port
+    SendPort sendPort = IsolateNameServer.lookupPortByName("downloading");
+
+    ///ssending the data
+    sendPort.send([id, status, progress]);
+  }
 
   @override
   void initState() {
@@ -137,6 +149,19 @@ class _childCardDetailsState extends State<childCardDetails> {
         strWhoTitle_4 = '+$showCount more';
       }
     });
+
+    IsolateNameServer.registerPortWithName(_receivePort.sendPort, "downloading");
+
+    ///Listening for the data is comming other isolataes
+    _receivePort.listen((message) {
+      setState(() {
+        progress = message[2];
+      });
+
+      print(progress);
+    });
+
+    FlutterDownloader.registerCallback(downloadingCallback);
   }
 
   @override
@@ -316,13 +341,23 @@ class _detailsRowDownloadState extends State<detailsRowDownload> {
                     onTap: () {
                       if (widget.strKey == 'Presentation Handouts') {
                         print('Clicked on download presentation handsout');
-                        for (int i = 0; i < widget.webDetailsObj['presentation_handout'].length; i++) {
-                          downloadFile(i);
+                        if (webDetailsObj['presentation_handout'].length == 0) {
+                          print('No data for handsout material');
+                        } else {
+                          if (webDetailsObj['presentation_handout'].length > 1) {
+                            // We have multiple documents to download..
+                            showHandsoutList();
+                          } else {
+                            // We have only single document to download..
+                            downloadHandsoutFile(0);
+                          }
                         }
                       } else if (widget.strKey == 'Key Terms') {
                         print('Clicked on download key terms');
+                        downloadKeyTerms();
                       } else if (widget.strKey == 'Instructional Document') {
                         print('Clicked on download instructional document');
+                        downloadInstructionalDocuments();
                       }
                     },
                     child: Container(
@@ -351,88 +386,169 @@ class _detailsRowDownloadState extends State<detailsRowDownload> {
     );
   }
 
-  void downloadFile(int i) async {
-    setState(() {
-      loading = true;
-      progress = 0;
-      // strUrl = webDetailsObj['presentation_handout'][i].certificateLink.toString();
-      strUrl = webDetailsObj['presentation_handout'][i].toString();
-      strTitle = 'presentation_handout_' + webDetailsObj['webinar_title'].toString() + '{$i}' + '.pdf';
-      print('STR URL IS : $strUrl');
-    });
-    bool downloaded = await saveVideo(strUrl, strTitle);
-    if (downloaded) {
-      print("File Downloaded");
-    } else {
-      print("Problem Downloading File");
-    }
-    setState(() {
-      loading = false;
-    });
-  }
-
-  Future<bool> saveVideo(String url, String fileName) async {
-    Directory directory;
-    try {
-      if (Platform.isAndroid) {
-        if (await _requestPermission(Permission.storage)) {
-          directory = await getExternalStorageDirectory();
-          String newPath = "";
-          print(directory);
-          List<String> paths = directory.path.split("/");
-          for (int x = 1; x < paths.length; x++) {
-            String folder = paths[x];
-            if (folder != "Android") {
-              newPath += "/" + folder;
-            } else {
-              break;
-            }
-          }
-          newPath = newPath + "/MyCPE";
-          directory = Directory(newPath);
-        } else {
-          return false;
-        }
-      } else {
-        if (await _requestPermission(Permission.photos)) {
-          directory = await getTemporaryDirectory();
-        } else {
-          return false;
-        }
-      }
-      File saveFile = File(directory.path + "/$fileName");
-      if (!await directory.exists()) {
-        await directory.create(recursive: true);
-      }
-      if (await directory.exists()) {
-        await dio.download(url, saveFile.path, onReceiveProgress: (value1, value2) {
-          // await dio.download(){
-          setState(() {
-            progress = value1 / value2;
-          });
+  void showHandsoutList() {
+    showModalBottomSheet(
+        context: context,
+        builder: (builder) {
+          return StatefulBuilder(
+            builder: (BuildContext context, void Function(void Function()) setState) {
+              return Container(
+                height: 60.0.w,
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      height: 17.0.w,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Container(
+                              width: 20.0.w,
+                              child: Center(
+                                child: Text(
+                                  'Cancel',
+                                  style: kDateTestimonials,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 50.0.w,
+                            child: Center(
+                              child: Text(
+                                'Presentation Handsout',
+                                style: kOthersTitle,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 20.0.w,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        // itemCount: orgSizeList.length,
+                        itemCount: webDetailsObj['presentation_handout'].length,
+                        itemBuilder: (context, pos) {
+                          return ConstrainedBox(
+                            constraints: BoxConstraints(
+                              minHeight: 15.0.w,
+                            ),
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  // clickEventOrgSize(pos);
+                                  clickEventHandsoutMaterial(pos);
+                                });
+                              },
+                              child: Container(
+                                margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
+                                decoration: BoxDecoration(
+                                  // color:
+                                  // selectedCertificateType == webDetailsObj['my_certificate_links'][pos]['certificate_type'] ? themeYellow : testColor,
+                                  color: themeYellow,
+                                  borderRadius: BorderRadius.circular(7.0),
+                                  // color: Colors.teal,
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Text(
+                                          // list[index].shortTitle,
+                                          // orgSizeList[index],
+                                          // webDetailsObj['presentation_handout'][pos],
+                                          'Handout Material ${pos + 1}',
+                                          // webDetailsObj['my_certificate_links'][pos]['certificate_type'],
+                                          textAlign: TextAlign.start,
+                                          style: kDataSingleSelectionBottomNav,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
         });
-        if (Platform.isIOS) {
-          await ImageGallerySaver.saveFile(saveFile.path, isReturnPathOfIOS: true);
-        }
-        return true;
-      }
-      return false;
-    } catch (e) {
-      print(e);
-      return false;
+  }
+
+  void clickEventHandsoutMaterial(int pos) {
+    downloadHandsoutFile(pos);
+    Navigator.pop(context);
+  }
+
+  void downloadHandsoutFile(int pos) async {
+    final status = await Permission.storage.request();
+
+    if (status.isGranted) {
+      final externalDir = await getExternalStorageDirectory();
+
+      final id = await FlutterDownloader.enqueue(
+        url:
+            // "https://firebasestorage.googleapis.com/v0/b/storage-3cff8.appspot.com/o/2020-05-29%2007-18-34.mp4?alt=media&token=841fffde-2b83-430c-87c3-2d2fd658fd41",
+            "$strUrl",
+        savedDir: externalDir.path,
+        // fileName: "download",
+        fileName: "Handsout_Material_${pos + 1}_${webDetailsObj['webinar_title']}.pdf",
+        showNotification: true,
+        openFileFromNotification: true,
+      );
+    } else {
+      print("Permission deined");
     }
   }
 
-  Future<bool> _requestPermission(Permission permission) async {
-    if (await permission.isGranted) {
-      return true;
+  void downloadInstructionalDocuments() async {
+    final status = await Permission.storage.request();
+
+    if (status.isGranted) {
+      final externalDir = await getExternalStorageDirectory();
+
+      final id = await FlutterDownloader.enqueue(
+        url: "${webDetailsObj['instructional_docuement']}",
+        savedDir: externalDir.path,
+        // fileName: "download",
+        fileName: "Instructional_Documents_${webDetailsObj['webinar_title']}.pdf",
+        showNotification: true,
+        openFileFromNotification: true,
+      );
     } else {
-      var result = await permission.request();
-      if (result == PermissionStatus.granted) {
-        return true;
-      }
+      print("Permission deined");
     }
-    return false;
+  }
+
+  void downloadKeyTerms() async {
+    final status = await Permission.storage.request();
+
+    if (status.isGranted) {
+      final externalDir = await getExternalStorageDirectory();
+
+      final id = await FlutterDownloader.enqueue(
+        url: "${webDetailsObj['key_terms']}",
+        savedDir: externalDir.path,
+        // fileName: "download",
+        fileName: "Key_Terms_${webDetailsObj['webinar_title']}.pdf",
+        showNotification: true,
+        openFileFromNotification: true,
+      );
+    } else {
+      print("Permission deined");
+    }
   }
 }
 

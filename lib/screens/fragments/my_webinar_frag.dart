@@ -28,6 +28,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
   var data;
   var data_web;
   var data_msg = '';
+  var data_msg_no_records = '';
 
   int start = 0;
 
@@ -103,6 +104,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       data = jsonDecode(response.body);
       isLoaderShowing = false;
       data_msg = data['message'];
+      data_msg_no_records = data['payload']['no_record_found_message'];
       if (data['payload']['is_last']) {
         isLast = true;
       } else {
@@ -1372,7 +1374,8 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                               : Center(
                                                   child: Text(
                                                     // 'Oops no data found for this user..',
-                                                    '$data_msg',
+                                                    // '$data_msg',
+                                                    '$data_msg_no_records',
                                                     style: kValueLableWebinarDetailExpand,
                                                   ),
                                                 ),
