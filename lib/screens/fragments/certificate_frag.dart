@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/constant.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
+import 'package:cpe_flutter/screens/webinar_details/pdf_preview_certificate.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -55,6 +56,8 @@ class _CertificateFragState extends State<CertificateFrag> {
   final Dio dio = Dio();
   bool loading = false;
   double progress = 0;
+
+  var selectedCertificateType = '';
 
   Future<List<My_credits>> getMyTransactionList(String authToken, String start, String limit, String filterType) async {
     // String urls = 'https://my-cpe.com/api/v3/my-credits';
@@ -347,79 +350,83 @@ class _CertificateFragState extends State<CertificateFrag> {
                                                                     child: CircularProgressIndicator(),
                                                                   ),
                                                                 )
-                                                          : Container(
-                                                              decoration: BoxDecoration(
-                                                                borderRadius: BorderRadius.circular(10.0),
-                                                                color: testColor,
-                                                                // color: Colors.blueGrey,
-                                                              ),
-                                                              margin: EdgeInsets.only(bottom: 8.0.sp),
-                                                              padding: EdgeInsets.symmetric(
-                                                                vertical: 15.0,
-                                                                horizontal: 10.0,
-                                                              ),
-                                                              child: Column(
-                                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                                children: <Widget>[
-                                                                  Text(
-                                                                    '${listCredit[index].webinarTitle}',
-                                                                    style: TextStyle(
-                                                                      fontSize: 14.5.sp,
-                                                                      fontFamily: 'Whitney Medium',
+                                                          : GestureDetector(
+                                                              onTap: () {
+                                                                print('Clicked on position : ${listCredit[index].webinarId}');
+                                                                funRedirectListDetailsCert(index);
+                                                              },
+                                                              child: Container(
+                                                                decoration: BoxDecoration(
+                                                                  borderRadius: BorderRadius.circular(10.0),
+                                                                  color: testColor,
+                                                                  // color: Colors.blueGrey,
+                                                                ),
+                                                                margin: EdgeInsets.only(bottom: 8.0.sp),
+                                                                padding: EdgeInsets.symmetric(
+                                                                  vertical: 15.0,
+                                                                  horizontal: 10.0,
+                                                                ),
+                                                                child: Column(
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  children: <Widget>[
+                                                                    Text(
+                                                                      '${listCredit[index].webinarTitle}',
+                                                                      style: TextStyle(
+                                                                        fontSize: 14.5.sp,
+                                                                        fontFamily: 'Whitney Medium',
+                                                                      ),
                                                                     ),
-                                                                  ),
-                                                                  Row(
-                                                                    children: <Widget>[
-                                                                      Container(
-                                                                        child: Text(
-                                                                          '${listCredit[index].speakerName}',
-                                                                          style: TextStyle(
-                                                                            color: Colors.black87,
-                                                                            fontSize: 11.5.sp,
-                                                                            fontFamily: 'Whitney Medium',
+                                                                    Row(
+                                                                      children: <Widget>[
+                                                                        Container(
+                                                                          child: Text(
+                                                                            '${listCredit[index].speakerName}',
+                                                                            style: TextStyle(
+                                                                              color: Colors.black87,
+                                                                              fontSize: 11.5.sp,
+                                                                              fontFamily: 'Whitney Medium',
+                                                                            ),
+                                                                          ),
+                                                                          width: 42.0.w,
+                                                                        ),
+                                                                        Container(
+                                                                          child: Text(
+                                                                            '${listCredit[index].hostDate}',
+                                                                            style: TextStyle(
+                                                                              color: Color(0x501F2227),
+                                                                              fontSize: 11.5.sp,
+                                                                              fontFamily: 'Whitney Medium',
+                                                                            ),
+                                                                          ),
+                                                                          width: 34.0.w,
+                                                                        ),
+                                                                        GestureDetector(
+                                                                          onTap: () {
+                                                                            print('Clicked on position : ${listCredit[index].webinarId}');
+                                                                            funRedirectListDetailsCert(index);
+                                                                          },
+                                                                          child: Container(
+                                                                            height: 30.0.sp,
+                                                                            width: 30.0.sp,
+                                                                            decoration: BoxDecoration(
+                                                                              color: themeYellow,
+                                                                              borderRadius: BorderRadius.circular(30.0.sp),
+                                                                            ),
+                                                                            padding: EdgeInsets.all(10.0),
+                                                                            /*child: Icon(
+                                                                      FontAwesomeIcons.download,
+                                                                      color: Colors.white,
+                                                                      size: 11.0.sp,
+                                                                    ),*/
+                                                                            child: Image.asset(
+                                                                              'assets/download.png',
+                                                                            ),
                                                                           ),
                                                                         ),
-                                                                        width: 42.0.w,
-                                                                      ),
-                                                                      Container(
-                                                                        child: Text(
-                                                                          '${listCredit[index].hostDate}',
-                                                                          style: TextStyle(
-                                                                            color: Color(0x501F2227),
-                                                                            fontSize: 11.5.sp,
-                                                                            fontFamily: 'Whitney Medium',
-                                                                          ),
-                                                                        ),
-                                                                        width: 34.0.w,
-                                                                      ),
-                                                                      GestureDetector(
-                                                                        onTap: () {
-                                                                          print('Clicked on position : ${listCredit[index].webinarId}');
-                                                                          for (int i = 0; i < listCredit[index].certificateLink.length; i++) {
-                                                                            downloadFile(index, i);
-                                                                          }
-                                                                        },
-                                                                        child: Container(
-                                                                          height: 30.0.sp,
-                                                                          width: 30.0.sp,
-                                                                          decoration: BoxDecoration(
-                                                                            color: themeYellow,
-                                                                            borderRadius: BorderRadius.circular(30.0.sp),
-                                                                          ),
-                                                                          padding: EdgeInsets.all(10.0),
-                                                                          /*child: Icon(
-                                                                    FontAwesomeIcons.download,
-                                                                    color: Colors.white,
-                                                                    size: 11.0.sp,
-                                                                  ),*/
-                                                                          child: Image.asset(
-                                                                            'assets/download.png',
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ],
+                                                                      ],
+                                                                    ),
+                                                                  ],
+                                                                ),
                                                               ),
                                                             ),
                                                     );
@@ -672,5 +679,147 @@ class _CertificateFragState extends State<CertificateFrag> {
 
   popFunction() {
     Navigator.pop(context);
+  }
+
+  void funRedirectListDetailsCert(int index) {
+    if (listCredit[index].myCertificateLinks.length > 1) {
+      print('There are multiple certificates..');
+      /*Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => CertificateListFrag(listCredit[index], index),
+        ),
+      );*/
+      showCertificateList(index);
+    } else {
+      print('There is only single certificate..');
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => CertificatePdfPreview(
+              '${listCredit[index].certificateLink[0]}', '${listCredit[index].webinarTitle}', '${listCredit[index].webinarCreditType}'),
+        ),
+      );
+    }
+  }
+
+  void showCertificateList(int index) {
+    setState(() {
+      selectedCertificateType = '';
+    });
+
+    showModalBottomSheet(
+        context: context,
+        builder: (builder) {
+          return StatefulBuilder(
+            builder: (BuildContext context, void Function(void Function()) setState) {
+              return Container(
+                height: 60.0.w,
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      height: 17.0.w,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Container(
+                              width: 20.0.w,
+                              child: Center(
+                                child: Text(
+                                  'Cancel',
+                                  style: kDateTestimonials,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 50.0.w,
+                            child: Center(
+                              child: Text(
+                                'Certificates List',
+                                style: kOthersTitle,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 20.0.w,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        // itemCount: orgSizeList.length,
+                        itemCount: listCredit[index].myCertificateLinks.length,
+                        itemBuilder: (context, pos) {
+                          return ConstrainedBox(
+                            constraints: BoxConstraints(
+                              minHeight: 15.0.w,
+                            ),
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  clickEventOrgSize(index, pos);
+                                });
+                              },
+                              child: Container(
+                                margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
+                                decoration: BoxDecoration(
+                                  color:
+                                      selectedCertificateType == listCredit[index].myCertificateLinks[pos].certificateType ? themeYellow : testColor,
+                                  // color: themeYellow,
+                                  borderRadius: BorderRadius.circular(7.0),
+                                  // color: Colors.teal,
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Text(
+                                          // list[index].shortTitle,
+                                          // orgSizeList[index],
+                                          listCredit[index].myCertificateLinks[pos].certificateType,
+                                          textAlign: TextAlign.start,
+                                          style: kDataSingleSelectionBottomNav,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        });
+  }
+
+  void clickEventOrgSize(int index, int pos) {
+    setState(() {
+      selectedCertificateType = listCredit[index].myCertificateLinks[pos].certificateType.toString();
+      Navigator.pop(context);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => CertificatePdfPreview(
+            '${listCredit[index].myCertificateLinks[pos].certificateLink}',
+            '${listCredit[index].webinarTitle}',
+            '${listCredit[index].myCertificateLinks[pos].certificateType}',
+          ),
+        ),
+      );
+    });
   }
 }

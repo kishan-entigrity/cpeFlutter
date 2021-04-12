@@ -12,6 +12,7 @@ import 'package:cpe_flutter/screens/webinar_details/WebinarSpeakerName_OnDemand.
 import 'package:cpe_flutter/screens/webinar_details/WebinarTitleOnDemand.dart';
 import 'package:cpe_flutter/screens/webinar_details/childCardDetails.dart';
 import 'package:cpe_flutter/screens/webinar_details/childCardOthers.dart';
+import 'package:cpe_flutter/screens/webinar_details/pdf_preview_certificate.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -61,6 +62,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
 
   String webinarThumb = '';
 
+  var selectedCertificateType = '';
+
   var videoUrl = '',
       webinarTitle = '',
       webinarType = '',
@@ -76,6 +79,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       whyShouldAttend = '',
       overviewOfTopic = '';
 
+  var play_time_duration;
   var scheduleID;
   var fee;
 
@@ -127,6 +131,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     bool checkValue = sharedPreferences.getBool("check");
 
+    isOnCreate = true;
+
     if (checkValue) {
       // Checkvalue == true..
       print('If State for check value : $checkValue');
@@ -177,6 +183,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
           learningObjective = webDetailsObj['Learning_objective'];
           programDescription = webDetailsObj['program_description'];
           presenterObj = webDetailsObj['about_presententer'];
+          play_time_duration = webDetailsObj['play_time_duration'];
           scheduleID = webDetailsObj['schedule_id'];
           fee = webDetailsObj['cost'].toString();
           print('Whole object for presenter is : $presenterObj');
@@ -346,6 +353,12 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                     builder: (context) => ReviewQuestions(webDetailsObj['webinar_id']),
                                   ),
                                 );*/
+                                if(flickManager.flickVideoManager.isPlaying){
+                                  flickManager.flickControlManager.autoPause();
+                                  // _timer.cancel();
+                                  stopBasicTimer();
+                                  isPlaying = false;
+                                }
                                 Navigator.of(context)
                                     .push(
                                   MaterialPageRoute(
@@ -883,7 +896,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         if (flickManager.flickVideoManager.isPlaying) {
           print('Video player is playing $state');
           if (isOnCreate) {
-            flickManager.flickControlManager.seekTo(Duration(seconds: webDetailsObj['play_time_duration']));
+            // flickManager.flickControlManager.seekTo(Duration(seconds: webDetailsObj['play_time_duration']));
+            flickManager.flickControlManager.seekTo(Duration(seconds: play_time_duration));
             isOnCreate = false;
           }
           // stopBasicTimer();
@@ -1082,7 +1096,22 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       // Have to show alert popup for giving explanation regarding generating certificate..
       showCompletedPopUp();
     } else if (status.toLowerCase() == 'my certificate') {
-      //
+      // Check for the number of certificates here..
+      // If we have single cerificate then redirect to certificate preview screen..
+      // Else have to open the bottom sheet popup and make user will select for the certificate and based on that have to perform redirection..
+      if (webDetailsObj['my_certificate_links'].length > 1) {
+        print('There are multiple certificates..');
+        showCertificateList();
+      } else {
+        print('There is only single certificate..');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CertificatePdfPreview(
+                '${webDetailsObj['certificate_link'][0]}', '${webDetailsObj['webinar_title']}', '${webDetailsObj['webinar_type']}'),
+          ),
+        );
+      }
     } else if (status.toLowerCase() == 'join webinar') {
       if (webDetailsObj['zoom_link_status']) {
         funRedirectJoinWebinar();
@@ -1095,6 +1124,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   }
 
   void funPlayVideo() {
+    print('funPlayVideo is called');
     setState(() {
       isPlaying = true;
       flickManager = FlickManager(
@@ -1112,6 +1142,12 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                 builder: (context) => FinalQuizScreen(webDetailsObj['webinar_id']),
                               ),
                             );*/
+    if(flickManager.flickVideoManager.isPlaying){
+      flickManager.flickControlManager.autoPause();
+      // _timer.cancel();
+      stopBasicTimer();
+      isPlaying = false;
+    }
     Navigator.of(context)
         .push(
       MaterialPageRoute(
@@ -1374,7 +1410,12 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       });
 
       var evaluationLink = resp['payload']['link'].toString();
-
+      if(flickManager.flickVideoManager.isPlaying){
+        flickManager.flickControlManager.autoPause();
+        // _timer.cancel();
+        stopBasicTimer();
+        isPlaying = false;
+      }
       Navigator.of(context)
           .push(
         MaterialPageRoute(
@@ -1396,5 +1437,125 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         isLoaderShowing = false;
       });
     }
+  }
+
+  void showCertificateList() {
+    setState(() {
+      selectedCertificateType = '';
+    });
+
+    showModalBottomSheet(
+        context: context,
+        builder: (builder) {
+          return StatefulBuilder(
+            builder: (BuildContext context, void Function(void Function()) setState) {
+              return Container(
+                height: 60.0.w,
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      height: 17.0.w,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Container(
+                              width: 20.0.w,
+                              child: Center(
+                                child: Text(
+                                  'Cancel',
+                                  style: kDateTestimonials,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 50.0.w,
+                            child: Center(
+                              child: Text(
+                                'Certificates List',
+                                style: kOthersTitle,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 20.0.w,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        // itemCount: orgSizeList.length,
+                        itemCount: webDetailsObj['my_certificate_links'].length,
+                        itemBuilder: (context, pos) {
+                          return ConstrainedBox(
+                            constraints: BoxConstraints(
+                              minHeight: 15.0.w,
+                            ),
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  clickEventOrgSize(pos);
+                                });
+                              },
+                              child: Container(
+                                margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
+                                decoration: BoxDecoration(
+                                  color:
+                                  selectedCertificateType == webDetailsObj['my_certificate_links'][pos]['certificate_type'] ? themeYellow : testColor,
+                                  // color: themeYellow,
+                                  borderRadius: BorderRadius.circular(7.0),
+                                  // color: Colors.teal,
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Text(
+                                          // list[index].shortTitle,
+                                          // orgSizeList[index],
+                                          webDetailsObj['my_certificate_links'][pos]['certificate_type'],
+                                          textAlign: TextAlign.start,
+                                          style: kDataSingleSelectionBottomNav,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        });
+  }
+
+  void clickEventOrgSize(int pos) {
+    setState(() {
+      selectedCertificateType = webDetailsObj['my_certificate_links'][pos]['certificate_type'].toString();
+      Navigator.pop(context);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => CertificatePdfPreview(
+            '${webDetailsObj['my_certificate_links'][pos]['certificate_link']}',
+            '${webDetailsObj['webinar_title']}',
+            '${webDetailsObj['my_certificate_links'][pos]['certificate_type']}',
+          ),
+        ),
+      );
+    });
   }
 }

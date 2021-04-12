@@ -20,6 +20,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       /*appBar: AppBar(
         backgroundColor: Colors.white,
@@ -82,51 +83,57 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 ],
               ),
             ),
-            Container(
-              height: 300.0,
-              width: double.infinity,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(25.0, 80.0, 0.0, 0.0),
-                child: Text(
-                  'Enter your\nregistered email',
-                  style: kLabelTitleTextStyle,
-                ),
-              ),
-            ),
-            Container(
-              height: 30.0,
-              width: double.infinity,
-              margin: EdgeInsets.fromLTRB(25.0, 0.0, 25.0, 0.0),
-              child: TextField(
-                controller: emailController,
-                obscureText: false,
-                decoration: lTextFlieldStyleEmail,
-                textInputAction: TextInputAction.done,
-              ),
-            ),
-            Container(
-              height: 100.0,
-              width: double.infinity,
-              // color: Colors.teal,
-              margin: EdgeInsets.symmetric(vertical: 50.0, horizontal: 25.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            SingleChildScrollView(
+              child: Column(
                 children: <Widget>[
-                  Text(
-                    'Submit',
-                    style: kButtonLabelTextStyle,
+                  Container(
+                    height: 300.0,
+                    width: double.infinity,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(25.0, 80.0, 0.0, 0.0),
+                      child: Text(
+                        'Enter your\nregistered email',
+                        style: kLabelTitleTextStyle,
+                      ),
+                    ),
                   ),
-                  RoundIconButton(
-                    icon: FontAwesomeIcons.arrowRight,
-                    onPressed: () async {
-                      // getUserData();
-                      getUserData();
-                    },
+                  Container(
+                    height: 30.0,
+                    width: double.infinity,
+                    margin: EdgeInsets.fromLTRB(25.0, 0.0, 25.0, 0.0),
+                    child: TextField(
+                      controller: emailController,
+                      obscureText: false,
+                      decoration: lTextFlieldStyleEmail,
+                      textInputAction: TextInputAction.done,
+                    ),
                   ),
-                  /*FloatingActionButton(
-                    onPressed: null,
-                    backgroundColor: Color(0xFFFBB42C),
-                  ),*/
+                  Container(
+                    height: 100.0,
+                    width: double.infinity,
+                    // color: Colors.teal,
+                    margin: EdgeInsets.symmetric(vertical: 50.0, horizontal: 25.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          'Submit',
+                          style: kButtonLabelTextStyle,
+                        ),
+                        RoundIconButton(
+                          icon: FontAwesomeIcons.arrowRight,
+                          onPressed: () async {
+                            // getUserData();
+                            getUserData();
+                          },
+                        ),
+                        /*FloatingActionButton(
+                      onPressed: null,
+                      backgroundColor: Color(0xFFFBB42C),
+                    ),*/
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

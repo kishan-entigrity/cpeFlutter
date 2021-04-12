@@ -80,6 +80,10 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
           child: Stack(
             children: [
               Positioned(
+                top: 0.0,
+                right: 0.0,
+                left: 0.0,
+                bottom: 0.0,
                 child: Container(
                   color: Colors.white,
                   child: Column(
@@ -87,305 +91,285 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                       TopBar(Colors.white, 'Sign Up'),
                       Expanded(
                         child: SingleChildScrollView(
-                          physics: ClampingScrollPhysics(),
-                          child: ConstrainedBox(
-                            constraints: BoxConstraints(
-                              minWidth: MediaQuery.of(context).size.width,
-                              minHeight: MediaQuery.of(context).size.height,
-                            ),
-                            child: IntrinsicHeight(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.max,
-                                children: <Widget>[
-                                  Container(
-                                    height: 200.0,
-                                    width: double.infinity,
-                                    child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(25.0, 50.0, 0.0, 0.0),
-                                      child: Text(
-                                        'Register\nYourself',
-                                        style: kLabelTitleTextStyle,
-                                      ),
-                                    ),
+                          // physics: ClampingScrollPhysics(),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              Container(
+                                height: 200.0,
+                                width: double.infinity,
+                                child: Padding(
+                                  padding: const EdgeInsets.fromLTRB(25.0, 50.0, 0.0, 0.0),
+                                  child: Text(
+                                    'Register\nYourself',
+                                    style: kLabelTitleTextStyle,
                                   ),
-                                  Container(
-                                    margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 6.0.w),
-                                    child: TextField(
-                                      controller: fnameController,
-                                      style: kLableSignUpTextStyle,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: 'First Name',
-                                        hintStyle: kLableSignUpHintStyle,
-                                      ),
-                                      textInputAction: TextInputAction.next,
-                                    ),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 6.0.w),
+                                child: TextField(
+                                  controller: fnameController,
+                                  style: kLableSignUpTextStyle,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: 'First Name',
+                                    hintStyle: kLableSignUpHintStyle,
                                   ),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(6.0.w, 1.0.w, 6.0.w, 0),
-                                    child: Divider(
-                                      height: 5.0,
-                                      color: Colors.black87,
-                                    ),
+                                  textInputAction: TextInputAction.next,
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.fromLTRB(6.0.w, 1.0.w, 6.0.w, 0),
+                                child: Divider(
+                                  height: 5.0,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
+                                child: TextField(
+                                  controller: lnameController,
+                                  style: kLableSignUpTextStyle,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: 'Last Name',
+                                    hintStyle: kLableSignUpHintStyle,
                                   ),
-                                  Container(
-                                    margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
-                                    child: TextField(
-                                      controller: lnameController,
-                                      style: kLableSignUpTextStyle,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: 'Last Name',
-                                        hintStyle: kLableSignUpHintStyle,
-                                      ),
-                                      textInputAction: TextInputAction.next,
-                                    ),
+                                  textInputAction: TextInputAction.next,
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                child: Divider(
+                                  height: 5.0,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
+                                child: TextField(
+                                  controller: emailController,
+                                  style: kLableSignUpTextStyle,
+                                  keyboardType: TextInputType.emailAddress,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: 'Email ID',
+                                    hintStyle: kLableSignUpHintStyle,
                                   ),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                                    child: Divider(
-                                      height: 5.0,
-                                      color: Colors.black87,
-                                    ),
+                                  textInputAction: TextInputAction.next,
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                child: Divider(
+                                  height: 5.0,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
+                                child: TextField(
+                                  controller: phoneController,
+                                  style: kLableSignUpTextStyle,
+                                  keyboardType: TextInputType.number,
+                                  maxLength: 10,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    counter: SizedBox.shrink(),
+                                    hintText: 'Phone Number',
+                                    hintStyle: kLableSignUpHintStyle,
                                   ),
-                                  Container(
-                                    margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
-                                    child: TextField(
-                                      controller: emailController,
-                                      style: kLableSignUpTextStyle,
-                                      keyboardType: TextInputType.emailAddress,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: 'Email ID',
-                                        hintStyle: kLableSignUpHintStyle,
-                                      ),
-                                      textInputAction: TextInputAction.next,
-                                    ),
+                                  textInputAction: TextInputAction.next,
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                child: Divider(
+                                  height: 5.0,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
+                                child: TextField(
+                                  controller: extController,
+                                  style: kLableSignUpTextStyle,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: 'Ext',
+                                    hintStyle: kLableSignUpHintStyle,
                                   ),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                                    child: Divider(
-                                      height: 5.0,
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
-                                    child: TextField(
-                                      controller: phoneController,
-                                      style: kLableSignUpTextStyle,
-                                      keyboardType: TextInputType.number,
-                                      maxLength: 10,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        counter: SizedBox.shrink(),
-                                        hintText: 'Phone Number',
-                                        hintStyle: kLableSignUpHintStyle,
-                                      ),
-                                      textInputAction: TextInputAction.next,
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                                    child: Divider(
-                                      height: 5.0,
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
-                                    child: TextField(
-                                      controller: extController,
-                                      style: kLableSignUpTextStyle,
-                                      keyboardType: TextInputType.number,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: 'Ext',
-                                        hintStyle: kLableSignUpHintStyle,
-                                      ),
-                                      textInputAction: TextInputAction.next,
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                                    child: Divider(
-                                      height: 5.0,
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                  Container(
-                                    // margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
-                                    margin: EdgeInsets.fromLTRB(6.0.w, 1.0.w, 9.5.w, 1.0.w),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Expanded(
-                                          child: TextField(
-                                            controller: mobileController,
-                                            style: kLableSignUpTextStyle,
-                                            keyboardType: TextInputType.number,
-                                            maxLength: 10,
-                                            decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                              counter: SizedBox.shrink(),
-                                              hintText: 'Mobile No.',
-                                              hintStyle: kLableSignUpHintStyle,
-                                            ),
-                                            textInputAction: TextInputAction.next,
-                                          ),
+                                  textInputAction: TextInputAction.next,
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                child: Divider(
+                                  height: 5.0,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                              Container(
+                                // margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
+                                margin: EdgeInsets.fromLTRB(6.0.w, 1.0.w, 9.5.w, 1.0.w),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: TextField(
+                                        controller: mobileController,
+                                        style: kLableSignUpTextStyle,
+                                        keyboardType: TextInputType.number,
+                                        maxLength: 10,
+                                        decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          counter: SizedBox.shrink(),
+                                          hintText: 'Mobile No.',
+                                          hintStyle: kLableSignUpHintStyle,
                                         ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            scaffoldState.currentState.showSnackBar(
-                                              SnackBar(
-                                                content: Text(mobileInfoMsg),
-                                                duration: Duration(seconds: 5),
-                                              ),
-                                            );
-                                          },
-                                          child: Icon(
-                                            FontAwesomeIcons.infoCircle,
-                                            size: 15.0.sp,
-                                            color: Color(0xFFBDBFCA),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                                    child: Divider(
-                                      height: 5.0,
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
-                                    child: TextField(
-                                      controller: passController,
-                                      style: kLableSignUpTextStyle,
-                                      obscureText: obscurePass,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: 'Password',
-                                        hintStyle: kLableSignUpHintStyle,
-                                        suffixIcon: IconButton(
-                                          // onPressed: () => _controller.clear(),
-                                          onPressed: () {
-                                            setState(() {
-                                              if (obscurePass) {
-                                                obscurePass = false;
-                                              } else {
-                                                obscurePass = true;
-                                              }
-                                            });
-                                          },
-                                          icon: Icon(
-                                            FontAwesomeIcons.eye,
-                                            size: 15.0.sp,
-                                            color: Color(0xFFBDBFCA),
-                                          ),
-                                        ),
+                                        textInputAction: TextInputAction.next,
                                       ),
-                                      textInputAction: TextInputAction.next,
                                     ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                                    child: Divider(
-                                      height: 5.0,
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
-                                    child: TextField(
-                                      controller: confPassController,
-                                      style: kLableSignUpTextStyle,
-                                      obscureText: obscureConfPass,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: 'Confirm Password',
-                                        hintStyle: kLableSignUpHintStyle,
-                                        suffixIcon: IconButton(
-                                          // onPressed: () => _controller.clear(),
-                                          onPressed: () {
-                                            setState(() {
-                                              if (obscureConfPass) {
-                                                obscureConfPass = false;
-                                              } else {
-                                                obscureConfPass = true;
-                                              }
-                                            });
-                                          },
-                                          icon: Icon(
-                                            FontAwesomeIcons.eye,
-                                            size: 15.0.sp,
-                                            color: Color(0xFFBDBFCA),
+                                    GestureDetector(
+                                      onTap: () {
+                                        scaffoldState.currentState.showSnackBar(
+                                          SnackBar(
+                                            content: Text(mobileInfoMsg),
+                                            duration: Duration(seconds: 5),
                                           ),
-                                        ),
+                                        );
+                                      },
+                                      child: Icon(
+                                        FontAwesomeIcons.infoCircle,
+                                        size: 15.0.sp,
+                                        color: Color(0xFFBDBFCA),
                                       ),
-                                      textInputAction: TextInputAction.done,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                child: Divider(
+                                  height: 5.0,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
+                                child: TextField(
+                                  controller: passController,
+                                  style: kLableSignUpTextStyle,
+                                  obscureText: obscurePass,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: 'Password',
+                                    hintStyle: kLableSignUpHintStyle,
+                                    suffixIcon: IconButton(
+                                      // onPressed: () => _controller.clear(),
+                                      onPressed: () {
+                                        setState(() {
+                                          if (obscurePass) {
+                                            obscurePass = false;
+                                          } else {
+                                            obscurePass = true;
+                                          }
+                                        });
+                                      },
+                                      icon: Icon(
+                                        FontAwesomeIcons.eye,
+                                        size: 15.0.sp,
+                                        color: Color(0xFFBDBFCA),
+                                      ),
                                     ),
                                   ),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                                    child: Divider(
-                                      height: 5.0,
-                                      color: Colors.black87,
+                                  textInputAction: TextInputAction.next,
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                child: Divider(
+                                  height: 5.0,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 1.0.w, horizontal: 6.0.w),
+                                child: TextField(
+                                  controller: confPassController,
+                                  style: kLableSignUpTextStyle,
+                                  obscureText: obscureConfPass,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: 'Confirm Password',
+                                    hintStyle: kLableSignUpHintStyle,
+                                    suffixIcon: IconButton(
+                                      // onPressed: () => _controller.clear(),
+                                      onPressed: () {
+                                        setState(() {
+                                          if (obscureConfPass) {
+                                            obscureConfPass = false;
+                                          } else {
+                                            obscureConfPass = true;
+                                          }
+                                        });
+                                      },
+                                      icon: Icon(
+                                        FontAwesomeIcons.eye,
+                                        size: 15.0.sp,
+                                        color: Color(0xFFBDBFCA),
+                                      ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: 20.0.w,
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: <Widget>[
-                                        GestureDetector(
-                                          onTap: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) => ChipviewSample(),
-                                                // SignUpScreen3(),
-                                              ),
-                                            );
-                                          },
-                                          child: Text(
-                                            // 'Next',
-                                            'Step 1/3',
-                                            // style: kButtonLabelTextStyle,
-                                            style: kStepText,
-                                          ),
-                                        ),
-                                        RoundIconButton(
-                                          icon: FontAwesomeIcons.arrowRight,
-                                          onPressed: () async {
-                                            ConstSignUp.strFname = fnameController.text;
-                                            /*Navigator.push(
+                                  textInputAction: TextInputAction.done,
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                child: Divider(
+                                  height: 5.0,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20.0.w,
+                              ),
+                              Container(
+                                margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: <Widget>[
+                                    Text(
+                                      'Step 1/3',
+                                      // style: kButtonLabelTextStyle,
+                                      style: kStepText,
+                                    ),
+                                    RoundIconButton(
+                                      icon: FontAwesomeIcons.arrowRight,
+                                      onPressed: () async {
+                                        ConstSignUp.strFname = fnameController.text;
+                                        /*Navigator.push(
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) => SignUpScreen2(),
                                                 // SignUpScreen3(),
                                               ),
                                             );*/
-                                            checkForValidations();
-                                          },
-                                        ),
-                                      ],
+                                        checkForValidations();
+                                      },
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: 20.0.w,
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
+                              SizedBox(
+                                height: 20.0.w,
+                              ),
+                            ],
                           ),
                         ),
                       ),

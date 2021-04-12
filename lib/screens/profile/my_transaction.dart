@@ -4,8 +4,11 @@ import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
 import 'package:cpe_flutter/screens/profile/pagination_my_transaction/my_transaction_list.dart';
 import 'package:cpe_flutter/screens/profile/pdf_preview_transaction.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
@@ -280,16 +283,42 @@ class _MyTranscationState extends State<MyTranscation> {
                                                       ),
                                                     ],
                                                   ),
-                                                  Container(
-                                                    height: 32.0.sp,
-                                                    width: 32.0.sp,
-                                                    padding: EdgeInsets.symmetric(vertical: 12.0),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius.circular(32.0.sp),
-                                                      color: themeYellow,
-                                                    ),
-                                                    child: Image.asset(
-                                                      'assets/download.png',
+                                                  GestureDetector(
+                                                    onTap: () async{
+                                                      print('Clicked on individual download button URL is : ${list[index].receipt}');
+                                                      final status = await Permission.storage.request();
+
+                                                      if (status.isGranted) {
+                                                        final externalDir = await getExternalStorageDirectory();
+
+                                                        final id = await FlutterDownloader.enqueue(
+                                                          url:
+                                                          // "https://firebasestorage.googleapis.com/v0/b/storage-3cff8.appspot.com/o/2020-05-29%2007-18-34.mp4?alt=media&token=841fffde-2b83-430c-87c3-2d2fd658fd41",
+                                                          "${list[index].receipt}",
+                                                          savedDir: externalDir.path,
+                                                          // fileName: "download",
+                                                          fileName: "receipt_${list[index].title}.pdf",
+                                                          showNotification: true,
+                                                          openFileFromNotification: true,
+                                                        );
+
+
+                                                      } else {
+                                                        print("Permission deined");
+                                                      }
+
+                                                    },
+                                                    child: Container(
+                                                      height: 32.0.sp,
+                                                      width: 32.0.sp,
+                                                      padding: EdgeInsets.symmetric(vertical: 12.0),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(32.0.sp),
+                                                        color: themeYellow,
+                                                      ),
+                                                      child: Image.asset(
+                                                        'assets/download.png',
+                                                      ),
                                                     ),
                                                   ),
                                                 ],

@@ -14,113 +14,30 @@ import 'package:sizer/sizer.dart';
 
 import '../../constant.dart';
 
-class TransactionPdfPreview extends StatefulWidget {
-  TransactionPdfPreview(this.strUrl, this.strTitle);
+class CertificatePdfPreview extends StatefulWidget {
+  CertificatePdfPreview(this.strUrl, this.strTitle, this.strWebinarType);
 
   final String strUrl;
   final String strTitle;
+  final String strWebinarType;
 
   @override
-  _TransactionPdfPreviewState createState() => _TransactionPdfPreviewState(strUrl, strTitle);
+  _CertificatePdfPreviewState createState() => _CertificatePdfPreviewState(strUrl, strTitle, strWebinarType);
 }
 
-class _TransactionPdfPreviewState extends State<TransactionPdfPreview> {
-  _TransactionPdfPreviewState(this.strUrl, this.strTitle);
+class _CertificatePdfPreviewState extends State<CertificatePdfPreview> {
+  _CertificatePdfPreviewState(this.strUrl, this.strTitle, this.strWebinarType);
 
   final String strUrl;
   final String strTitle;
+  final String strWebinarType;
 
   bool _isLoading = true;
   PDFDocument document;
 
-  final Dio dio = Dio();
+  // final Dio dio = Dio();
   bool loading = false;
-  double progress = 0;
-
-  Future<bool> saveVideo(String url, String fileName) async {
-    Directory directory;
-    try {
-      if (Platform.isAndroid) {
-        if (await _requestPermission(Permission.storage)) {
-          directory = await getExternalStorageDirectory();
-          String newPath = "";
-          print(directory);
-          List<String> paths = directory.path.split("/");
-          for (int x = 1; x < paths.length; x++) {
-            String folder = paths[x];
-            if (folder != "Android") {
-              newPath += "/" + folder;
-            } else {
-              break;
-            }
-          }
-          newPath = newPath + "/MyCPE";
-          directory = Directory(newPath);
-        } else {
-          return false;
-        }
-      } else {
-        if (await _requestPermission(Permission.photos)) {
-          directory = await getTemporaryDirectory();
-        } else {
-          return false;
-        }
-      }
-      File saveFile = File(directory.path + "/$fileName");
-      if (!await directory.exists()) {
-        await directory.create(recursive: true);
-      }
-      if (await directory.exists()) {
-        await dio.download(url, saveFile.path, onReceiveProgress: (value1, value2) {
-          setState(() {
-            progress = value1 / value2;
-          });
-        });
-        if (Platform.isIOS) {
-          await ImageGallerySaver.saveFile(saveFile.path, isReturnPathOfIOS: true);
-        }
-        return true;
-      }
-      return false;
-    } catch (e) {
-      print(e);
-      return false;
-    }
-  }
-
-  Future<bool> _requestPermission(Permission permission) async {
-    if (await permission.isGranted) {
-      return true;
-    } else {
-      var result = await permission.request();
-      if (result == PermissionStatus.granted) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  downloadFile() async {
-    setState(() {
-      loading = true;
-      progress = 0;
-    });
-    bool downloaded = await saveVideo(
-        // "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4",
-        //   "https://my-cpe.com/front_side/live_paid_receipt/MyCpe-live-webinars-debt-forgiveness-and-section-108-1611776820-561252728.pdf",
-        strUrl,
-        // "video.mp4");
-        // "certificate1");
-        strTitle);
-    if (downloaded) {
-      print("File Downloaded");
-    } else {
-      print("Problem Downloading File");
-    }
-    setState(() {
-      loading = false;
-    });
-  }
+  // double progress = 0;
 
   @override
   void initState() {
@@ -177,7 +94,7 @@ class _TransactionPdfPreviewState extends State<TransactionPdfPreview> {
                     Flexible(
                       child: Center(
                         child: Text(
-                          'Receipt',
+                          'Certificate',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 14.5.sp,
@@ -252,15 +169,8 @@ class _TransactionPdfPreviewState extends State<TransactionPdfPreview> {
                                     style: kButtonLabelTextStyle,
                                   ),
                                   GestureDetector(
-                                    onTap: () async {
+                                    onTap: () async{
                                       print('Clicked on download button');
-                                      // downloadReceipt();
-                                      /*Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => DownloadSample(),
-                                  ),
-                                );*/
                                       // downloadFile();
                                       final status = await Permission.storage.request();
 
@@ -273,7 +183,7 @@ class _TransactionPdfPreviewState extends State<TransactionPdfPreview> {
                                           "$strUrl",
                                           savedDir: externalDir.path,
                                           // fileName: "download",
-                                          fileName: "receipt_$strTitle.pdf",
+                                          fileName: "cert_${strWebinarType}_$strTitle.pdf",
                                           showNotification: true,
                                           openFileFromNotification: true,
                                         );
@@ -308,14 +218,5 @@ class _TransactionPdfPreviewState extends State<TransactionPdfPreview> {
         ),
       ),
     );
-  }
-
-  void downloadReceipt() async {
-    try {
-      Response response = await Dio().get("$strUrl");
-      print(response);
-    } catch (e) {
-      print(e);
-    }
   }
 }
