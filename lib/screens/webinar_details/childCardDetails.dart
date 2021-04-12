@@ -172,7 +172,7 @@ class _childCardDetailsState extends State<childCardDetails> {
       width: double.infinity,
       child: Column(
         children: <Widget>[
-          detailsRowString('Cost', cost.compareTo(0) == 0 ? 'Free' : '\$$cost', true),
+          detailsRowString('Cost', cost == '' ? 'Free' : '\$$cost', true),
           detailsRowString('CPE Credits', '$credit', credit?.isEmpty ? false : true),
           detailsRowString('CE Credits', '$ceCredit', ceCredit?.isEmpty ? false : true),
           detailsRowString('CPD Credits', '$cpdCredit', cpdCredit?.isEmpty ? false : true),

@@ -353,11 +353,13 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                     builder: (context) => ReviewQuestions(webDetailsObj['webinar_id']),
                                   ),
                                 );*/
-                                if (flickManager.flickVideoManager.isPlaying) {
-                                  flickManager.flickControlManager.autoPause();
-                                  // _timer.cancel();
-                                  stopBasicTimer();
-                                  isPlaying = false;
+                                if (flickManager != null) {
+                                  if (flickManager.flickVideoManager.isPlaying) {
+                                    flickManager.flickControlManager.autoPause();
+                                    // _timer.cancel();
+                                    stopBasicTimer();
+                                    isPlaying = false;
+                                  }
                                 }
                                 Navigator.of(context)
                                     .push(
@@ -1146,11 +1148,13 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                 builder: (context) => FinalQuizScreen(webDetailsObj['webinar_id']),
                               ),
                             );*/
-    if (flickManager.flickVideoManager.isPlaying) {
-      flickManager.flickControlManager.autoPause();
-      // _timer.cancel();
-      stopBasicTimer();
-      isPlaying = false;
+    if (flickManager != null) {
+      if (flickManager.flickVideoManager.isPlaying) {
+        flickManager.flickControlManager.autoPause();
+        // _timer.cancel();
+        stopBasicTimer();
+        isPlaying = false;
+      }
     }
     Navigator.of(context)
         .push(
@@ -1414,11 +1418,13 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       });
 
       var evaluationLink = resp['payload']['link'].toString();
-      if (flickManager.flickVideoManager.isPlaying) {
-        flickManager.flickControlManager.autoPause();
-        // _timer.cancel();
-        stopBasicTimer();
-        isPlaying = false;
+      if (flickManager != null) {
+        if (flickManager.flickVideoManager.isPlaying) {
+          flickManager.flickControlManager.autoPause();
+          // _timer.cancel();
+          stopBasicTimer();
+          isPlaying = false;
+        }
       }
       Navigator.of(context)
           .push(
