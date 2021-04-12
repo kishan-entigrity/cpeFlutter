@@ -353,7 +353,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                     builder: (context) => ReviewQuestions(webDetailsObj['webinar_id']),
                                   ),
                                 );*/
-                                if(flickManager.flickVideoManager.isPlaying){
+                                if (flickManager.flickVideoManager.isPlaying) {
                                   flickManager.flickControlManager.autoPause();
                                   // _timer.cancel();
                                   stopBasicTimer();
@@ -1095,7 +1095,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
     } else if (status.toLowerCase() == 'completed') {
       // Have to show alert popup for giving explanation regarding generating certificate..
       if (strWebinarTypeIntent.toLowerCase() == 'live') {
-        // Do nothing for this case..
+        // Do nothing for this case...
       } else {
         showCompletedPopUp();
       }
