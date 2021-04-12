@@ -1,12 +1,11 @@
-import 'dart:io';
+import 'dart:isolate';
+import 'dart:ui';
 
 import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share/share.dart';
@@ -38,6 +37,17 @@ class _CertificatePdfPreviewState extends State<CertificatePdfPreview> {
   // final Dio dio = Dio();
   bool loading = false;
   // double progress = 0;
+  int progress = 0;
+
+  ReceivePort _receivePort = ReceivePort();
+
+  static downloadingCallback(id, status, progress) {
+    ///Looking up for a send port
+    SendPort sendPort = IsolateNameServer.lookupPortByName("downloading");
+
+    ///ssending the data
+    sendPort.send([id, status, progress]);
+  }
 
   @override
   void initState() {
@@ -45,6 +55,19 @@ class _CertificatePdfPreviewState extends State<CertificatePdfPreview> {
     super.initState();
     print('Url on get intent is : $strUrl');
     loadDocument();
+
+    IsolateNameServer.registerPortWithName(_receivePort.sendPort, "downloading");
+
+    ///Listening for the data is comming other isolataes
+    _receivePort.listen((message) {
+      setState(() {
+        progress = message[2];
+      });
+
+      print(progress);
+    });
+
+    FlutterDownloader.registerCallback(downloadingCallback);
   }
 
   loadDocument() async {
@@ -169,7 +192,7 @@ class _CertificatePdfPreviewState extends State<CertificatePdfPreview> {
                                     style: kButtonLabelTextStyle,
                                   ),
                                   GestureDetector(
-                                    onTap: () async{
+                                    onTap: () async {
                                       print('Clicked on download button');
                                       // downloadFile();
                                       final status = await Permission.storage.request();
@@ -179,16 +202,14 @@ class _CertificatePdfPreviewState extends State<CertificatePdfPreview> {
 
                                         final id = await FlutterDownloader.enqueue(
                                           url:
-                                          // "https://firebasestorage.googleapis.com/v0/b/storage-3cff8.appspot.com/o/2020-05-29%2007-18-34.mp4?alt=media&token=841fffde-2b83-430c-87c3-2d2fd658fd41",
-                                          "$strUrl",
+                                              // "https://firebasestorage.googleapis.com/v0/b/storage-3cff8.appspot.com/o/2020-05-29%2007-18-34.mp4?alt=media&token=841fffde-2b83-430c-87c3-2d2fd658fd41",
+                                              "$strUrl",
                                           savedDir: externalDir.path,
                                           // fileName: "download",
                                           fileName: "cert_${strWebinarType}_$strTitle.pdf",
                                           showNotification: true,
                                           openFileFromNotification: true,
                                         );
-
-
                                       } else {
                                         print("Permission deined");
                                       }

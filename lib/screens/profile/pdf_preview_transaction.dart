@@ -1,4 +1,5 @@
-import 'dart:io';
+import 'dart:isolate';
+import 'dart:ui';
 
 import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
 import 'package:dio/dio.dart';
@@ -6,7 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share/share.dart';
@@ -35,91 +35,19 @@ class _TransactionPdfPreviewState extends State<TransactionPdfPreview> {
 
   final Dio dio = Dio();
   bool loading = false;
-  double progress = 0;
+  // double progress = 0;
 
-  Future<bool> saveVideo(String url, String fileName) async {
-    Directory directory;
-    try {
-      if (Platform.isAndroid) {
-        if (await _requestPermission(Permission.storage)) {
-          directory = await getExternalStorageDirectory();
-          String newPath = "";
-          print(directory);
-          List<String> paths = directory.path.split("/");
-          for (int x = 1; x < paths.length; x++) {
-            String folder = paths[x];
-            if (folder != "Android") {
-              newPath += "/" + folder;
-            } else {
-              break;
-            }
-          }
-          newPath = newPath + "/MyCPE";
-          directory = Directory(newPath);
-        } else {
-          return false;
-        }
-      } else {
-        if (await _requestPermission(Permission.photos)) {
-          directory = await getTemporaryDirectory();
-        } else {
-          return false;
-        }
-      }
-      File saveFile = File(directory.path + "/$fileName");
-      if (!await directory.exists()) {
-        await directory.create(recursive: true);
-      }
-      if (await directory.exists()) {
-        await dio.download(url, saveFile.path, onReceiveProgress: (value1, value2) {
-          setState(() {
-            progress = value1 / value2;
-          });
-        });
-        if (Platform.isIOS) {
-          await ImageGallerySaver.saveFile(saveFile.path, isReturnPathOfIOS: true);
-        }
-        return true;
-      }
-      return false;
-    } catch (e) {
-      print(e);
-      return false;
-    }
-  }
+  // double progress = 0;
+  int progress = 0;
 
-  Future<bool> _requestPermission(Permission permission) async {
-    if (await permission.isGranted) {
-      return true;
-    } else {
-      var result = await permission.request();
-      if (result == PermissionStatus.granted) {
-        return true;
-      }
-    }
-    return false;
-  }
+  ReceivePort _receivePort = ReceivePort();
 
-  downloadFile() async {
-    setState(() {
-      loading = true;
-      progress = 0;
-    });
-    bool downloaded = await saveVideo(
-        // "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4",
-        //   "https://my-cpe.com/front_side/live_paid_receipt/MyCpe-live-webinars-debt-forgiveness-and-section-108-1611776820-561252728.pdf",
-        strUrl,
-        // "video.mp4");
-        // "certificate1");
-        strTitle);
-    if (downloaded) {
-      print("File Downloaded");
-    } else {
-      print("Problem Downloading File");
-    }
-    setState(() {
-      loading = false;
-    });
+  static downloadingCallback(id, status, progress) {
+    ///Looking up for a send port
+    SendPort sendPort = IsolateNameServer.lookupPortByName("downloading");
+
+    ///ssending the data
+    sendPort.send([id, status, progress]);
   }
 
   @override
@@ -128,6 +56,19 @@ class _TransactionPdfPreviewState extends State<TransactionPdfPreview> {
     super.initState();
     print('Url on get intent is : $strUrl');
     loadDocument();
+
+    IsolateNameServer.registerPortWithName(_receivePort.sendPort, "downloading");
+
+    ///Listening for the data is comming other isolataes
+    _receivePort.listen((message) {
+      setState(() {
+        progress = message[2];
+      });
+
+      print(progress);
+    });
+
+    FlutterDownloader.registerCallback(downloadingCallback);
   }
 
   loadDocument() async {
@@ -269,16 +210,14 @@ class _TransactionPdfPreviewState extends State<TransactionPdfPreview> {
 
                                         final id = await FlutterDownloader.enqueue(
                                           url:
-                                          // "https://firebasestorage.googleapis.com/v0/b/storage-3cff8.appspot.com/o/2020-05-29%2007-18-34.mp4?alt=media&token=841fffde-2b83-430c-87c3-2d2fd658fd41",
-                                          "$strUrl",
+                                              // "https://firebasestorage.googleapis.com/v0/b/storage-3cff8.appspot.com/o/2020-05-29%2007-18-34.mp4?alt=media&token=841fffde-2b83-430c-87c3-2d2fd658fd41",
+                                              "$strUrl",
                                           savedDir: externalDir.path,
                                           // fileName: "download",
                                           fileName: "receipt_$strTitle.pdf",
                                           showNotification: true,
                                           openFileFromNotification: true,
                                         );
-
-
                                       } else {
                                         print("Permission deined");
                                       }

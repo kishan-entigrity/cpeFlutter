@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:isolate';
+import 'dart:ui';
 
 import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
 import 'package:cpe_flutter/screens/profile/pagination_my_transaction/my_transaction_list.dart';
@@ -34,6 +36,17 @@ class _MyTranscationState extends State<MyTranscation> {
   List<Transaction> list;
   int arrCount = 0;
   var data_web;
+
+  int progress = 0;
+  ReceivePort _receivePort = ReceivePort();
+
+  static downloadingCallback(id, status, progress) {
+    ///Looking up for a send port
+    SendPort sendPort = IsolateNameServer.lookupPortByName("downloading");
+
+    ///ssending the data
+    sendPort.send([id, status, progress]);
+  }
 
   Future<List<Transaction>> getMyTransactionList(String authToken, String start, String limit) async {
     // String urls = 'https://my-cpe.com/api/v3/payment-transaction';
@@ -88,6 +101,19 @@ class _MyTranscationState extends State<MyTranscation> {
     print('Enter into myTransaction screen');
     // Get API call for my transaction..
     checkForSP();
+
+    IsolateNameServer.registerPortWithName(_receivePort.sendPort, "downloading");
+
+    ///Listening for the data is comming other isolataes
+    _receivePort.listen((message) {
+      setState(() {
+        progress = message[2];
+      });
+
+      print(progress);
+    });
+
+    FlutterDownloader.registerCallback(downloadingCallback);
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
@@ -284,7 +310,7 @@ class _MyTranscationState extends State<MyTranscation> {
                                                     ],
                                                   ),
                                                   GestureDetector(
-                                                    onTap: () async{
+                                                    onTap: () async {
                                                       print('Clicked on individual download button URL is : ${list[index].receipt}');
                                                       final status = await Permission.storage.request();
 
@@ -293,20 +319,17 @@ class _MyTranscationState extends State<MyTranscation> {
 
                                                         final id = await FlutterDownloader.enqueue(
                                                           url:
-                                                          // "https://firebasestorage.googleapis.com/v0/b/storage-3cff8.appspot.com/o/2020-05-29%2007-18-34.mp4?alt=media&token=841fffde-2b83-430c-87c3-2d2fd658fd41",
-                                                          "${list[index].receipt}",
+                                                              // "https://firebasestorage.googleapis.com/v0/b/storage-3cff8.appspot.com/o/2020-05-29%2007-18-34.mp4?alt=media&token=841fffde-2b83-430c-87c3-2d2fd658fd41",
+                                                              "${list[index].receipt}",
                                                           savedDir: externalDir.path,
                                                           // fileName: "download",
                                                           fileName: "receipt_${list[index].title}.pdf",
                                                           showNotification: true,
                                                           openFileFromNotification: true,
                                                         );
-
-
                                                       } else {
                                                         print("Permission deined");
                                                       }
-
                                                     },
                                                     child: Container(
                                                       height: 32.0.sp,
