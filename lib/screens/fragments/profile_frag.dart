@@ -32,6 +32,7 @@ class _ProfileFragState extends State<ProfileFrag> {
   String strLName = '';
   String strContact = '';
   String strProfilePic = '';
+  String strNameInitials = '';
   int strID = 0;
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -104,10 +105,29 @@ class _ProfileFragState extends State<ProfileFrag> {
                                       Padding(
                                         padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 0.0),
                                         child: Center(
-                                          child: CircleAvatar(
-                                            radius: 14.0.w,
-                                            backgroundImage: NetworkImage(strProfilePic),
-                                          ),
+                                          child: strProfilePic == ''
+                                              ? Container(
+                                                  height: 30.0.w,
+                                                  width: 30.0.w,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.blueGrey,
+                                                    borderRadius: BorderRadius.circular(25.0.w),
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      '$strNameInitials',
+                                                      style: TextStyle(
+                                                        fontSize: 25.0.sp,
+                                                        color: Colors.white,
+                                                        fontFamily: 'Whitney Bold',
+                                                      ),
+                                                    ),
+                                                  ),
+                                                )
+                                              : CircleAvatar(
+                                                  radius: 14.0.w,
+                                                  backgroundImage: NetworkImage(strProfilePic),
+                                                ),
                                         ),
                                       ),
                                       GestureDetector(
@@ -459,6 +479,8 @@ class _ProfileFragState extends State<ProfileFrag> {
           strLName = preferences.getString("spLName");
           strContact = preferences.getString("spContact");
           strProfilePic = preferences.getString("spProfilePic");
+
+          strNameInitials = strFName.toString()[0] + ' ' + strLName.toString()[0];
           // String pass = sharedPreferences.getString("password");
 
           print('Email on home screen from SP is : $strEmail');
@@ -467,6 +489,7 @@ class _ProfileFragState extends State<ProfileFrag> {
           print('LName on home screen from SP is : $strLName');
           print('Contact on home screen from SP is : $strContact');
           print('ProfilePic on home screen from SP is : $strProfilePic');
+          print('Name Initials on home screen from SP is : $strNameInitials');
 
           getUserDataAPI();
         });
