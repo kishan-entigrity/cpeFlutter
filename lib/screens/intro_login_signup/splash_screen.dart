@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:connectivity/connectivity.dart';
+import 'package:cpe_flutter/constant.dart';
 import 'package:cpe_flutter/screens/home_screen.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -62,7 +63,8 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: Colors.blueGrey,
+      // backgroundColor: Colors.blueGrey,
+      backgroundColor: testColor,
       body: Column(
         children: <Widget>[
           /*Expanded(
@@ -71,9 +73,10 @@ class _SplashScreenState extends State<SplashScreen> {
           Expanded(
             child: Center(
               child: Container(
-                height: 100.0,
-                width: 250.0,
-                child: Image.asset('assets/logo.png'),
+                // height: 100.0,
+                // width: 250.0,
+                // child: Image.asset('assets/logo.png'),
+                child: Image.asset('assets/logo_my_cpe.png'),
               ),
             ),
           ),
