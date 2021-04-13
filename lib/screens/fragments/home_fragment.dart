@@ -1015,7 +1015,9 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                             bottom: 0,
                                                             right: 0,
                                                             child: Image.asset(
-                                                              'assets/avatar_bottom_right.png',
+                                                              index % 2 == 0
+                                                                  ? 'assets/avatar_bottom_right.png'
+                                                                  : 'assets/avtar_bottom_right_even.png',
                                                               height: 36.0.w,
                                                               width: 36.0.w,
                                                             ),

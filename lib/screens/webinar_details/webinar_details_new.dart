@@ -1253,11 +1253,11 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                   // this line exits the app.
                   logoutUser();
                 },
-                child: new Text('Yes', style: new TextStyle(fontSize: 18.0)),
+                child: new Text('Login', style: new TextStyle(fontSize: 18.0)),
               ),
               new FlatButton(
                 onPressed: () => Navigator.pop(context), // this line dismisses the dialog
-                child: new Text('No', style: new TextStyle(fontSize: 18.0)),
+                child: new Text('Cancel', style: new TextStyle(fontSize: 18.0)),
               )
             ],
           ),
