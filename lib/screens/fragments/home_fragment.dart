@@ -1407,8 +1407,11 @@ class _HomeFragmentState extends State<HomeFragment> {
                                           Visibility(
                                             visible: listHotTopics[index].hot_topic.toString() == '1' ? true : false,
                                             child: Container(
+                                              height: 18.0.sp,
+                                              width: 54.0.sp,
                                               padding: EdgeInsets.only(left: 5.0.sp, right: 5.0.sp),
-                                              child: Center(
+                                              child: Image.asset('assets/hot_topic.png'),
+                                              /*child: Center(
                                                 child: Text(
                                                   'HOT TOPIC',
                                                   style: TextStyle(
@@ -1422,7 +1425,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                 borderRadius: BorderRadius.circular(2.0.sp),
                                                 border: Border.all(color: Colors.red, width: 1.0.sp),
                                                 // color: Color(0xFF607083),
-                                              ),
+                                              ),*/
                                             ),
                                           ),
                                         ],

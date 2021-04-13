@@ -32,6 +32,7 @@ class _ProfileFragState extends State<ProfileFrag> {
   String strLName = '';
   String strContact = '';
   String strProfilePic = '';
+  String strDummyUserURL = 'https://testing-website.in/images/avatar-place-holder.png';
   String strNameInitials = '';
   int strID = 0;
 
@@ -126,7 +127,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                                                 )
                                               : CircleAvatar(
                                                   radius: 14.0.w,
-                                                  backgroundImage: NetworkImage(strProfilePic),
+                                                  backgroundImage: NetworkImage(isGuestMode ? strDummyUserURL : strProfilePic),
                                                 ),
                                         ),
                                       ),

@@ -2,6 +2,7 @@ import 'package:cpe_flutter/screens/fragments/certificate_frag.dart';
 import 'package:cpe_flutter/screens/fragments/my_webinar_frag.dart';
 import 'package:cpe_flutter/screens/fragments/profile_frag.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
+import 'package:cpe_flutter/screens/intro_login_signup/signup_screen_1.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
@@ -20,6 +21,8 @@ class _HomeScreenState extends State<HomeScreen> {
   String strEmail, strFName, strLName, strContact, strProfilePic;
   int strID;
 
+  bool isGuestUser = false;
+
   int currentTab = 0;
   final List<Widget> screens = [
     // HomeSampleFrag(),
@@ -32,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // Something that stores the stack..
   final PageStorageBucket bucket = PageStorageBucket();
+
   // Widget currentScreen = HomeSampleFrag();
   Widget currentScreen = HomeFragment();
 
@@ -367,8 +371,7 @@ class _HomeScreenState extends State<HomeScreen> {
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    currentScreen = MyWebinarFrag();
-                    currentTab = 1;
+                    isGuestUser ? redirectToLogin() : redirectToMyWebinar();
                   });
                 },
                 child: Expanded(
@@ -380,7 +383,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Image.asset(
-                          'assets/my_webinar.png',
+                          isGuestUser ? 'assets/login_icon.png' : 'assets/my_webinar.png',
                           height: 18.0.sp,
                           width: 18.0.sp,
                           color: currentTab == 1 ? Color(0xFF193F70) : Color(0xFFABAAAA),
@@ -394,7 +397,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 3.0,
                         ),
                         Text(
-                          'My Webinar',
+                          isGuestUser ? 'Login' : 'My Webinar',
                           style: TextStyle(
                             fontSize: 10.0.sp,
                             fontFamily: 'Whitney Medium',
@@ -409,8 +412,7 @@ class _HomeScreenState extends State<HomeScreen> {
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    currentScreen = CertificateFrag(false);
-                    currentTab = 2;
+                    isGuestUser ? redirectToSignUp() : redirectToCertificate();
                   });
                 },
                 child: Expanded(
@@ -422,7 +424,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Image.asset(
-                          'assets/certificate.png',
+                          isGuestUser ? 'assets/signup_icon.png' : 'assets/certificate.png',
                           height: 18.0.sp,
                           width: 18.0.sp,
                           color: currentTab == 2 ? Color(0xFF193F70) : Color(0xFFABAAAA),
@@ -436,7 +438,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 3.0,
                         ),
                         Text(
-                          'Certificate',
+                          isGuestUser ? 'SignUp' : 'Certificate',
                           style: TextStyle(
                             fontSize: 10.0.sp,
                             fontFamily: 'Whitney Medium',
@@ -504,7 +506,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Image.asset(
-                          'assets/account.png',
+                          isGuestUser ? 'assets/menu_icon.png' : 'assets/account.png',
                           height: 18.0.sp,
                           width: 18.0.sp,
                           color: currentTab == 3 ? Color(0xFF193F70) : Color(0xFFABAAAA),
@@ -518,7 +520,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 3.0,
                         ),
                         Text(
-                          'Profile',
+                          isGuestUser ? 'Menu' : 'Profile',
                           style: TextStyle(
                             fontSize: 10.0.sp,
                             fontFamily: 'Whitney Medium',
@@ -570,15 +572,52 @@ class _HomeScreenState extends State<HomeScreen> {
         print('LName on home screen from SP is : $strLName');
         print('Contact on home screen from SP is : $strContact');
         print('ProfilePic on home screen from SP is : $strProfilePic');
+        setState(() {
+          isGuestUser = false;
+        });
       } else {
         print('Check value : $checkValue');
         // username.clear();
         // password.clear();
         preferences.clear();
+        setState(() {
+          isGuestUser = true;
+        });
       }
     } else {
       print('Null value else part');
       checkValue = false;
+      setState(() {
+        isGuestUser = true;
+      });
     }
+  }
+
+  redirectToLogin() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Login(),
+      ),
+    );
+  }
+
+  redirectToMyWebinar() {
+    currentScreen = MyWebinarFrag();
+    currentTab = 1;
+  }
+
+  redirectToSignUp() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SignUpScreen1(),
+      ),
+    );
+  }
+
+  redirectToCertificate() {
+    currentScreen = CertificateFrag(false);
+    currentTab = 2;
   }
 }
