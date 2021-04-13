@@ -20,8 +20,7 @@ class SliderLayout1 extends StatelessWidget {
               child: Container(
                 // color: Colors.red,
                 child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0.w),
+                  padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0.w),
                   child: Image.asset('assets/slider_1.png'),
                 ),
               ),
@@ -29,15 +28,14 @@ class SliderLayout1 extends StatelessWidget {
             Column(
               children: <Widget>[
                 Text(
-                  'FREE CPE/CE WEBNARS',
+                  'FREE CPE/CE WEBINARS',
                   style: kDataSliderTitle,
                 ),
                 SizedBox(
                   height: 3.0.w,
                 ),
                 Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0.w),
+                  padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0.w),
                   child: Text(
                     'Live & On-Demand courses for CPAs, Tax Pros, Auditors, Bookkeepers & Finance Pros.',
                     textAlign: TextAlign.center,
