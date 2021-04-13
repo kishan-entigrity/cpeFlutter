@@ -1104,6 +1104,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   void clickEventStatus() {
     if (status.toLowerCase() == 'register webinar' || status.toLowerCase() == 'register') {
       if (isGuestMode) {
+        // Need to show login popup to user in case if we found the guest mode..
         showLoginPopup();
       } else {
         funRegisterWebinar();
