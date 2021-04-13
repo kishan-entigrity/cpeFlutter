@@ -9,7 +9,6 @@ import 'package:sizer/sizer.dart';
 
 import '../../constant.dart';
 import '../../rest_api.dart';
-import '../webinar_details/webinar_details_new.dart';
 import 'model/review_question_model.dart';
 
 class ReviewQuestions extends StatefulWidget {
@@ -140,14 +139,14 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
         ),
       );
       // isFromSubmitReview = true;
-      // Navigator.pop(context, true);
-      Navigator.pushReplacement(
+      Navigator.pop(context, true);
+      /*Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           // builder: (context) => TestClass1(),
           builder: (context) => WebinarDetailsNew('ON-DEMAND', webinarId),
         ),
-      );
+      );*/
     } else {
       // Show error message there..
       _scaffoldKey.currentState.showSnackBar(

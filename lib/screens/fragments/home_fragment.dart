@@ -725,6 +725,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                                             // : (index == 0 && isSelfStudy && arrCountRecent != 0 && start == 0)
                                             : (index == 0 && isSelfStudy && arrCountRecent > 0)
                                                 ? Column(
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: <Widget>[
                                                       Container(
                                                         padding: EdgeInsets.symmetric(horizontal: 12.0.sp),
