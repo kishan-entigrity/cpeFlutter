@@ -617,68 +617,38 @@ class _HomeFragmentState extends State<HomeFragment> {
                                 ),
                               ),
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                selectDateFilter();
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                                child: Container(
-                                  decoration: isDateSelected
-                                      ? BoxDecoration(
-                                          borderRadius: BorderRadius.circular(18.0),
-                                          border: Border.all(color: Color(0xFF607083), width: 1.0),
-                                          color: Color(0xFF607083),
-                                        )
-                                      : BoxDecoration(
-                                          borderRadius: BorderRadius.circular(30.0),
-                                          border: Border.all(color: Colors.black, width: 1.0),
-                                          color: Color(0xFFFFFFFF),
-                                        ),
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      vertical: 9.0,
-                                      horizontal: 18.0,
-                                    ),
-                                    child: Text(
-                                      'Date',
-                                      style: TextStyle(
-                                        color: isDateSelected ? Colors.white : Colors.black,
-                                        fontSize: 11.0.sp,
-                                        fontFamily: 'Whitney Medium',
+                            Visibility(
+                              visible: isLive ? true : false,
+                              child: GestureDetector(
+                                onTap: () {
+                                  selectDateFilter();
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                  child: Container(
+                                    decoration: isDateSelected
+                                        ? BoxDecoration(
+                                            borderRadius: BorderRadius.circular(18.0),
+                                            border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                            color: Color(0xFF607083),
+                                          )
+                                        : BoxDecoration(
+                                            borderRadius: BorderRadius.circular(30.0),
+                                            border: Border.all(color: Colors.black, width: 1.0),
+                                            color: Color(0xFFFFFFFF),
+                                          ),
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: 9.0,
+                                        horizontal: 18.0,
                                       ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: selectCPDFilter(),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                                child: Container(
-                                  decoration: isCPD1
-                                      ? BoxDecoration(
-                                          borderRadius: BorderRadius.circular(18.0),
-                                          border: Border.all(color: Color(0xFF607083), width: 1.0),
-                                          color: Color(0xFF607083),
-                                        )
-                                      : BoxDecoration(
-                                          borderRadius: BorderRadius.circular(30.0),
-                                          border: Border.all(color: Colors.black, width: 1.0),
-                                          color: Color(0xFFFFFFFF),
+                                      child: Text(
+                                        'Date',
+                                        style: TextStyle(
+                                          color: isDateSelected ? Colors.white : Colors.black,
+                                          fontSize: 11.0.sp,
+                                          fontFamily: 'Whitney Medium',
                                         ),
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      vertical: 9.0,
-                                      horizontal: 18.0,
-                                    ),
-                                    child: Text(
-                                      'CPD',
-                                      style: TextStyle(
-                                        color: isCPD1 ? Colors.white : Colors.black,
-                                        fontSize: 11.0.sp,
-                                        fontFamily: 'Whitney Medium',
                                       ),
                                     ),
                                   ),
@@ -1164,18 +1134,26 @@ class _HomeFragmentState extends State<HomeFragment> {
         strFilterPrice = "";
       }*/
       if (isPremium) {
-        // isPremium = false;
-        // isFree = true;
+        isPremium = false;
+        isFree = false;
+
+        strFilterPrice = "";
+        list.clear();
+        start = 0;
+        isProgressShowing = true;
+        this.getDataWebinarList(
+            '$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice', '$hot_topics_ids');
       } else {
         isPremium = true;
         isFree = false;
+
+        strFilterPrice = "1";
+        list.clear();
+        start = 0;
+        isProgressShowing = true;
+        this.getDataWebinarList(
+            '$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice', '$hot_topics_ids');
       }
-      strFilterPrice = "1";
-      list.clear();
-      start = 0;
-      isProgressShowing = true;
-      this.getDataWebinarList(
-          '$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice', '$hot_topics_ids');
     });
   }
 
@@ -1197,18 +1175,26 @@ class _HomeFragmentState extends State<HomeFragment> {
         strFilterPrice = "";
       }*/
       if (isFree) {
-        // isFree = false;
-        // isPremium = true;
+        isFree = false;
+        isPremium = false;
+
+        strFilterPrice = "";
+        list.clear();
+        start = 0;
+        isProgressShowing = true;
+        this.getDataWebinarList(
+            '$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice', '$hot_topics_ids');
       } else {
         isFree = true;
         isPremium = false;
+
+        strFilterPrice = "0";
+        list.clear();
+        start = 0;
+        isProgressShowing = true;
+        this.getDataWebinarList(
+            '$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice', '$hot_topics_ids');
       }
-      strFilterPrice = "0";
-      list.clear();
-      start = 0;
-      isProgressShowing = true;
-      this.getDataWebinarList(
-          '$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice', '$hot_topics_ids');
     });
   }
 
@@ -1454,16 +1440,6 @@ class _HomeFragmentState extends State<HomeFragment> {
             });
       });
     }
-  }
-
-  selectCPDFilter() {
-    /*setState(() {
-      if (isCPD1) {
-        isCPD1 = false;
-      } else {
-        isCPD1 = true;
-      }
-    });*/
   }
 
   void getIdWebinar(int index) async {

@@ -52,7 +52,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   final String strWebinarTypeIntent;
   final int webinarId;
 
-  String userToken;
+  String userToken = '';
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   var resp;
@@ -112,6 +112,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   var watched = '';
   bool isOnCreate = true;
 
+  bool isGuestMode = false;
+
   @override
   void initState() {
     super.initState();
@@ -132,22 +134,36 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
     bool checkValue = sharedPreferences.getBool("check");
 
     isOnCreate = true;
+    if (checkValue != null) {
+      if (checkValue) {
+        // Checkvalue == true..
+        print('If State for check value : $checkValue');
+        // get the value for the userToken from the sharedPrefs..
+        userToken = sharedPreferences.getString("spToken");
+        print('UserToken on checkForSP is : $userToken');
 
-    if (checkValue) {
-      // Checkvalue == true..
-      print('If State for check value : $checkValue');
-      // get the value for the userToken from the sharedPrefs..
-      userToken = sharedPreferences.getString("spToken");
-      print('UserToken on checkForSP is : $userToken');
-
-      // Take API call for webinar Details from here..
+        // Take API call for webinar Details from here..
+        setState(() {
+          isGuestMode = false;
+          isLoaderShowing = true;
+        });
+        webinarDetailsAPI();
+      } else {
+        // Chackvalue == false..
+        print('Else State for check value : $checkValue');
+        setState(() {
+          isGuestMode = true;
+          isLoaderShowing = true;
+        });
+        webinarDetailsAPI();
+      }
+    } else {
+      print('checkValue is null handle here..');
       setState(() {
+        isGuestMode = true;
         isLoaderShowing = true;
       });
       webinarDetailsAPI();
-    } else {
-      // Chackvalue == false..
-      print('Else State for check value : $checkValue');
     }
   }
 
@@ -1087,7 +1103,11 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
 
   void clickEventStatus() {
     if (status.toLowerCase() == 'register webinar' || status.toLowerCase() == 'register') {
-      funRegisterWebinar();
+      if (isGuestMode) {
+        showLoginPopup();
+      } else {
+        funRegisterWebinar();
+      }
     } else if (status.toLowerCase() == 'resume watching' || status.toLowerCase() == 'watch now') {
       funPlayVideo();
     } else if (status.toLowerCase() == 'quiz pending') {
@@ -1119,10 +1139,14 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         );
       }
     } else if (status.toLowerCase() == 'join webinar') {
-      if (webDetailsObj['zoom_link_status']) {
-        funRedirectJoinWebinar();
+      if (isGuestMode) {
+        showLoginPopup();
       } else {
-        showDialogJoinWebinar();
+        if (webDetailsObj['zoom_link_status']) {
+          funRedirectJoinWebinar();
+        } else {
+          showDialogJoinWebinar();
+        }
       }
     } else {
       print('Went to else part..');
