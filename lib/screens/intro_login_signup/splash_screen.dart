@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info/package_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../rest_api.dart';
@@ -74,9 +75,10 @@ class _SplashScreenState extends State<SplashScreen> {
             child: Center(
               child: Container(
                 // height: 100.0,
-                // width: 250.0,
+                width: 50.0.w,
                 // child: Image.asset('assets/logo.png'),
-                child: Image.asset('assets/logo_my_cpe.png'),
+                // child: Image.asset('assets/logo_my_cpe.png'),
+                child: Image.asset('assets/my_cpe_icon.png'),
               ),
             ),
           ),
