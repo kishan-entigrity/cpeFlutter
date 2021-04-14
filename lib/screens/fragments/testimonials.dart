@@ -204,7 +204,12 @@ class _TestimonialsState extends State<Testimonials> {
                                         )
                                   : GestureDetector(
                                       child: Container(
-                                        padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
+                                        margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
+                                        padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0, top: 10.0),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10.0),
+                                          color: testColor,
+                                        ),
                                         width: double.infinity,
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
