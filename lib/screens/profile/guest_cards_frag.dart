@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../const_signup.dart';
 import '../../constant.dart';
 import '../../rest_api.dart';
 import 'model_cards/user_cards_list.dart';
@@ -1424,12 +1425,19 @@ class _GuestCardFragState extends State<GuestCardFrag> {
             ),
           );
           Future.delayed(const Duration(seconds: 3), () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => WebinarDetailsNew(webinarTypeIntent, webinarId),
-              ),
-            );
+            if (ConstSignUp.isRegisterWebinarFromDetails) {
+              setState(() {
+                ConstSignUp.isRegisterWebinarFromDetails = false;
+              });
+              Navigator.pop(context);
+            } else {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => WebinarDetailsNew(webinarTypeIntent, webinarId),
+                ),
+              );
+            }
           });
         } else {
           var respMsg = resp['message'].toString();
@@ -1516,12 +1524,19 @@ class _GuestCardFragState extends State<GuestCardFrag> {
               ),
             );
             Future.delayed(const Duration(seconds: 3), () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => WebinarDetailsNew(webinarTypeIntent, webinarId),
-                ),
-              );
+              if (ConstSignUp.isRegisterWebinarFromDetails) {
+                setState(() {
+                  ConstSignUp.isRegisterWebinarFromDetails = false;
+                });
+                Navigator.pop(context);
+              } else {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => WebinarDetailsNew(webinarTypeIntent, webinarId),
+                  ),
+                );
+              }
             });
           } else {
             var respMsg = resp['message'].toString();

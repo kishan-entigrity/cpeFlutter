@@ -353,3 +353,4 @@ const String strExpMonthEmpty = 'Please enter expire month';
 const String strExpyearEmpty = 'Please enter expire year';
 
 const String strCouldntFindCertificateLink = 'Oops, we couldn\'t getting any certificate link by now, please try after some time.';
+const String strCouldntFindReceiptLink = 'Oops, we couldn\'t getting any transaction receipt by now, please try after some time.';

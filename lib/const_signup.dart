@@ -78,6 +78,8 @@ class ConstSignUp {
   static var strCFP = '';
   static var strZipCode = '';
 
+  static bool isRegisterWebinarFromDetails = false;
+
   static void cleanSignUpData() {
     // Reset screen 1 data..
     ConstSignUp.strFname = '';

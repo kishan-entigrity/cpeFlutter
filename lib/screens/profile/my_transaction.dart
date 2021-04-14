@@ -238,7 +238,7 @@ class _MyTranscationState extends State<MyTranscation> {
                                         } else {
                                           _scaffoldKey.currentState.showSnackBar(
                                             SnackBar(
-                                              content: Text(urlnotFound),
+                                              content: Text(strCouldntFindReceiptLink),
                                               duration: Duration(seconds: 3),
                                             ),
                                           );
