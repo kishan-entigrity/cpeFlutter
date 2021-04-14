@@ -632,7 +632,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                               fontSize: 16.0.sp,
                                               color: Colors.black,
                                             ),
-                                            maxLines: 2,
+                                            maxLines: 4,
                                             overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
@@ -1131,13 +1131,22 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         showCertificateList();
       } else {
         print('There is only single certificate..');
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => CertificatePdfPreview(
-                '${webDetailsObj['certificate_link'][0]}', '${webDetailsObj['webinar_title']}', '${webDetailsObj['webinar_type']}'),
-          ),
-        );
+        if (webDetailsObj['my_certificate_links'][0]['certificate_link'] == '') {
+          _scaffoldKey.currentState.showSnackBar(
+            SnackBar(
+              content: Text(strCouldntFindCertificateLink),
+              duration: Duration(seconds: 3),
+            ),
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CertificatePdfPreview(
+                  '${webDetailsObj['certificate_link'][0]}', '${webDetailsObj['webinar_title']}', '${webDetailsObj['webinar_type']}'),
+            ),
+          );
+        }
       }
     } else if (status.toLowerCase() == 'join webinar') {
       if (isGuestMode) {
@@ -1300,12 +1309,12 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       if (strWebinarTypeIntent.toLowerCase() == 'live') {
         // if (webDetailsObj.fee == 'FREE' || webDetailsObj.fee == '') {
         if (fee == 'FREE' || fee == '') {
-          registerWebinarCall('Bearer $userToken', webinarId.toString(), scheduleID);
+          registerWebinarCall('Bearer $userToken', webinarId.toString(), scheduleID.toString());
         } else {
           Navigator.of(context)
               .push(
             MaterialPageRoute(
-              builder: (context) => GuestCardFrag(fee, webinarId, strWebinarTypeIntent, scheduleID),
+              builder: (context) => GuestCardFrag(fee, webinarId, strWebinarTypeIntent, scheduleID.toString()),
             ),
           )
               .then((_) {
@@ -1534,7 +1543,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                             child: GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  clickEventOrgSize(pos);
+                                  clickEventCertificateType(pos);
                                 });
                               },
                               child: Container(
@@ -1577,21 +1586,30 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         });
   }
 
-  void clickEventOrgSize(int pos) {
+  void clickEventCertificateType(int pos) {
     setState(() {
       selectedCertificateType = webDetailsObj['my_certificate_links'][pos]['certificate_type'].toString();
       Navigator.pop(context);
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => CertificatePdfPreview(
-            '${webDetailsObj['my_certificate_links'][pos]['certificate_link']}',
-            '${webDetailsObj['webinar_title']}',
-            '${webDetailsObj['my_certificate_links'][pos]['certificate_type']}',
+      if (webDetailsObj['my_certificate_links'][pos]['certificate_link'] == '') {
+        _scaffoldKey.currentState.showSnackBar(
+          SnackBar(
+            content: Text(strCouldntFindCertificateLink),
+            duration: Duration(seconds: 3),
           ),
-        ),
-      );
+        );
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CertificatePdfPreview(
+              '${webDetailsObj['my_certificate_links'][pos]['certificate_link']}',
+              '${webDetailsObj['webinar_title']}',
+              '${webDetailsObj['my_certificate_links'][pos]['certificate_type']}',
+            ),
+          ),
+        );
+      }
     });
   }
 }

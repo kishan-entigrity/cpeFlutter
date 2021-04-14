@@ -66,6 +66,7 @@ class _HomeFragmentState extends State<HomeFragment> {
   static List<String> hotTopicsId = [];
 
   var hot_topics_ids = '';
+  bool isGuestUser = false;
 
   bool isLast = false;
   bool isSearch = false;
@@ -300,13 +301,16 @@ class _HomeFragmentState extends State<HomeFragment> {
                                           ),
                                         );
                                       },
-                                      child: Container(
-                                        width: 20.0.sp,
-                                        height: double.infinity,
-                                        color: Color(0xFFF3F5F9),
-                                        child: Icon(
-                                          FontAwesomeIcons.solidBell,
-                                          size: 12.0.sp,
+                                      child: Visibility(
+                                        visible: isGuestUser ? false : true,
+                                        child: Container(
+                                          width: 20.0.sp,
+                                          height: double.infinity,
+                                          color: Color(0xFFF3F5F9),
+                                          child: Icon(
+                                            FontAwesomeIcons.solidBell,
+                                            size: 12.0.sp,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -1834,6 +1838,9 @@ class _HomeFragmentState extends State<HomeFragment> {
       });
 
       if (checkValue) {
+        setState(() {
+          isGuestUser = false;
+        });
         String token = preferences.getString("spToken");
         _authToken = 'Bearer $token';
         print('Auth Token from SP is : $_authToken');
@@ -1842,6 +1849,9 @@ class _HomeFragmentState extends State<HomeFragment> {
         // print('init State isLive : $isLive');
         // print('init State isSelfStudy : $isSelfStudy');
       } else {
+        setState(() {
+          isGuestUser = true;
+        });
         this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice', '$hot_topics_ids');
         // print('init State isLive : $isLive');
         // print('init State isSelfStudy : $isSelfStudy');
@@ -1850,6 +1860,9 @@ class _HomeFragmentState extends State<HomeFragment> {
       }
     } else {
       print('check value is null....');
+      setState(() {
+        isGuestUser = true;
+      });
       this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice', '$hot_topics_ids');
       // print('init State isLive : $isLive');
       // print('init State isSelfStudy : $isSelfStudy');

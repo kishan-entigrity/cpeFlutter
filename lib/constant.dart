@@ -351,3 +351,5 @@ const String strCVVEmpty = 'Please enter CVV';
 const String strCVVValid = 'Please enter valid CVV';
 const String strExpMonthEmpty = 'Please enter expire month';
 const String strExpyearEmpty = 'Please enter expire year';
+
+const String strCouldntFindCertificateLink = 'Oops, we couldn\'t getting any certificate link by now, please try after some time.';

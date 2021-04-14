@@ -139,6 +139,7 @@ class _CertificateFragState extends State<CertificateFrag> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      key: _scaffoldKey,
       body: new WillPopScope(
           child: SafeArea(
             child: Column(
@@ -684,22 +685,27 @@ class _CertificateFragState extends State<CertificateFrag> {
   void funRedirectListDetailsCert(int index) {
     if (listCredit[index].myCertificateLinks.length > 1) {
       print('There are multiple certificates..');
-      /*Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => CertificateListFrag(listCredit[index], index),
-        ),
-      );*/
       showCertificateList(index);
     } else {
-      print('There is only single certificate..');
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => CertificatePdfPreview(
-              '${listCredit[index].certificateLink[0]}', '${listCredit[index].webinarTitle}', '${listCredit[index].webinarCreditType}'),
-        ),
-      );
+      print('There is only single certificate.. Data is : ${listCredit[index].myCertificateLinks[0].certificateLink}');
+      // if (webDetailsObj['my_certificate_links'][pos]['certificate_link'] == '') {
+      if (listCredit[index].myCertificateLinks[0].certificateLink == '') {
+        print('Entered into empty string option');
+        _scaffoldKey.currentState.showSnackBar(
+          SnackBar(
+            content: Text(strCouldntFindCertificateLink),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CertificatePdfPreview(
+                '${listCredit[index].certificateLink[0]}', '${listCredit[index].webinarTitle}', '${listCredit[index].webinarCreditType}'),
+          ),
+        );
+      }
     }
   }
 
@@ -810,16 +816,25 @@ class _CertificateFragState extends State<CertificateFrag> {
       selectedCertificateType = listCredit[index].myCertificateLinks[pos].certificateType.toString();
       Navigator.pop(context);
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => CertificatePdfPreview(
-            '${listCredit[index].myCertificateLinks[pos].certificateLink}',
-            '${listCredit[index].webinarTitle}',
-            '${listCredit[index].myCertificateLinks[pos].certificateType}',
+      if (listCredit[index].myCertificateLinks[pos].certificateLink == '') {
+        _scaffoldKey.currentState.showSnackBar(
+          SnackBar(
+            content: Text(strCouldntFindCertificateLink),
+            duration: Duration(seconds: 3),
           ),
-        ),
-      );
+        );
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CertificatePdfPreview(
+              '${listCredit[index].myCertificateLinks[pos].certificateLink}',
+              '${listCredit[index].webinarTitle}',
+              '${listCredit[index].myCertificateLinks[pos].certificateType}',
+            ),
+          ),
+        );
+      }
     });
   }
 }
