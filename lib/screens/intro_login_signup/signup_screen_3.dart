@@ -1002,6 +1002,13 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
 
       FocusManager.instance.primaryFocus.unfocus();
 
+      if (ConstSignUp.listState != null) {
+        ConstSignUp.listState.clear();
+      }
+      if (ConstSignUp.listCity != null) {
+        ConstSignUp.listCity.clear();
+      }
+      isLoaderShowing = true;
       getStateNameListAPI(ConstSignUp.selectedCountryId);
       Navigator.pop(context);
     });
@@ -1019,6 +1026,10 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
 
       FocusManager.instance.primaryFocus.unfocus();
 
+      if (ConstSignUp.listCity != null) {
+        ConstSignUp.listCity.clear();
+      }
+      isLoaderShowing = true;
       getCityNameListAPI(ConstSignUp.selectedStateId);
       Navigator.pop(context);
     });

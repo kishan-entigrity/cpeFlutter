@@ -1501,7 +1501,12 @@ class _UserProfileState extends State<UserProfile> {
                                                           child: GestureDetector(
                                                             onTap: () {
                                                               setState(() {
+                                                                /*listState.clear();
+                                                                listCity.clear();*/
                                                                 clickEventCountry(index);
+                                                                /*Future.delayed(const Duration(milliseconds: 100), () {
+                                                                  clickEventCountry(index);
+                                                                });*/
                                                               });
                                                             },
                                                             child: Container(
@@ -1990,7 +1995,16 @@ class _UserProfileState extends State<UserProfile> {
       selectedStateId = 0;
       selectedCityId = 0;
 
+      if (listState != null) {
+        listState.clear();
+      }
+      if (listCity != null) {
+        listCity.clear();
+      }
+
       FocusManager.instance.primaryFocus.unfocus();
+
+      isLoaderShowing = true;
 
       getStateNameListAPI(selectedCountryId);
       Navigator.pop(context);
@@ -2008,6 +2022,12 @@ class _UserProfileState extends State<UserProfile> {
       selectedCityId = 0;
 
       FocusManager.instance.primaryFocus.unfocus();
+
+      if (listCity != null) {
+        listCity.clear();
+      }
+
+      isLoaderShowing = true;
 
       getCityNameListAPI(selectedStateId);
       Navigator.pop(context);
