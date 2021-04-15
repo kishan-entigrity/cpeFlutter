@@ -599,7 +599,7 @@ class _UserProfileState extends State<UserProfile> {
                                         ),
                                         child: Center(
                                           child: Text(
-                                            '$strNameInitials',
+                                            '${strNameInitials.toUpperCase()}',
                                             style: TextStyle(
                                               fontSize: 25.0.sp,
                                               color: Colors.white,

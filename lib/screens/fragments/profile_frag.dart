@@ -117,7 +117,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                                                   ),
                                                   child: Center(
                                                     child: Text(
-                                                      '$strNameInitials',
+                                                      '${strNameInitials.toUpperCase()}',
                                                       style: TextStyle(
                                                         fontSize: 25.0.sp,
                                                         color: Colors.white,
