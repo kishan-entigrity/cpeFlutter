@@ -538,8 +538,8 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
                                         visible: list[current_question].isAnswered ? true : false,
                                         child: Text(
                                           // 'Deffered Social security tax, the deffered taxes are due in 12/31/2021 and 12/31/2022 by 50%',
-                                          // '${displayAnswerDescription()}',
-                                          '${displayAnswerDescriptionNew()}',
+                                          '${displayAnswerDescription()}',
+                                          // '${displayAnswerDescriptionNew()}',
                                           style: TextStyle(
                                             fontSize: 12.0.sp,
                                             color: Colors.black45,

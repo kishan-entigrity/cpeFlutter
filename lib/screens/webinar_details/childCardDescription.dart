@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:sizer/sizer.dart';
 
 class childCardDescription extends StatelessWidget {
@@ -18,7 +19,7 @@ class childCardDescription extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          RichText(
+          /*RichText(
             text: TextSpan(
               text: '$strDescription',
               style: TextStyle(
@@ -27,15 +28,15 @@ class childCardDescription extends StatelessWidget {
                 color: Color(0x701F2227),
               ),
             ),
-          ),
-          /*Html(
+          ),*/
+          Html(
             data: strDescription,
             defaultTextStyle: TextStyle(
               fontFamily: 'Whitney Medium',
               fontSize: 13.5.sp,
               color: Color(0x701F2227),
             ),
-          ),*/
+          ),
           SizedBox(
             height: 10.0,
           ),
@@ -50,7 +51,7 @@ class childCardDescription extends StatelessWidget {
           SizedBox(
             height: 15.0,
           ),
-          RichText(
+          /*RichText(
             text: TextSpan(
               text: '$strLearningObjective',
               style: TextStyle(
@@ -59,15 +60,15 @@ class childCardDescription extends StatelessWidget {
                 color: Color(0x701F2227),
               ),
             ),
-          ),
-          /*Html(
+          ),*/
+          Html(
             data: strLearningObjective,
             defaultTextStyle: TextStyle(
               fontFamily: 'Whitney Medium',
               fontSize: 13.5.sp,
               color: Color(0x701F2227),
             ),
-          ),*/
+          ),
         ],
       ),
     );
