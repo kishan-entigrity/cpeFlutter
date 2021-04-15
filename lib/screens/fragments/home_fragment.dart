@@ -33,6 +33,7 @@ class _HomeFragmentState extends State<HomeFragment> {
   int arrCount = 0;
   int arrCountRecent = 0;
   var data;
+  var dataMsg = '';
   var data_web;
   var data_recent;
   int arrCountHotTopics = 0;
@@ -133,6 +134,7 @@ class _HomeFragmentState extends State<HomeFragment> {
 
     // print(data[1]["title"]);
     print('API response is : $data');
+    dataMsg = data['message'];
     arrCount = data['payload']['webinar'].length;
     arrCountRecent = data['payload']['RecentWebinars'].length;
     data_web = data['payload']['webinar'];
@@ -1036,8 +1038,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                                   )
                                 : Center(
                                     child: Text(
-                                      'Oops no data found for this user..',
-                                      // '$data_msg',
+                                      // 'Oops no data found for this user..',
+                                      '$dataMsg',
                                       style: kValueLableWebinarDetailExpand,
                                     ),
                                   ), /*Container(
