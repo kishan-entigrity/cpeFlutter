@@ -239,6 +239,28 @@ class _LoginState extends State<Login> {
               ),
             ),
             Positioned(
+              top: 0,
+              right: 0,
+              child: GestureDetector(
+                onTap: () {
+                  print('Clicked on skip button..');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomeScreen(),
+                    ),
+                  );
+                },
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
+                  child: Text(
+                    'skip',
+                    style: kTextLableLoginUnderline,
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
               child: Visibility(
                 visible: isLoading ? true : false,
                 child: Center(

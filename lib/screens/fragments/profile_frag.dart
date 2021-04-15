@@ -1,7 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/screens/fragments/pagination/sample_pagination.dart';
 import 'package:cpe_flutter/screens/fragments/test_class_1.dart';
-import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
+import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:cpe_flutter/screens/profile/cards_frag.dart';
 import 'package:cpe_flutter/screens/profile/change_password.dart';
 import 'package:cpe_flutter/screens/profile/contact_us.dart';
@@ -516,8 +516,8 @@ class _ProfileFragState extends State<ProfileFrag> {
     // Navigator.pushAndRemoveUntil(context, newRoute, (route) => false)
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
-          // builder: (context) => Login(),
-          builder: (context) => IntroScreen(),
+          builder: (context) => Login(),
+          // builder: (context) => IntroScreen(),
         ),
         (Route<dynamic> route) => false);
     // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: context) => , (route) => false);
