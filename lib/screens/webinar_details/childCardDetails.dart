@@ -11,16 +11,22 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:sizer/sizer.dart';
 
 class childCardDetails extends StatefulWidget {
-  childCardDetails(this.resp);
+  childCardDetails(this.resp, this.isGuestMode, this.status);
+
   final resp;
+  final bool isGuestMode;
+  final String status;
 
   @override
-  _childCardDetailsState createState() => _childCardDetailsState(resp);
+  _childCardDetailsState createState() => _childCardDetailsState(resp, isGuestMode, status);
 }
 
 class _childCardDetailsState extends State<childCardDetails> {
-  _childCardDetailsState(this.resp);
+  _childCardDetailsState(this.resp, this.isGuestMode, this.status);
+
   final resp;
+  final bool isGuestMode;
+  final String status;
 
   var cost,
       credit = '',
@@ -186,7 +192,10 @@ class _childCardDetailsState extends State<childCardDetails> {
           detailsRowString('Advance Preparation', '$advancePreparation', true),
           detailsRowString('Recorded Date', '$recordDate', recordDate?.isEmpty ? false : true),
           detailsRowString('Published Date', '$publishedDate', publishedDate?.isEmpty ? false : true),
-          detailsRowDownload('Presentation Handouts', true, webDetailsObj),
+          Visibility(
+            visible: (isGuestMode || status.toLowerCase() == 'register webinar' || status.toLowerCase() == 'register') ? false : true,
+            child: detailsRowDownload('Presentation Handouts', true, webDetailsObj),
+          ),
           detailsRowDownload('Key Terms', true, webDetailsObj),
           detailsRowDownload('Instructional Document', true, webDetailsObj),
           detailsRowWhoShouldAttend(
@@ -497,11 +506,12 @@ class _detailsRowDownloadState extends State<detailsRowDownload> {
 
     if (status.isGranted) {
       final externalDir = await getExternalStorageDirectory();
-
+      String handsOutUrl = webDetailsObj['presentation_handout'][pos];
+      print('Just before downloading url for presentation handsout is : $handsOutUrl');
       final id = await FlutterDownloader.enqueue(
         url:
             // "https://firebasestorage.googleapis.com/v0/b/storage-3cff8.appspot.com/o/2020-05-29%2007-18-34.mp4?alt=media&token=841fffde-2b83-430c-87c3-2d2fd658fd41",
-            "$strUrl",
+            "$handsOutUrl",
         savedDir: externalDir.path,
         // fileName: "download",
         fileName: "Handsout_Material_${pos + 1}_${webDetailsObj['webinar_title']}.pdf",

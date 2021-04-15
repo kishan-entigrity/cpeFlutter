@@ -506,13 +506,16 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                         ),
                                       );
                                     },
-                                    child: Container(
-                                      width: 20.0.sp,
-                                      height: double.infinity,
-                                      color: Color(0xFFF3F5F9),
-                                      child: Icon(
-                                        FontAwesomeIcons.solidBell,
-                                        size: 12.0.sp,
+                                    child: Visibility(
+                                      visible: isGuestMode ? false : true,
+                                      child: Container(
+                                        width: 20.0.sp,
+                                        height: double.infinity,
+                                        color: Color(0xFFF3F5F9),
+                                        child: Icon(
+                                          FontAwesomeIcons.solidBell,
+                                          size: 12.0.sp,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -707,7 +710,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                   checkDetailsExpand();
                                 },
                                 strTitle: 'Details',
-                                cardChild: childCardDetails(resp),
+                                cardChild: childCardDetails(resp, isGuestMode, status),
                                 flagExpand: isDetailsExpanded),
                             ExpandedCard(
                                 onPress: () {
