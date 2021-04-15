@@ -4,7 +4,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
 import 'package:cpe_flutter/const_signup.dart';
 import 'package:cpe_flutter/screens/final_quiz/final_quiz_screen.dart';
-import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
+import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:cpe_flutter/screens/profile/guest_cards_frag.dart';
 import 'package:cpe_flutter/screens/profile/notification.dart';
 import 'package:cpe_flutter/screens/review_questions/review_questions.dart';
@@ -1301,8 +1301,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
     // Navigator.pushAndRemoveUntil(context, newRoute, (route) => false)
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
-          // builder: (context) => Login(),
-          builder: (context) => IntroScreen(),
+          builder: (context) => Login(false),
+          // builder: (context) => IntroScreen(),
         ),
         (Route<dynamic> route) => false);
   }

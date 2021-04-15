@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
+import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:cpe_flutter/screens/profile/notification_settings.dart';
 import 'package:cpe_flutter/screens/profile/pagination_notification/notification_list_data.dart';
 import 'package:flutter/cupertino.dart';
@@ -331,7 +331,7 @@ class _NotificationsState extends State<Notifications> {
     // Navigator.pushAndRemoveUntil(context, newRoute, (route) => false)
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
-          builder: (context) => IntroScreen(),
+          builder: (context) => Login(false),
         ),
         (Route<dynamic> route) => false);
   }

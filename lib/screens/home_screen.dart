@@ -547,7 +547,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // Navigator.pushAndRemoveUntil(context, newRoute, (route) => false)
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
-          builder: (context) => Login(),
+          builder: (context) => Login(false),
         ),
         (Route<dynamic> route) => false);
     // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: context) => , (route) => false);
@@ -599,7 +599,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => Login(),
+        builder: (context) => Login(false),
       ),
     );
   }

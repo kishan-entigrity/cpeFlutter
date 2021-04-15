@@ -80,6 +80,8 @@ class ConstSignUp {
 
   static bool isRegisterWebinarFromDetails = false;
 
+  static bool isGuestRegisterWebinar = false;
+
   static void cleanSignUpData() {
     // Reset screen 1 data..
     ConstSignUp.strFname = '';

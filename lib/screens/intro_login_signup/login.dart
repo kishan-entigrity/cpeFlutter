@@ -14,11 +14,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 class Login extends StatefulWidget {
+  Login(this.isFromIntroScreen);
+
+  final bool isFromIntroScreen;
+
   @override
-  _LoginState createState() => _LoginState();
+  _LoginState createState() => _LoginState(isFromIntroScreen);
 }
 
 class _LoginState extends State<Login> {
+  _LoginState(this.isFromIntroScreen);
+
+  final bool isFromIntroScreen;
+
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
 
@@ -54,253 +62,232 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      resizeToAvoidBottomInset: false,
-      /*appBar: AppBar(
-        title: Text('Login Screen'),
-      ),*/
-      body: SafeArea(
-        child: Stack(
-          children: <Widget>[
-            Positioned(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    height: 170.0.sp,
-                    width: double.infinity,
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(25.0, 100.0, 0.0, 0.0),
-                      child: Text(
-                        'Welcome\nBack',
-                        style: kLabelTitleTextStyle,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 4.0.w, horizontal: 6.0.w),
-                    child: TextField(
-                      controller: emailController,
-                      style: kLableSignUpTextStyle,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Email ID',
-                        hintStyle: kLableSignUpHintStyle,
-                      ),
-                      textInputAction: TextInputAction.next,
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                    child: Divider(
-                      height: 5.0,
-                      color: Colors.black87,
-                    ),
-                  ),
-                  /*Container(
-                    height: 30.0,
-                    width: double.infinity,
-                    margin: EdgeInsets.fromLTRB(25.0, 0.0, 25.0, 0.0),
-                    child: TextField(
-                      controller: emailController,
-                      obscureText: false,
-                      decoration: lTextFlieldStyleEmail,
-                      textInputAction: TextInputAction.next,
-                    ),
-                  ),*/
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 4.0.w, horizontal: 6.0.w),
-                    child: TextField(
-                      controller: passController,
-                      style: kLableSignUpTextStyle,
-                      obscureText: obscurePass,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Password',
-                        hintStyle: kLableSignUpHintStyle,
-                        suffixIcon: IconButton(
-                          // onPressed: () => _controller.clear(),
-                          onPressed: () {
-                            setState(() {
-                              if (obscurePass) {
-                                obscurePass = false;
-                              } else {
-                                obscurePass = true;
-                              }
-                            });
-                          },
-                          icon: Icon(
-                            FontAwesomeIcons.eye,
-                            size: 15.0.sp,
-                            color: Color(0xFFBDBFCA),
+    return WillPopScope(
+        child: Scaffold(
+          key: _scaffoldKey,
+          resizeToAvoidBottomInset: false,
+          /*appBar: AppBar(
+          title: Text('Login Screen'),
+        ),*/
+          body: SafeArea(
+            child: Stack(
+              children: <Widget>[
+                Positioned(
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        height: 170.0.sp,
+                        width: double.infinity,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(25.0, 100.0, 0.0, 0.0),
+                          child: Text(
+                            'Welcome\nBack',
+                            style: kLabelTitleTextStyle,
                           ),
                         ),
                       ),
-                      textInputAction: TextInputAction.done,
-                    ),
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 4.0.w, horizontal: 6.0.w),
+                        child: TextField(
+                          controller: emailController,
+                          style: kLableSignUpTextStyle,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Email ID',
+                            hintStyle: kLableSignUpHintStyle,
+                          ),
+                          textInputAction: TextInputAction.next,
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                        child: Divider(
+                          height: 5.0,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      /*Container(
+                      height: 30.0,
+                      width: double.infinity,
+                      margin: EdgeInsets.fromLTRB(25.0, 0.0, 25.0, 0.0),
+                      child: TextField(
+                        controller: emailController,
+                        obscureText: false,
+                        decoration: lTextFlieldStyleEmail,
+                        textInputAction: TextInputAction.next,
+                      ),
+                    ),*/
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 4.0.w, horizontal: 6.0.w),
+                        child: TextField(
+                          controller: passController,
+                          style: kLableSignUpTextStyle,
+                          obscureText: obscurePass,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Password',
+                            hintStyle: kLableSignUpHintStyle,
+                            suffixIcon: IconButton(
+                              // onPressed: () => _controller.clear(),
+                              onPressed: () {
+                                setState(() {
+                                  if (obscurePass) {
+                                    obscurePass = false;
+                                  } else {
+                                    obscurePass = true;
+                                  }
+                                });
+                              },
+                              icon: Icon(
+                                FontAwesomeIcons.eye,
+                                size: 15.0.sp,
+                                color: Color(0xFFBDBFCA),
+                              ),
+                            ),
+                          ),
+                          textInputAction: TextInputAction.done,
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                        child: Divider(
+                          height: 5.0,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      /*Container(
+                      height: 30.0,
+                      width: double.infinity,
+                      margin: EdgeInsets.fromLTRB(25.0, 50.0, 25.0, 0.0),
+                      child: TextField(
+                        controller: passController,
+                        obscureText: true,
+                        decoration: lTextFlieldStylePass,
+                        textInputAction: TextInputAction.done,
+                      ),
+                    ),*/
+                      Container(
+                        height: 100.0,
+                        width: double.infinity,
+                        // color: Colors.teal,
+                        margin: EdgeInsets.symmetric(vertical: 50.0, horizontal: 25.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              'Sign In',
+                              style: kButtonLabelTextStyle,
+                            ),
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.arrowRight,
+                              onPressed: () async {
+                                getUserData();
+                              },
+                            ),
+                            /*FloatingActionButton(
+                        onPressed: null,
+                        backgroundColor: Color(0xFFFBB42C),
+                      ),*/
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                    child: Divider(
-                      height: 5.0,
-                      color: Colors.black87,
-                    ),
-                  ),
-                  /*Container(
-                    height: 30.0,
-                    width: double.infinity,
-                    margin: EdgeInsets.fromLTRB(25.0, 50.0, 25.0, 0.0),
-                    child: TextField(
-                      controller: passController,
-                      obscureText: true,
-                      decoration: lTextFlieldStylePass,
-                      textInputAction: TextInputAction.done,
-                    ),
-                  ),*/
-                  Container(
-                    height: 100.0,
+                ),
+                Positioned(
+                  bottom: 5.0.h,
+                  right: 0.0,
+                  left: 0.0,
+                  child: Container(
+                    height: 50.0,
                     width: double.infinity,
                     // color: Colors.teal,
-                    margin: EdgeInsets.symmetric(vertical: 50.0, horizontal: 25.0),
+                    margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 25.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text(
-                          'Sign In',
-                          style: kButtonLabelTextStyle,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SignUpScreen1(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            'Sign Up',
+                            style: kTextLableLoginUnderline,
+                          ),
                         ),
-                        RoundIconButton(
-                          icon: FontAwesomeIcons.arrowRight,
-                          onPressed: () async {
-                            getUserData();
+                        /*Text(
+                        'Forget Password',
+                        style: kTextLableLoginUnderlineGray,
+                      ),*/
+                        GestureDetector(
+                          child: Text(
+                            'Forget Password',
+                            style: kTextLableLoginUnderlineGray,
+                          ),
+                          // onTap: redirectToForgetPass(),
+                          onTap: () {
+                            // print('Temp Pressed');
+                            redirectToForgetPass();
                           },
                         ),
+                        /*RoundIconButton(
+                        icon: FontAwesomeIcons.arrowRight,
+                      ),*/
                         /*FloatingActionButton(
-                      onPressed: null,
-                      backgroundColor: Color(0xFFFBB42C),
-                    ),*/
+                        onPressed: null,
+                        backgroundColor: Color(0xFFFBB42C),
+                      ),*/
                       ],
                     ),
                   ),
-                ],
-              ),
-            ),
-            Positioned(
-              bottom: 5.0.h,
-              right: 0.0,
-              left: 0.0,
-              child: Container(
-                height: 50.0,
-                width: double.infinity,
-                // color: Colors.teal,
-                margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 25.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SignUpScreen1(),
-                          ),
-                        );
-                      },
+                ),
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: GestureDetector(
+                    onTap: () {
+                      print('Clicked on skip button..');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomeScreen(),
+                        ),
+                      );
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
                       child: Text(
-                        'Sign Up',
+                        'skip',
                         style: kTextLableLoginUnderline,
                       ),
                     ),
-                    /*Text(
-                      'Forget Password',
-                      style: kTextLableLoginUnderlineGray,
-                    ),*/
-                    GestureDetector(
-                      child: Text(
-                        'Forget Password',
-                        style: kTextLableLoginUnderlineGray,
-                      ),
-                      // onTap: redirectToForgetPass(),
-                      onTap: () {
-                        // print('Temp Pressed');
-                        redirectToForgetPass();
-                      },
-                    ),
-                    /*RoundIconButton(
-                      icon: FontAwesomeIcons.arrowRight,
-                    ),*/
-                    /*FloatingActionButton(
-                      onPressed: null,
-                      backgroundColor: Color(0xFFFBB42C),
-                    ),*/
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              top: 0,
-              right: 0,
-              child: GestureDetector(
-                onTap: () {
-                  print('Clicked on skip button..');
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HomeScreen(),
-                    ),
-                  );
-                },
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
-                  child: Text(
-                    'skip',
-                    style: kTextLableLoginUnderline,
                   ),
                 ),
-              ),
-            ),
-            Positioned(
-              child: Visibility(
-                visible: isLoading ? true : false,
-                child: Center(
-                  child: CircularProgressIndicator(),
+                Positioned(
+                  child: Visibility(
+                    visible: isLoading ? true : false,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
-    );
-    // onWillPop: _onWillPop
-    // );
+        // );
+        onWillPop: _onWillPop);
   }
 
-  /*Future<bool> _onWillPop() {
-    return showDialog(
-          context: context,
-          builder: (context) => new AlertDialog(
-            title: new Text('Confirm Exit?',
-                style: new TextStyle(color: Colors.black, fontSize: 20.0)),
-            content: new Text('Are you sure you want to exit the app?'),
-            actions: <Widget>[
-              new FlatButton(
-                onPressed: () {
-                  // this line exits the app.
-                  SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-                },
-                child: new Text('Yes', style: new TextStyle(fontSize: 18.0)),
-              ),
-              new FlatButton(
-                onPressed: () =>
-                    Navigator.pop(context), // this line dismisses the dialog
-                child: new Text('No', style: new TextStyle(fontSize: 18.0)),
-              )
-            ],
-          ),
-        ) ??
-        false;
-  }*/
+  Future<bool> _onWillPop() {
+    return showExitDialog();
+  }
 
   getUserData() {
     // setState(() {
@@ -474,5 +461,31 @@ class _LoginState extends State<Login> {
       print('Null value else part');
       checkValue = false;
     }
+  }
+
+  showExitDialog() {
+    isFromIntroScreen
+        ? Navigator.pop(context)
+        : showDialog(
+              context: context,
+              builder: (context) => new AlertDialog(
+                title: new Text('Confirm Exit?', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
+                content: new Text('Are you sure you want to exit the app?'),
+                actions: <Widget>[
+                  new FlatButton(
+                    onPressed: () {
+                      // this line exits the app.
+                      SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+                    },
+                    child: new Text('Yes', style: new TextStyle(fontSize: 18.0)),
+                  ),
+                  new FlatButton(
+                    onPressed: () => Navigator.pop(context), // this line dismisses the dialog
+                    child: new Text('No', style: new TextStyle(fontSize: 18.0)),
+                  )
+                ],
+              ),
+            ) ??
+            false;
   }
 }

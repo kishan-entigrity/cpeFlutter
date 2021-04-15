@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:connectivity/connectivity.dart';
-import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
+import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -1156,7 +1156,7 @@ class _CardFragState extends State<CardFrag> {
     // Navigator.pushAndRemoveUntil(context, newRoute, (route) => false)
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
-          builder: (context) => IntroScreen(),
+          builder: (context) => Login(false),
         ),
         (Route<dynamic> route) => false);
   }

@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/constant.dart';
-import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
+import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:cpe_flutter/screens/webinar_details/pdf_preview_certificate.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -673,7 +673,7 @@ class _CertificateFragState extends State<CertificateFrag> {
     // Navigator.pushAndRemoveUntil(context, newRoute, (route) => false)
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
-          builder: (context) => IntroScreen(),
+          builder: (context) => Login(false),
         ),
         (Route<dynamic> route) => false);
   }

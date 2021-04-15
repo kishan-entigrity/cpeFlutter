@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
 import 'package:cpe_flutter/screens/fragments/pagination/webinar_list.dart';
-import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
+import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:cpe_flutter/screens/profile/guest_cards_frag.dart';
 import 'package:cpe_flutter/screens/profile/notification.dart';
 import 'package:cpe_flutter/screens/webinar_details/webinar_details_new.dart';
@@ -2033,7 +2033,8 @@ class _HomeFragmentState extends State<HomeFragment> {
     prefs.clear();
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
-          builder: (context) => IntroScreen(),
+          // builder: (context) => IntroScreen(),
+          builder: (context) => Login(false),
         ),
         (Route<dynamic> route) => false);
   }

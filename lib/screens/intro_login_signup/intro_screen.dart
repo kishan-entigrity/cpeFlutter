@@ -74,7 +74,7 @@ class _IntroScreenState extends State<IntroScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => Login(),
+                                  builder: (context) => Login(true),
                                 ),
                               );
                             },

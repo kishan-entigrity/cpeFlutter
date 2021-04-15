@@ -564,7 +564,7 @@ class _ProfileFragState extends State<ProfileFrag> {
     // Navigator.pushAndRemoveUntil(context, newRoute, (route) => false)
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
-          builder: (context) => Login(),
+          builder: (context) => Login(false),
           // builder: (context) => IntroScreen(),
         ),
         (Route<dynamic> route) => false);
