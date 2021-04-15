@@ -114,6 +114,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   bool isOnCreate = true;
 
   bool isGuestMode = false;
+  bool iswebinarFree = false;
 
   @override
   void initState() {
@@ -203,6 +204,12 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
           play_time_duration = webDetailsObj['play_time_duration'];
           scheduleID = webDetailsObj['schedule_id'];
           fee = webDetailsObj['cost'].toString();
+
+          if (fee == '' || fee.toString().toLowerCase() == 'free') {
+            iswebinarFree = true;
+          } else {
+            iswebinarFree = false;
+          }
           print('Whole object for presenter is : $presenterObj');
 
           reviewAnswered = webDetailsObj['review_answered'];
@@ -1264,6 +1271,14 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
               new FlatButton(
                 onPressed: () {
                   // this line exits the app.
+                  setState(() {
+                    ConstSignUp.isGuestRegisterWebinar = true;
+                    ConstSignUp.strWebinarId = webDetailsObj['webinar_id'].toString();
+                    ConstSignUp.strScheduleId = webDetailsObj['schedule_id'].toString();
+                    ConstSignUp.strWebinarType = strWebinarTypeIntent.toString();
+                    ConstSignUp.isFreeWebinar = iswebinarFree;
+                    ConstSignUp.strFee = fee.toString();
+                  });
                   logoutUser();
                 },
                 child: new Text('Login', style: new TextStyle(fontSize: 18.0)),

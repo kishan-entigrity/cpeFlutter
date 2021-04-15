@@ -81,6 +81,20 @@ class ConstSignUp {
   static bool isRegisterWebinarFromDetails = false;
 
   static bool isGuestRegisterWebinar = false;
+  static var strWebinarId = '';
+  static var strScheduleId = '';
+  static var strWebinarType = '';
+  static var isFreeWebinar = false;
+  static var strFee = '';
+
+  static void clearGuestRedirectionFlow() {
+    isGuestRegisterWebinar = false;
+    strWebinarId = '';
+    strScheduleId = '';
+    strWebinarType = '';
+    isFreeWebinar = false;
+    strFee = '';
+  }
 
   static void cleanSignUpData() {
     // Reset screen 1 data..

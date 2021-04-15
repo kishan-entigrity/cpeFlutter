@@ -325,6 +325,7 @@ class _GuestCardFragState extends State<GuestCardFrag> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    ConstSignUp.clearGuestRedirectionFlow();
     checkForSP();
   }
 
@@ -1409,7 +1410,7 @@ class _GuestCardFragState extends State<GuestCardFrag> {
         setState(() {
           isLoaderPayment = true;
         });
-        resp = await registerPaidWebinarAPI(_authToken, webinarId.toString(), scheduleId, selectedCardId, '1', '', '', '', '', '', '');
+        resp = await registerPaidWebinarAPI(_authToken, webinarId.toString(), scheduleId.toString(), selectedCardId, '1', '', '', '', '', '', '');
         print(resp);
         setState(() {
           isLoaderPayment = false;
@@ -1421,10 +1422,10 @@ class _GuestCardFragState extends State<GuestCardFrag> {
           _scaffoldKey.currentState.showSnackBar(
             SnackBar(
               content: Text(respMsg),
-              duration: Duration(seconds: 3),
+              duration: Duration(seconds: 2),
             ),
           );
-          Future.delayed(const Duration(seconds: 3), () {
+          Future.delayed(const Duration(seconds: 2), () {
             if (ConstSignUp.isRegisterWebinarFromDetails) {
               setState(() {
                 ConstSignUp.isRegisterWebinarFromDetails = false;
@@ -1507,7 +1508,7 @@ class _GuestCardFragState extends State<GuestCardFrag> {
             isLoaderPayment = true;
           });
           // resp = await registerPaidWebinarAPI(_authToken, webinarId.toString(), scheduleId, '', '1', '', '', '', '', '', '');
-          resp = await registerPaidWebinarAPI(_authToken, webinarId.toString(), scheduleId, '', '1', cardNumberController.text.toString(),
+          resp = await registerPaidWebinarAPI(_authToken, webinarId.toString(), scheduleId.toString(), '', '1', cardNumberController.text.toString(),
               strSelectedMonth, strSelectedYear, cvvController.text.toString(), 'yes', nameController.text.toString());
           print(resp);
           setState(() {

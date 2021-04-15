@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
+import 'package:cpe_flutter/const_signup.dart';
 import 'package:cpe_flutter/screens/fragments/pagination/webinar_list.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:cpe_flutter/screens/profile/guest_cards_frag.dart';
@@ -68,6 +69,7 @@ class _HomeFragmentState extends State<HomeFragment> {
 
   var hot_topics_ids = '';
   bool isGuestUser = false;
+  bool isFreeWebGRegist = false;
 
   bool isLast = false;
   bool isSearch = false;
@@ -154,6 +156,38 @@ class _HomeFragmentState extends State<HomeFragment> {
       data_recent = data['payload']['RecentWebinars'];
       recentList = List.from(data_recent).map<RecentWebinars>((item) => RecentWebinars.fromJson(item)).toList();
       print('Size for recentList = ${recentList.length}');
+    }
+
+    print('Staus for the isGuestRegisterWebinar : ${ConstSignUp.isGuestRegisterWebinar}');
+    if (ConstSignUp.isGuestRegisterWebinar) {
+      print('Staus for the isGuestRegisterWebinar : ${ConstSignUp.isGuestRegisterWebinar}');
+      print('Staus for the isGuestRegisterWebinarId : ${ConstSignUp.strWebinarId}');
+      print('Staus for the isGuestRegisterScheduleId : ${ConstSignUp.strScheduleId}');
+      print('Staus for the isGuestRegisterWebinarType : ${ConstSignUp.strWebinarType}');
+      print('Staus for the isGuestRegisterWebinar Free : ${ConstSignUp.isFreeWebinar}');
+      print('Staus for the isGuestRegisterWebinar Fee : ${ConstSignUp.strFee}');
+
+      if (ConstSignUp.isFreeWebinar) {
+        // So here is the free webinar soo we can directly register the webinar..
+        registerGuestRedirectWebinar(_authToken, ConstSignUp.strWebinarId, ConstSignUp.strScheduleId, ConstSignUp.strWebinarType);
+        ConstSignUp.clearGuestRedirectionFlow();
+      } else {
+        // So here is the paid webinar soo we have to redirect to guestuserCards screen..
+        Navigator.of(context)
+            .push(
+          MaterialPageRoute(
+            builder: (context) => GuestCardFrag(
+                ConstSignUp.strFee.toString(), int.parse(ConstSignUp.strWebinarId), ConstSignUp.strWebinarType, ConstSignUp.strScheduleId),
+          ),
+        )
+            .then((_) {
+          // Call setState() here or handle this appropriately
+          setState(() {
+            list.clear();
+          });
+          checkForSP();
+        });
+      }
     }
 
     // return "Success!";
@@ -1509,10 +1543,14 @@ class _HomeFragmentState extends State<HomeFragment> {
                 });
               }
             } else {
-              loginPopup();
+              checkForWebinarFee(index);
+              loginPopup(list[index].id.toString(), list[index].scheduleId.toString(), list[index].webinarType.toString(), isFreeWebGRegist,
+                  list[index].fee.toString());
             }
           } else {
-            loginPopup();
+            checkForWebinarFee(index);
+            loginPopup(list[index].id.toString(), list[index].scheduleId.toString(), list[index].webinarType.toString(), isFreeWebGRegist,
+                list[index].fee.toString());
           }
         } else if (list[index].status.toLowerCase() == 'completed') {
           redirectToDetails(index);
@@ -1577,10 +1615,14 @@ class _HomeFragmentState extends State<HomeFragment> {
                 });
               }
             } else {
-              loginPopup();
+              checkForWebinarFee(index);
+              loginPopup(list[index].id.toString(), list[index].scheduleId.toString(), list[index].webinarType.toString(), isFreeWebGRegist,
+                  list[index].fee.toString());
             }
           } else {
-            loginPopup();
+            checkForWebinarFee(index);
+            loginPopup(list[index].id.toString(), list[index].scheduleId.toString(), list[index].webinarType.toString(), isFreeWebGRegist,
+                list[index].fee.toString());
           }
           print('webinar status is : ${list[index].status.toLowerCase()}');
         } else if (list[index].status.toLowerCase() == 'quiz pending') {
@@ -1962,6 +2004,53 @@ class _HomeFragmentState extends State<HomeFragment> {
     });
   }
 
+  void registerGuestRedirectWebinar(String _authToken, String webinarId, String scheduleId, String strWebinarTypeIntent) async {
+    print('API call for register Guestuser redirection webinar webinarID : $webinarId :: scheduleID : $scheduleId');
+    isLoaderShowing = true;
+    // isProgressShowing = true;
+    var resp = await registerWebinarAPI(_authToken, webinarId.toString(), scheduleId.toString());
+    print('Response is : $resp');
+
+    respStatus = resp['success'];
+    respMessage = resp['message'];
+
+    setState(() {
+      isLoaderShowing = false;
+      // isProgressShowing = false;
+    });
+
+    if (respStatus) {
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(respMessage),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      Future.delayed(const Duration(seconds: 2), () {
+        Navigator.of(context)
+            .push(
+          MaterialPageRoute(
+            builder: (context) => WebinarDetailsNew(strWebinarTypeIntent, int.parse(webinarId.toString())),
+          ),
+        )
+            .then((_) {
+          // Call setState() here or handle this appropriately
+          setState(() {
+            list.clear();
+          });
+          checkForSP();
+        });
+      });
+    } else {
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(respMessage),
+          duration: Duration(seconds: 5),
+        ),
+      );
+    }
+  }
+
   void registerWebinar(String _authToken_1, int index, int id) async {
     print('API call for register webinar webinarID : ${list[index].id.toString()} :: scheduleID : ${list[index].scheduleId.toString()}');
     isLoaderShowing = true;
@@ -1978,24 +2067,27 @@ class _HomeFragmentState extends State<HomeFragment> {
     });
 
     if (respStatus) {
-      /*Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => WebinarDetailsNew(strWebinarTypeIntent, list[index].id),
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text(respMessage),
+          duration: Duration(seconds: 2),
         ),
-      );*/
-      Navigator.of(context)
-          .push(
-        MaterialPageRoute(
-          builder: (context) => WebinarDetailsNew(strWebinarTypeIntent, list[index].id),
-        ),
-      )
-          .then((_) {
-        // Call setState() here or handle this appropriately
-        setState(() {
-          list.clear();
+      );
+
+      Future.delayed(const Duration(seconds: 2), () {
+        Navigator.of(context)
+            .push(
+          MaterialPageRoute(
+            builder: (context) => WebinarDetailsNew(strWebinarTypeIntent, list[index].id),
+          ),
+        )
+            .then((_) {
+          // Call setState() here or handle this appropriately
+          setState(() {
+            list.clear();
+          });
+          checkForSP();
         });
-        checkForSP();
       });
     } else {
       scaffoldState.currentState.showSnackBar(
@@ -2039,23 +2131,31 @@ class _HomeFragmentState extends State<HomeFragment> {
         (Route<dynamic> route) => false);
   }
 
-  void loginPopup() {
+  void loginPopup(String webinarId, String scheduleId, String strWebType, bool isWebinarFree, String webFee) {
     showDialog(
           context: context,
           builder: (context) => new AlertDialog(
-            title: new Text('Login', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
+            title: new Text('Login?', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
             content: new Text('For registering this webinar you must need to login first'),
             actions: <Widget>[
               new FlatButton(
                 onPressed: () {
                   // this line exits the app.
+                  setState(() {
+                    ConstSignUp.isGuestRegisterWebinar = true;
+                    ConstSignUp.strWebinarId = webinarId.toString();
+                    ConstSignUp.strScheduleId = scheduleId.toString();
+                    ConstSignUp.strWebinarType = strWebType.toString();
+                    ConstSignUp.isFreeWebinar = isWebinarFree;
+                    ConstSignUp.strFee = webFee.toString();
+                  });
                   logoutUser();
                 },
-                child: new Text('Yes', style: new TextStyle(fontSize: 18.0)),
+                child: new Text('Login', style: new TextStyle(fontSize: 18.0)),
               ),
               new FlatButton(
                 onPressed: () => Navigator.pop(context), // this line dismisses the dialog
-                child: new Text('No', style: new TextStyle(fontSize: 18.0)),
+                child: new Text('Cancel', style: new TextStyle(fontSize: 18.0)),
               )
             ],
           ),
@@ -2435,6 +2535,18 @@ class _HomeFragmentState extends State<HomeFragment> {
 
         this.getDataWebinarList(
             '$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice', '$hot_topics_ids');
+      });
+    }
+  }
+
+  void checkForWebinarFee(int index) {
+    if (list[index].fee.toLowerCase() == 'free' || list[index].fee == '') {
+      setState(() {
+        isFreeWebGRegist = true;
+      });
+    } else {
+      setState(() {
+        isFreeWebGRegist = false;
       });
     }
   }
