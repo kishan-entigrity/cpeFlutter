@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> screens = [
     // HomeSampleFrag(),
     HomeFragment(),
-    MyWebinarFrag(),
+    MyWebinarFrag(false),
     CertificateFrag(false),
     // PremiumFrag(),
     ProfileFrag(),
@@ -506,7 +506,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Image.asset(
-                          isGuestUser ? 'assets/menu_icon.png' : 'assets/account.png',
+                          // isGuestUser ? 'assets/menu_icon.png' : 'assets/account.png',
+                          'assets/menu_icon.png',
                           height: 18.0.sp,
                           width: 18.0.sp,
                           color: currentTab == 3 ? Color(0xFF193F70) : Color(0xFFABAAAA),
@@ -520,7 +521,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 3.0,
                         ),
                         Text(
-                          isGuestUser ? 'Menu' : 'Profile',
+                          // isGuestUser ? 'Menu' : 'Profile',
+                          'Menu',
                           style: TextStyle(
                             fontSize: 10.0.sp,
                             fontFamily: 'Whitney Medium',
@@ -603,7 +605,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   redirectToMyWebinar() {
-    currentScreen = MyWebinarFrag();
+    currentScreen = MyWebinarFrag(false);
     currentTab = 1;
   }
 

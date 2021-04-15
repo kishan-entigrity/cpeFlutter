@@ -20,6 +20,7 @@ import 'package:sizer/sizer.dart';
 import '../../rest_api.dart';
 import '../profile/contact_us.dart';
 import 'certificate_frag.dart';
+import 'my_webinar_frag.dart';
 
 class ProfileFrag extends StatefulWidget {
   @override
@@ -190,16 +191,18 @@ class _ProfileFragState extends State<ProfileFrag> {
                                               height: 20.0.sp,
                                             ),
                                             // profile_cell(),
+                                            // My Webinar controller..
                                             Visibility(
                                               visible: isGuestMode ? false : true,
-                                              child: profile_cell(
-                                                childIcon: FontAwesomeIcons.solidBell,
-                                                strLable: "Notification",
+                                              child: profilce_cell_image(
+                                                image_path: 'assets/my_webinar.png',
+                                                strLable: "My Webinar",
                                                 onPress: () {
                                                   Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
-                                                      builder: (context) => Notifications(),
+                                                      // builder: (context) => MyCredit(),
+                                                      builder: (context) => MyWebinarFrag(true),
                                                     ),
                                                   );
                                                 },
@@ -208,9 +211,9 @@ class _ProfileFragState extends State<ProfileFrag> {
                                             // My Credit controller..
                                             Visibility(
                                               visible: isGuestMode ? false : true,
-                                              child: profile_cell(
-                                                childIcon: FontAwesomeIcons.creditCard,
-                                                strLable: "My Credit",
+                                              child: profilce_cell_image(
+                                                image_path: 'assets/certificate.png',
+                                                strLable: "My Certificates",
                                                 onPress: () {
                                                   Navigator.push(
                                                     context,
@@ -225,9 +228,9 @@ class _ProfileFragState extends State<ProfileFrag> {
                                             // My Transaction controller..
                                             Visibility(
                                               visible: isGuestMode ? false : true,
-                                              child: profile_cell(
-                                                childIcon: FontAwesomeIcons.creditCard,
-                                                strLable: "My Transaction",
+                                              child: profilce_cell_image(
+                                                image_path: 'assets/receipt_icon.png',
+                                                strLable: "My Receipts",
                                                 onPress: () {
                                                   Navigator.push(
                                                     context,
@@ -254,18 +257,34 @@ class _ProfileFragState extends State<ProfileFrag> {
                                                 },
                                               ),
                                             ),
-                                            // FAQ Controller..
-                                            profile_cell(
-                                              childIcon: FontAwesomeIcons.solidQuestionCircle,
-                                              strLable: "FAQs",
-                                              onPress: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) => FAQ(),
-                                                  ),
-                                                );
-                                              },
+                                            Visibility(
+                                              visible: isGuestMode ? false : true,
+                                              child: profilce_cell_image(
+                                                // childIcon: FontAwesomeIcons.creditCard,
+                                                image_path: 'assets/account.png',
+                                                strLable: "Profile",
+                                                onPress: () {
+                                                  if (resp.isNotEmpty) {
+                                                    var respStr = resp.toString();
+                                                    Navigator.of(context)
+                                                        .push(
+                                                      MaterialPageRoute(
+                                                        builder: (context) => UserProfile(resp['payload']['data']),
+                                                      ),
+                                                    )
+                                                        .then((_) {
+                                                      getUserData();
+                                                    });
+                                                  } else {
+                                                    _scaffoldKey.currentState.showSnackBar(
+                                                      SnackBar(
+                                                        content: Text("Oops we are getting issue while loading data."),
+                                                        duration: Duration(seconds: 5),
+                                                      ),
+                                                    );
+                                                  }
+                                                },
+                                              ),
                                             ),
                                             // Change password controller..
                                             Visibility(
@@ -283,6 +302,39 @@ class _ProfileFragState extends State<ProfileFrag> {
                                                 },
                                               ),
                                             ),
+                                            // Notification controller..
+                                            Visibility(
+                                              visible: isGuestMode ? false : true,
+                                              child: profile_cell(
+                                                childIcon: FontAwesomeIcons.solidBell,
+                                                strLable: "Notification",
+                                                onPress: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) => Notifications(),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                            Divider(
+                                              height: 1.0,
+                                              color: Colors.black,
+                                            ),
+                                            // FAQ Controller..
+                                            profile_cell(
+                                              childIcon: FontAwesomeIcons.solidQuestionCircle,
+                                              strLable: "FAQs",
+                                              onPress: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) => FAQ(),
+                                                  ),
+                                                );
+                                              },
+                                            ),
                                             // Provacy policy controller..
                                             profile_cell(
                                               childIcon: FontAwesomeIcons.solidFile,
@@ -295,10 +347,6 @@ class _ProfileFragState extends State<ProfileFrag> {
                                                   ),
                                                 );
                                               },
-                                            ),
-                                            Divider(
-                                              height: 1.0,
-                                              color: Colors.black,
                                             ),
                                             // Terms and condition controller..
                                             profile_cell(
@@ -545,6 +593,66 @@ class _ProfileFragState extends State<ProfileFrag> {
         isLoaderShowing = false;
       });
     }
+  }
+}
+
+class profilce_cell_image extends StatelessWidget {
+  profilce_cell_image({this.image_path, this.strLable, this.onPress});
+
+  final String image_path;
+  final String strLable;
+  final Function onPress;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onPress,
+      child: Container(
+        height: 40.0.sp,
+        color: Colors.white,
+        child: Stack(
+          children: <Widget>[
+            Positioned(
+              top: 0.0,
+              bottom: 0.0,
+              left: 12.0.sp,
+              child: Image.asset(
+                '$image_path',
+                height: 18.0.sp,
+                width: 18.0.sp,
+                color: Colors.black,
+              ),
+            ),
+            Positioned(
+              top: 0.0,
+              bottom: 0.0,
+              left: 50.0.sp,
+              child: Center(
+                child: Text(
+                  // 'Notification',
+                  strLable,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'Whitney Medium',
+                    fontSize: 14.0.sp,
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              top: 0.0,
+              bottom: 0.0,
+              right: 10.0.sp,
+              child: Icon(
+                FontAwesomeIcons.angleRight,
+                color: Colors.black,
+                size: 14.0.sp,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 

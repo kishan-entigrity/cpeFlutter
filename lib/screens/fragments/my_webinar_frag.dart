@@ -18,11 +18,19 @@ import '../../rest_api.dart';
 import '../webinar_details/webinar_details_new.dart';
 
 class MyWebinarFrag extends StatefulWidget {
+  MyWebinarFrag(this.isFromProfile);
+
+  final bool isFromProfile;
+
   @override
-  _MyWebinarFragState createState() => _MyWebinarFragState();
+  _MyWebinarFragState createState() => _MyWebinarFragState(isFromProfile);
 }
 
 class _MyWebinarFragState extends State<MyWebinarFrag> {
+  _MyWebinarFragState(this.isFromProfile);
+
+  final bool isFromProfile;
+
   List<int> tempInt = [1, 4, 5, 7];
   int arrCount = 0;
   var data;
@@ -169,6 +177,27 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                         color: Color(0xFFF3F5F9),
                         child: Stack(
                           children: <Widget>[
+                            Visibility(
+                              visible: isFromProfile ? true : false,
+                              child: Positioned(
+                                left: 0.0,
+                                top: 0.0,
+                                bottom: 0.0,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    print('Back button is pressed..');
+                                    Navigator.pop(context);
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Icon(
+                                      FontAwesomeIcons.angleLeft,
+                                      size: 15.0.sp,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                             Positioned(
                               top: 0.0,
                               bottom: 0.0,
@@ -1405,28 +1434,30 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
   }
 
   Future<bool> _onWillPop() {
-    return showDialog(
-          context: context,
-          builder: (context) => new AlertDialog(
-            title: new Text('Confirm Exit?', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
-            content: new Text('Are you sure you want to exit the app?'),
-            actions: <Widget>[
-              new FlatButton(
-                onPressed: () {
-                  // this line exits the app.
-                  SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-                },
-                child: new Text('Yes', style: new TextStyle(fontSize: 18.0)),
+    return isFromProfile
+        ? popFunction()
+        : showDialog(
+              context: context,
+              builder: (context) => new AlertDialog(
+                title: new Text('Confirm Exit?', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
+                content: new Text('Are you sure you want to exit the app?'),
+                actions: <Widget>[
+                  new FlatButton(
+                    onPressed: () {
+                      // this line exits the app.
+                      SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+                    },
+                    child: new Text('Yes', style: new TextStyle(fontSize: 18.0)),
+                  ),
+                  new FlatButton(
+                    onPressed: () => Navigator.pop(context),
+                    // this line dismisses the dialog
+                    child: new Text('No', style: new TextStyle(fontSize: 18.0)),
+                  )
+                ],
               ),
-              new FlatButton(
-                onPressed: () => Navigator.pop(context),
-                // this line dismisses the dialog
-                child: new Text('No', style: new TextStyle(fontSize: 18.0)),
-              )
-            ],
-          ),
-        ) ??
-        false;
+            ) ??
+            false;
   }
 
   void selectLiveFilter() {
@@ -1985,5 +2016,9 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
           builder: (context) => IntroScreen(),
         ),
         (Route<dynamic> route) => false);
+  }
+
+  popFunction() {
+    Navigator.pop(context);
   }
 }

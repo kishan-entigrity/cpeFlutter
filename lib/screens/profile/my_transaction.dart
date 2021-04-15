@@ -165,7 +165,8 @@ class _MyTranscationState extends State<MyTranscation> {
                   Flexible(
                     child: Center(
                       child: Text(
-                        'My Transcation',
+                        // 'My Transcation',
+                        'My Receipts',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 14.5.sp,

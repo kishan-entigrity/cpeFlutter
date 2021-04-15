@@ -35,9 +35,10 @@ class _UserProfileState extends State<UserProfile> {
   final dataIntent;
   final scaffoldState = GlobalKey<ScaffoldState>();
 
-  var isEditable = false;
+  var isEditable = true;
 
   String strProfilePic = '';
+  String strDummyPic = 'https://testing-website.in/images/avatar-place-holder.png';
   String strFName = '';
   String strLName = '';
   String strEmail = '';
@@ -91,6 +92,8 @@ class _UserProfileState extends State<UserProfile> {
   var isJobTitleSelected = false;
   var isIndustrySelected = false;
   var jobTitle = '';
+
+  String strNameInitials = '';
 
   TextEditingController ptinController = TextEditingController();
   TextEditingController ctecController = TextEditingController();
@@ -377,6 +380,10 @@ class _UserProfileState extends State<UserProfile> {
       industryId = dataIntent['industry_id'];
       strOrgSize = dataIntent['co_emp_size'];
 
+      print('User profile screen profile pic is : $strProfilePic');
+
+      strNameInitials = strFName.toString()[0] + ' ' + strLName.toString()[0];
+
       selectedCountryName = dataIntent['country'];
       selectedStateName = dataIntent['state'];
       selectedCityName = dataIntent['city'];
@@ -582,10 +589,29 @@ class _UserProfileState extends State<UserProfile> {
                             Padding(
                               padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 0.0),
                               child: Center(
-                                child: CircleAvatar(
-                                  radius: 14.0.w,
-                                  backgroundImage: NetworkImage(strProfilePic),
-                                ),
+                                child: strProfilePic == '' || strProfilePic == strDummyPic
+                                    ? Container(
+                                        height: 30.0.w,
+                                        width: 30.0.w,
+                                        decoration: BoxDecoration(
+                                          color: Colors.blueGrey,
+                                          borderRadius: BorderRadius.circular(25.0.w),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            '$strNameInitials',
+                                            style: TextStyle(
+                                              fontSize: 25.0.sp,
+                                              color: Colors.white,
+                                              fontFamily: 'Whitney Bold',
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    : CircleAvatar(
+                                        radius: 14.0.w,
+                                        backgroundImage: NetworkImage(strProfilePic),
+                                      ),
                               ),
                             ),
                             Container(
@@ -2294,7 +2320,7 @@ class _UserProfileState extends State<UserProfile> {
     sharedPreferences.setString("spLName", lnameController.text.toString());
     sharedPreferences.commit();
 
-    isEditable = false;
+    // isEditable = false;
     Navigator.pop(context);
   }
 }

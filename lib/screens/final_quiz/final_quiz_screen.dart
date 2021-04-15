@@ -650,8 +650,8 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
     showDialog(
           context: context,
           builder: (context) => new AlertDialog(
-            title: new Text('Oops', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
-            content: new Text('You have not answered 70% of the questions correctly. Please retake the quiz.'),
+            title: new Text('Sorry', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
+            content: new Text('You have not answered 70% of the questions correctly. Please try again.'),
             actions: <Widget>[
               new FlatButton(
                 onPressed: () => Navigator.pop(context), // this line dismisses the dialog
