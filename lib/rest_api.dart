@@ -19,6 +19,17 @@ Future loginUser(String email, String password, String device_id, String device_
   return convertDataToJson;
 }
 
+Future emailExists(String email) async {
+  String urls = URLs.BASE_URL + 'check-email-exist';
+  final response = await http.post(
+    urls,
+    headers: {'Accept': 'Application/json'},
+    body: {'email': email},
+  );
+  var convertDataToJson = jsonDecode(response.body);
+  return convertDataToJson;
+}
+
 Future versionCheck(String current_version, String device_type) async {
   String urls = URLs.BASE_URL + 'get-version';
   final response = await http.post(

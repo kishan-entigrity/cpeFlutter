@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
 import 'package:cpe_flutter/components/TopBar.dart';
 import 'package:cpe_flutter/components/round_icon_button.dart';
@@ -10,7 +11,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constant.dart';
-import 'chipView.dart';
+import '../../rest_api.dart';
 
 class SignUpScreen1 extends StatefulWidget {
   @override
@@ -353,13 +354,13 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                       icon: FontAwesomeIcons.arrowRight,
                                       onPressed: () async {
                                         ConstSignUp.strFname = fnameController.text;
-                                        /*Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) => SignUpScreen2(),
-                                                // SignUpScreen3(),
-                                              ),
-                                            );*/
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => SignUpScreen2(),
+                                            // SignUpScreen3(),
+                                          ),
+                                        );
                                         checkForValidations();
                                       },
                                     ),
@@ -588,10 +589,54 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
       );
     } else {
       print('Validation passed..');
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => SignUpScreen2(),
+      checkForEmail(ConstSignUp.strEmail);
+    }
+  }
+
+  void checkForEmail(String strEmail) async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
+      setState(() {
+        isLoaderShowing = true;
+      });
+      var resp = await emailExists(strEmail);
+      print('Response is : $resp');
+
+      respStatus = resp['success'];
+      respMessage = resp['message'];
+
+      // Now we need to add these above data on shared prefs and then
+      // we can proceed for next screen.
+      if (respStatus) {
+        setState(() {
+          isLoaderShowing = false;
+        });
+        // RedirectToSecondScreen..
+        /*Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SignUpScreen2(),
+          ),
+        );*/
+      } else {
+        setState(() {
+          isLoaderShowing = false;
+        });
+        scaffoldState.currentState.showSnackBar(
+          SnackBar(
+            content: Text('$respMessage'),
+            duration: Duration(seconds: 5),
+          ),
+        );
+      }
+    } else {
+      setState(() {
+        isLoaderShowing = false;
+      });
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text("Please check your internet connectivity and try again"),
+          duration: Duration(seconds: 3),
         ),
       );
     }
