@@ -1241,7 +1241,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                         ),
                       );*/
                     }), // this line dismisses the dialog
-                    child: new Text('OK', style: new TextStyle(fontSize: 18.0)),
+                    child: new Text('Ok', style: new TextStyle(fontSize: 18.0)),
                   )
                 ],
               ),

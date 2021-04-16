@@ -2298,7 +2298,7 @@ class _UserProfileState extends State<UserProfile> {
                         ),
                       );*/
                     }), // this line dismisses the dialog
-                    child: new Text('ok', style: new TextStyle(fontSize: 18.0)),
+                    child: new Text('Ok', style: new TextStyle(fontSize: 18.0)),
                   )
                 ],
               ),
