@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../const_signup.dart';
 import '../../constant.dart';
 import '../home_screen.dart';
 import 'login.dart';
@@ -23,6 +24,13 @@ class _IntroScreenState extends State<IntroScreen> {
   PageController _controller = PageController(initialPage: 0);
 
   double posPager = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    ConstSignUp.cleanSignUpData();
+  }
 
   @override
   void dispose() {

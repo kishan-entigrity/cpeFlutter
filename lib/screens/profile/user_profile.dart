@@ -547,31 +547,34 @@ class _UserProfileState extends State<UserProfile> {
                           right: 0.0,
                           top: 0.0,
                           bottom: 0.0,
-                          child: Container(
-                            // color: Color(0xFFF3F5F9),
-                            // width: 20.0.sp,
-                            height: double.infinity,
-                            padding: EdgeInsets.all(10.0),
-                            child: GestureDetector(
-                              onTap: () {
-                                if (isEditable) {
-                                  setState(() {
-                                    isEditable = false;
-                                  });
-                                } else {
-                                  setState(() {
-                                    isEditable = true;
-                                  });
-                                }
-                                print('State for isEditable is: $isEditable');
-                              },
-                              child: Container(
-                                width: 30.0.sp,
-                                height: double.infinity,
-                                color: Color(0xFFF3F5F9),
-                                child: Icon(
-                                  FontAwesomeIcons.pencilAlt,
-                                  size: 12.0.sp,
+                          child: Visibility(
+                            visible: false,
+                            child: Container(
+                              // color: Color(0xFFF3F5F9),
+                              // width: 20.0.sp,
+                              height: double.infinity,
+                              padding: EdgeInsets.all(10.0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  if (isEditable) {
+                                    setState(() {
+                                      isEditable = false;
+                                    });
+                                  } else {
+                                    setState(() {
+                                      isEditable = true;
+                                    });
+                                  }
+                                  print('State for isEditable is: $isEditable');
+                                },
+                                child: Container(
+                                  width: 30.0.sp,
+                                  height: double.infinity,
+                                  color: Color(0xFFF3F5F9),
+                                  child: Icon(
+                                    FontAwesomeIcons.pencilAlt,
+                                    size: 12.0.sp,
+                                  ),
                                 ),
                               ),
                             ),

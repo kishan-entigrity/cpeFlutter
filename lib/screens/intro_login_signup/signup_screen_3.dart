@@ -9,11 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constant.dart';
 import '../../rest_api.dart';
-import 'intro_screen.dart';
+import '../home_screen.dart';
 import 'model/city_list_model.dart';
 import 'model/country_list_model.dart';
 import 'model/state_list_model.dart';
@@ -44,6 +45,18 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
   var respRegistration;
   var respRegistrationStatus;
   var respRegistrationMessage;
+
+  SharedPreferences sharedPreferences;
+
+  var respStrId;
+  var respStrEmail;
+  var respStrFName;
+  var respStrLName;
+  var respStrContactNumber;
+  var respStrProfilePic;
+  var respToken;
+
+  bool checkValue = false;
 
   // List<Country> listCountry;
   // int arrCountCountry = 0;
@@ -1201,12 +1214,32 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                 actions: <Widget>[
                   new FlatButton(
                     onPressed: () => setState(() {
-                      Navigator.push(
+                      var respStrPayload = respRegistration['payload'];
+                      respStrId = respRegistration['payload']['user']['id'];
+                      respStrEmail = respRegistration['payload']['user']['email'];
+                      respStrFName = respRegistration['payload']['user']['first_name'];
+                      respStrLName = respRegistration['payload']['user']['last_name'];
+                      respStrContactNumber = respRegistration['payload']['user']['contact_no'];
+                      respStrProfilePic = respRegistration['payload']['user']['profile_picture'];
+                      respToken = respRegistration['payload']['user']['token'];
+
+                      print('Response id is : $respStrId');
+                      print('Response email is : $respStrEmail');
+                      print('Response FName is : $respStrFName');
+                      print('Response LName is : $respStrLName');
+                      print('Response contact is : $respStrContactNumber');
+                      print('Response profile-pic is : $respStrProfilePic');
+                      /*setState(() {
+                        isLoading = false;
+                      });*/
+                      saveData();
+
+                      /*Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => IntroScreen(),
                         ),
-                      );
+                      );*/
                     }), // this line dismisses the dialog
                     child: new Text('OK', style: new TextStyle(fontSize: 18.0)),
                   )
@@ -1247,5 +1280,34 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
 
     print('Size for the list is : ${ConstSignUp.listState.length}');
     return 'Success';
+  }
+
+  void saveData() async {
+    // SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences = await SharedPreferences.getInstance();
+    // prefs.setString('logged_email', _email);
+    // prefs.setString('logged_pass', _password);
+    checkValue = true;
+    sharedPreferences.setBool("check", checkValue);
+    sharedPreferences.setInt("spID", respStrId);
+    sharedPreferences.setString("spEmail", respStrEmail);
+    sharedPreferences.setString("spFName", respStrFName);
+    sharedPreferences.setString("spLName", respStrLName);
+    sharedPreferences.setString("spContact", respStrContactNumber);
+    sharedPreferences.setString("spProfilePic", respStrProfilePic);
+    sharedPreferences.setString("spToken", respToken);
+    // sharedPreferences.setString("username", _email);
+    // sharedPreferences.setString("password", _password);
+    sharedPreferences.commit();
+    ConstSignUp.cleanSignUpData();
+
+    // Take anvigation call from here..
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => HomeScreen(),
+      ),
+    );
+    // getCredential();
   }
 }
