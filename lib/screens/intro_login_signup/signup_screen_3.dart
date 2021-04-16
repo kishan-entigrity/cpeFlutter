@@ -96,6 +96,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
     return Material(
       type: MaterialType.transparency,
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         key: scaffoldState,
         body: SafeArea(
           child: Stack(

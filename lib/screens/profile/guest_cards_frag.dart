@@ -1508,8 +1508,26 @@ class _GuestCardFragState extends State<GuestCardFrag> {
             isLoaderPayment = true;
           });
           // resp = await registerPaidWebinarAPI(_authToken, webinarId.toString(), scheduleId, '', '1', '', '', '', '', '', '');
-          resp = await registerPaidWebinarAPI(_authToken, webinarId.toString(), scheduleId.toString(), '', '1', cardNumberController.text.toString(),
-              strSelectedMonth, strSelectedYear, cvvController.text.toString(), 'yes', nameController.text.toString());
+          var isCard = 0;
+          setState(() {
+            if (isTermsAccepted) {
+              isCard = 1;
+            } else {
+              isCard = 0;
+            }
+          });
+          resp = await registerPaidWebinarAPI(
+              _authToken,
+              webinarId.toString(),
+              scheduleId.toString(),
+              '',
+              '$isCard',
+              cardNumberController.text.toString(),
+              strSelectedMonth,
+              strSelectedYear,
+              cvvController.text.toString(),
+              'yes',
+              nameController.text.toString());
           print(resp);
           setState(() {
             isLoaderPayment = false;

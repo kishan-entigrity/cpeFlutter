@@ -16,6 +16,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../rest_api.dart';
 import '../profile/contact_us.dart';
@@ -43,6 +44,8 @@ class _ProfileFragState extends State<ProfileFrag> {
   String _authToken = "";
   var resp;
   bool isGuestMode = false;
+
+  var playStoreURL = 'https://play.google.com/store/apps/details?id=com.myCPE';
 
   @override
   void initState() {
@@ -443,12 +446,13 @@ class _ProfileFragState extends State<ProfileFrag> {
                                               childIcon: FontAwesomeIcons.solidStar,
                                               strLable: "Review US",
                                               onPress: () {
-                                                Navigator.push(
+                                                redirectPlayStoreURL();
+                                                /*Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
                                                     builder: (context) => TermsCondition(),
                                                   ),
-                                                );
+                                                );*/
                                               },
                                             ),
                                             SizedBox(
@@ -593,6 +597,10 @@ class _ProfileFragState extends State<ProfileFrag> {
         isLoaderShowing = false;
       });
     }
+  }
+
+  void redirectPlayStoreURL() async {
+    await canLaunch(playStoreURL) ? await launch(playStoreURL) : throw 'Could not launch $playStoreURL';
   }
 }
 
