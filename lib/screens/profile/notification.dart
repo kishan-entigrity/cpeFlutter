@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:cpe_flutter/screens/profile/notification_settings.dart';
 import 'package:cpe_flutter/screens/profile/pagination_notification/notification_list_data.dart';
+import 'package:cpe_flutter/screens/webinar_details/webinar_details_new.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -216,8 +217,19 @@ class _NotificationsState extends State<Notifications> {
                                         )
                                   : GestureDetector(
                                       onTap: () {
-                                        print('Clicked on the webinar title : ${list[index].webinarId}');
+                                        print('Clicked on the webinar id : ${list[index].webinarId}');
+                                        print('Clicked on the webinar type : ${list[index].webinarType}');
                                         // So Basically we can handle the click event for the selected tile from here..
+
+                                        var strWebinarType = list[index].webinarType.toString();
+                                        var webinarId = list[index].webinarId;
+
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => WebinarDetailsNew(strWebinarType, webinarId),
+                                          ),
+                                        );
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(

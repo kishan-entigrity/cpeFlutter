@@ -2,6 +2,7 @@ import 'dart:isolate';
 import 'dart:ui';
 
 import 'package:cpe_flutter/constant.dart';
+import 'package:cpe_flutter/screens/profile/who_should_attend.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +50,7 @@ class _childCardDetailsState extends State<childCardDetails> {
       instructionalDocuments = '';
 
   List<String> whoShouldAttend;
+  List<String> audiance_titles;
 
   var webDetailsObj;
   var costVal;
@@ -107,6 +109,10 @@ class _childCardDetailsState extends State<childCardDetails> {
       // WhoShouldAttend section..
       var streetsFromJson = webDetailsObj['who_should_attend'];
       whoShouldAttend = new List<String>.from(streetsFromJson);
+
+      // audiance_titles section..
+      var audienceFromJson = webDetailsObj['audiance_titles'];
+      audiance_titles = new List<String>.from(audienceFromJson);
 
       int length = whoShouldAttend.length;
       print('Size for who should attend : $length');
@@ -198,8 +204,10 @@ class _childCardDetailsState extends State<childCardDetails> {
           ),
           detailsRowDownload('Key Terms', true, webDetailsObj),
           detailsRowDownload('Instructional Document', true, webDetailsObj),
-          detailsRowWhoShouldAttend(
-              'Who should attend?', true, isFirst, isSecond, isThird, isFourth, strWhoTitle_1, strWhoTitle_2, strWhoTitle_3, strWhoTitle_4),
+          detailsRowTags('Qualifications', audiance_titles.length > 0 ? true : false, webDetailsObj, audiance_titles),
+          // detailsRowTags('Who should attend?', true, webDetailsObj, whoShouldAttend),
+          detailsRowWhoShouldAttend('Who should attend?', true, isFirst, isSecond, isThird, isFourth, strWhoTitle_1, strWhoTitle_2, strWhoTitle_3,
+              strWhoTitle_4, whoShouldAttend),
           // divider(),
         ],
       ),
@@ -219,7 +227,7 @@ class _childCardDetailsState extends State<childCardDetails> {
 
 class detailsRowWhoShouldAttend extends StatelessWidget {
   detailsRowWhoShouldAttend(this.strKey, this.isRowVisible, this.isFirst, this.isSecond, this.isThird, this.isFourth, this.strWhoTitle_1,
-      this.strWhoTitle_2, this.strWhoTitle_3, this.strWhoTitle_4);
+      this.strWhoTitle_2, this.strWhoTitle_3, this.strWhoTitle_4, this.whoShouldAttend);
 
   final String strKey;
   final bool isRowVisible;
@@ -231,6 +239,7 @@ class detailsRowWhoShouldAttend extends StatelessWidget {
   final String strWhoTitle_2;
   final String strWhoTitle_3;
   final String strWhoTitle_4;
+  final List<String> whoShouldAttend;
 
   @override
   Widget build(BuildContext context) {
@@ -258,7 +267,18 @@ class detailsRowWhoShouldAttend extends StatelessWidget {
                       whoShouldAttendCell('$strWhoTitle_1'),
                       whoShouldAttendCell('$strWhoTitle_2'),
                       whoShouldAttendCell('$strWhoTitle_3'),
-                      whoShouldAttendCell('$strWhoTitle_4'),
+                      GestureDetector(
+                        onTap: () {
+                          print('Clicked on the +more');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => WhoShouldAttend(whoShouldAttend),
+                            ),
+                          );
+                        },
+                        child: whoShouldAttendCell('$strWhoTitle_4'),
+                      ),
                       SizedBox(
                         height: 15.0,
                       ),
@@ -295,6 +315,106 @@ class whoShouldAttendCell extends StatelessWidget {
           // overflow: TextOverflow.ellipsis,
           style: kDownloadWebinarDetailExpand,
         ),
+      ),
+    );
+  }
+}
+
+class detailsRowTags extends StatefulWidget {
+  detailsRowTags(this.strKey, this.isRowVisible, this.webDetailsObj, this.audiance_titles);
+
+  final String strKey;
+  final bool isRowVisible;
+  final webDetailsObj;
+  final List<String> audiance_titles;
+
+  @override
+  _detailsRowTagsState createState() => _detailsRowTagsState(strKey, isRowVisible, webDetailsObj, audiance_titles);
+}
+
+class _detailsRowTagsState extends State<detailsRowTags> {
+  _detailsRowTagsState(this.strKey, this.isRowVisible, this.webDetailsObj, this.audiance_titles);
+
+  final String strKey;
+  final bool isRowVisible;
+  final webDetailsObj;
+  final List<String> audiance_titles;
+
+  bool loading = false;
+  double progress = 0;
+  var strUrl = '';
+  var strTitle = '';
+
+  @override
+  Widget build(BuildContext context) {
+    return Visibility(
+      visible: widget.isRowVisible,
+      child: Column(
+        children: <Widget>[
+          ConstrainedBox(
+            constraints: BoxConstraints(minHeight: 40.0, minWidth: double.infinity),
+            child: Row(
+              children: <Widget>[
+                Flexible(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 5.0),
+                    width: 165.0,
+                    child: Text(
+                      widget.strKey,
+                      style: kKeyLableWebinarDetailExpand,
+                    ),
+                  ),
+                ),
+                Flexible(
+                  /*child: GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      height: 28.0,
+                      width: 110.0,
+                      decoration: BoxDecoration(
+                        color: themeYellow,
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Download',
+                          // overflow: TextOverflow.ellipsis,
+                          style: kDownloadWebinarDetailExpand,
+                        ),
+                      ),
+                    ),
+                  ),*/
+                  child: Wrap(
+                    children: List.generate(
+                      audiance_titles.length,
+                      (i) {
+                        return Container(
+                          // margin: EdgeInsets.symmetric(horizontal: 4.0, vertical: 0.0),
+                          margin: EdgeInsets.only(right: 4.0),
+                          child: Chip(
+                            backgroundColor: themeYellow,
+                            padding: EdgeInsets.all(0.0),
+                            label: Container(
+                              child: Text(
+                                '${audiance_titles[i].toString()}',
+                                style: TextStyle(
+                                  fontSize: 8.0.sp,
+                                  color: Colors.white,
+                                  fontFamily: 'Whitney Medium',
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          divider(),
+        ],
       ),
     );
   }

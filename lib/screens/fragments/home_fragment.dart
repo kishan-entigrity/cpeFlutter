@@ -1152,10 +1152,13 @@ class _HomeFragmentState extends State<HomeFragment> {
                                     ),
                                   )
                                 : Center(
-                                    child: Text(
-                                      // 'Oops no data found for this user..',
-                                      '$dataMsg',
-                                      style: kValueLableWebinarDetailExpand,
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(horizontal: 20.0.sp),
+                                      child: Text(
+                                        'Sorry, we couldn\'t find webinars based on your filters',
+                                        // '$dataMsg',
+                                        style: kValueLableWebinarDetailExpand,
+                                      ),
                                     ),
                                   ), /*Container(
                                     child: Center(
