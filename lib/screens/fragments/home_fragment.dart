@@ -1642,7 +1642,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                                             ),
                                           ),
                                           Visibility(
-                                            visible: listHotTopics[index].hot_topic.toString() == '1' ? true : false,
+                                            // visible: listHotTopics[index].hot_topic.toString() == '1' ? true : false,
+                                            visible: listHotTopics[index].hot_topic.toString() == '1' ? false : false,
                                             child: Container(
                                               height: 18.0.sp,
                                               width: 54.0.sp,

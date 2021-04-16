@@ -262,7 +262,8 @@ class _NotificationsState extends State<Notifications> {
                                             Text(
                                               // '${list[index].timestamp}',
                                               // '${new DateTime.fromMicrosecondsSinceEpoch(${list[index].timestamp})}',
-                                              '${covertDateTimeTimeStamp('${list[index].timestamp}')}',
+                                              // '${covertDateTimeTimeStamp('${list[index].timestamp}')}',
+                                              list[index].timestamp,
                                               style: TextStyle(
                                                 fontSize: 12.0.sp,
                                                 fontFamily: 'Whitney Medium',

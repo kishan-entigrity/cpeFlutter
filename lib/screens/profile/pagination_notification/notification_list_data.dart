@@ -40,7 +40,7 @@ class Notification_list_data {
 class Notification_list {
   String _image;
   String _notificationMessage;
-  int _timestamp;
+  String _timestamp;
   int _isRead;
   int _webinarFlag;
   int _webinarId;
@@ -50,7 +50,7 @@ class Notification_list {
 
   String get image => _image;
   String get notificationMessage => _notificationMessage;
-  int get timestamp => _timestamp;
+  String get timestamp => _timestamp;
   int get isRead => _isRead;
   int get webinarFlag => _webinarFlag;
   int get webinarId => _webinarId;
@@ -61,7 +61,7 @@ class Notification_list {
   Notification_list(
       {String image,
       String notificationMessage,
-      int timestamp,
+      String timestamp,
       int isRead,
       int webinarFlag,
       int webinarId,
