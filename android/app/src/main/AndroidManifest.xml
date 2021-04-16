@@ -13,9 +13,9 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="cpe_flutter"
+        android:label="myCPE Flutter"
         android:requestLegacyExternalStorage="true"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@drawable/app_icon">
 
         <provider
             android:name="vn.hunghd.flutterdownloader.DownloadedFileProvider"

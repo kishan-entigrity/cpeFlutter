@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
                 ));
             SizerUtil().init(constraints, orientation); //initialize SizerUtil
             return MaterialApp(
-              title: 'Flutter Demo',
+              // title: 'Flutter Demo',
               theme: ThemeData(
                 primarySwatch: Colors.blueGrey,
                 visualDensity: VisualDensity.adaptivePlatformDensity,

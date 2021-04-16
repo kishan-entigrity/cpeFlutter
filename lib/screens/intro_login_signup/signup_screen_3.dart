@@ -155,7 +155,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                   ),
                                   Container(
                                     // margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 6.0.w),
-                                    margin: EdgeInsets.only(left: 6.0.w, right: 6.0.w, top: 0.0.w),
+                                    margin: EdgeInsets.only(left: 6.0.w, right: 6.0.w, top: 1.0.w, bottom: 1.0.w),
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
@@ -169,6 +169,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                             // maxLength: 8,
                                             style: kLableSignUpTextStyle,
                                             decoration: InputDecoration(
+                                              // counter: SizedBox.shrink(),
                                               border: InputBorder.none,
                                               hintText: '',
                                               hintStyle: kLableSignUpHintStyle,
@@ -1207,7 +1208,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                         ),
                       );
                     }), // this line dismisses the dialog
-                    child: new Text('ok', style: new TextStyle(fontSize: 18.0)),
+                    child: new Text('OK', style: new TextStyle(fontSize: 18.0)),
                   )
                 ],
               ),

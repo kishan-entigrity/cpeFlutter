@@ -76,7 +76,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
       type: MaterialType.transparency,
       child: Scaffold(
         key: scaffoldState,
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         body: SafeArea(
           child: Stack(
             children: [
@@ -353,14 +353,14 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                     RoundIconButton(
                                       icon: FontAwesomeIcons.arrowRight,
                                       onPressed: () async {
-                                        ConstSignUp.strFname = fnameController.text;
+                                        /*ConstSignUp.strFname = fnameController.text;
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) => SignUpScreen2(),
                                             // SignUpScreen3(),
                                           ),
-                                        );
+                                        );*/
                                         checkForValidations();
                                       },
                                     ),
@@ -612,12 +612,12 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
           isLoaderShowing = false;
         });
         // RedirectToSecondScreen..
-        /*Navigator.push(
+        Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => SignUpScreen2(),
           ),
-        );*/
+        );
       } else {
         setState(() {
           isLoaderShowing = false;

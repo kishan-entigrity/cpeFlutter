@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
 import 'package:cpe_flutter/components/round_icon_button.dart';
-import 'package:cpe_flutter/screens/intro_login_signup/hashmap.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/signup_screen_3.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -84,6 +83,8 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
     // Take API calls for the JobTitle, industry, Professional creds, Additional qualifications in serial manner..
     checkForInternet();
     print('Fname from global class is : ${ConstSignUp.strFname}');
+
+    setData();
     // getProfCredsAPI();
   }
 
@@ -93,665 +94,661 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
       type: MaterialType.transparency,
       child: Scaffold(
         key: scaffoldState,
-        body: SafeArea(
-          child: Stack(
-            children: [
-              Positioned(
-                child: Container(
-                  color: Colors.white,
-                  child: Column(
-                    children: <Widget>[
-                      Row(
+        body: WillPopScope(
+            child: SafeArea(
+              child: Stack(
+                children: [
+                  Positioned(
+                    child: Container(
+                      color: Colors.white,
+                      child: Column(
                         children: <Widget>[
-                          // BackIcon(),
-                          GestureDetector(
-                            onTap: () {
-                              ConstSignUp.strCompanyName = companyNameController.text;
-                              Navigator.pop(context);
-                            },
-                            child: Flexible(
-                              flex: 2,
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Icon(
-                                  FontAwesomeIcons.angleLeft,
+                          Row(
+                            children: <Widget>[
+                              // BackIcon(),
+                              GestureDetector(
+                                onTap: () {
+                                  ConstSignUp.strCompanyName = companyNameController.text;
+                                  Navigator.pop(context);
+                                },
+                                child: Flexible(
+                                  flex: 2,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Icon(
+                                      FontAwesomeIcons.angleLeft,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Flexible(
+                                flex: 12,
+                                child: Center(
+                                  child: Text(
+                                    'Sign Up',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18.0,
+                                      fontFamily: 'Whitney Semi Bold',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Flexible(
+                                flex: 2,
+                                child: Text(''),
+                              ),
+                            ],
+                          ),
+                          Expanded(
+                            child: SingleChildScrollView(
+                              physics: ClampingScrollPhysics(),
+                              child: ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  minWidth: MediaQuery.of(context).size.width,
+                                  minHeight: MediaQuery.of(context).size.height,
+                                ),
+                                child: IntrinsicHeight(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: <Widget>[
+                                      Container(
+                                        margin: EdgeInsets.only(left: 6.0.w, right: 6.0.w, top: 20.0.w),
+                                        child: TextField(
+                                          controller: companyNameController,
+                                          style: kLableSignUpTextStyle,
+                                          decoration: InputDecoration(
+                                            border: InputBorder.none,
+                                            hintText: 'Company name',
+                                            hintStyle: kLableSignUpHintStyle,
+                                          ),
+                                          textInputAction: TextInputAction.next,
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.fromLTRB(6.0.w, 1.0.w, 6.0.w, 0),
+                                        child: Divider(
+                                          height: 5.0,
+                                          color: Colors.black87,
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          print('Clicked on OrgSize');
+                                          showModalBottomSheet(
+                                              context: context,
+                                              builder: (builder) {
+                                                return StatefulBuilder(
+                                                  builder: (BuildContext context, void Function(void Function()) setState) {
+                                                    return Container(
+                                                      height: 150.0.w,
+                                                      child: Column(
+                                                        children: <Widget>[
+                                                          Container(
+                                                            height: 17.0.w,
+                                                            child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                              children: <Widget>[
+                                                                GestureDetector(
+                                                                  onTap: () {
+                                                                    Navigator.pop(context);
+                                                                  },
+                                                                  child: Container(
+                                                                    width: 20.0.w,
+                                                                    child: Center(
+                                                                      child: Text(
+                                                                        'Cancel',
+                                                                        style: kDateTestimonials,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Container(
+                                                                  width: 50.0.w,
+                                                                  child: Center(
+                                                                    child: Text(
+                                                                      'Organization Size',
+                                                                      style: kOthersTitle,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Container(
+                                                                  width: 20.0.w,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            child: ListView.builder(
+                                                              itemCount: ConstSignUp.orgSizeList.length,
+                                                              itemBuilder: (context, index) {
+                                                                return ConstrainedBox(
+                                                                  constraints: BoxConstraints(
+                                                                    minHeight: 15.0.w,
+                                                                  ),
+                                                                  child: GestureDetector(
+                                                                    onTap: () {
+                                                                      setState(() {
+                                                                        clickEventOrgSize(index);
+                                                                      });
+                                                                    },
+                                                                    child: Container(
+                                                                      margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
+                                                                      decoration: BoxDecoration(
+                                                                        borderRadius: BorderRadius.circular(7.0),
+                                                                        color: ConstSignUp.organizationSize == ConstSignUp.orgSizeList[index]
+                                                                            ? themeYellow
+                                                                            : testColor,
+                                                                      ),
+                                                                      child: Padding(
+                                                                        padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
+                                                                        child: Row(
+                                                                          children: <Widget>[
+                                                                            Expanded(
+                                                                              child: Text(
+                                                                                // list[index].shortTitle,
+                                                                                ConstSignUp.orgSizeList[index],
+                                                                                textAlign: TextAlign.start,
+                                                                                style: kDataSingleSelectionBottomNav,
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
+                                                  },
+                                                );
+                                              });
+                                        },
+                                        child: Container(
+                                          color: Colors.white,
+                                          padding: EdgeInsets.fromLTRB(6.0.w, 4.0.w, 8.5.w, 4.0.w),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Text(
+                                                ConstSignUp.isOrganizationSizeSelected ? ConstSignUp.organizationSize : 'Organization Size',
+                                                style: TextStyle(
+                                                  fontFamily: 'Whitney Bold',
+                                                  fontSize: 15.0.sp,
+                                                  color: ConstSignUp.isOrganizationSizeSelected ? Colors.black : Color(0xFFBDBFCA),
+                                                ),
+                                              ),
+                                              Icon(FontAwesomeIcons.caretDown),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                        child: Divider(
+                                          height: 5.0,
+                                          color: Colors.black87,
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          print('Clicked on Job Titles');
+                                          showModalBottomSheet(
+                                              context: context,
+                                              builder: (builder) {
+                                                return StatefulBuilder(
+                                                  builder: (BuildContext context, void Function(void Function()) setState) {
+                                                    return Container(
+                                                      height: 150.0.w,
+                                                      child: Column(
+                                                        children: <Widget>[
+                                                          Container(
+                                                            height: 17.0.w,
+                                                            child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                              children: <Widget>[
+                                                                GestureDetector(
+                                                                  onTap: () {
+                                                                    Navigator.pop(context);
+                                                                  },
+                                                                  child: Container(
+                                                                    width: 20.0.w,
+                                                                    child: Center(
+                                                                      child: Text(
+                                                                        'Cancel',
+                                                                        style: kDateTestimonials,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Container(
+                                                                  width: 50.0.w,
+                                                                  child: Center(
+                                                                    child: Text(
+                                                                      'Job Title/Designation',
+                                                                      style: kOthersTitle,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Container(
+                                                                  width: 20.0.w,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            child: ListView.builder(
+                                                              itemCount: ConstSignUp.listJobTitle.length,
+                                                              itemBuilder: (context, index) {
+                                                                return ConstrainedBox(
+                                                                  constraints: BoxConstraints(
+                                                                    minHeight: 15.0.w,
+                                                                  ),
+                                                                  child: GestureDetector(
+                                                                    onTap: () {
+                                                                      setState(() {
+                                                                        // checkForClickBottom(index);
+                                                                        clickEventJobTitle(index);
+                                                                      });
+                                                                    },
+                                                                    child: Container(
+                                                                      margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
+                                                                      decoration: BoxDecoration(
+                                                                        borderRadius: BorderRadius.circular(7.0),
+                                                                        color: ConstSignUp.jobTitle == ConstSignUp.listJobTitle[index].name
+                                                                            ? themeYellow
+                                                                            : testColor,
+                                                                      ),
+                                                                      child: Padding(
+                                                                        padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
+                                                                        child: Row(
+                                                                          children: <Widget>[
+                                                                            Expanded(
+                                                                              child: Text(
+                                                                                ConstSignUp.listJobTitle[index].name,
+                                                                                textAlign: TextAlign.start,
+                                                                                style: kDataSingleSelectionBottomNav,
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
+                                                  },
+                                                );
+                                              });
+                                        },
+                                        child: Container(
+                                          color: Colors.white,
+                                          padding: EdgeInsets.fromLTRB(6.0.w, 4.0.w, 8.5.w, 4.0.w),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Text(
+                                                ConstSignUp.isJobTitleSelected ? ConstSignUp.jobTitle : 'Job Title/Designation',
+                                                style: TextStyle(
+                                                  fontFamily: 'Whitney Bold',
+                                                  fontSize: 15.0.sp,
+                                                  color: ConstSignUp.isJobTitleSelected ? Colors.black : Color(0xFFBDBFCA),
+                                                ),
+                                              ),
+                                              Icon(FontAwesomeIcons.caretDown),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                        child: Divider(
+                                          height: 5.0,
+                                          color: Colors.black87,
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          showModalBottomSheet(
+                                              context: context,
+                                              builder: (builder) {
+                                                return StatefulBuilder(
+                                                  builder: (BuildContext context, void Function(void Function()) setState) {
+                                                    return Container(
+                                                      height: 150.0.w,
+                                                      child: Column(
+                                                        children: <Widget>[
+                                                          Container(
+                                                            height: 17.0.w,
+                                                            child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                              children: <Widget>[
+                                                                GestureDetector(
+                                                                  onTap: () {
+                                                                    Navigator.pop(context);
+                                                                  },
+                                                                  child: Container(
+                                                                    width: 20.0.w,
+                                                                    child: Center(
+                                                                      child: Text(
+                                                                        'Cancel',
+                                                                        style: kDateTestimonials,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Container(
+                                                                  width: 50.0.w,
+                                                                  child: Center(
+                                                                    child: Text(
+                                                                      'Industry',
+                                                                      style: kOthersTitle,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Container(
+                                                                  width: 20.0.w,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            child: ListView.builder(
+                                                              itemCount: ConstSignUp.listIndustries.length,
+                                                              itemBuilder: (context, index) {
+                                                                return ConstrainedBox(
+                                                                  constraints: BoxConstraints(
+                                                                    minHeight: 15.0.w,
+                                                                  ),
+                                                                  child: GestureDetector(
+                                                                    onTap: () {
+                                                                      setState(() {
+                                                                        clickEventIndustry(index);
+                                                                      });
+                                                                    },
+                                                                    child: Container(
+                                                                      margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
+                                                                      decoration: BoxDecoration(
+                                                                        borderRadius: BorderRadius.circular(7.0),
+                                                                        color: ConstSignUp.listIndustries[index].name == ConstSignUp.industry
+                                                                            ? themeYellow
+                                                                            : testColor,
+                                                                      ),
+                                                                      child: Padding(
+                                                                        padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
+                                                                        child: Row(
+                                                                          children: <Widget>[
+                                                                            Expanded(
+                                                                              child: Text(
+                                                                                ConstSignUp.listIndustries[index].name,
+                                                                                textAlign: TextAlign.start,
+                                                                                style: kDataSingleSelectionBottomNav,
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
+                                                  },
+                                                );
+                                              });
+                                        },
+                                        child: Container(
+                                          color: Colors.white,
+                                          padding: EdgeInsets.fromLTRB(6.0.w, 4.0.w, 8.5.w, 4.0.w),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Text(
+                                                ConstSignUp.isIndustrySelected ? ConstSignUp.industry : 'Industry',
+                                                style: TextStyle(
+                                                  fontFamily: 'Whitney Bold',
+                                                  fontSize: 15.0.sp,
+                                                  color: ConstSignUp.isIndustrySelected ? Colors.black : Color(0xFFBDBFCA),
+                                                ),
+                                              ),
+                                              Icon(FontAwesomeIcons.caretDown),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                        child: Divider(
+                                          height: 5.0,
+                                          color: Colors.black87,
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          showModalBottomSheet(
+                                              context: context,
+                                              builder: (builder) {
+                                                return StatefulBuilder(
+                                                  builder: (BuildContext context, void Function(void Function()) setState) {
+                                                    return Container(
+                                                      height: 150.0.w,
+                                                      child: Column(
+                                                        children: <Widget>[
+                                                          Container(
+                                                            height: 17.0.w,
+                                                            child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                              children: <Widget>[
+                                                                GestureDetector(
+                                                                  onTap: () {
+                                                                    Navigator.pop(context);
+                                                                  },
+                                                                  child: Container(
+                                                                    width: 20.0.w,
+                                                                    child: Center(
+                                                                      child: Text(
+                                                                        'Cancel',
+                                                                        style: kDateTestimonials,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Container(
+                                                                  width: 50.0.w,
+                                                                  child: Center(
+                                                                    child: Text(
+                                                                      'Prefessional Credentials',
+                                                                      style: kOthersTitle,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Container(
+                                                                  width: 20.0.w,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            child: ListView.builder(
+                                                              itemCount: ConstSignUp.listProfCreds.length,
+                                                              itemBuilder: (context, index) {
+                                                                return ConstrainedBox(
+                                                                  constraints: BoxConstraints(
+                                                                    minHeight: 15.0.w,
+                                                                  ),
+                                                                  child: GestureDetector(
+                                                                    onTap: () {
+                                                                      setState(() {
+                                                                        checkForClickBottom(index);
+                                                                      });
+                                                                    },
+                                                                    child: Container(
+                                                                      margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
+                                                                      decoration: BoxDecoration(
+                                                                        borderRadius: BorderRadius.circular(7.0),
+                                                                        color: ConstSignUp.listProfCreds[index].isSelected ? themeYellow : testColor,
+                                                                      ),
+                                                                      child: Padding(
+                                                                        padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
+                                                                        child: Row(
+                                                                          children: <Widget>[
+                                                                            Icon(
+                                                                              ConstSignUp.listProfCreds[index].isSelected
+                                                                                  ? FontAwesomeIcons.checkCircle
+                                                                                  : FontAwesomeIcons.circle,
+                                                                              size: 12.0.sp,
+                                                                            ),
+                                                                            SizedBox(
+                                                                              width: 3.5.w,
+                                                                            ),
+                                                                            Expanded(
+                                                                              child: Text(
+                                                                                ConstSignUp.listProfCreds[index].shortTitle,
+                                                                                textAlign: TextAlign.start,
+                                                                                style: kDataSingleSelectionBottomNav,
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
+                                                  },
+                                                );
+                                              });
+                                        },
+                                        child: Container(
+                                          color: Colors.white,
+                                          padding: EdgeInsets.fromLTRB(6.0.w, 4.0.w, 8.5.w, 4.0.w),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Text(
+                                                'Professional Credentials',
+                                                style: TextStyle(
+                                                  fontFamily: 'Whitney Bold',
+                                                  fontSize: 15.0.sp,
+                                                  // color: isProfCredsSelected ? Colors.black : Color(0xFFBDBFCA),
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              Icon(
+                                                FontAwesomeIcons.plusCircle,
+                                                color: themeYellow,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                        child: Wrap(
+                                          children: List.generate(
+                                            ConstSignUp.smallTitles.length,
+                                            (i) {
+                                              return Container(
+                                                // margin: EdgeInsets.symmetric(horizontal: 4.0, vertical: 0.0),
+                                                margin: EdgeInsets.only(right: 8.0),
+                                                child: Chip(
+                                                  backgroundColor: themeYellow,
+                                                  label: Container(
+                                                    child: Text(
+                                                      '${ConstSignUp.smallTitles[i].toString()}',
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                        child: Divider(
+                                          height: 5.0,
+                                          color: Colors.black87,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 20.0.w,
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          children: <Widget>[
+                                            Text(
+                                              // 'Next',
+                                              'Step 2/3',
+                                              // style: kButtonLabelTextStyle,
+                                              style: kStepText,
+                                            ),
+                                            RoundIconButton(
+                                              icon: FontAwesomeIcons.arrowRight,
+                                              onPressed: () async {
+                                                ConstSignUp.strCompanyName = companyNameController.text;
+                                                checkForValidation();
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 20.0.w,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          Flexible(
-                            flex: 12,
-                            child: Center(
-                              child: Text(
-                                'Sign Up',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18.0,
-                                  fontFamily: 'Whitney Semi Bold',
-                                ),
-                              ),
-                            ),
-                          ),
-                          Flexible(
-                            flex: 2,
-                            child: Text(''),
                           ),
                         ],
                       ),
-                      Expanded(
-                        child: SingleChildScrollView(
-                          physics: ClampingScrollPhysics(),
-                          child: ConstrainedBox(
-                            constraints: BoxConstraints(
-                              minWidth: MediaQuery.of(context).size.width,
-                              minHeight: MediaQuery.of(context).size.height,
-                            ),
-                            child: IntrinsicHeight(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.max,
-                                children: <Widget>[
-                                  Container(
-                                    margin: EdgeInsets.only(left: 6.0.w, right: 6.0.w, top: 20.0.w),
-                                    child: TextField(
-                                      controller: companyNameController,
-                                      style: kLableSignUpTextStyle,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: 'Company name',
-                                        hintStyle: kLableSignUpHintStyle,
-                                      ),
-                                      textInputAction: TextInputAction.next,
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(6.0.w, 1.0.w, 6.0.w, 0),
-                                    child: Divider(
-                                      height: 5.0,
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      print('Clicked on OrgSize');
-                                      showModalBottomSheet(
-                                          context: context,
-                                          builder: (builder) {
-                                            return StatefulBuilder(
-                                              builder: (BuildContext context, void Function(void Function()) setState) {
-                                                return Container(
-                                                  height: 150.0.w,
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      Container(
-                                                        height: 17.0.w,
-                                                        child: Row(
-                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                          children: <Widget>[
-                                                            GestureDetector(
-                                                              onTap: () {
-                                                                Navigator.pop(context);
-                                                              },
-                                                              child: Container(
-                                                                width: 20.0.w,
-                                                                child: Center(
-                                                                  child: Text(
-                                                                    'Cancel',
-                                                                    style: kDateTestimonials,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              width: 50.0.w,
-                                                              child: Center(
-                                                                child: Text(
-                                                                  'Organization Size',
-                                                                  style: kOthersTitle,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              width: 20.0.w,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        child: ListView.builder(
-                                                          itemCount: ConstSignUp.orgSizeList.length,
-                                                          itemBuilder: (context, index) {
-                                                            return ConstrainedBox(
-                                                              constraints: BoxConstraints(
-                                                                minHeight: 15.0.w,
-                                                              ),
-                                                              child: GestureDetector(
-                                                                onTap: () {
-                                                                  setState(() {
-                                                                    clickEventOrgSize(index);
-                                                                  });
-                                                                },
-                                                                child: Container(
-                                                                  margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
-                                                                  decoration: BoxDecoration(
-                                                                    borderRadius: BorderRadius.circular(7.0),
-                                                                    color: ConstSignUp.organizationSize == ConstSignUp.orgSizeList[index]
-                                                                        ? themeYellow
-                                                                        : testColor,
-                                                                  ),
-                                                                  child: Padding(
-                                                                    padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
-                                                                    child: Row(
-                                                                      children: <Widget>[
-                                                                        Expanded(
-                                                                          child: Text(
-                                                                            // list[index].shortTitle,
-                                                                            ConstSignUp.orgSizeList[index],
-                                                                            textAlign: TextAlign.start,
-                                                                            style: kDataSingleSelectionBottomNav,
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            );
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                );
-                                              },
-                                            );
-                                          });
-                                    },
-                                    child: Container(
-                                      color: Colors.white,
-                                      padding: EdgeInsets.fromLTRB(6.0.w, 4.0.w, 8.5.w, 4.0.w),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Text(
-                                            ConstSignUp.isOrganizationSizeSelected ? ConstSignUp.organizationSize : 'Organization Size',
-                                            style: TextStyle(
-                                              fontFamily: 'Whitney Bold',
-                                              fontSize: 15.0.sp,
-                                              color: ConstSignUp.isOrganizationSizeSelected ? Colors.black : Color(0xFFBDBFCA),
-                                            ),
-                                          ),
-                                          Icon(FontAwesomeIcons.caretDown),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                                    child: Divider(
-                                      height: 5.0,
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      print('Clicked on Job Titles');
-                                      showModalBottomSheet(
-                                          context: context,
-                                          builder: (builder) {
-                                            return StatefulBuilder(
-                                              builder: (BuildContext context, void Function(void Function()) setState) {
-                                                return Container(
-                                                  height: 150.0.w,
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      Container(
-                                                        height: 17.0.w,
-                                                        child: Row(
-                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                          children: <Widget>[
-                                                            GestureDetector(
-                                                              onTap: () {
-                                                                Navigator.pop(context);
-                                                              },
-                                                              child: Container(
-                                                                width: 20.0.w,
-                                                                child: Center(
-                                                                  child: Text(
-                                                                    'Cancel',
-                                                                    style: kDateTestimonials,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              width: 50.0.w,
-                                                              child: Center(
-                                                                child: Text(
-                                                                  'Job Title/Designation',
-                                                                  style: kOthersTitle,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              width: 20.0.w,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        child: ListView.builder(
-                                                          itemCount: ConstSignUp.listJobTitle.length,
-                                                          itemBuilder: (context, index) {
-                                                            return ConstrainedBox(
-                                                              constraints: BoxConstraints(
-                                                                minHeight: 15.0.w,
-                                                              ),
-                                                              child: GestureDetector(
-                                                                onTap: () {
-                                                                  setState(() {
-                                                                    // checkForClickBottom(index);
-                                                                    clickEventJobTitle(index);
-                                                                  });
-                                                                },
-                                                                child: Container(
-                                                                  margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
-                                                                  decoration: BoxDecoration(
-                                                                    borderRadius: BorderRadius.circular(7.0),
-                                                                    color: ConstSignUp.jobTitle == ConstSignUp.listJobTitle[index].name
-                                                                        ? themeYellow
-                                                                        : testColor,
-                                                                  ),
-                                                                  child: Padding(
-                                                                    padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
-                                                                    child: Row(
-                                                                      children: <Widget>[
-                                                                        Expanded(
-                                                                          child: Text(
-                                                                            ConstSignUp.listJobTitle[index].name,
-                                                                            textAlign: TextAlign.start,
-                                                                            style: kDataSingleSelectionBottomNav,
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            );
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                );
-                                              },
-                                            );
-                                          });
-                                    },
-                                    child: Container(
-                                      color: Colors.white,
-                                      padding: EdgeInsets.fromLTRB(6.0.w, 4.0.w, 8.5.w, 4.0.w),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Text(
-                                            ConstSignUp.isJobTitleSelected ? ConstSignUp.jobTitle : 'Job Title/Designation',
-                                            style: TextStyle(
-                                              fontFamily: 'Whitney Bold',
-                                              fontSize: 15.0.sp,
-                                              color: ConstSignUp.isJobTitleSelected ? Colors.black : Color(0xFFBDBFCA),
-                                            ),
-                                          ),
-                                          Icon(FontAwesomeIcons.caretDown),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                                    child: Divider(
-                                      height: 5.0,
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      showModalBottomSheet(
-                                          context: context,
-                                          builder: (builder) {
-                                            return StatefulBuilder(
-                                              builder: (BuildContext context, void Function(void Function()) setState) {
-                                                return Container(
-                                                  height: 150.0.w,
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      Container(
-                                                        height: 17.0.w,
-                                                        child: Row(
-                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                          children: <Widget>[
-                                                            GestureDetector(
-                                                              onTap: () {
-                                                                Navigator.pop(context);
-                                                              },
-                                                              child: Container(
-                                                                width: 20.0.w,
-                                                                child: Center(
-                                                                  child: Text(
-                                                                    'Cancel',
-                                                                    style: kDateTestimonials,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              width: 50.0.w,
-                                                              child: Center(
-                                                                child: Text(
-                                                                  'Industry',
-                                                                  style: kOthersTitle,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              width: 20.0.w,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        child: ListView.builder(
-                                                          itemCount: ConstSignUp.listIndustries.length,
-                                                          itemBuilder: (context, index) {
-                                                            return ConstrainedBox(
-                                                              constraints: BoxConstraints(
-                                                                minHeight: 15.0.w,
-                                                              ),
-                                                              child: GestureDetector(
-                                                                onTap: () {
-                                                                  setState(() {
-                                                                    clickEventIndustry(index);
-                                                                  });
-                                                                },
-                                                                child: Container(
-                                                                  margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
-                                                                  decoration: BoxDecoration(
-                                                                    borderRadius: BorderRadius.circular(7.0),
-                                                                    color: ConstSignUp.listIndustries[index].name == ConstSignUp.industry
-                                                                        ? themeYellow
-                                                                        : testColor,
-                                                                  ),
-                                                                  child: Padding(
-                                                                    padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
-                                                                    child: Row(
-                                                                      children: <Widget>[
-                                                                        Expanded(
-                                                                          child: Text(
-                                                                            ConstSignUp.listIndustries[index].name,
-                                                                            textAlign: TextAlign.start,
-                                                                            style: kDataSingleSelectionBottomNav,
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            );
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                );
-                                              },
-                                            );
-                                          });
-                                    },
-                                    child: Container(
-                                      color: Colors.white,
-                                      padding: EdgeInsets.fromLTRB(6.0.w, 4.0.w, 8.5.w, 4.0.w),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Text(
-                                            ConstSignUp.isIndustrySelected ? ConstSignUp.industry : 'Industry',
-                                            style: TextStyle(
-                                              fontFamily: 'Whitney Bold',
-                                              fontSize: 15.0.sp,
-                                              color: ConstSignUp.isIndustrySelected ? Colors.black : Color(0xFFBDBFCA),
-                                            ),
-                                          ),
-                                          Icon(FontAwesomeIcons.caretDown),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                                    child: Divider(
-                                      height: 5.0,
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      showModalBottomSheet(
-                                          context: context,
-                                          builder: (builder) {
-                                            return StatefulBuilder(
-                                              builder: (BuildContext context, void Function(void Function()) setState) {
-                                                return Container(
-                                                  height: 150.0.w,
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      Container(
-                                                        height: 17.0.w,
-                                                        child: Row(
-                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                          children: <Widget>[
-                                                            GestureDetector(
-                                                              onTap: () {
-                                                                Navigator.pop(context);
-                                                              },
-                                                              child: Container(
-                                                                width: 20.0.w,
-                                                                child: Center(
-                                                                  child: Text(
-                                                                    'Cancel',
-                                                                    style: kDateTestimonials,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              width: 50.0.w,
-                                                              child: Center(
-                                                                child: Text(
-                                                                  'Prefessional Credentials',
-                                                                  style: kOthersTitle,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              width: 20.0.w,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        child: ListView.builder(
-                                                          itemCount: ConstSignUp.listProfCreds.length,
-                                                          itemBuilder: (context, index) {
-                                                            return ConstrainedBox(
-                                                              constraints: BoxConstraints(
-                                                                minHeight: 15.0.w,
-                                                              ),
-                                                              child: GestureDetector(
-                                                                onTap: () {
-                                                                  setState(() {
-                                                                    checkForClickBottom(index);
-                                                                  });
-                                                                },
-                                                                child: Container(
-                                                                  margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
-                                                                  decoration: BoxDecoration(
-                                                                    borderRadius: BorderRadius.circular(7.0),
-                                                                    color: ConstSignUp.listProfCreds[index].isSelected ? themeYellow : testColor,
-                                                                  ),
-                                                                  child: Padding(
-                                                                    padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
-                                                                    child: Row(
-                                                                      children: <Widget>[
-                                                                        Icon(
-                                                                          ConstSignUp.listProfCreds[index].isSelected
-                                                                              ? FontAwesomeIcons.checkCircle
-                                                                              : FontAwesomeIcons.circle,
-                                                                          size: 12.0.sp,
-                                                                        ),
-                                                                        SizedBox(
-                                                                          width: 3.5.w,
-                                                                        ),
-                                                                        Expanded(
-                                                                          child: Text(
-                                                                            ConstSignUp.listProfCreds[index].shortTitle,
-                                                                            textAlign: TextAlign.start,
-                                                                            style: kDataSingleSelectionBottomNav,
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            );
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                );
-                                              },
-                                            );
-                                          });
-                                    },
-                                    child: Container(
-                                      color: Colors.white,
-                                      padding: EdgeInsets.fromLTRB(6.0.w, 4.0.w, 8.5.w, 4.0.w),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Text(
-                                            'Professional Credentials',
-                                            style: TextStyle(
-                                              fontFamily: 'Whitney Bold',
-                                              fontSize: 15.0.sp,
-                                              // color: isProfCredsSelected ? Colors.black : Color(0xFFBDBFCA),
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          Icon(
-                                            FontAwesomeIcons.plusCircle,
-                                            color: themeYellow,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                                    child: Wrap(
-                                      children: List.generate(
-                                        ConstSignUp.smallTitles.length,
-                                        (i) {
-                                          return Container(
-                                            // margin: EdgeInsets.symmetric(horizontal: 4.0, vertical: 0.0),
-                                            margin: EdgeInsets.only(right: 8.0),
-                                            child: Chip(
-                                              backgroundColor: themeYellow,
-                                              label: Container(
-                                                child: Text(
-                                                  '${ConstSignUp.smallTitles[i].toString()}',
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                                    child: Divider(
-                                      height: 5.0,
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 20.0.w,
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: <Widget>[
-                                        GestureDetector(
-                                          onTap: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) => HashMapSample(),
-                                              ),
-                                            );
-                                          },
-                                          child: Text(
-                                            // 'Next',
-                                            'Step 2/3',
-                                            // style: kButtonLabelTextStyle,
-                                            style: kStepText,
-                                          ),
-                                        ),
-                                        RoundIconButton(
-                                          icon: FontAwesomeIcons.arrowRight,
-                                          onPressed: () async {
-                                            ConstSignUp.strCompanyName = companyNameController.text;
-                                            checkForValidation();
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 20.0.w,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                  Positioned(
+                    top: 0.0,
+                    right: 0.0,
+                    bottom: 0.0,
+                    left: 0.0,
+                    child: Visibility(
+                      visible: isLoaderShowing ? true : false,
+                      child: SpinKitSample1(),
+                    ),
+                  ),
+                ],
               ),
-              Positioned(
-                top: 0.0,
-                right: 0.0,
-                bottom: 0.0,
-                left: 0.0,
-                child: Visibility(
-                  visible: isLoaderShowing ? true : false,
-                  child: SpinKitSample1(),
-                ),
-              ),
-            ],
-          ),
-        ),
+            ),
+            onWillPop: _onWillPop),
       ),
     );
+  }
+
+  Future<bool> _onWillPop() {
+    return onBackPressEvent();
   }
 
   void getProfCredsAPI() async {
@@ -930,6 +927,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
       ConstSignUp.isOrganizationSizeSelected = true;
 
       FocusManager.instance.primaryFocus.unfocus();
+      Navigator.pop(context);
     });
   }
 
@@ -940,6 +938,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
       ConstSignUp.jobTitleId = ConstSignUp.listJobTitle[index].id;
 
       FocusManager.instance.primaryFocus.unfocus();
+      Navigator.pop(context);
     });
   }
 
@@ -950,6 +949,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
       ConstSignUp.industryId = ConstSignUp.listIndustries[index].id;
 
       FocusManager.instance.primaryFocus.unfocus();
+      Navigator.pop(context);
     });
   }
 
@@ -1018,5 +1018,18 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
         ),
       );
     }
+  }
+
+  void setData() {
+    companyNameController.text = ConstSignUp.strCompanyName;
+
+    Future.delayed(const Duration(milliseconds: 500), () {
+      FocusManager.instance.primaryFocus.unfocus();
+    });
+  }
+
+  Future<bool> onBackPressEvent() {
+    ConstSignUp.strCompanyName = companyNameController.text;
+    Navigator.pop(context);
   }
 }
