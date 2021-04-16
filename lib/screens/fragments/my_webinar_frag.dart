@@ -358,7 +358,8 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                     ),
                     Expanded(
                       child: Container(
-                        child: !isUserLoggedIn
+                        child:
+                            /*!isUserLoggedIn
                             ? Container(
                                 color: testColor,
                                 child: Center(
@@ -446,9 +447,10 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                   ),
                                 ),
                               )
-                            : Column(
-                                children: <Widget>[
-                                  /*Row(
+                            : */
+                            Column(
+                          children: <Widget>[
+                            /*Row(
                                     children: <Widget>[
                                       Expanded(
                                         child: GestureDetector(
@@ -516,79 +518,79 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                       ),
                                     ],
                                   ),*/
-                                  Container(
-                                    color: testColor,
-                                    child: Row(
-                                      children: <Widget>[
-                                        GestureDetector(
-                                          onTap: () {
-                                            selectLiveFilter();
-                                          },
-                                          child: Container(
-                                            margin: EdgeInsets.only(left: 10.0, top: 10.0, right: 5.0, bottom: 0.0),
-                                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                                            // padding: const EdgeInsets.only(left: 14.0, right: 9.0, top: 18.0, bottom: 8.0),
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Text(
-                                                  'Live Webinars',
-                                                  style: TextStyle(
-                                                    // color: isLive ? Colors.white : Colors.black,
-                                                    color: Colors.black,
-                                                    fontSize: isLive ? 13.0.sp : 11.0.sp,
-                                                    fontFamily: isLive ? 'Whitney Bold' : 'Whitney Medium',
-                                                  ),
-                                                ),
-                                                Container(
-                                                  margin: EdgeInsets.only(top: 2.0.sp),
-                                                  height: 2.0.sp,
-                                                  width: 20.0.sp,
-                                                  color: isLive ? Colors.black : testColor,
-                                                ),
-                                              ],
+                            Container(
+                              color: testColor,
+                              child: Row(
+                                children: <Widget>[
+                                  GestureDetector(
+                                    onTap: () {
+                                      selectLiveFilter();
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.only(left: 10.0, top: 10.0, right: 5.0, bottom: 0.0),
+                                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                      // padding: const EdgeInsets.only(left: 14.0, right: 9.0, top: 18.0, bottom: 8.0),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            'Live Webinars',
+                                            style: TextStyle(
+                                              // color: isLive ? Colors.white : Colors.black,
+                                              color: Colors.black,
+                                              fontSize: isLive ? 13.0.sp : 11.0.sp,
+                                              fontFamily: isLive ? 'Whitney Bold' : 'Whitney Medium',
                                             ),
                                           ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            selectSelfStudyFilter();
-                                          },
-                                          child: Container(
-                                            margin: EdgeInsets.only(left: 10.0.sp, top: 10.0, right: 10.0, bottom: 00.0),
-                                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Text(
-                                                  'Self Study',
-                                                  style: TextStyle(
-                                                    // color: isSelfStudy ? Colors.white : Colors.black,
-                                                    color: Colors.black,
-                                                    fontSize: isSelfStudy ? 13.0.sp : 11.0.sp,
-                                                    fontFamily: isSelfStudy ? 'Whitney Bold' : 'Whitney Medium',
-                                                  ),
-                                                ),
-                                                Container(
-                                                  margin: EdgeInsets.only(top: 2.0.sp),
-                                                  height: 2.0.sp,
-                                                  width: 20.0.sp,
-                                                  color: isSelfStudy ? Colors.black : testColor,
-                                                ),
-                                              ],
-                                            ),
+                                          Container(
+                                            margin: EdgeInsets.only(top: 2.0.sp),
+                                            height: 2.0.sp,
+                                            width: 20.0.sp,
+                                            color: isLive ? Colors.black : testColor,
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                  SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
-                                      child: Row(
+                                  GestureDetector(
+                                    onTap: () {
+                                      selectSelfStudyFilter();
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.only(left: 10.0.sp, top: 10.0, right: 10.0, bottom: 00.0),
+                                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: <Widget>[
-                                          /*GestureDetector(
+                                          Text(
+                                            'Self Study',
+                                            style: TextStyle(
+                                              // color: isSelfStudy ? Colors.white : Colors.black,
+                                              color: Colors.black,
+                                              fontSize: isSelfStudy ? 13.0.sp : 11.0.sp,
+                                              fontFamily: isSelfStudy ? 'Whitney Bold' : 'Whitney Medium',
+                                            ),
+                                          ),
+                                          Container(
+                                            margin: EdgeInsets.only(top: 2.0.sp),
+                                            height: 2.0.sp,
+                                            width: 20.0.sp,
+                                            color: isSelfStudy ? Colors.black : testColor,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+                                child: Row(
+                                  children: <Widget>[
+                                    /*GestureDetector(
                                           onTap: () {
                                             selectLiveFilter();
                                           },
@@ -658,349 +660,349 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                             ),
                                           ),
                                         ),*/
-                                          Visibility(
-                                            visible: isLive ? true : false,
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                selectUpcomingWebinarFilter();
-                                              },
-                                              child: Padding(
-                                                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                                                child: Container(
-                                                  decoration: isUpcomingWeb
-                                                      ? BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(18.0),
-                                                          border: Border.all(color: Color(0xFF607083), width: 1.0),
-                                                          color: Color(0xFF607083),
-                                                        )
-                                                      : BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(30.0),
-                                                          border: Border.all(color: Colors.black, width: 1.0),
-                                                          color: Color(0xFFFFFFFF),
-                                                        ),
-                                                  child: Padding(
-                                                    padding: EdgeInsets.symmetric(
-                                                      vertical: 9.0,
-                                                      horizontal: 18.0,
-                                                    ),
-                                                    child: Text(
-                                                      'Upcoming webinar',
-                                                      style: TextStyle(
-                                                        color: isUpcomingWeb ? Colors.white : Colors.black,
-                                                        fontSize: 11.0.sp,
-                                                        fontFamily: 'Whitney Medium',
-                                                      ),
-                                                    ),
+                                    Visibility(
+                                      visible: isLive ? true : false,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          selectUpcomingWebinarFilter();
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                          child: Container(
+                                            decoration: isUpcomingWeb
+                                                ? BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(18.0),
+                                                    border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                    color: Color(0xFF607083),
+                                                  )
+                                                : BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(30.0),
+                                                    border: Border.all(color: Colors.black, width: 1.0),
+                                                    color: Color(0xFFFFFFFF),
                                                   ),
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: 9.0,
+                                                horizontal: 18.0,
+                                              ),
+                                              child: Text(
+                                                'Upcoming webinar',
+                                                style: TextStyle(
+                                                  color: isUpcomingWeb ? Colors.white : Colors.black,
+                                                  fontSize: 11.0.sp,
+                                                  fontFamily: 'Whitney Medium',
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          Visibility(
-                                            visible: isLive ? true : false,
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                selectForPendingEvaluationFilter();
-                                              },
-                                              child: Padding(
-                                                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                                                child: Container(
-                                                  decoration: isPendingEva
-                                                      ? BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(18.0),
-                                                          border: Border.all(color: Color(0xFF607083), width: 1.0),
-                                                          color: Color(0xFF607083),
-                                                        )
-                                                      : BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(30.0),
-                                                          border: Border.all(color: Colors.black, width: 1.0),
-                                                          color: Color(0xFFFFFFFF),
-                                                        ),
-                                                  child: Padding(
-                                                    padding: EdgeInsets.symmetric(
-                                                      vertical: 9.0,
-                                                      horizontal: 18.0,
-                                                    ),
-                                                    child: Text(
-                                                      'Pending Evaluation',
-                                                      style: TextStyle(
-                                                        color: isPendingEva ? Colors.white : Colors.black,
-                                                        fontSize: 11.0.sp,
-                                                        fontFamily: 'Whitney Medium',
-                                                      ),
-                                                    ),
+                                        ),
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible: isLive ? true : false,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          selectForPendingEvaluationFilter();
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                          child: Container(
+                                            decoration: isPendingEva
+                                                ? BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(18.0),
+                                                    border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                    color: Color(0xFF607083),
+                                                  )
+                                                : BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(30.0),
+                                                    border: Border.all(color: Colors.black, width: 1.0),
+                                                    color: Color(0xFFFFFFFF),
                                                   ),
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: 9.0,
+                                                horizontal: 18.0,
+                                              ),
+                                              child: Text(
+                                                'Pending Evaluation',
+                                                style: TextStyle(
+                                                  color: isPendingEva ? Colors.white : Colors.black,
+                                                  fontSize: 11.0.sp,
+                                                  fontFamily: 'Whitney Medium',
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          Visibility(
-                                            visible: isLive ? true : false,
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                selectDidNotAttendFilter();
-                                              },
-                                              child: Padding(
-                                                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                                                child: Container(
-                                                  decoration: isDidNotAttend
-                                                      ? BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(18.0),
-                                                          border: Border.all(color: Color(0xFF607083), width: 1.0),
-                                                          color: Color(0xFF607083),
-                                                        )
-                                                      : BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(30.0),
-                                                          border: Border.all(color: Colors.black, width: 1.0),
-                                                          color: Color(0xFFFFFFFF),
-                                                        ),
-                                                  child: Padding(
-                                                    padding: EdgeInsets.symmetric(
-                                                      vertical: 9.0,
-                                                      horizontal: 18.0,
-                                                    ),
-                                                    child: Text(
-                                                      'Did not attend',
-                                                      style: TextStyle(
-                                                        color: isDidNotAttend ? Colors.white : Colors.black,
-                                                        fontSize: 11.0.sp,
-                                                        fontFamily: 'Whitney Medium',
-                                                      ),
-                                                    ),
+                                        ),
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible: isLive ? true : false,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          selectDidNotAttendFilter();
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                          child: Container(
+                                            decoration: isDidNotAttend
+                                                ? BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(18.0),
+                                                    border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                    color: Color(0xFF607083),
+                                                  )
+                                                : BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(30.0),
+                                                    border: Border.all(color: Colors.black, width: 1.0),
+                                                    color: Color(0xFFFFFFFF),
                                                   ),
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: 9.0,
+                                                horizontal: 18.0,
+                                              ),
+                                              child: Text(
+                                                'Did not attend',
+                                                style: TextStyle(
+                                                  color: isDidNotAttend ? Colors.white : Colors.black,
+                                                  fontSize: 11.0.sp,
+                                                  fontFamily: 'Whitney Medium',
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          Visibility(
-                                            visible: isLive ? true : false,
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                selectPollMissedFilter();
-                                              },
-                                              child: Padding(
-                                                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                                                child: Container(
-                                                  decoration: isPollMissed
-                                                      ? BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(18.0),
-                                                          border: Border.all(color: Color(0xFF607083), width: 1.0),
-                                                          color: Color(0xFF607083),
-                                                        )
-                                                      : BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(30.0),
-                                                          border: Border.all(color: Colors.black, width: 1.0),
-                                                          color: Color(0xFFFFFFFF),
-                                                        ),
-                                                  child: Padding(
-                                                    padding: EdgeInsets.symmetric(
-                                                      vertical: 9.0,
-                                                      horizontal: 18.0,
-                                                    ),
-                                                    child: Text(
-                                                      'Poll Missed',
-                                                      style: TextStyle(
-                                                        color: isPollMissed ? Colors.white : Colors.black,
-                                                        fontSize: 11.0.sp,
-                                                        fontFamily: 'Whitney Medium',
-                                                      ),
-                                                    ),
+                                        ),
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible: isLive ? true : false,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          selectPollMissedFilter();
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                          child: Container(
+                                            decoration: isPollMissed
+                                                ? BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(18.0),
+                                                    border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                    color: Color(0xFF607083),
+                                                  )
+                                                : BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(30.0),
+                                                    border: Border.all(color: Colors.black, width: 1.0),
+                                                    color: Color(0xFFFFFFFF),
                                                   ),
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: 9.0,
+                                                horizontal: 18.0,
+                                              ),
+                                              child: Text(
+                                                'Poll Missed',
+                                                style: TextStyle(
+                                                  color: isPollMissed ? Colors.white : Colors.black,
+                                                  fontSize: 11.0.sp,
+                                                  fontFamily: 'Whitney Medium',
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          Visibility(
-                                            visible: isLive ? true : false,
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                selectCompletedFilter();
-                                              },
-                                              child: Padding(
-                                                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                                                child: Container(
-                                                  decoration: isCompleted
-                                                      ? BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(18.0),
-                                                          border: Border.all(color: Color(0xFF607083), width: 1.0),
-                                                          color: Color(0xFF607083),
-                                                        )
-                                                      : BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(30.0),
-                                                          border: Border.all(color: Colors.black, width: 1.0),
-                                                          color: Color(0xFFFFFFFF),
-                                                        ),
-                                                  child: Padding(
-                                                    padding: EdgeInsets.symmetric(
-                                                      vertical: 9.0,
-                                                      horizontal: 18.0,
-                                                    ),
-                                                    child: Text(
-                                                      'Completed',
-                                                      style: TextStyle(
-                                                        color: isCompleted ? Colors.white : Colors.black,
-                                                        fontSize: 11.0.sp,
-                                                        fontFamily: 'Whitney Medium',
-                                                      ),
-                                                    ),
+                                        ),
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible: isLive ? true : false,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          selectCompletedFilter();
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                          child: Container(
+                                            decoration: isCompleted
+                                                ? BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(18.0),
+                                                    border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                    color: Color(0xFF607083),
+                                                  )
+                                                : BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(30.0),
+                                                    border: Border.all(color: Colors.black, width: 1.0),
+                                                    color: Color(0xFFFFFFFF),
                                                   ),
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: 9.0,
+                                                horizontal: 18.0,
+                                              ),
+                                              child: Text(
+                                                'Completed',
+                                                style: TextStyle(
+                                                  color: isCompleted ? Colors.white : Colors.black,
+                                                  fontSize: 11.0.sp,
+                                                  fontFamily: 'Whitney Medium',
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          Visibility(
-                                            visible: isSelfStudy ? true : false,
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                selectEnrolledSSFilter();
-                                              },
-                                              child: Padding(
-                                                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                                                child: Container(
-                                                  decoration: isEnrolledSS
-                                                      ? BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(18.0),
-                                                          border: Border.all(color: Color(0xFF607083), width: 1.0),
-                                                          color: Color(0xFF607083),
-                                                        )
-                                                      : BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(30.0),
-                                                          border: Border.all(color: Colors.black, width: 1.0),
-                                                          color: Color(0xFFFFFFFF),
-                                                        ),
-                                                  child: Padding(
-                                                    padding: EdgeInsets.symmetric(
-                                                      vertical: 9.0,
-                                                      horizontal: 18.0,
-                                                    ),
-                                                    child: Text(
-                                                      'Enrolled',
-                                                      style: TextStyle(
-                                                        color: isEnrolledSS ? Colors.white : Colors.black,
-                                                        fontSize: 11.0.sp,
-                                                        fontFamily: 'Whitney Medium',
-                                                      ),
-                                                    ),
+                                        ),
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible: isSelfStudy ? true : false,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          selectEnrolledSSFilter();
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                          child: Container(
+                                            decoration: isEnrolledSS
+                                                ? BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(18.0),
+                                                    border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                    color: Color(0xFF607083),
+                                                  )
+                                                : BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(30.0),
+                                                    border: Border.all(color: Colors.black, width: 1.0),
+                                                    color: Color(0xFFFFFFFF),
                                                   ),
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: 9.0,
+                                                horizontal: 18.0,
+                                              ),
+                                              child: Text(
+                                                'Enrolled',
+                                                style: TextStyle(
+                                                  color: isEnrolledSS ? Colors.white : Colors.black,
+                                                  fontSize: 11.0.sp,
+                                                  fontFamily: 'Whitney Medium',
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          Visibility(
-                                            visible: isSelfStudy ? true : false,
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                selectQuizPendingSSFilter();
-                                              },
-                                              child: Padding(
-                                                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                                                child: Container(
-                                                  decoration: isQuizPendingSS
-                                                      ? BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(18.0),
-                                                          border: Border.all(color: Color(0xFF607083), width: 1.0),
-                                                          color: Color(0xFF607083),
-                                                        )
-                                                      : BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(30.0),
-                                                          border: Border.all(color: Colors.black, width: 1.0),
-                                                          color: Color(0xFFFFFFFF),
-                                                        ),
-                                                  child: Padding(
-                                                    padding: EdgeInsets.symmetric(
-                                                      vertical: 9.0,
-                                                      horizontal: 18.0,
-                                                    ),
-                                                    child: Text(
-                                                      'Quiz Pending',
-                                                      style: TextStyle(
-                                                        color: isQuizPendingSS ? Colors.white : Colors.black,
-                                                        fontSize: 11.0.sp,
-                                                        fontFamily: 'Whitney Medium',
-                                                      ),
-                                                    ),
+                                        ),
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible: isSelfStudy ? true : false,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          selectQuizPendingSSFilter();
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                          child: Container(
+                                            decoration: isQuizPendingSS
+                                                ? BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(18.0),
+                                                    border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                    color: Color(0xFF607083),
+                                                  )
+                                                : BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(30.0),
+                                                    border: Border.all(color: Colors.black, width: 1.0),
+                                                    color: Color(0xFFFFFFFF),
                                                   ),
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: 9.0,
+                                                horizontal: 18.0,
+                                              ),
+                                              child: Text(
+                                                'Quiz Pending',
+                                                style: TextStyle(
+                                                  color: isQuizPendingSS ? Colors.white : Colors.black,
+                                                  fontSize: 11.0.sp,
+                                                  fontFamily: 'Whitney Medium',
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          Visibility(
-                                            visible: isSelfStudy ? true : false,
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                selectPendingEvaluationSSFilter();
-                                              },
-                                              child: Padding(
-                                                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                                                child: Container(
-                                                  decoration: isPendinEvaSS
-                                                      ? BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(18.0),
-                                                          border: Border.all(color: Color(0xFF607083), width: 1.0),
-                                                          color: Color(0xFF607083),
-                                                        )
-                                                      : BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(30.0),
-                                                          border: Border.all(color: Colors.black, width: 1.0),
-                                                          color: Color(0xFFFFFFFF),
-                                                        ),
-                                                  child: Padding(
-                                                    padding: EdgeInsets.symmetric(
-                                                      vertical: 9.0,
-                                                      horizontal: 18.0,
-                                                    ),
-                                                    child: Text(
-                                                      'Pending Evaluation',
-                                                      style: TextStyle(
-                                                        color: isPendinEvaSS ? Colors.white : Colors.black,
-                                                        fontSize: 11.0.sp,
-                                                        fontFamily: 'Whitney Medium',
-                                                      ),
-                                                    ),
+                                        ),
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible: isSelfStudy ? true : false,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          selectPendingEvaluationSSFilter();
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                          child: Container(
+                                            decoration: isPendinEvaSS
+                                                ? BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(18.0),
+                                                    border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                    color: Color(0xFF607083),
+                                                  )
+                                                : BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(30.0),
+                                                    border: Border.all(color: Colors.black, width: 1.0),
+                                                    color: Color(0xFFFFFFFF),
                                                   ),
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: 9.0,
+                                                horizontal: 18.0,
+                                              ),
+                                              child: Text(
+                                                'Pending Evaluation',
+                                                style: TextStyle(
+                                                  color: isPendinEvaSS ? Colors.white : Colors.black,
+                                                  fontSize: 11.0.sp,
+                                                  fontFamily: 'Whitney Medium',
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          Visibility(
-                                            visible: isSelfStudy ? true : false,
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                selectCompletedSSFilter();
-                                              },
-                                              child: Padding(
-                                                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                                                child: Container(
-                                                  decoration: isCompletedSS
-                                                      ? BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(18.0),
-                                                          border: Border.all(color: Color(0xFF607083), width: 1.0),
-                                                          color: Color(0xFF607083),
-                                                        )
-                                                      : BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(30.0),
-                                                          border: Border.all(color: Colors.black, width: 1.0),
-                                                          color: Color(0xFFFFFFFF),
-                                                        ),
-                                                  child: Padding(
-                                                    padding: EdgeInsets.symmetric(
-                                                      vertical: 9.0,
-                                                      horizontal: 18.0,
-                                                    ),
-                                                    child: Text(
-                                                      'Completed',
-                                                      style: TextStyle(
-                                                        color: isCompletedSS ? Colors.white : Colors.black,
-                                                        fontSize: 11.0.sp,
-                                                        fontFamily: 'Whitney Medium',
-                                                      ),
-                                                    ),
+                                        ),
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible: isSelfStudy ? true : false,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          selectCompletedSSFilter();
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                          child: Container(
+                                            decoration: isCompletedSS
+                                                ? BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(18.0),
+                                                    border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                    color: Color(0xFF607083),
+                                                  )
+                                                : BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(30.0),
+                                                    border: Border.all(color: Colors.black, width: 1.0),
+                                                    color: Color(0xFFFFFFFF),
                                                   ),
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: 9.0,
+                                                horizontal: 18.0,
+                                              ),
+                                              child: Text(
+                                                'Completed',
+                                                style: TextStyle(
+                                                  color: isCompletedSS ? Colors.white : Colors.black,
+                                                  fontSize: 11.0.sp,
+                                                  fontFamily: 'Whitney Medium',
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          /*GestureDetector(
+                                        ),
+                                      ),
+                                    ),
+                                    /*GestureDetector(
                               onTap: () {
                                 selectPremiumFilter();
                               },
@@ -1124,294 +1126,291 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                 ),
                               ),
                             ),*/
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      child: isLoaderShowing
-                                          ? Center(
-                                              child: CircularProgressIndicator(),
-                                            )
-                                          : (list != null && list.isNotEmpty)
-                                              ? RefreshIndicator(
-                                                  onRefresh: () {
-                                                    print('On refresh is called..');
-                                                    start = 0;
-                                                    list.clear();
-                                                    return this.getDataWebinarList('$_authToken', '0', '10', '$strWebinarType', '$strFilterType');
-                                                  },
-                                                  child: ListView.builder(
-                                                    controller: _scrollController,
-                                                    shrinkWrap: true,
-                                                    physics: AlwaysScrollableScrollPhysics(),
-                                                    // itemCount: arrCount,
-                                                    itemCount: list.length + 1,
-                                                    itemBuilder: (context, index) {
-                                                      return (index == list.length)
-                                                          ? isLast
-                                                              ? Container(
-                                                                  height: 20.0,
-                                                                )
-                                                              : Padding(
-                                                                  padding: EdgeInsets.symmetric(vertical: 20.0),
-                                                                  child: Center(
-                                                                    child: CircularProgressIndicator(),
-                                                                  ),
-                                                                )
-                                                          : GestureDetector(
-                                                              onTap: () {
-                                                                print('Clicked on index pos : $index');
-                                                                getIdWebinar(index);
-                                                              },
-                                                              child: Container(
-                                                                // margin: EdgeInsets.only(top: 10.0),
-                                                                margin: EdgeInsets.fromLTRB(3.5.w, 0.0.h, 3.5.w, 2.0.h),
-                                                                decoration: BoxDecoration(
-                                                                  // color: Color(0xFFFFC803),
-                                                                  color: index % 2 == 0 ? Color(0xFFFFC803) : Color(0xFF00B1FD),
-                                                                  borderRadius: BorderRadius.all(
-                                                                    Radius.circular(15.0),
-                                                                  ),
-                                                                ),
-                                                                height: 70.0.w,
-                                                                child: Stack(
-                                                                  children: [
-                                                                    Positioned(
-                                                                      top: 0,
-                                                                      left: 0,
-                                                                      right: 0,
-                                                                      child: Column(
-                                                                        mainAxisAlignment: MainAxisAlignment.start,
-                                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                child: isLoaderShowing
+                                    ? Center(
+                                        child: CircularProgressIndicator(),
+                                      )
+                                    : (list != null && list.isNotEmpty)
+                                        ? RefreshIndicator(
+                                            onRefresh: () {
+                                              print('On refresh is called..');
+                                              start = 0;
+                                              list.clear();
+                                              return this.getDataWebinarList('$_authToken', '0', '10', '$strWebinarType', '$strFilterType');
+                                            },
+                                            child: ListView.builder(
+                                              controller: _scrollController,
+                                              shrinkWrap: true,
+                                              physics: AlwaysScrollableScrollPhysics(),
+                                              // itemCount: arrCount,
+                                              itemCount: list.length + 1,
+                                              itemBuilder: (context, index) {
+                                                return (index == list.length)
+                                                    ? isLast
+                                                        ? Container(
+                                                            height: 20.0,
+                                                          )
+                                                        : Padding(
+                                                            padding: EdgeInsets.symmetric(vertical: 20.0),
+                                                            child: Center(
+                                                              child: CircularProgressIndicator(),
+                                                            ),
+                                                          )
+                                                    : GestureDetector(
+                                                        onTap: () {
+                                                          print('Clicked on index pos : $index');
+                                                          getIdWebinar(index);
+                                                        },
+                                                        child: Container(
+                                                          // margin: EdgeInsets.only(top: 10.0),
+                                                          margin: EdgeInsets.fromLTRB(3.5.w, 0.0.h, 3.5.w, 2.0.h),
+                                                          decoration: BoxDecoration(
+                                                            // color: Color(0xFFFFC803),
+                                                            color: index % 2 == 0 ? Color(0xFFFFC803) : Color(0xFF00B1FD),
+                                                            borderRadius: BorderRadius.all(
+                                                              Radius.circular(15.0),
+                                                            ),
+                                                          ),
+                                                          height: 70.0.w,
+                                                          child: Stack(
+                                                            children: [
+                                                              Positioned(
+                                                                top: 0,
+                                                                left: 0,
+                                                                right: 0,
+                                                                child: Column(
+                                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  children: <Widget>[
+                                                                    Padding(
+                                                                      padding: const EdgeInsets.only(top: 15.0),
+                                                                      child: Row(
+                                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                         children: <Widget>[
-                                                                          Padding(
-                                                                            padding: const EdgeInsets.only(top: 15.0),
-                                                                            child: Row(
-                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                              children: <Widget>[
-                                                                                ConstrainedBox(
-                                                                                  constraints: BoxConstraints(minWidth: 28.0.w),
-                                                                                  child: Container(
-                                                                                    margin: EdgeInsets.only(left: 15.0),
-                                                                                    height: 4.0.h,
-                                                                                    decoration: BoxDecoration(
-                                                                                      borderRadius: BorderRadius.circular(5.0),
-                                                                                      color: Colors.white,
-                                                                                    ),
-                                                                                    child: Padding(
-                                                                                      padding:
-                                                                                          const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
-                                                                                      child: Center(
-                                                                                        child: Text(
-                                                                                            // '${data['payload']['webinar'][index]['webinar_type']}',
-                                                                                            '${list[index].webinarType}',
-                                                                                            style:
-                                                                                                // kWebinarButtonLabelTextStyleGreen,
-                                                                                                TextStyle(
-                                                                                              fontFamily: 'Whitney Semi Bold',
-                                                                                              fontSize: 12.5.sp,
-                                                                                              color: Color(0xFF00A81B),
-                                                                                            )),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ),
+                                                                          ConstrainedBox(
+                                                                            constraints: BoxConstraints(minWidth: 28.0.w),
+                                                                            child: Container(
+                                                                              margin: EdgeInsets.only(left: 15.0),
+                                                                              height: 4.0.h,
+                                                                              decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.circular(5.0),
+                                                                                color: Colors.white,
+                                                                              ),
+                                                                              child: Padding(
+                                                                                padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+                                                                                child: Center(
+                                                                                  child: Text(
+                                                                                      // '${data['payload']['webinar'][index]['webinar_type']}',
+                                                                                      '${list[index].webinarType}',
+                                                                                      style:
+                                                                                          // kWebinarButtonLabelTextStyleGreen,
+                                                                                          TextStyle(
+                                                                                        fontFamily: 'Whitney Semi Bold',
+                                                                                        fontSize: 12.5.sp,
+                                                                                        color: Color(0xFF00A81B),
+                                                                                      )),
                                                                                 ),
-                                                                                ConstrainedBox(
-                                                                                  constraints: BoxConstraints(minWidth: 28.0.w),
-                                                                                  child: Container(
-                                                                                    height: 4.0.h,
-                                                                                    decoration: BoxDecoration(
-                                                                                      borderRadius: BorderRadius.circular(5.0),
-                                                                                      color: Colors.white,
-                                                                                    ),
-                                                                                    child: Padding(
-                                                                                      padding:
-                                                                                          const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
-                                                                                      child: Center(
-                                                                                        child: Text(
-                                                                                            // '${data['payload']['webinar'][index]['cpa_credit']}',
-                                                                                            '${list[index].cpaCredit}',
-                                                                                            style:
-                                                                                                // kWebinarButtonLabelTextStyle,
-                                                                                                TextStyle(
-                                                                                              fontFamily: 'Whitney Semi Bold',
-                                                                                              fontSize: 12.5.sp,
-                                                                                              color: Colors.black,
-                                                                                            )),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ),
-                                                                                ),
-                                                                                ConstrainedBox(
-                                                                                  constraints: BoxConstraints(minWidth: 28.0.w),
-                                                                                  child: Container(
-                                                                                    margin: EdgeInsets.only(right: 15.0),
-                                                                                    height: 4.0.h,
-                                                                                    decoration: BoxDecoration(
-                                                                                      borderRadius: BorderRadius.circular(5.0),
-                                                                                      color: Colors.white,
-                                                                                    ),
-                                                                                    child: Padding(
-                                                                                      padding:
-                                                                                          const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
-                                                                                      child: Center(
-                                                                                        child: Text(
-                                                                                            // '\$ ${data['payload']['webinar'][index]['fee']}',
-                                                                                            '${checkForPrice(index)}',
-                                                                                            style:
-                                                                                                // kWebinarButtonLabelTextStyle,
-                                                                                                TextStyle(
-                                                                                              fontFamily: 'Whitney Semi Bold',
-                                                                                              fontSize: 12.5.sp,
-                                                                                              color: Colors.black,
-                                                                                            )),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ),
-                                                                                ),
-                                                                              ],
-                                                                            ),
-                                                                          ),
-                                                                          Padding(
-                                                                            padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
-                                                                            child: Flexible(
-                                                                              child: Text(
-                                                                                // '${data['payload']['webinar'][index]['webinar_title']}',
-                                                                                '${list[index].webinarTitle}',
-                                                                                style: TextStyle(
-                                                                                  fontFamily: 'Whitney Bold',
-                                                                                  fontSize: 16.0.sp,
-                                                                                  color: index % 2 == 0 ? Colors.black : Colors.white,
-                                                                                ),
-                                                                                maxLines: 2,
-                                                                                overflow: TextOverflow.ellipsis,
                                                                               ),
                                                                             ),
                                                                           ),
-                                                                          Padding(
-                                                                            padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
-                                                                            child: Row(
-                                                                              children: [
-                                                                                Flexible(
+                                                                          ConstrainedBox(
+                                                                            constraints: BoxConstraints(minWidth: 28.0.w),
+                                                                            child: Container(
+                                                                              height: 4.0.h,
+                                                                              decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.circular(5.0),
+                                                                                color: Colors.white,
+                                                                              ),
+                                                                              child: Padding(
+                                                                                padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+                                                                                child: Center(
                                                                                   child: Text(
-                                                                                    // '${data['payload']['webinar'][index]['speaker_name']}',
-                                                                                    '${list[index].speakerName}',
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Whitney Semi Bold',
-                                                                                      fontSize: 13.0.sp,
-                                                                                      color: index % 2 == 0 ? Colors.black : Colors.white,
-                                                                                    ),
-                                                                                    overflow: TextOverflow.ellipsis,
-                                                                                    maxLines: 2,
-                                                                                  ),
+                                                                                      // '${data['payload']['webinar'][index]['cpa_credit']}',
+                                                                                      '${list[index].cpaCredit}',
+                                                                                      style:
+                                                                                          // kWebinarButtonLabelTextStyle,
+                                                                                          TextStyle(
+                                                                                        fontFamily: 'Whitney Semi Bold',
+                                                                                        fontSize: 12.5.sp,
+                                                                                        color: Colors.black,
+                                                                                      )),
                                                                                 ),
-                                                                              ],
+                                                                              ),
                                                                             ),
                                                                           ),
-                                                                          Padding(
-                                                                            padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
-                                                                            child: Row(
-                                                                              children: [
-                                                                                Text(
-                                                                                  // '${data['payload']['webinar'][index]['start_date']} - ${data['payload']['webinar'][index]['start_time']} - ${data['payload']['webinar'][index]['time_zone']}',
-                                                                                  '${displayDateCondition(index)}',
-                                                                                  style: TextStyle(
-                                                                                    fontFamily: 'Whitney Semi Bold',
-                                                                                    fontSize: 13.0.sp,
-                                                                                    color: index % 2 == 0 ? Colors.black : Colors.white,
-                                                                                  ),
+                                                                          ConstrainedBox(
+                                                                            constraints: BoxConstraints(minWidth: 28.0.w),
+                                                                            child: Container(
+                                                                              margin: EdgeInsets.only(right: 15.0),
+                                                                              height: 4.0.h,
+                                                                              decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.circular(5.0),
+                                                                                color: Colors.white,
+                                                                              ),
+                                                                              child: Padding(
+                                                                                padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+                                                                                child: Center(
+                                                                                  child: Text(
+                                                                                      // '\$ ${data['payload']['webinar'][index]['fee']}',
+                                                                                      '${checkForPrice(index)}',
+                                                                                      style:
+                                                                                          // kWebinarButtonLabelTextStyle,
+                                                                                          TextStyle(
+                                                                                        fontFamily: 'Whitney Semi Bold',
+                                                                                        fontSize: 12.5.sp,
+                                                                                        color: Colors.black,
+                                                                                      )),
                                                                                 ),
-                                                                              ],
+                                                                              ),
                                                                             ),
                                                                           ),
                                                                         ],
                                                                       ),
                                                                     ),
-                                                                    Positioned(
-                                                                      bottom: 18.0,
-                                                                      left: 18.0,
-                                                                      child: GestureDetector(
-                                                                        onTap: () {
-                                                                          print('Clicked on register button index is : $index');
-                                                                          getIdWebinar(index);
-                                                                          // 1. Take an API call for relevent action from here..
-                                                                          // 2. Before this need to verify user is logged in or not..
-                                                                          // 3. If not then redirect to Login screen and then back here..
-                                                                          // 4. If user is logged in then need to check for webinar is free or not..
-                                                                          // 5. If the webinar is free then have to check for isCardSaved or not..
-                                                                          // 6. Take a Register API call from there onwards..
-                                                                        },
-                                                                        child: ConstrainedBox(
-                                                                          constraints: BoxConstraints(
-                                                                            minWidth: 35.0.w,
+                                                                    Padding(
+                                                                      padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
+                                                                      child: Flexible(
+                                                                        child: Text(
+                                                                          // '${data['payload']['webinar'][index]['webinar_title']}',
+                                                                          '${list[index].webinarTitle}',
+                                                                          style: TextStyle(
+                                                                            fontFamily: 'Whitney Bold',
+                                                                            fontSize: 16.0.sp,
+                                                                            color: index % 2 == 0 ? Colors.black : Colors.white,
                                                                           ),
-                                                                          child: Container(
-                                                                            decoration: BoxDecoration(
-                                                                              // color: Color(0xFFC2900D),
-                                                                              color: Color(0x23000000),
-                                                                              borderRadius: BorderRadius.all(
-                                                                                Radius.circular(5.0),
-                                                                              ),
-                                                                            ),
-                                                                            height: 11.5.w,
-                                                                            child: Row(
-                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                              children: <Widget>[
-                                                                                Padding(
-                                                                                  padding: const EdgeInsets.all(8.0),
-                                                                                  child: Text(
-                                                                                    // '${data['payload']['webinar'][index]['status']}',
-                                                                                    '${list[index].status}',
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Whitney Semi Bold',
-                                                                                      fontSize: 14.0.sp,
-                                                                                      color: Colors.white,
-                                                                                    ),
-                                                                                  ),
-                                                                                ),
-                                                                                Padding(
-                                                                                  padding: EdgeInsets.all(5.0),
-                                                                                  child: Icon(
-                                                                                    FontAwesomeIcons.angleRight,
-                                                                                    color: Colors.white,
-                                                                                  ),
-                                                                                ),
-                                                                              ],
-                                                                            ),
-                                                                          ),
+                                                                          maxLines: 2,
+                                                                          overflow: TextOverflow.ellipsis,
                                                                         ),
                                                                       ),
                                                                     ),
-                                                                    Positioned(
-                                                                      bottom: 0,
-                                                                      right: 0,
-                                                                      child: Image.asset(
-                                                                        'assets/avatar_bottom_right.png',
-                                                                        height: 36.0.w,
-                                                                        width: 36.0.w,
+                                                                    Padding(
+                                                                      padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
+                                                                      child: Row(
+                                                                        children: [
+                                                                          Flexible(
+                                                                            child: Text(
+                                                                              // '${data['payload']['webinar'][index]['speaker_name']}',
+                                                                              '${list[index].speakerName}',
+                                                                              style: TextStyle(
+                                                                                fontFamily: 'Whitney Semi Bold',
+                                                                                fontSize: 13.0.sp,
+                                                                                color: index % 2 == 0 ? Colors.black : Colors.white,
+                                                                              ),
+                                                                              overflow: TextOverflow.ellipsis,
+                                                                              maxLines: 2,
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
+                                                                      child: Row(
+                                                                        children: [
+                                                                          Text(
+                                                                            // '${data['payload']['webinar'][index]['start_date']} - ${data['payload']['webinar'][index]['start_time']} - ${data['payload']['webinar'][index]['time_zone']}',
+                                                                            '${displayDateCondition(index)}',
+                                                                            style: TextStyle(
+                                                                              fontFamily: 'Whitney Semi Bold',
+                                                                              fontSize: 13.0.sp,
+                                                                              color: index % 2 == 0 ? Colors.black : Colors.white,
+                                                                            ),
+                                                                          ),
+                                                                        ],
                                                                       ),
                                                                     ),
                                                                   ],
                                                                 ),
                                                               ),
-                                                            );
-                                                    },
-                                                  ),
-                                                )
-                                              : Center(
-                                                  child: Text(
-                                                    // 'Oops no data found for this user..',
-                                                    // '$data_msg',
-                                                    '$data_msg_no_records',
-                                                    style: kValueLableWebinarDetailExpand,
-                                                  ),
-                                                ),
-                                    ),
-                                  ),
-                                ],
+                                                              Positioned(
+                                                                bottom: 18.0,
+                                                                left: 18.0,
+                                                                child: GestureDetector(
+                                                                  onTap: () {
+                                                                    print('Clicked on register button index is : $index');
+                                                                    getIdWebinar(index);
+                                                                    // 1. Take an API call for relevent action from here..
+                                                                    // 2. Before this need to verify user is logged in or not..
+                                                                    // 3. If not then redirect to Login screen and then back here..
+                                                                    // 4. If user is logged in then need to check for webinar is free or not..
+                                                                    // 5. If the webinar is free then have to check for isCardSaved or not..
+                                                                    // 6. Take a Register API call from there onwards..
+                                                                  },
+                                                                  child: ConstrainedBox(
+                                                                    constraints: BoxConstraints(
+                                                                      minWidth: 35.0.w,
+                                                                    ),
+                                                                    child: Container(
+                                                                      decoration: BoxDecoration(
+                                                                        // color: Color(0xFFC2900D),
+                                                                        color: Color(0x23000000),
+                                                                        borderRadius: BorderRadius.all(
+                                                                          Radius.circular(5.0),
+                                                                        ),
+                                                                      ),
+                                                                      height: 11.5.w,
+                                                                      child: Row(
+                                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                        children: <Widget>[
+                                                                          Padding(
+                                                                            padding: const EdgeInsets.all(8.0),
+                                                                            child: Text(
+                                                                              // '${data['payload']['webinar'][index]['status']}',
+                                                                              '${list[index].status}',
+                                                                              style: TextStyle(
+                                                                                fontFamily: 'Whitney Semi Bold',
+                                                                                fontSize: 14.0.sp,
+                                                                                color: Colors.white,
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          Padding(
+                                                                            padding: EdgeInsets.all(5.0),
+                                                                            child: Icon(
+                                                                              FontAwesomeIcons.angleRight,
+                                                                              color: Colors.white,
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Positioned(
+                                                                bottom: 0,
+                                                                right: 0,
+                                                                child: Image.asset(
+                                                                  'assets/avatar_bottom_right.png',
+                                                                  height: 36.0.w,
+                                                                  width: 36.0.w,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      );
+                                              },
+                                            ),
+                                          )
+                                        : Center(
+                                            child: Text(
+                                              // 'Oops no data found for this user..',
+                                              // '$data_msg',
+                                              '$data_msg_no_records',
+                                              style: kValueLableWebinarDetailExpand,
+                                            ),
+                                          ),
                               ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -1479,6 +1478,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       isLive = true;
       isSelfStudy = false;
       isProgressShowing = true;
+      isLoaderShowing = true;
 
       list.clear();
       start = 0;
@@ -1507,6 +1507,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       isLive = false;
       isSelfStudy = true;
       isProgressShowing = true;
+      isLoaderShowing = true;
 
       list.clear();
       start = 0;

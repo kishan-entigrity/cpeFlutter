@@ -164,8 +164,11 @@ class _NotificationsState extends State<Notifications> {
                     child: Flexible(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          FontAwesomeIcons.cog,
+                        child: Visibility(
+                          visible: false,
+                          child: Icon(
+                            FontAwesomeIcons.cog,
+                          ),
                         ),
                       ),
                       flex: 1,
@@ -252,6 +255,9 @@ class _NotificationsState extends State<Notifications> {
                                                 fontSize: 15.0.sp,
                                                 fontFamily: 'Whitney Medium',
                                               ),
+                                            ),
+                                            SizedBox(
+                                              height: 16.0.sp,
                                             ),
                                             Text(
                                               // '${list[index].timestamp}',

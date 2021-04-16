@@ -1324,17 +1324,21 @@ class _UserProfileState extends State<UserProfile> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
-                                  Text(
-                                    'P-',
-                                    style: kLableSignUpTextStyle,
+                                  Container(
+                                    child: Text(
+                                      'P',
+                                      style: kLableSignUpTextStyle,
+                                    ),
+                                    margin: EdgeInsets.only(bottom: 7.0.sp),
                                   ),
                                   Expanded(
                                     child: TextField(
                                       controller: ptinController,
                                       enabled: isEditable,
-                                      // maxLength: 8,
+                                      maxLength: 8,
                                       style: kLableSignUpTextStyle,
                                       decoration: InputDecoration(
+                                        counter: SizedBox.shrink(),
                                         border: InputBorder.none,
                                         hintText: '',
                                         hintStyle: kLableSignUpHintStyle,
@@ -1379,18 +1383,22 @@ class _UserProfileState extends State<UserProfile> {
                               margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 6.0.w),
                               child: Row(
                                 children: <Widget>[
-                                  Text(
-                                    'A',
-                                    style: kLableSignUpTextStyle,
+                                  Container(
+                                    child: Text(
+                                      'A',
+                                      style: kLableSignUpTextStyle,
+                                    ),
+                                    margin: EdgeInsets.only(bottom: 7.0.sp),
                                   ),
                                   Expanded(
                                     child: TextField(
                                       controller: ctecController,
                                       enabled: isEditable,
-                                      // maxLength: 6,
+                                      maxLength: 6,
                                       keyboardType: TextInputType.number,
                                       style: kLableSignUpTextStyle,
                                       decoration: InputDecoration(
+                                        counter: SizedBox.shrink(),
                                         border: InputBorder.none,
                                         hintText: '',
                                         hintStyle: kLableSignUpHintStyle,
