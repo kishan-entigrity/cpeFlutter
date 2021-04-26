@@ -622,7 +622,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                                       horizontal: 18.0,
                                     ),
                                     child: Text(
-                                      'Live Webinars',
+                                      // 'Live Webinars',
+                                      'Live',
                                       style: TextStyle(
                                         color: isLive ? Colors.white : Colors.black,
                                         fontSize: 11.0.sp,
