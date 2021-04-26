@@ -31,6 +31,8 @@ class HomeFragment extends StatefulWidget {
 class _HomeFragmentState extends State<HomeFragment> {
   final scaffoldState = GlobalKey<ScaffoldState>();
 
+  FocusNode _focusNode = FocusNode();
+
   List<int> tempInt = [1, 4, 5, 7];
   int arrCount = 0;
   int arrCountRecent = 0;
@@ -359,6 +361,11 @@ class _HomeFragmentState extends State<HomeFragment> {
                                         print('Clicked on the search icon..');
                                         setState(() {
                                           isSearch = true;
+                                          _focusNode.addListener(() {
+                                            if (!_focusNode.hasFocus) {
+                                              FocusScope.of(context).requestFocus(_focusNode);
+                                            }
+                                          });
                                         });
                                       },
                                       child: Container(
@@ -423,6 +430,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                                   ),
                                   child: TextField(
                                     controller: searchController,
+                                    focusNode: _focusNode,
+                                    autofocus: true,
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
                                       hintText: 'Search',
@@ -433,15 +442,20 @@ class _HomeFragmentState extends State<HomeFragment> {
                                       print('Search event fired');
                                       setState(() {
                                         searchKey = searchController.text;
+                                        if (searchController.text.isNotEmpty) {
+                                          print('Search keyword lenght is == 0');
+                                          FocusScope.of(context).requestFocus(new FocusNode());
+                                        } else {
+                                          print('Search keyword lenght is > 0');
+                                          FocusScope.of(context).requestFocus(new FocusNode());
+                                          // Now take an API call for the search tag too..
+                                          list.clear();
+                                          start = 0;
+
+                                          this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice',
+                                              '$hot_topics_ids', '$qualification_ids');
+                                        }
                                       });
-                                      FocusScope.of(context).requestFocus(new FocusNode());
-
-                                      // Now take an API call for the search tag too..
-                                      list.clear();
-                                      start = 0;
-
-                                      this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice',
-                                          '$hot_topics_ids', '$qualification_ids');
                                     },
                                   ),
                                 ),

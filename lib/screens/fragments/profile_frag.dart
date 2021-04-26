@@ -199,7 +199,8 @@ class _ProfileFragState extends State<ProfileFrag> {
                                               visible: isGuestMode ? false : true,
                                               child: profilce_cell_image(
                                                 image_path: 'assets/my_webinar.png',
-                                                strLable: "My Webinar",
+                                                // strLable: "My Webinar",
+                                                strLable: "My Courses",
                                                 onPress: () {
                                                   Navigator.push(
                                                     context,

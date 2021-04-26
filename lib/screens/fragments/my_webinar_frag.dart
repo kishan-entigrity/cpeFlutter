@@ -205,7 +205,8 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                               left: 0.0,
                               child: Center(
                                 child: Text(
-                                  'My Webinar',
+                                  // 'My Webinar',
+                                  'My Courses',
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 15.0.sp,
@@ -534,7 +535,8 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Text(
-                                            'Live Webinars',
+                                            // 'Live Webinars',
+                                            'Live',
                                             style: TextStyle(
                                               // color: isLive ? Colors.white : Colors.black,
                                               color: Colors.black,

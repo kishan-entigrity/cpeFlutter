@@ -397,7 +397,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 3.0,
                         ),
                         Text(
-                          isGuestUser ? 'Login' : 'My Webinar',
+                          // isGuestUser ? 'Login' : 'My Webinar',
+                          isGuestUser ? 'Login' : 'My Courses',
                           style: TextStyle(
                             fontSize: 10.0.sp,
                             fontFamily: 'Whitney Medium',
