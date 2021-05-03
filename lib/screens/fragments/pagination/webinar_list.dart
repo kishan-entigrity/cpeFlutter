@@ -79,6 +79,10 @@ class Webinar {
   String get joinUrl => _joinUrl;
   bool get isCardSave => _isCardSave;
 
+  set status(String status) {
+    this._status = status;
+  }
+
   Webinar(
       {int id,
       String webinarTitle,

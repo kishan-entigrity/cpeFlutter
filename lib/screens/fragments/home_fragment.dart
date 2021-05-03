@@ -334,13 +334,21 @@ class _HomeFragmentState extends State<HomeFragment> {
                               bottom: 0.0,
                               right: 0.0,
                               left: 0.0,
-                              child: Center(
-                                child: Text(
-                                  'Home',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 15.0.sp,
-                                    fontFamily: 'Whitney Semi Bold',
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                   list[0].status = 'Hello';
+                                  });
+                                  print('Updated status on the 0th position is : ${list[0].status}');
+                                },
+                                child: Center(
+                                  child: Text(
+                                    'Home',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 15.0.sp,
+                                      fontFamily: 'Whitney Semi Bold',
+                                    ),
                                   ),
                                 ),
                               ),
@@ -2142,6 +2150,7 @@ class _HomeFragmentState extends State<HomeFragment> {
     } else {
       print('check value is null....');
       setState(() {
+        isProgressShowing = true;
         isGuestUser = true;
       });
       this.getDataWebinarList(
