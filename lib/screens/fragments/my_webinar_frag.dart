@@ -2,6 +2,7 @@ import 'dart:convert';
 
 // import 'package:cpe_flutter/screens/fragments/pagination/webinar_list.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:cpe_flutter/components/SpinKitSample1.dart';
 import 'package:cpe_flutter/screens/fragments/model_mywebinar/list_mywebinar.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:cpe_flutter/screens/profile/notification.dart';
@@ -71,6 +72,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
 
   bool isProgressShowing = false;
   bool isLoaderShowing = false;
+  bool isLoaderOverlay = false;
   List<Webinar> list;
 
   var respStatus;
@@ -1345,7 +1347,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                                                   onTap: () {
                                                                     print('Clicked on register button index is : $index');
                                                                     clickEventButton(index);
-                                                                    getIdWebinar(index);
+                                                                    // getIdWebinar(index);
                                                                     // 1. Take an API call for relevent action from here..
                                                                     // 2. Before this need to verify user is logged in or not..
                                                                     // 3. If not then redirect to Login screen and then back here..
@@ -1426,16 +1428,16 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                     ),
                   ],
                 )),
-                /*Positioned(
-                bottom: 0.0,
-                right: 0.0,
-                left: 0.0,
-                top: 100.0,
-                child: Visibility(
-                  visible: isLoaderShowing ? true : false,
-                  child: SpinKitSample1(),
+                Positioned(
+                  bottom: 0.0,
+                  right: 0.0,
+                  left: 0.0,
+                  top: 100.0,
+                  child: Visibility(
+                    visible: isLoaderOverlay ? true : false,
+                    child: SpinKitSample1(),
+                  ),
                 ),
-              ),*/
               ],
             ),
           ),
@@ -1585,17 +1587,15 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
         } else if (list[index].status.toLowerCase() == 'pending evaluation') {
           getEvaluationFormLinkMethod(list[index].id.toString());
         } else if (list[index].status.toLowerCase() == 'my certificate') {
-        } else if (list[index].status.toLowerCase() == 'join webinar') {
-        }
+        } else if (list[index].status.toLowerCase() == 'join webinar') {}
       } else if (strWebinarTypeIntent.toLowerCase() == 'self_study' || strWebinarTypeIntent.toLowerCase() == 'on-demand') {
         if (list[index].status.toLowerCase() == 'quiz pending') {
         } else if (list[index].status.toLowerCase() == 'resume watching') {
         } else if (list[index].status.toLowerCase() == 'watch now') {
         } else if (list[index].status.toLowerCase() == 'enrolled') {
         } else if (list[index].status.toLowerCase() == 'pending evaluation') {
-          // getEvaluationFormLink();
-        } else if (list[index].status.toLowerCase() == 'completed') {
-        }
+          getEvaluationFormLinkMethod(list[index].id.toString());
+        } else if (list[index].status.toLowerCase() == 'completed') {}
       }
     } else {
       scaffoldState.currentState.showSnackBar(
@@ -2074,9 +2074,9 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
 
   void getEvaluationFormLinkMethod(String webinarId) async {
     setState(() {
-      isLoaderShowing = true;
+      isLoaderOverlay = true;
     });
-
+    print('Request params are : authToken : $_authToken :: webinarId : ${webinarId.toString()}');
     var resp = await evaluationFormLink('$_authToken', webinarId.toString());
     print('Response is : $resp');
 
@@ -2084,16 +2084,18 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
     respMessage = resp['message'];
 
     setState(() {
-      isLoaderShowing = false;
+      isLoaderOverlay = false;
     });
 
     var evaluationLink = resp['payload']['link'].toString();
+    print('Evaluation form Link from API is : $evaluationLink');
     Navigator.of(context)
         .push(
       MaterialPageRoute(
         builder: (context) => EvaluationForm(evaluationLink),
       ),
-    ).then((_) {
+    )
+        .then((_) {
       // Call setState() here or handle this appropriately
       checkForSP();
     });
