@@ -1605,10 +1605,14 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
         } else if (list[index].status.toLowerCase() == 'watch now') {
           getIdWebinar(index);
         } else if (list[index].status.toLowerCase() == 'enrolled') {
+          getIdWebinar(index);
         } else if (list[index].status.toLowerCase() == 'pending evaluation') {
           getEvaluationFormLinkMethod(list[index].id.toString());
         } else if (list[index].status.toLowerCase() == 'completed') {
           getIdWebinar(index);
+        } else if (list[index].status.toLowerCase() == 'my certificate') {
+          // First we need to check for the certificate links..
+          // If the certificate links are available then have to redirect to certificate preview screen..
         }
       }
     } else {

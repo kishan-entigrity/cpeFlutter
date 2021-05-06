@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
 import 'package:cpe_flutter/const_signup.dart';
+import 'package:cpe_flutter/screens/final_quiz/final_quiz_screen.dart';
 import 'package:cpe_flutter/screens/fragments/pagination/webinar_list.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:cpe_flutter/screens/profile/guest_cards_frag.dart';
 import 'package:cpe_flutter/screens/profile/notification.dart';
+import 'package:cpe_flutter/screens/webinar_details/evaluation_form.dart';
 import 'package:cpe_flutter/screens/webinar_details/webinar_details_new.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../constant.dart';
 import '../../rest_api.dart';
@@ -337,7 +340,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                               child: GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                   list[0].status = 'Hello';
+                                    list[0].status = 'Hello';
                                   });
                                   print('Updated status on the 0th position is : ${list[0].status}');
                                 },
@@ -1775,15 +1778,33 @@ class _HomeFragmentState extends State<HomeFragment> {
         } else if (list[index].status.toLowerCase() == 'completed') {
           redirectToDetails(index);
         } else if (list[index].status.toLowerCase() == 'in progress') {
-          redirectToDetails(index);
+          // redirectToDetails(index);
+          if (list[index].zoomLinkStatus) {
+            funRedirectJoinWebinar(index);
+          } else {
+            showDialogJoinWebinar(index);
+          }
         } else if (list[index].status.toLowerCase() == 'pending evaluation') {
-          redirectToDetails(index);
+          // redirectToDetails(index);
+          getEvaluationFormLinkMethod(list[index].id.toString());
         } else if (list[index].status.toLowerCase() == 'my certificate') {
-          redirectToDetails(index);
+          // redirectToDetails(index);
+          // First we need to check for the certificate links..
+          // If the certificate links are available then have to redirect to certificate preview screen..
         } else if (list[index].status.toLowerCase() == 'join webinar') {
-          redirectToDetails(index);
+          // redirectToDetails(index);
+          if (list[index].zoomLinkStatus) {
+            funRedirectJoinWebinar(index);
+          } else {
+            showDialogJoinWebinar(index);
+          }
         } else if (list[index].status.toLowerCase() == 'watch now') {
-          redirectToDetails(index);
+          // redirectToDetails(index);
+          if (list[index].zoomLinkStatus) {
+            funRedirectJoinWebinar(index);
+          } else {
+            showDialogJoinWebinar(index);
+          }
         }
       } else if (strWebinarTypeIntent.toLowerCase() == 'self_study' || strWebinarTypeIntent.toLowerCase() == 'on-demand') {
         print('Webinar Type is self_study');
@@ -1846,7 +1867,8 @@ class _HomeFragmentState extends State<HomeFragment> {
           }
           print('webinar status is : ${list[index].status.toLowerCase()}');
         } else if (list[index].status.toLowerCase() == 'quiz pending') {
-          redirectToDetails(index);
+          // redirectToDetails(index);
+          funRedirectQuizPending(index);
         } else if (list[index].status.toLowerCase() == 'resume watching') {
           redirectToDetails(index);
         } else if (list[index].status.toLowerCase() == 'watch now') {
@@ -1854,9 +1876,13 @@ class _HomeFragmentState extends State<HomeFragment> {
         } else if (list[index].status.toLowerCase() == 'enrolled') {
           redirectToDetails(index);
         } else if (list[index].status.toLowerCase() == 'pending evaluation') {
-          redirectToDetails(index);
+          // redirectToDetails(index);
+          getEvaluationFormLinkMethod(list[index].id.toString());
         } else if (list[index].status.toLowerCase() == 'completed') {
           redirectToDetails(index);
+        } else if (list[index].status.toLowerCase() == 'my certificate') {
+          // First we need to check for the certificate links..
+          // If the certificate links are available then have to redirect to certificate preview screen..
         } else {
           print('Couldn\'t handle the case on selfstudy webinars.');
         }
@@ -2856,6 +2882,79 @@ class _HomeFragmentState extends State<HomeFragment> {
         isFreeWebGRegist = false;
       });
     }
+  }
+
+  void funRedirectJoinWebinar(int index) {
+    var url =
+        // "https://zoom.us/w/92056600703?tk=xzhOVl9nDeacxlQXdHHZ4OpFYYp3tD6YhJtS3HqU2ks.DQIAAAAVbwBAfxZjVjZiamV0VlRwaVJTUm95cnJqNFFnAAAAAAAAAAAAAAAAAAAAAAAAAAAA&uuid=WN_C16AFWZcR3SwGA5Gbd0XSQ";
+        list[index].encryptedZoomLink;
+    launchURLJoinWebinar(url);
+    // can't launch url, there is some error
+    throw "Could not launch $url";
+  }
+
+  void launchURLJoinWebinar(String _url) async {
+    await canLaunch(_url) ? await launch(_url) : throw 'Could not launch $_url';
+  }
+
+  void showDialogJoinWebinar(int index) {
+    showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text('Join Webinar', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
+            // content: new Text('${webDetailsObj['zoom_link_verification_message']}'),
+            content: new Text('${list[index].zoomLinkVerificationMessage}'),
+            actions: <Widget>[
+              new FlatButton(
+                onPressed: () => Navigator.pop(context), // this line dismisses the dialog
+                child: new Text('Ok', style: new TextStyle(fontSize: 18.0)),
+              )
+            ],
+          ),
+        ) ??
+        false;
+  }
+
+  void getEvaluationFormLinkMethod(String webinarId) async {
+    setState(() {
+      isLoaderShowing = true;
+    });
+    print('Request params are : authToken : $_authToken :: webinarId : ${webinarId.toString()}');
+    var resp = await evaluationFormLink('$_authToken', webinarId.toString());
+    print('Response is : $resp');
+
+    respStatus = resp['success'];
+    respMessage = resp['message'];
+
+    setState(() {
+      isLoaderShowing = false;
+    });
+
+    var evaluationLink = resp['payload']['link'].toString();
+    print('Evaluation form Link from API is : $evaluationLink');
+    Navigator.of(context)
+        .push(
+      MaterialPageRoute(
+        builder: (context) => EvaluationForm(evaluationLink),
+      ),
+    )
+        .then((_) {
+      // Call setState() here or handle this appropriately
+      checkForSP();
+    });
+  }
+
+  void funRedirectQuizPending(int index) {
+    Navigator.of(context)
+        .push(
+      MaterialPageRoute(
+        builder: (context) => FinalQuizScreen(list[index].id),
+      ),
+    )
+        .then((_) {
+      // Call setState() here or handle this appropriately
+      checkForSP();
+    });
   }
 
 /*void clickEventMonth(int index) {

@@ -61,6 +61,9 @@ class Webinar {
   String _status;
   String _joinUrl;
   bool _isCardSave;
+  bool _zoomLinkStatus;
+  String _encryptedZoomLink;
+  String _zoomLinkVerificationMessage;
 
   int get id => _id;
   String get webinarTitle => _webinarTitle;
@@ -78,6 +81,9 @@ class Webinar {
   String get status => _status;
   String get joinUrl => _joinUrl;
   bool get isCardSave => _isCardSave;
+  bool get zoomLinkStatus => _zoomLinkStatus;
+  String get encryptedZoomLink => _encryptedZoomLink;
+  String get zoomLinkVerificationMessage => _zoomLinkVerificationMessage;
 
   set status(String status) {
     this._status = status;
@@ -99,7 +105,10 @@ class Webinar {
       String timeZone,
       String status,
       String joinUrl,
-      bool isCardSave}) {
+      bool isCardSave,
+      bool zoomLinkStatus,
+      String encryptedZoomLink,
+      String zoomLinkVerificationMessage}) {
     _id = id;
     _webinarTitle = webinarTitle;
     _webinarType = webinarType;
@@ -116,6 +125,9 @@ class Webinar {
     _status = status;
     _joinUrl = joinUrl;
     _isCardSave = isCardSave;
+    _zoomLinkStatus = zoomLinkStatus;
+    _encryptedZoomLink = encryptedZoomLink;
+    _zoomLinkVerificationMessage = zoomLinkVerificationMessage;
   }
 
   Webinar.fromJson(dynamic json) {
@@ -135,6 +147,9 @@ class Webinar {
     _status = json["status"];
     _joinUrl = json["join_url"];
     _isCardSave = json["is_card_save"];
+    _zoomLinkStatus = json["zoom_link_status"];
+    _encryptedZoomLink = json["encrypted_zoom_link"];
+    _zoomLinkVerificationMessage = json["zoom_link_verification_message"];
   }
 
   Map<String, dynamic> toJson() {
@@ -155,6 +170,9 @@ class Webinar {
     map["status"] = _status;
     map["join_url"] = _joinUrl;
     map["is_card_save"] = _isCardSave;
+    map["zoom_link_status"] = _zoomLinkStatus;
+    map["encrypted_zoom_link"] = _encryptedZoomLink;
+    map["zoom_link_verification_message"] = _zoomLinkVerificationMessage;
     return map;
   }
 }
