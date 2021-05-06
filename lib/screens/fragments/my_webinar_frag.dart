@@ -3,6 +3,7 @@ import 'dart:convert';
 // import 'package:cpe_flutter/screens/fragments/pagination/webinar_list.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
+import 'package:cpe_flutter/screens/final_quiz/final_quiz_screen.dart';
 import 'package:cpe_flutter/screens/fragments/model_mywebinar/list_mywebinar.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:cpe_flutter/screens/profile/notification.dart';
@@ -1583,19 +1584,32 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       // Then check for webinar_status..
       if (strWebinarType.toLowerCase() == 'live') {
         if (list[index].status.toLowerCase() == 'completed') {
+          getIdWebinar(index);
         } else if (list[index].status.toLowerCase() == 'in progress') {
+          // So here we need to verify the zoom link status for the perticular webinar..
+          // If that is true soo then have to redirect to the zoom meetings..
         } else if (list[index].status.toLowerCase() == 'pending evaluation') {
           getEvaluationFormLinkMethod(list[index].id.toString());
         } else if (list[index].status.toLowerCase() == 'my certificate') {
-        } else if (list[index].status.toLowerCase() == 'join webinar') {}
+          // First we need to check for the certificate links..
+          // If the certificate links are available then have to redirect to certificate preview screen..
+        } else if (list[index].status.toLowerCase() == 'join webinar') {
+          // So here we need to verify the zoom link status for the perticular webinar..
+          // If that is true soo then have to redirect to the zoom meetings..
+        }
       } else if (strWebinarTypeIntent.toLowerCase() == 'self_study' || strWebinarTypeIntent.toLowerCase() == 'on-demand') {
         if (list[index].status.toLowerCase() == 'quiz pending') {
+          funRedirectQuizPending(index);
         } else if (list[index].status.toLowerCase() == 'resume watching') {
+          getIdWebinar(index);
         } else if (list[index].status.toLowerCase() == 'watch now') {
+          getIdWebinar(index);
         } else if (list[index].status.toLowerCase() == 'enrolled') {
         } else if (list[index].status.toLowerCase() == 'pending evaluation') {
           getEvaluationFormLinkMethod(list[index].id.toString());
-        } else if (list[index].status.toLowerCase() == 'completed') {}
+        } else if (list[index].status.toLowerCase() == 'completed') {
+          getIdWebinar(index);
+        }
       }
     } else {
       scaffoldState.currentState.showSnackBar(
@@ -2093,6 +2107,19 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
         .push(
       MaterialPageRoute(
         builder: (context) => EvaluationForm(evaluationLink),
+      ),
+    )
+        .then((_) {
+      // Call setState() here or handle this appropriately
+      checkForSP();
+    });
+  }
+
+  void funRedirectQuizPending(int index) {
+    Navigator.of(context)
+        .push(
+      MaterialPageRoute(
+        builder: (context) => FinalQuizScreen(list[index].id),
       ),
     )
         .then((_) {
