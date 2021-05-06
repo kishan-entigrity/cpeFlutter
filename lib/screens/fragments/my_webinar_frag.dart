@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 // import 'package:cpe_flutter/screens/fragments/pagination/webinar_list.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/screens/fragments/model_mywebinar/list_mywebinar.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:cpe_flutter/screens/profile/notification.dart';
+import 'package:cpe_flutter/screens/webinar_details/evaluation_form.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -28,6 +30,8 @@ class MyWebinarFrag extends StatefulWidget {
 
 class _MyWebinarFragState extends State<MyWebinarFrag> {
   _MyWebinarFragState(this.isFromProfile);
+
+  final scaffoldState = GlobalKey<ScaffoldState>();
 
   final bool isFromProfile;
 
@@ -68,6 +72,9 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
   bool isProgressShowing = false;
   bool isLoaderShowing = false;
   List<Webinar> list;
+
+  var respStatus;
+  var respMessage;
 
   bool isLast = false;
   bool isSearch = false;
@@ -162,6 +169,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldState,
       body: new WillPopScope(
           child: SafeArea(
             child: Stack(
@@ -1336,6 +1344,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                                                 child: GestureDetector(
                                                                   onTap: () {
                                                                     print('Clicked on register button index is : $index');
+                                                                    clickEventButton(index);
                                                                     getIdWebinar(index);
                                                                     // 1. Take an API call for relevent action from here..
                                                                     // 2. Before this need to verify user is logged in or not..
@@ -1564,6 +1573,44 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
     });
   }*/
+
+  void clickEventButton(int index) async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
+      // First check for webinar_type..
+      // Then check for webinar_status..
+      if (strWebinarType.toLowerCase() == 'live') {
+        if (list[index].status.toLowerCase() == 'completed') {
+        } else if (list[index].status.toLowerCase() == 'in progress') {
+        } else if (list[index].status.toLowerCase() == 'pending evaluation') {
+          getEvaluationFormLinkMethod(list[index].id.toString());
+        } else if (list[index].status.toLowerCase() == 'my certificate') {
+        } else if (list[index].status.toLowerCase() == 'join webinar') {
+        }
+      } else if (strWebinarTypeIntent.toLowerCase() == 'self_study' || strWebinarTypeIntent.toLowerCase() == 'on-demand') {
+        if (list[index].status.toLowerCase() == 'quiz pending') {
+        } else if (list[index].status.toLowerCase() == 'resume watching') {
+        } else if (list[index].status.toLowerCase() == 'watch now') {
+        } else if (list[index].status.toLowerCase() == 'enrolled') {
+        } else if (list[index].status.toLowerCase() == 'pending evaluation') {
+          // getEvaluationFormLink();
+        } else if (list[index].status.toLowerCase() == 'completed') {
+        }
+      }
+    } else {
+      scaffoldState.currentState.showSnackBar(
+        SnackBar(
+          content: Text("Please check your internet connectivity and try again"),
+          duration: Duration(seconds: 5),
+        ),
+      );
+      setState(() {
+        isLoaderShowing = false;
+      });
+    }
+
+    if (list[index].status.toLowerCase() == '') {}
+  }
 
   void getIdWebinar(int index) {
     // int webinarId = data['payload']['webinar'][index]['id'];
@@ -2023,5 +2070,32 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
 
   popFunction() {
     Navigator.pop(context);
+  }
+
+  void getEvaluationFormLinkMethod(String webinarId) async {
+    setState(() {
+      isLoaderShowing = true;
+    });
+
+    var resp = await evaluationFormLink('$_authToken', webinarId.toString());
+    print('Response is : $resp');
+
+    respStatus = resp['success'];
+    respMessage = resp['message'];
+
+    setState(() {
+      isLoaderShowing = false;
+    });
+
+    var evaluationLink = resp['payload']['link'].toString();
+    Navigator.of(context)
+        .push(
+      MaterialPageRoute(
+        builder: (context) => EvaluationForm(evaluationLink),
+      ),
+    ).then((_) {
+      // Call setState() here or handle this appropriately
+      checkForSP();
+    });
   }
 }
