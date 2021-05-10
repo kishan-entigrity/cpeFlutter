@@ -4,7 +4,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
 import 'package:cpe_flutter/const_signup.dart';
 import 'package:cpe_flutter/screens/final_quiz/final_quiz_screen.dart';
-import 'package:cpe_flutter/screens/fragments/pagination/webinar_list.dart';
+import 'package:cpe_flutter/screens/fragments/pagination/webinar_list_new.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:cpe_flutter/screens/profile/guest_cards_frag.dart';
 import 'package:cpe_flutter/screens/profile/notification.dart';
