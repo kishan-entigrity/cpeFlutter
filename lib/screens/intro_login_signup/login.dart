@@ -1,4 +1,5 @@
 import 'package:connectivity/connectivity.dart';
+import 'package:cpe_flutter/components/custom_dialog_two.dart';
 import 'package:cpe_flutter/components/round_icon_button.dart';
 import 'package:cpe_flutter/constant.dart';
 import 'package:cpe_flutter/rest_api.dart';
@@ -467,6 +468,22 @@ class _LoginState extends State<Login> {
     isFromIntroScreen
         ? Navigator.pop(context)
         : showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return CustomDialogTwo(
+                "Confirm Exit?",
+                "Are you sure you want to exit the app?",
+                "Yes",
+                "No",
+                () {
+                  SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+                },
+                () {
+                  Navigator.pop(context);
+                },
+              );
+            });
+    /*showDialog(
               context: context,
               builder: (context) => new AlertDialog(
                 title: new Text('Confirm Exit?', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
@@ -486,6 +503,6 @@ class _LoginState extends State<Login> {
                 ],
               ),
             ) ??
-            false;
+            false;*/
   }
 }

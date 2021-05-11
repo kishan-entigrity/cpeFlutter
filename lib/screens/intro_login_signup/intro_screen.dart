@@ -1,3 +1,4 @@
+import 'package:cpe_flutter/components/custom_dialog_two.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/signup_screen_1.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
@@ -179,6 +180,22 @@ class _IntroScreenState extends State<IntroScreen> {
 
   Future<bool> _onWillPop() {
     return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomDialogTwo(
+            "Confirm Exit?",
+            "Are you sure you want to exit the app?",
+            "Yes",
+            "No",
+            () {
+              SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+            },
+            () {
+              Navigator.pop(context);
+            },
+          );
+        });
+    /*return showDialog(
           context: context,
           builder: (context) => new AlertDialog(
             title: new Text('Confirm Exit?', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
@@ -198,7 +215,7 @@ class _IntroScreenState extends State<IntroScreen> {
             ],
           ),
         ) ??
-        false;
+        false;*/
   }
 
   void _onPageViewChange(int page) {

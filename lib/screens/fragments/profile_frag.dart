@@ -418,13 +418,6 @@ class _ProfileFragState extends State<ProfileFrag> {
                                                             Navigator.pop(context);
                                                           },
                                                         );
-                                                        /*return CustomDialogTwo(
-                                                            "Custom Dialog Demo",
-                                                            "Hii all this is a custom dialog in flutter and  you will be use in your flutter applications",
-                                                            "Yes",
-                                                            "No",
-                                                            onPress1: (){logoutUser()},
-                                                            Navigator.pop(context));*/
                                                       });
                                                   // CustomDialogTwo("test", "test", "test", "test");
                                                   /*showDialog(
@@ -519,6 +512,22 @@ class _ProfileFragState extends State<ProfileFrag> {
 
   Future<bool> _onWillPop() {
     return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomDialogTwo(
+            "Confirm Exit?",
+            "Are you sure you want to exit the app?",
+            "Yes",
+            "No",
+            () {
+              SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+            },
+            () {
+              Navigator.pop(context);
+            },
+          );
+        });
+    /*return showDialog(
           context: context,
           builder: (context) => new AlertDialog(
             title: new Text('Confirm Exit?', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
@@ -539,7 +548,7 @@ class _ProfileFragState extends State<ProfileFrag> {
             ],
           ),
         ) ??
-        false;
+        false;*/
   }
 
   void getUserData() async {

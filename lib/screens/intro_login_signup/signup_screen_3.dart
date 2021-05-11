@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
+import 'package:cpe_flutter/components/custom_dialog.dart';
 import 'package:cpe_flutter/components/round_icon_button.dart';
 import 'package:cpe_flutter/const_signup.dart';
 import 'package:flutter/cupertino.dart';
@@ -1207,6 +1208,45 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
       respRegistrationMessage = respRegistration['message'];
       if (respRegistration['success']) {
         showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return CustomDialog(
+                "Registration",
+                "$respRegistrationMessage",
+                "Ok",
+                () {
+                  setState(() {
+                    var respStrPayload = respRegistration['payload'];
+                    respStrId = respRegistration['payload']['user']['id'];
+                    respStrEmail = respRegistration['payload']['user']['email'];
+                    respStrFName = respRegistration['payload']['user']['first_name'];
+                    respStrLName = respRegistration['payload']['user']['last_name'];
+                    respStrContactNumber = respRegistration['payload']['user']['contact_no'];
+                    respStrProfilePic = respRegistration['payload']['user']['profile_picture'];
+                    respToken = respRegistration['payload']['user']['token'];
+
+                    print('Response id is : $respStrId');
+                    print('Response email is : $respStrEmail');
+                    print('Response FName is : $respStrFName');
+                    print('Response LName is : $respStrLName');
+                    print('Response contact is : $respStrContactNumber');
+                    print('Response profile-pic is : $respStrProfilePic');
+                    /*setState(() {
+                        isLoading = false;
+                      });*/
+                    saveData();
+
+                    /*Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => IntroScreen(),
+                        ),
+                      );*/
+                  });
+                },
+              );
+            });
+        /*showDialog(
               barrierDismissible: false,
               context: context,
               builder: (context) => new AlertDialog(
@@ -1230,24 +1270,24 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                       print('Response LName is : $respStrLName');
                       print('Response contact is : $respStrContactNumber');
                       print('Response profile-pic is : $respStrProfilePic');
-                      /*setState(() {
+                      */ /*setState(() {
                         isLoading = false;
-                      });*/
+                      });*/ /*
                       saveData();
 
-                      /*Navigator.push(
+                      */ /*Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => IntroScreen(),
                         ),
-                      );*/
+                      );*/ /*
                     }), // this line dismisses the dialog
                     child: new Text('Ok', style: new TextStyle(fontSize: 18.0)),
                   )
                 ],
               ),
             ) ??
-            false;
+            false;*/
         /*scaffoldState.currentState.showSnackBar(
           SnackBar(
             content: Text(respRegistrationMessage),

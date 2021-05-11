@@ -3,6 +3,7 @@ import 'dart:convert';
 // import 'package:cpe_flutter/screens/fragments/pagination/webinar_list.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
+import 'package:cpe_flutter/components/custom_dialog_two.dart';
 import 'package:cpe_flutter/screens/final_quiz/final_quiz_screen.dart';
 import 'package:cpe_flutter/screens/fragments/model_mywebinar/list_mywebinar.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
@@ -1450,6 +1451,22 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
     return isFromProfile
         ? popFunction()
         : showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return CustomDialogTwo(
+                "Confirm Exit?",
+                "Are you sure you want to exit the app?",
+                "Yes",
+                "No",
+                () {
+                  SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+                },
+                () {
+                  Navigator.pop(context);
+                },
+              );
+            });
+    /*showDialog(
               context: context,
               builder: (context) => new AlertDialog(
                 title: new Text('Confirm Exit?', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
@@ -1470,7 +1487,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                 ],
               ),
             ) ??
-            false;
+            false;*/
   }
 
   void selectLiveFilter() {

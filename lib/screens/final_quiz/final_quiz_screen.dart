@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:connectivity/connectivity.dart';
+import 'package:cpe_flutter/components/custom_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -648,6 +649,18 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
 
   void showError70() {
     showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomDialog(
+            "Logout?",
+            "Are you sure you want to Logout?",
+            "Yes",
+            () {
+              Navigator.pop(context);
+            },
+          );
+        });
+    /*showDialog(
           context: context,
           builder: (context) => new AlertDialog(
             title: new Text('Sorry', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
@@ -660,7 +673,7 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
             ],
           ),
         ) ??
-        false;
+        false;*/
   }
 
   void submitFinalQuizQuestion(String questionList, String answerList) async {

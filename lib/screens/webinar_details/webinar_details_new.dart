@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
+import 'package:cpe_flutter/components/custom_dialog.dart';
+import 'package:cpe_flutter/components/custom_dialog_two.dart';
 import 'package:cpe_flutter/const_signup.dart';
 import 'package:cpe_flutter/screens/final_quiz/final_quiz_screen.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
@@ -1263,6 +1265,30 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
 
   void showLoginPopup() {
     showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomDialogTwo(
+            "Login?",
+            "For registering this webinar you must need to login first",
+            "Login",
+            "cancel",
+            () {
+              setState(() {
+                ConstSignUp.isGuestRegisterWebinar = true;
+                ConstSignUp.strWebinarId = webDetailsObj['webinar_id'].toString();
+                ConstSignUp.strScheduleId = webDetailsObj['schedule_id'].toString();
+                ConstSignUp.strWebinarType = strWebinarTypeIntent.toString();
+                ConstSignUp.isFreeWebinar = iswebinarFree;
+                ConstSignUp.strFee = fee.toString();
+              });
+              logoutUser();
+            },
+            () {
+              Navigator.pop(context);
+            },
+          );
+        });
+    /*showDialog(
           context: context,
           builder: (context) => new AlertDialog(
             title: new Text('Login?', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
@@ -1290,11 +1316,23 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
             ],
           ),
         ) ??
-        false;
+        false;*/
   }
 
   void showRegisterPopup() {
     showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomDialog(
+            "Register?",
+            "For watching this webinar you need to register this webinar first.",
+            "Ok",
+            () {
+              Navigator.pop(context);
+            },
+          );
+        });
+    /*showDialog(
           context: context,
           builder: (context) => new AlertDialog(
             title: new Text('Register?', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
@@ -1307,7 +1345,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
             ],
           ),
         ) ??
-        false;
+        false;*/
   }
 
   void logoutUser() async {
@@ -1410,18 +1448,30 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
 
   void showDialogJoinWebinar() {
     showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomDialog(
+            "Join Webinar",
+            "${webDetailsObj['zoom_link_verification_message']}",
+            "Ok",
+            () {
+              Navigator.pop(context);
+            },
+          );
+        });
+    /*showDialog(
           context: context,
           builder: (context) => new AlertDialog(
             title: new Text('Join Webinar', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
             content: new Text('${webDetailsObj['zoom_link_verification_message']}'),
             actions: <Widget>[
-              /*new FlatButton(
+              */ /*new FlatButton(
                 onPressed: () {
                   // this line exits the app.
                   logoutUser();
                 },
                 child: new Text('Yes', style: new TextStyle(fontSize: 18.0)),
-              ),*/
+              ),*/ /*
               new FlatButton(
                 onPressed: () => Navigator.pop(context), // this line dismisses the dialog
                 child: new Text('Ok', style: new TextStyle(fontSize: 18.0)),
@@ -1429,24 +1479,37 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
             ],
           ),
         ) ??
-        false;
+        false;*/
   }
 
   void showCompletedPopUp() {
     showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomDialog(
+            "Completed",
+            "You have successfully completed your webinar, your certificate will generate in few mins. Please come again and check your certificate"
+                " for this webinar",
+            "Ok",
+            () {
+              Navigator.pop(context);
+            },
+          );
+        });
+    /*showDialog(
           context: context,
           builder: (context) => new AlertDialog(
             title: new Text('Completed', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
             content: new Text('You have successfully completed your webinar, your certificate will generate in few mins. Please come again and check '
                 'your certificate for this webinar'),
             actions: <Widget>[
-              /*new FlatButton(
+              */ /*new FlatButton(
                 onPressed: () {
                   // this line exits the app.
                   logoutUser();
                 },
                 child: new Text('Yes', style: new TextStyle(fontSize: 18.0)),
-              ),*/
+              ),*/ /*
               new FlatButton(
                 onPressed: () => Navigator.pop(context), // this line dismisses the dialog
                 child: new Text('Ok', style: new TextStyle(fontSize: 18.0)),
@@ -1454,7 +1517,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
             ],
           ),
         ) ??
-        false;
+        false;*/
   }
 
   void APIEvaluationFormLink() async {

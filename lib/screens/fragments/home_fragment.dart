@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
+import 'package:cpe_flutter/components/custom_dialog.dart';
+import 'package:cpe_flutter/components/custom_dialog_two.dart';
 import 'package:cpe_flutter/const_signup.dart';
 import 'package:cpe_flutter/screens/final_quiz/final_quiz_screen.dart';
 import 'package:cpe_flutter/screens/fragments/pagination/webinar_list_new.dart';
@@ -1214,6 +1216,22 @@ class _HomeFragmentState extends State<HomeFragment> {
 
   Future<bool> _onWillPop() {
     return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomDialogTwo(
+            "Confirm Exit?",
+            "Are you sure you want to exit the app?",
+            "Yes",
+            "No",
+            () {
+              SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+            },
+            () {
+              Navigator.pop(context);
+            },
+          );
+        });
+    /*return showDialog(
           context: context,
           builder: (context) => new AlertDialog(
             title: new Text('Confirm Exit?', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
@@ -1234,7 +1252,7 @@ class _HomeFragmentState extends State<HomeFragment> {
             ],
           ),
         ) ??
-        false;
+        false;*/
   }
 
   void selectLiveFilter() {
@@ -2408,6 +2426,30 @@ class _HomeFragmentState extends State<HomeFragment> {
 
   void loginPopup(String webinarId, String scheduleId, String strWebType, bool isWebinarFree, String webFee) {
     showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomDialogTwo(
+            "Login?",
+            "For registering this webinar you must need to login first",
+            "Login",
+            "Cancel",
+            () {
+              setState(() {
+                ConstSignUp.isGuestRegisterWebinar = true;
+                ConstSignUp.strWebinarId = webinarId.toString();
+                ConstSignUp.strScheduleId = scheduleId.toString();
+                ConstSignUp.strWebinarType = strWebType.toString();
+                ConstSignUp.isFreeWebinar = isWebinarFree;
+                ConstSignUp.strFee = webFee.toString();
+              });
+              logoutUser();
+            },
+            () {
+              Navigator.pop(context);
+            },
+          );
+        });
+    /*showDialog(
           context: context,
           builder: (context) => new AlertDialog(
             title: new Text('Login?', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
@@ -2435,7 +2477,7 @@ class _HomeFragmentState extends State<HomeFragment> {
             ],
           ),
         ) ??
-        false;
+        false;*/
   }
 
   void showCustomCardPopup(int index, String fee) {
@@ -2899,6 +2941,18 @@ class _HomeFragmentState extends State<HomeFragment> {
 
   void showDialogJoinWebinar(int index) {
     showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomDialog(
+            "Join Webinar",
+            "${list[index].zoomLinkVerificationMessage}",
+            "Ok",
+            () {
+              Navigator.pop(context);
+            },
+          );
+        });
+    /*showDialog(
           context: context,
           builder: (context) => new AlertDialog(
             title: new Text('Join Webinar', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
@@ -2912,7 +2966,7 @@ class _HomeFragmentState extends State<HomeFragment> {
             ],
           ),
         ) ??
-        false;
+        false;*/
   }
 
   void getEvaluationFormLinkMethod(String webinarId) async {

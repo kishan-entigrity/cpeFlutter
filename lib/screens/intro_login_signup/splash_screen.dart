@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:connectivity/connectivity.dart';
+import 'package:cpe_flutter/components/custom_dialog_two.dart';
 import 'package:cpe_flutter/constant.dart';
 import 'package:cpe_flutter/screens/home_screen.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
@@ -23,6 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   String _email;
+
   // String _password;
 
   var resp;
@@ -191,6 +193,26 @@ class _SplashScreenState extends State<SplashScreen> {
           if (respPayload['is_force_update']) {
             // This is the force update.. Need to show update message there and with update and close buttons..
             showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return CustomDialogTwo(
+                    "Update App",
+                    "${respPayload['update_message']}",
+                    "Yes",
+                    "Close",
+                    () {
+                      if (respPayload['is_logout']) {
+                        logoutUser();
+                      } else {
+                        redirectPlayStoreURL();
+                      }
+                    },
+                    () {
+                      SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+                    },
+                  );
+                });
+            /*showDialog(
                   context: context,
                   builder: (context) => new AlertDialog(
                     title: new Text('Update App', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
@@ -216,10 +238,30 @@ class _SplashScreenState extends State<SplashScreen> {
                     ],
                   ),
                 ) ??
-                false;
+                false;*/
           } else {
             // This is the regular update.. Need to show update message there and with yes and no buttons..
             showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return CustomDialogTwo(
+                    "Update App",
+                    "${respPayload['update_message']}",
+                    "Yes",
+                    "No",
+                    () {
+                      if (respPayload['is_logout']) {
+                        logoutUser();
+                      } else {
+                        redirectPlayStoreURL();
+                      }
+                    },
+                    () {
+                      getUserData();
+                    },
+                  );
+                });
+            /*showDialog(
                   context: context,
                   builder: (context) => new AlertDialog(
                     title: new Text('Update App', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
@@ -245,7 +287,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     ],
                   ),
                 ) ??
-                false;
+                false;*/
           }
         } else {
           // There is no need to update the app and proceed to further screens..

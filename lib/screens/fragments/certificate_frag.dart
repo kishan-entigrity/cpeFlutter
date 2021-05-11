@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:connectivity/connectivity.dart';
+import 'package:cpe_flutter/components/custom_dialog_two.dart';
 import 'package:cpe_flutter/constant.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:cpe_flutter/screens/webinar_details/pdf_preview_certificate.dart';
@@ -471,6 +472,22 @@ class _CertificateFragState extends State<CertificateFrag> {
     return isFromProfile
         ? popFunction()
         : showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return CustomDialogTwo(
+                "Confirm Exit?",
+                "Are you sure you want to exit the app?",
+                "Yes",
+                "No",
+                () {
+                  SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+                },
+                () {
+                  Navigator.pop(context);
+                },
+              );
+            });
+    /*showDialog(
               context: context,
               builder: (context) => new AlertDialog(
                 title: new Text('Confirm Exit?', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
@@ -491,7 +508,7 @@ class _CertificateFragState extends State<CertificateFrag> {
                 ],
               ),
             ) ??
-            false;
+            false;*/
   }
 
   void clickEventAll() {

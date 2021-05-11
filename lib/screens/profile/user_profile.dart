@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
+import 'package:cpe_flutter/components/custom_dialog.dart';
 import 'package:cpe_flutter/components/round_icon_button.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/model/city_list_model.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/model/country_list_model.dart';
@@ -2289,6 +2290,18 @@ class _UserProfileState extends State<UserProfile> {
       respEditProfMessage = respEditProf['message'];
       if (respEditProf['success']) {
         showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return CustomDialog(
+                "Edit Profile",
+                "$respEditProfMessage",
+                "Ok",
+                () {
+                  updateProfile();
+                },
+              );
+            });
+        /*showDialog(
               barrierDismissible: false,
               context: context,
               builder: (context) => new AlertDialog(
@@ -2299,19 +2312,19 @@ class _UserProfileState extends State<UserProfile> {
                     onPressed: () => setState(() {
                       updateProfile();
 
-                      /*Navigator.push(
+                      */ /*Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => IntroScreen(),
                         ),
-                      );*/
+                      );*/ /*
                     }), // this line dismisses the dialog
                     child: new Text('Ok', style: new TextStyle(fontSize: 18.0)),
                   )
                 ],
               ),
             ) ??
-            false;
+            false;*/
       } else {
         scaffoldState.currentState.showSnackBar(
           SnackBar(
