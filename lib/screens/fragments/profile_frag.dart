@@ -1,4 +1,5 @@
 import 'package:connectivity/connectivity.dart';
+import 'package:cpe_flutter/components/custom_dialog_two.dart';
 import 'package:cpe_flutter/screens/fragments/pagination/sample_pagination.dart';
 import 'package:cpe_flutter/screens/fragments/test_class_1.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
@@ -401,7 +402,32 @@ class _ProfileFragState extends State<ProfileFrag> {
                                                 childIcon: FontAwesomeIcons.signOutAlt,
                                                 strLable: "Logout",
                                                 onPress: () {
+                                                  print('Clicked on Logout button');
                                                   showDialog(
+                                                      context: context,
+                                                      builder: (BuildContext context) {
+                                                        return CustomDialogTwo(
+                                                          "Logout?",
+                                                          "Are you sure you want to Logout?",
+                                                          "Yes",
+                                                          "No",
+                                                          () {
+                                                            logoutUser();
+                                                          },
+                                                          () {
+                                                            Navigator.pop(context);
+                                                          },
+                                                        );
+                                                        /*return CustomDialogTwo(
+                                                            "Custom Dialog Demo",
+                                                            "Hii all this is a custom dialog in flutter and  you will be use in your flutter applications",
+                                                            "Yes",
+                                                            "No",
+                                                            onPress1: (){logoutUser()},
+                                                            Navigator.pop(context));*/
+                                                      });
+                                                  // CustomDialogTwo("test", "test", "test", "test");
+                                                  /*showDialog(
                                                         context: context,
                                                         builder: (context) => new AlertDialog(
                                                           title: new Text('Logout?', style: new TextStyle(color: Colors.black, fontSize: 20.0)),
@@ -421,7 +447,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                                                           ],
                                                         ),
                                                       ) ??
-                                                      false;
+                                                      false;*/
                                                 },
                                               ),
                                             ),
