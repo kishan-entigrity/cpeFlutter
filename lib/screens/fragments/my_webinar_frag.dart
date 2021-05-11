@@ -13,6 +13,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -1633,12 +1634,20 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
         }
       }
     } else {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please check your internet connectivity and try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
       setState(() {
         isLoaderShowing = false;
       });

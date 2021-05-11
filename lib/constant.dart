@@ -285,6 +285,9 @@ const Color answerRed = const Color(0xFFee1818);
 const Color answerWhite = const Color(0xFFFFFFFF);
 const Color answerBlack = const Color(0xFF000000);
 
+const Color toastBackgroundColor = Colors.blueGrey;
+const Color toastTextColor = Colors.white;
+
 // ConstString Files from here..const
 const String fnameEmptyMsg = 'Please enter first name';
 const String lnameEmptyMsg = 'Please enter last name';

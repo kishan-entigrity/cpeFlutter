@@ -9,6 +9,7 @@ import 'package:cpe_flutter/screens/webinar_details/pdf_preview_certificate.dart
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_gallery_saver/image_gallery_saver.dart';
@@ -564,12 +565,20 @@ class _CertificateFragState extends State<CertificateFrag> {
     if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
       checkForSP();
     } else {
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please check your internet connectivity and try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     }
   }
 
@@ -591,12 +600,20 @@ class _CertificateFragState extends State<CertificateFrag> {
         this.getMyTransactionList('$_authToken', '$start', '10', filterType);
       } else {
         preferences.clear();
-        _scaffoldKey.currentState.showSnackBar(
+        Fluttertoast.showToast(
+            msg: sharedPrefsNot,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: toastBackgroundColor,
+            textColor: toastTextColor,
+            fontSize: 16.0);
+        /*_scaffoldKey.currentState.showSnackBar(
           SnackBar(
             content: Text(sharedPrefsNot),
             duration: Duration(seconds: 3),
           ),
-        );
+        );*/
       }
     }
   }
@@ -708,12 +725,20 @@ class _CertificateFragState extends State<CertificateFrag> {
       // if (webDetailsObj['my_certificate_links'][pos]['certificate_link'] == '') {
       if (listCredit[index].myCertificateLinks[0].certificateLink == '') {
         print('Entered into empty string option');
-        _scaffoldKey.currentState.showSnackBar(
+        Fluttertoast.showToast(
+            msg: strCouldntFindCertificateLink,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: toastBackgroundColor,
+            textColor: toastTextColor,
+            fontSize: 16.0);
+        /*_scaffoldKey.currentState.showSnackBar(
           SnackBar(
             content: Text(strCouldntFindCertificateLink),
             duration: Duration(seconds: 3),
           ),
-        );
+        );*/
       } else {
         Navigator.push(
           context,
@@ -834,12 +859,20 @@ class _CertificateFragState extends State<CertificateFrag> {
       Navigator.pop(context);
 
       if (listCredit[index].myCertificateLinks[pos].certificateLink == '') {
-        _scaffoldKey.currentState.showSnackBar(
+        Fluttertoast.showToast(
+            msg: strCouldntFindCertificateLink,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: toastBackgroundColor,
+            textColor: toastTextColor,
+            fontSize: 16.0);
+        /*_scaffoldKey.currentState.showSnackBar(
           SnackBar(
             content: Text(strCouldntFindCertificateLink),
             duration: Duration(seconds: 3),
           ),
-        );
+        );*/
       } else {
         Navigator.push(
           context,

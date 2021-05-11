@@ -8,6 +8,7 @@ import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:package_info/package_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
@@ -294,20 +295,36 @@ class _SplashScreenState extends State<SplashScreen> {
           getUserData();
         }
       } else {
-        _scaffoldKey.currentState.showSnackBar(
+        Fluttertoast.showToast(
+            msg: "${resp['message']}",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: toastBackgroundColor,
+            textColor: toastTextColor,
+            fontSize: 16.0);
+        /*_scaffoldKey.currentState.showSnackBar(
           SnackBar(
             content: Text('${resp['message']}'),
             duration: Duration(seconds: 3),
           ),
-        );
+        );*/
       }
     } else {
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please check your internet connectivity and try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     }
   }
 

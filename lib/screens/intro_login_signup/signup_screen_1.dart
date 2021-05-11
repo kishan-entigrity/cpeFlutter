@@ -7,6 +7,7 @@ import 'package:cpe_flutter/screens/intro_login_signup/signup_screen_2.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sizer/sizer.dart';
 
@@ -237,12 +238,20 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        scaffoldState.currentState.showSnackBar(
+                                        Fluttertoast.showToast(
+                                            msg: mobileInfoMsg,
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor: toastBackgroundColor,
+                                            textColor: toastTextColor,
+                                            fontSize: 16.0);
+                                        /*scaffoldState.currentState.showSnackBar(
                                           SnackBar(
                                             content: Text(mobileInfoMsg),
                                             duration: Duration(seconds: 5),
                                           ),
-                                        );
+                                        );*/
                                       },
                                       child: Icon(
                                         FontAwesomeIcons.infoCircle,
@@ -511,82 +520,170 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
     ConstSignUp.strConfPass = confPassController.text;
 
     if (ConstSignUp.strFname == '' || ConstSignUp.strFname.length == 0) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: fnameEmptyMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(fnameEmptyMsg),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     } else if (ConstSignUp.strLname == '' || ConstSignUp.strLname.length == 0) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: lnameEmptyMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(lnameEmptyMsg),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     } else if (ConstSignUp.strEmail == '' || ConstSignUp.strEmail.length == 0) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: emailEmptyMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(emailEmptyMsg),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     } else if (!EmailValidator.validate(ConstSignUp.strEmail)) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: emailInValidMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(emailInValidMsg),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     } else if (ConstSignUp.strPhone == '' || ConstSignUp.strPhone.length == 0) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: phoneEmptyMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(phoneEmptyMsg),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     } else if (ConstSignUp.strPhone.length < 10 || ConstSignUp.strPhone.length > 10) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: phoneLengthMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(phoneLengthMsg),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     } else if (ConstSignUp.strPass == '' || ConstSignUp.strPass.length == 0) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: passLengthMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(passLengthMsg),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     } else if (ConstSignUp.strPass.length < 6) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: passValidLengthMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(passValidLengthMsg),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     } else if (ConstSignUp.strConfPass == '' || ConstSignUp.strConfPass.length == 0) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: confPassLengthMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(confPassLengthMsg),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     } else if (ConstSignUp.strConfPass.length < 6) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: confPassValidLengthMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(confPassValidLengthMsg),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     } else if (ConstSignUp.strPass != ConstSignUp.strConfPass) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: passConfPassEqualMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(passConfPassEqualMsg),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     } else {
       print('Validation passed..');
       checkForEmail(ConstSignUp.strEmail);
@@ -622,23 +719,39 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
         setState(() {
           isLoaderShowing = false;
         });
-        scaffoldState.currentState.showSnackBar(
+        Fluttertoast.showToast(
+            msg: respMessage,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: toastBackgroundColor,
+            textColor: toastTextColor,
+            fontSize: 16.0);
+        /*scaffoldState.currentState.showSnackBar(
           SnackBar(
             content: Text('$respMessage'),
             duration: Duration(seconds: 5),
           ),
-        );
+        );*/
       }
     } else {
       setState(() {
         isLoaderShowing = false;
       });
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please check your internet connectivity and try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     }
   }
 }

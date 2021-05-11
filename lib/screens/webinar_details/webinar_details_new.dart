@@ -19,6 +19,7 @@ import 'package:cpe_flutter/screens/webinar_details/pdf_preview_certificate.dart
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -267,23 +268,39 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         print('Webinar details response : Webinar thumbnail is : $webinarThumb');
         print('Webinar details response : Webinar video url is : $videoUrl');
       } else {
-        _scaffoldKey.currentState.showSnackBar(
+        Fluttertoast.showToast(
+            msg: respMessage,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: toastBackgroundColor,
+            textColor: toastTextColor,
+            fontSize: 16.0);
+        /*_scaffoldKey.currentState.showSnackBar(
           SnackBar(
             content: Text(respMessage),
             duration: Duration(seconds: 3),
           ),
-        );
+        );*/
         setState(() {
           isLoaderShowing = false;
         });
       }
     } else {
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please check your internet connectivity and try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
       setState(() {
         isLoaderShowing = false;
       });
@@ -992,20 +1009,36 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
           });
         }
       } else {
-        _scaffoldKey.currentState.showSnackBar(
+        Fluttertoast.showToast(
+            msg: respMessage,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: toastBackgroundColor,
+            textColor: toastTextColor,
+            fontSize: 16.0);
+        /*_scaffoldKey.currentState.showSnackBar(
           SnackBar(
             content: Text('$respMessage'),
             duration: Duration(seconds: 3),
           ),
-        );
+        );*/
       }
     } else {
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please check your internet connectivity and try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     }
   }
 
@@ -1145,12 +1178,20 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       } else {
         print('There is only single certificate..');
         if (webDetailsObj['my_certificate_links'][0]['certificate_link'] == '') {
-          _scaffoldKey.currentState.showSnackBar(
+          Fluttertoast.showToast(
+              msg: strCouldntFindCertificateLink,
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: toastBackgroundColor,
+              textColor: toastTextColor,
+              fontSize: 16.0);
+          /*_scaffoldKey.currentState.showSnackBar(
             SnackBar(
               content: Text(strCouldntFindCertificateLink),
               duration: Duration(seconds: 3),
             ),
-          );
+          );*/
         } else {
           Navigator.push(
             context,
@@ -1402,12 +1443,20 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         }
       }
     } else {
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please check your internet connectivity and try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
       setState(() {
         isLoaderShowing = false;
       });
@@ -1429,20 +1478,36 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
     });
 
     if (respStatus) {
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: respMessage,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text(respMessage),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
       checkForSP();
     } else {
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: respMessage,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text(respMessage),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     }
   }
 
@@ -1559,12 +1624,20 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         checkForSP();
       });
     } else {
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please check your internet connectivity and try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
       setState(() {
         isLoaderShowing = false;
       });
@@ -1680,12 +1753,20 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       Navigator.pop(context);
 
       if (webDetailsObj['my_certificate_links'][pos]['certificate_link'] == '') {
-        _scaffoldKey.currentState.showSnackBar(
+        Fluttertoast.showToast(
+            msg: strCouldntFindCertificateLink,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: toastBackgroundColor,
+            textColor: toastTextColor,
+            fontSize: 16.0);
+        /*_scaffoldKey.currentState.showSnackBar(
           SnackBar(
             content: Text(strCouldntFindCertificateLink),
             duration: Duration(seconds: 3),
           ),
-        );
+        );*/
       } else {
         Navigator.push(
           context,

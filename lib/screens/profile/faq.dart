@@ -3,9 +3,11 @@ import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../../constant.dart';
 import '../../rest_api.dart';
 
 class FAQ extends StatefulWidget {
@@ -118,12 +120,20 @@ class _FAQState extends State<FAQ> {
       respStatus = resp['success'];
       respMessage = resp['message'];
       if (respStatus) {
-        _scaffoldKey.currentState.showSnackBar(
+        Fluttertoast.showToast(
+            msg: respMessage,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: toastBackgroundColor,
+            textColor: toastTextColor,
+            fontSize: 16.0);
+        /*_scaffoldKey.currentState.showSnackBar(
           SnackBar(
             content: Text('$respMessage'),
             duration: Duration(seconds: 3),
           ),
-        );
+        );*/
 
         setState(() {
           respLink = resp['payload']['link'];
@@ -132,20 +142,36 @@ class _FAQState extends State<FAQ> {
         });
       } else {
         print('Entered in else part');
-        _scaffoldKey.currentState.showSnackBar(
+        Fluttertoast.showToast(
+            msg: respMessage,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: toastBackgroundColor,
+            textColor: toastTextColor,
+            fontSize: 16.0);
+        /*_scaffoldKey.currentState.showSnackBar(
           SnackBar(
             content: Text('$respMessage'),
             duration: Duration(seconds: 3),
           ),
-        );
+        );*/
       }
     } else {
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please check your internet connectivity and try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     }
   }
 }

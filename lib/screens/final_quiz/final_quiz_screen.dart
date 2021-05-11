@@ -4,6 +4,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/custom_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -121,22 +122,38 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
 
     if (successFinalSubmit) {
       // Pop back stack with flag..
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: successFinalSubmitMessage,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text(successFinalSubmitMessage),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
       // isFromSubmitReview = true;
       Navigator.pop(context, true);
     } else {
       // Show error message there..
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: successFinalSubmitMessage,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text(successFinalSubmitMessage),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     }
 
     return "Success!";
@@ -619,31 +636,55 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
         if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
           this.getFinalQuizQuestions('$_authToken', webinarId.toString());
         } else {
-          _scaffoldKey.currentState.showSnackBar(
+          Fluttertoast.showToast(
+              msg: "Please check your internet connectivity and try again",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: toastBackgroundColor,
+              textColor: toastTextColor,
+              fontSize: 16.0);
+          /*_scaffoldKey.currentState.showSnackBar(
             SnackBar(
               content: Text("Please check your internet connectivity and try again"),
               duration: Duration(seconds: 5),
             ),
-          );
+          );*/
         }
       } else {
-        _scaffoldKey.currentState.showSnackBar(
+        Fluttertoast.showToast(
+            msg: sharedPrefsNot,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: toastBackgroundColor,
+            textColor: toastTextColor,
+            fontSize: 16.0);
+        /*_scaffoldKey.currentState.showSnackBar(
           SnackBar(
             content: Text(sharedPrefsNot),
             duration: Duration(seconds: 3),
           ),
-        );
+        );*/
       }
     } else {
       setState(() {
         isLoaderShowing = false;
       });
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: sharedPrefsNot,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text(sharedPrefsNot),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     }
   }
 
@@ -683,12 +724,20 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
       isLoaderShowing = true;
       submitFinalQuizAnswers(_authToken, questionList, answerList);
     } else {
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please check your internet connectivity and try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     }
   }
 }

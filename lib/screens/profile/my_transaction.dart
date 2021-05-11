@@ -7,6 +7,7 @@ import 'package:cpe_flutter/screens/profile/pagination_my_transaction/my_transac
 import 'package:cpe_flutter/screens/profile/pdf_preview_transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
@@ -237,12 +238,20 @@ class _MyTranscationState extends State<MyTranscation> {
                                             ),
                                           );
                                         } else {
-                                          _scaffoldKey.currentState.showSnackBar(
+                                          Fluttertoast.showToast(
+                                              msg: strCouldntFindReceiptLink,
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.BOTTOM,
+                                              timeInSecForIosWeb: 1,
+                                              backgroundColor: toastBackgroundColor,
+                                              textColor: toastTextColor,
+                                              fontSize: 16.0);
+                                          /*_scaffoldKey.currentState.showSnackBar(
                                             SnackBar(
                                               content: Text(strCouldntFindReceiptLink),
                                               duration: Duration(seconds: 3),
                                             ),
-                                          );
+                                          );*/
                                         }
                                       },
                                       child: Container(
@@ -397,12 +406,20 @@ class _MyTranscationState extends State<MyTranscation> {
         // print('init State isSelfStudy : $isSelfStudy');
       } else {
         preferences.clear();
-        _scaffoldKey.currentState.showSnackBar(
+        Fluttertoast.showToast(
+            msg: sharedPrefsNot,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: toastBackgroundColor,
+            textColor: toastTextColor,
+            fontSize: 16.0);
+        /*_scaffoldKey.currentState.showSnackBar(
           SnackBar(
             content: Text(sharedPrefsNot),
             duration: Duration(seconds: 3),
           ),
-        );
+        );*/
       }
     }
   }

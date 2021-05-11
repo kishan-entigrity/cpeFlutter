@@ -12,6 +12,7 @@ import 'package:cpe_flutter/screens/profile/pagination_job_titles/jobtitle_list.
 import 'package:cpe_flutter/screens/profile/pagination_profcreds/profcreds_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -753,12 +754,20 @@ class _UserProfileState extends State<UserProfile> {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      scaffoldState.currentState.showSnackBar(
+                                      Fluttertoast.showToast(
+                                          msg: mobileInfoMsg,
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: toastBackgroundColor,
+                                          textColor: toastTextColor,
+                                          fontSize: 16.0);
+                                      /*scaffoldState.currentState.showSnackBar(
                                         SnackBar(
                                           content: Text(mobileInfoMsg),
                                           duration: Duration(seconds: 5),
                                         ),
-                                      );
+                                      );*/
                                     },
                                     child: Icon(
                                       FontAwesomeIcons.infoCircle,
@@ -1350,12 +1359,20 @@ class _UserProfileState extends State<UserProfile> {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      scaffoldState.currentState.showSnackBar(
+                                      Fluttertoast.showToast(
+                                          msg: ptinInfoMsg,
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: toastBackgroundColor,
+                                          textColor: toastTextColor,
+                                          fontSize: 16.0);
+                                      /*scaffoldState.currentState.showSnackBar(
                                         SnackBar(
                                           content: Text(ptinInfoMsg),
                                           duration: Duration(seconds: 5),
                                         ),
-                                      );
+                                      );*/
                                     },
                                     child: Icon(
                                       FontAwesomeIcons.infoCircle,
@@ -1409,12 +1426,20 @@ class _UserProfileState extends State<UserProfile> {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      scaffoldState.currentState.showSnackBar(
+                                      Fluttertoast.showToast(
+                                          msg: ctecInfoMsg,
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: toastBackgroundColor,
+                                          textColor: toastTextColor,
+                                          fontSize: 16.0);
+                                      /*scaffoldState.currentState.showSnackBar(
                                         SnackBar(
                                           content: Text(ctecInfoMsg),
                                           duration: Duration(seconds: 5),
                                         ),
-                                      );
+                                      );*/
                                     },
                                     child: Icon(
                                       FontAwesomeIcons.infoCircle,
@@ -1459,12 +1484,20 @@ class _UserProfileState extends State<UserProfile> {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      scaffoldState.currentState.showSnackBar(
+                                      Fluttertoast.showToast(
+                                          msg: cfpInfoMsg,
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: toastBackgroundColor,
+                                          textColor: toastTextColor,
+                                          fontSize: 16.0);
+                                      /*scaffoldState.currentState.showSnackBar(
                                         SnackBar(
                                           content: Text(cfpInfoMsg),
                                           duration: Duration(seconds: 5),
                                         ),
-                                      );
+                                      );*/
                                     },
                                     child: Icon(
                                       FontAwesomeIcons.infoCircle,
@@ -1610,12 +1643,20 @@ class _UserProfileState extends State<UserProfile> {
                             GestureDetector(
                               onTap: () {
                                 if (selectedCountryId == 0) {
-                                  scaffoldState.currentState.showSnackBar(
+                                  Fluttertoast.showToast(
+                                      msg: countryMsg,
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: toastBackgroundColor,
+                                      textColor: toastTextColor,
+                                      fontSize: 16.0);
+                                  /*scaffoldState.currentState.showSnackBar(
                                     SnackBar(
                                       content: Text(countryMsg),
                                       duration: Duration(seconds: 5),
                                     ),
-                                  );
+                                  );*/
                                 } else {
                                   showModalBottomSheet(
                                       context: context,
@@ -1737,12 +1778,20 @@ class _UserProfileState extends State<UserProfile> {
                             GestureDetector(
                               onTap: () {
                                 if (selectedStateId == 0) {
-                                  scaffoldState.currentState.showSnackBar(
+                                  Fluttertoast.showToast(
+                                      msg: stateMsg,
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: toastBackgroundColor,
+                                      textColor: toastTextColor,
+                                      fontSize: 16.0);
+                                  /*scaffoldState.currentState.showSnackBar(
                                     SnackBar(
                                       content: Text(stateMsg),
                                       duration: Duration(seconds: 5),
                                     ),
-                                  );
+                                  );*/
                                 } else {
                                   showModalBottomSheet(
                                       context: context,
@@ -1965,12 +2014,20 @@ class _UserProfileState extends State<UserProfile> {
         isLoaderShowing = false;
       });
     } else {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please check your internet connectivity and try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
       setState(() {
         isLoaderShowing = false;
       });
@@ -2088,116 +2145,228 @@ class _UserProfileState extends State<UserProfile> {
   void checkForValidations() {
     if (fnameController.text == '' || fnameController.text.length == 0) {
       print('Validation failed for fName');
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: fnameEmptyMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(fnameEmptyMsg),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     } else if (lnameController.text == '' || lnameController.text.length == 0) {
+      Fluttertoast.showToast(
+          msg: lnameEmptyMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
       print('Validation failed for lName');
-      scaffoldState.currentState.showSnackBar(
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(lnameEmptyMsg),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     } else if (phoneController.text == '' || phoneController.text.length == 0) {
+      Fluttertoast.showToast(
+          msg: phoneEmptyMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
       print('Validation failed for empty phone');
-      scaffoldState.currentState.showSnackBar(
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(phoneEmptyMsg),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     } else if (phoneController.text.trim().length < 10 || phoneController.text.trim().length > 10) {
       print('Validation failed for invalid length phone');
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: phoneLengthMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(phoneLengthMsg),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     } else if (companyNameController.text == '' || companyNameController.text.length == 0) {
       print('Validation failed for company');
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: companyEmptyMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(companyEmptyMsg),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     } else if (strOrgSize == '' || strOrgSize.length == 0) {
       print('Validation failed for organization size');
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: selectOrganizationSizeMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(selectOrganizationSizeMsg),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     } else if (strJobTitleName == '' || strJobTitleName.length == 0) {
       print('Validation failed for job title');
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: selectJobTitleMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(selectJobTitleMsg),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     } else if (industryName == '' || industryName.length == 0) {
       print('Validation failed for industry');
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: selectIndustryMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(selectIndustryMsg),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     } else if (smallTitles.length == 0) {
       print('Validation failed for prof creds');
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: selectPrefCredsMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(selectPrefCredsMsg),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     } else if (ptinController.text.length > 8) {
       print('Validation failed for ptin');
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: ptinLenght,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(ptinLenght),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     } else if (ctecController.text.length > 6) {
       print('Validation failed for ctec');
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: ctecLenght,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(ctecLenght),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     } else if (selectedCountryId == 0) {
       print('Validation failed for country');
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: countryMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(countryMsg),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     } else if (selectedStateId == 0) {
       print('Validation failed for state');
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: stateMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(stateMsg),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     } else if (selectedCityId == 0) {
       print('Validation failed for city');
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: cityMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(cityMsg),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     } else {
       print('Validation passed..');
       checkForInternet();
@@ -2239,12 +2408,20 @@ class _UserProfileState extends State<UserProfile> {
       print('Edit Profile User Type : ${user_type_ids.toString()}');
       EditProfileCall();
     } else {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please check your internet connectivity and try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     }
   }
 
@@ -2326,12 +2503,20 @@ class _UserProfileState extends State<UserProfile> {
             ) ??
             false;*/
       } else {
-        scaffoldState.currentState.showSnackBar(
+        Fluttertoast.showToast(
+            msg: respEditProfMessage,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: toastBackgroundColor,
+            textColor: toastTextColor,
+            fontSize: 16.0);
+        /*scaffoldState.currentState.showSnackBar(
           SnackBar(
             content: Text(respEditProfMessage),
             duration: Duration(seconds: 3),
           ),
-        );
+        );*/
       }
     });
 

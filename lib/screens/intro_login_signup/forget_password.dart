@@ -3,6 +3,7 @@ import 'package:cpe_flutter/constant.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ForgetPassword extends StatefulWidget {
@@ -147,29 +148,53 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     _email = emailController.text;
 
     if (_email.length == 0) {
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please enter email",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text('Please enter email'),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     } else if (!EmailValidator.validate(_email)) {
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please enter valid email address",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text('Please enter valid email address'),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     } else {
       print('All validations fired successfully');
       // Take and API call for submitting user data..
       // Then take a pop back stack if we get successful response..
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Data sent successfully",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text('Data sent successfully'),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
       Navigator.pop(context);
     }
   }

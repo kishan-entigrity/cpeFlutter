@@ -10,6 +10,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
@@ -314,24 +315,48 @@ class _LoginState extends State<Login> {
   checkForValidation() {
     if (_email.length == 0) {
       print('Length for email is valid');
-      _scaffoldKey.currentState.showSnackBar(SnackBar(
+      Fluttertoast.showToast(
+          msg: "Please enter email",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(SnackBar(
         content: Text("Please enter email"),
         duration: Duration(seconds: 5),
-      ));
+      ));*/
     } else if (_password.length == 0) {
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please enter password",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text("Please enter password"),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     } else if (!EmailValidator.validate(_email)) {
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please enter valid email address",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text("Please enter valid email address"),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     } else {
       /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
@@ -394,23 +419,39 @@ class _LoginState extends State<Login> {
         setState(() {
           isLoading = false;
         });
-        _scaffoldKey.currentState.showSnackBar(
+        Fluttertoast.showToast(
+            msg: respMessage,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: toastBackgroundColor,
+            textColor: toastTextColor,
+            fontSize: 16.0);
+        /*_scaffoldKey.currentState.showSnackBar(
           SnackBar(
             content: Text('$respMessage'),
             duration: Duration(seconds: 5),
           ),
-        );
+        );*/
       }
     } else {
       setState(() {
         isLoading = false;
       });
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please check your internet connectivity and try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     }
   }
 

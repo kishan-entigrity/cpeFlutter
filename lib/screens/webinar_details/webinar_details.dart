@@ -2,10 +2,12 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../constant.dart';
 import '../../rest_api.dart';
 
 class WebinarDetails extends StatefulWidget {
@@ -20,8 +22,7 @@ class WebinarDetails extends StatefulWidget {
   final int webinarId;
 
   @override
-  _WebinarDetailsState createState() =>
-      _WebinarDetailsState(resultText, webinarId);
+  _WebinarDetailsState createState() => _WebinarDetailsState(resultText, webinarId);
 }
 
 class _WebinarDetailsState extends State<WebinarDetails> {
@@ -141,9 +142,7 @@ class _WebinarDetailsState extends State<WebinarDetails> {
                     },
                     // Display the correct icon depending on the state of the player.
                     child: Icon(
-                      _controller.value.isPlaying
-                          ? Icons.pause
-                          : Icons.play_arrow,
+                      _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
                     ),
                   ),
                   Text('TestData'),
@@ -196,8 +195,7 @@ class _WebinarDetailsState extends State<WebinarDetails> {
 
   void webinarDetailsAPI() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
-    if ((connectivityResult == ConnectivityResult.mobile) ||
-        (connectivityResult == ConnectivityResult.wifi)) {
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
       // Take API call from here..
       String strWebId = webinarId.toString();
       var resp = await getWebinarDetails(userToken, strWebId);
@@ -209,8 +207,7 @@ class _WebinarDetailsState extends State<WebinarDetails> {
 
       if (respStatus) {
         setState(() {
-          webinar_thumb =
-              resp['payload']['webinar_detail']['webinar_thumbnail'];
+          webinar_thumb = resp['payload']['webinar_detail']['webinar_thumbnail'];
           video_url = resp['payload']['webinar_detail']['webinar_video_url'];
           webinar_title = resp['payload']['webinar_detail']['webinar_title'];
           webinar_type = resp['payload']['webinar_detail']['webinar_type'];
@@ -240,25 +237,40 @@ class _WebinarDetailsState extends State<WebinarDetails> {
           _controller.setLooping(true);
         });
 
-        print(
-            'Webinar details response : Webinar thumbnail is : $webinar_thumb');
+        print('Webinar details response : Webinar thumbnail is : $webinar_thumb');
         print('Webinar details response : Webinar video url is : $video_url');
       } else {
-        _scaffoldKey.currentState.showSnackBar(
+        Fluttertoast.showToast(
+            msg: respMessage,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: toastBackgroundColor,
+            textColor: toastTextColor,
+            fontSize: 16.0);
+        /*_scaffoldKey.currentState.showSnackBar(
           SnackBar(
             content: Text(respMessage),
             duration: Duration(seconds: 3),
           ),
-        );
+        );*/
       }
     } else {
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please check your internet connectivity and try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content:
               Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     }
   }
 }

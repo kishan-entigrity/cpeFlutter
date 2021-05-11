@@ -5,6 +5,7 @@ import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -179,33 +180,65 @@ class _ChangePasswordState extends State<ChangePassword> {
     _confirmPass = confirmPassController.text;
 
     if (_oldPass.length == 0) {
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please enter old password",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text('Please enter old password'),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     } else if (_newPass.length == 0) {
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please enter new password",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text('Please enter new password'),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     } else if (_confirmPass.length == 0) {
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please enter confirm password",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text('Please enter confirm password'),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     } else if (_newPass != _confirmPass) {
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "New password and confirm password should be same",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text('New password and confirm password should be same'),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     } else {
       print('All validations fired successfully..');
       // Mow we need to take one more api call for the change password.. :-)
@@ -263,12 +296,20 @@ class _ChangePasswordState extends State<ChangePassword> {
           respMessage = resp['message'];
 
           if (respStatus) {
-            _scaffoldKey.currentState.showSnackBar(
+            Fluttertoast.showToast(
+                msg: respMessage,
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 1,
+                backgroundColor: toastBackgroundColor,
+                textColor: toastTextColor,
+                fontSize: 16.0);
+            /*_scaffoldKey.currentState.showSnackBar(
               SnackBar(
                 content: Text('$respMessage'),
                 duration: Duration(seconds: 3),
               ),
-            );
+            );*/
             // Have to redirect to main profile screen again..
             Future.delayed(const Duration(seconds: 3), () {
               if (Navigator.canPop(context)) {
@@ -278,21 +319,37 @@ class _ChangePasswordState extends State<ChangePassword> {
               }
             });
           } else {
-            _scaffoldKey.currentState.showSnackBar(
+            Fluttertoast.showToast(
+                msg: respMessage,
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 1,
+                backgroundColor: toastBackgroundColor,
+                textColor: toastTextColor,
+                fontSize: 16.0);
+            /*_scaffoldKey.currentState.showSnackBar(
               SnackBar(
                 content: Text('$respMessage'),
                 duration: Duration(seconds: 3),
               ),
-            );
+            );*/
           }
         }
       } else {
-        _scaffoldKey.currentState.showSnackBar(
+        Fluttertoast.showToast(
+            msg: "Please check your internet connectivity and try again",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: toastBackgroundColor,
+            textColor: toastTextColor,
+            fontSize: 16.0);
+        /*_scaffoldKey.currentState.showSnackBar(
           SnackBar(
             content: Text("Please check your internet connectivity and try again"),
             duration: Duration(seconds: 3),
           ),
-        );
+        );*/
       }
     }
   }

@@ -16,6 +16,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -1483,12 +1484,20 @@ class _HomeFragmentState extends State<HomeFragment> {
 
   void selectQualificationsFilter() {
     if (arrCountHotTopics == 0) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Oops we didn't get Qualifications",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text("Oops we didn't get Qualifications"),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
       Future.delayed(const Duration(seconds: 3), () {
         // Take API call for getting hot topics again..
         print('API call for get Qualifications is needed..');
@@ -1595,12 +1604,20 @@ class _HomeFragmentState extends State<HomeFragment> {
   void selectHotTopicsFilter() {
     // if (listHotTopics.length == 0) {
     if (arrCountHotTopics == 0) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Oops we didn't get Hot Topics",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text("Oops we didn't get Hot Topics"),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
       Future.delayed(const Duration(seconds: 3), () {
         // Take API call for getting hot topics again..
         print('API call for get Hot Topics is needed..');
@@ -1908,12 +1925,20 @@ class _HomeFragmentState extends State<HomeFragment> {
         print('Webinar Type is not found');
       }
     } else {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please check your internet connectivity and try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
       setState(() {
         isLoaderShowing = false;
       });
@@ -2313,12 +2338,20 @@ class _HomeFragmentState extends State<HomeFragment> {
     });
 
     if (respStatus) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: respMessage,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(respMessage),
           duration: Duration(seconds: 2),
         ),
-      );
+      );*/
       Future.delayed(const Duration(seconds: 2), () {
         Navigator.of(context)
             .push(
@@ -2335,12 +2368,20 @@ class _HomeFragmentState extends State<HomeFragment> {
         });
       });
     } else {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: respMessage,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(respMessage),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     }
   }
 
@@ -2360,12 +2401,20 @@ class _HomeFragmentState extends State<HomeFragment> {
     });
 
     if (respStatus) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: respMessage,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(respMessage),
           duration: Duration(seconds: 2),
         ),
-      );
+      );*/
 
       Future.delayed(const Duration(seconds: 2), () {
         Navigator.of(context)
@@ -2383,12 +2432,20 @@ class _HomeFragmentState extends State<HomeFragment> {
         });
       });
     } else {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: respMessage,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(respMessage),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     }
   }
 
@@ -2713,68 +2770,140 @@ class _HomeFragmentState extends State<HomeFragment> {
 
   void checkForCardValidation() {
     if (nameController.text == '' || nameController.text.length == 0) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: strCardNameEmpty,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(strCardNameEmpty),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     } else if (cardNumberController.text == '' || cardNumberController.text.length == 0) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: strCardNumberEmpty,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(strCardNumberEmpty),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     } else if (cardNumberController.text.length < 16) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: strCardNumberValid,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(strCardNumberValid),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     } else if (expMonthController.text == '' || expMonthController.text.length == 0) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: strExpMonthEmpty,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(strExpMonthEmpty),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     } else if (expMonthController.text.length > 2 || int.parse(expMonthController.text) > 12) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: strExpMonthValid,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(strExpMonthValid),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     } else if (expYearController.text == '' || expYearController.text.length == 0) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: strExpyearEmpty,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(strExpyearEmpty),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     } else if (expYearController.text.length > 4 || int.parse(expYearController.text) > 2050 || int.parse(expYearController.text) < 2021) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: strExpYearValid,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(strExpYearValid),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     } else if (cvvController.text == '' || cvvController.text.length == 0) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: strCVVEmpty,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(strCVVEmpty),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     } else if (cvvController.text.length > 3) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: strCVVValid,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(strCVVValid),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
     } else {
       // All validations passed..
       print('All validation passed for add card');
@@ -2789,12 +2918,20 @@ class _HomeFragmentState extends State<HomeFragment> {
     if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
       getHotTopics();
     } else {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please check your internet connectivity and try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     }
   }
 

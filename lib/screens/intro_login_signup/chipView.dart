@@ -1,7 +1,9 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../constant.dart';
 import '../../rest_api.dart';
 
 class ChipviewSample extends StatefulWidget {
@@ -145,20 +147,36 @@ class _ChipviewSampleState extends State<ChipviewSample> {
           }
         });
       } else {
-        scaffoldState.currentState.showSnackBar(
+        Fluttertoast.showToast(
+            msg: respMessage,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: toastBackgroundColor,
+            textColor: toastTextColor,
+            fontSize: 16.0);
+        /*scaffoldState.currentState.showSnackBar(
           SnackBar(
             content: Text('$respMessage'),
             duration: Duration(seconds: 3),
           ),
-        );
+        );*/
       }
     } else {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please check your internet connectivity and try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     }
   }
 

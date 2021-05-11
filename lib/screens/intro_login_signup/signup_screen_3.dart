@@ -8,6 +8,7 @@ import 'package:cpe_flutter/const_signup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -195,12 +196,20 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                         ),
                                         GestureDetector(
                                           onTap: () {
-                                            scaffoldState.currentState.showSnackBar(
+                                            Fluttertoast.showToast(
+                                                msg: ptinInfoMsg,
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.BOTTOM,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor: toastBackgroundColor,
+                                                textColor: toastTextColor,
+                                                fontSize: 16.0);
+                                            /*scaffoldState.currentState.showSnackBar(
                                               SnackBar(
                                                 content: Text(ptinInfoMsg),
                                                 duration: Duration(seconds: 5),
                                               ),
-                                            );
+                                            );*/
                                           },
                                           child: Icon(
                                             FontAwesomeIcons.infoCircle,
@@ -249,12 +258,20 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                         ),
                                         GestureDetector(
                                           onTap: () {
-                                            scaffoldState.currentState.showSnackBar(
+                                            Fluttertoast.showToast(
+                                                msg: ctecInfoMsg,
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.BOTTOM,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor: toastBackgroundColor,
+                                                textColor: toastTextColor,
+                                                fontSize: 16.0);
+                                            /*scaffoldState.currentState.showSnackBar(
                                               SnackBar(
                                                 content: Text(ctecInfoMsg),
                                                 duration: Duration(seconds: 5),
                                               ),
-                                            );
+                                            );*/
                                           },
                                           child: Icon(
                                             FontAwesomeIcons.infoCircle,
@@ -298,12 +315,20 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                         ),
                                         GestureDetector(
                                           onTap: () {
-                                            scaffoldState.currentState.showSnackBar(
+                                            Fluttertoast.showToast(
+                                                msg: cfpInfoMsg,
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.BOTTOM,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor: toastBackgroundColor,
+                                                textColor: toastTextColor,
+                                                fontSize: 16.0);
+                                            /*scaffoldState.currentState.showSnackBar(
                                               SnackBar(
                                                 content: Text(cfpInfoMsg),
                                                 duration: Duration(seconds: 5),
                                               ),
-                                            );
+                                            );*/
                                           },
                                           child: Icon(
                                             FontAwesomeIcons.infoCircle,
@@ -444,12 +469,20 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                   GestureDetector(
                                     onTap: () {
                                       if (ConstSignUp.selectedCountryId == 0) {
-                                        scaffoldState.currentState.showSnackBar(
+                                        Fluttertoast.showToast(
+                                            msg: countryMsg,
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor: toastBackgroundColor,
+                                            textColor: toastTextColor,
+                                            fontSize: 16.0);
+                                        /*scaffoldState.currentState.showSnackBar(
                                           SnackBar(
                                             content: Text(countryMsg),
                                             duration: Duration(seconds: 5),
                                           ),
-                                        );
+                                        );*/
                                       } else {
                                         showModalBottomSheet(
                                             context: context,
@@ -573,12 +606,20 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                   GestureDetector(
                                     onTap: () {
                                       if (ConstSignUp.selectedStateId == 0) {
-                                        scaffoldState.currentState.showSnackBar(
+                                        Fluttertoast.showToast(
+                                            msg: stateMsg,
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor: toastBackgroundColor,
+                                            textColor: toastTextColor,
+                                            fontSize: 16.0);
+                                        /*scaffoldState.currentState.showSnackBar(
                                           SnackBar(
                                             content: Text(stateMsg),
                                             duration: Duration(seconds: 5),
                                           ),
-                                        );
+                                        );*/
                                       } else {
                                         showModalBottomSheet(
                                             context: context,
@@ -820,12 +861,20 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
       });
       getCountryListAPI();
     } else {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please check your internet connectivity and try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     }
   }
 
@@ -1066,47 +1115,95 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
 
   void checkForValidations() {
     if (ConstSignUp.strPTIN.length > 8) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: ptinLenght,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(ptinLenght),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     } else if (ConstSignUp.strCTEC.length > 6) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: ctecLenght,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(ctecLenght),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     } else if (ConstSignUp.selectedCountryId == 0) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: countryMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(countryMsg),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     } else if (ConstSignUp.selectedStateId == 0) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: stateMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(stateMsg),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     } else if (ConstSignUp.selectedCityId == 0) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: cityMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(cityMsg),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     } else if (!isTermsAccepted) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: termsConditionMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(termsConditionMsg),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     } else {
       ConstSignUp.strPTIN = 'P' + ConstSignUp.strPTIN;
       ConstSignUp.strCTEC = 'A' + ConstSignUp.strCTEC;
@@ -1131,12 +1228,20 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
       takeAPICallRegistration();
       // printData();
     } else {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please check your internet connectivity and try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     }
   }
 
@@ -1307,12 +1412,20 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
           });
         });*/
       } else {
-        scaffoldState.currentState.showSnackBar(
+        Fluttertoast.showToast(
+            msg: respRegistrationMessage,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: toastBackgroundColor,
+            textColor: toastTextColor,
+            fontSize: 16.0);
+        /*scaffoldState.currentState.showSnackBar(
           SnackBar(
             content: Text(respRegistrationMessage),
             duration: Duration(seconds: 3),
           ),
-        );
+        );*/
       }
       // ConstSignUp.arrCountState = ConstSignUp.respState['payload']['state'].length;
       // ConstSignUp.respStateData = ConstSignUp.respState['payload']['state'];

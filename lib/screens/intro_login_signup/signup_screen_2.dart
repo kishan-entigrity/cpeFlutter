@@ -6,6 +6,7 @@ import 'package:cpe_flutter/components/round_icon_button.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/signup_screen_3.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:sizer/sizer.dart';
@@ -778,20 +779,36 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
           }
         });
       } else {
-        scaffoldState.currentState.showSnackBar(
+        Fluttertoast.showToast(
+            msg: respMessage,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: toastBackgroundColor,
+            textColor: toastTextColor,
+            fontSize: 16.0);
+        /*scaffoldState.currentState.showSnackBar(
           SnackBar(
             content: Text('$respMessage'),
             duration: Duration(seconds: 3),
           ),
-        );
+        );*/
       }
     } else {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please check your internet connectivity and try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     }
   }
 
@@ -803,12 +820,20 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
       });
       getJobTitles();
     } else {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please check your internet connectivity and try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     }
   }
 
@@ -976,40 +1001,80 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
 
   void checkForValidation() {
     if (ConstSignUp.strCompanyName == '' || ConstSignUp.strCompanyName.length == 0) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: companyEmptyMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(companyEmptyMsg),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     } else if (ConstSignUp.organizationSize == '' || ConstSignUp.organizationSize.length == 0) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: selectOrganizationSizeMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(selectOrganizationSizeMsg),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     } else if (ConstSignUp.jobTitle == '' || ConstSignUp.jobTitle.length == 0) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: selectJobTitleMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(selectJobTitleMsg),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     } else if (ConstSignUp.industry == '' || ConstSignUp.industry.length == 0) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: selectIndustryMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(selectIndustryMsg),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     } else if (ConstSignUp.smallTitles.length == 0) {
-      scaffoldState.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: selectPrefCredsMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(selectPrefCredsMsg),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     } else {
       Navigator.push(
         context,

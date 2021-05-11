@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -132,12 +133,20 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
 
     if (successReviewSubmit) {
       // Pop back stack with flag..
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: successReviewSubmitMessage,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text(successReviewSubmitMessage),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
       // isFromSubmitReview = true;
       Navigator.pop(context, true);
       /*Navigator.pushReplacement(
@@ -149,12 +158,20 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
       );*/
     } else {
       // Show error message there..
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: successReviewSubmitMessage,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text(successReviewSubmitMessage),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     }
 
     return "Success!";
@@ -693,23 +710,39 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
 
         this.getReviewQuestionList('$_authToken');
       } else {
-        _scaffoldKey.currentState.showSnackBar(
+        Fluttertoast.showToast(
+            msg: sharedPrefsNot,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: toastBackgroundColor,
+            textColor: toastTextColor,
+            fontSize: 16.0);
+        /*_scaffoldKey.currentState.showSnackBar(
           SnackBar(
             content: Text(sharedPrefsNot),
             duration: Duration(seconds: 3),
           ),
-        );
+        );*/
       }
     } else {
       setState(() {
         isLoaderShowing = false;
       });
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: sharedPrefsNot,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text(sharedPrefsNot),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     }
   }
 

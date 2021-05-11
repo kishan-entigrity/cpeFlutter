@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -651,6 +652,14 @@ class _ReviewQuestionsOldState extends State<ReviewQuestionsOld> {
 
         this.getReviewQuestionList('$_authToken');
       } else {
+        Fluttertoast.showToast(
+            msg: sharedPrefsNot,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: toastBackgroundColor,
+            textColor: toastTextColor,
+            fontSize: 16.0);
         _scaffoldKey.currentState.showSnackBar(
           SnackBar(
             content: Text(sharedPrefsNot),
@@ -662,12 +671,20 @@ class _ReviewQuestionsOldState extends State<ReviewQuestionsOld> {
       setState(() {
         isLoaderShowing = false;
       });
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: sharedPrefsNot,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text(sharedPrefsNot),
           duration: Duration(seconds: 3),
         ),
-      );
+      );*/
     }
   }
 }
