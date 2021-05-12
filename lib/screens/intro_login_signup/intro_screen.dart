@@ -64,6 +64,7 @@ class _IntroScreenState extends State<IntroScreen> {
                       physics: new AlwaysScrollableScrollPhysics(),
                       controller: _controller,
                       onPageChanged: _onPageViewChange,
+                      itemCount: resp == "" || resp == null ? 1 : pagesLength,
                       itemBuilder: (BuildContext context, int index) {
                         // return _pages[index % _pages.length];
                         return SliderLayoutDY(
