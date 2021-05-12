@@ -1,42 +1,36 @@
-import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/custom_dialog_two.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/signup_screen_1.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../const_signup.dart';
 import '../../constant.dart';
-import '../../rest_api.dart';
 import '../home_screen.dart';
 import 'login.dart';
 import 'slider_layout_1.dart';
 import 'slider_layout_2.dart';
 import 'slider_layout_3.dart';
 
-class IntroScreen extends StatefulWidget {
+class IntroScreenOld extends StatefulWidget {
   // Initialize the variables here..
 
   @override
-  _IntroScreenState createState() => _IntroScreenState();
+  _IntroScreenOldState createState() => _IntroScreenOldState();
 }
 
-class _IntroScreenState extends State<IntroScreen> {
+class _IntroScreenOldState extends State<IntroScreenOld> {
   PageController _controller = PageController(initialPage: 0);
 
   double posPager = 0;
-  bool isLoaderShowing = false;
-  var resp;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     ConstSignUp.cleanSignUpData();
-    getIntroScreensAPI();
   }
 
   @override
@@ -230,28 +224,5 @@ class _IntroScreenState extends State<IntroScreen> {
       // posPager = value + .0;
       posPager = page.toDouble();
     });
-  }
-
-  void getIntroScreensAPI() async {
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
-      setState(() {
-        isLoaderShowing = true;
-      });
-      resp = await getIntroScreens();
-      print(resp);
-      setState(() {
-        isLoaderShowing = false;
-      });
-    } else {
-      Fluttertoast.showToast(
-          msg: "Please check your internet connectivity and try again",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: toastBackgroundColor,
-          textColor: toastTextColor,
-          fontSize: 16.0);
-    }
   }
 }

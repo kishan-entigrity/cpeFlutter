@@ -209,6 +209,18 @@ Future getViewProfile(String authToken) async {
   return convertDataToJson;
 }*/
 
+Future getIntroScreens() async {
+  String urls = URLs.BASE_URL + 'intro_screen';
+  final response = await http.get(
+    urls,
+    headers: {
+      'Accept': 'Application/json',
+    },
+  );
+  var convertDataToJson = jsonDecode(response.body);
+  return convertDataToJson;
+}
+
 Future getFAQsAPI() async {
   String urls = URLs.BASE_URL + 'cms/faq';
   final response = await http.get(

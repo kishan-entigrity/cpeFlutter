@@ -14,11 +14,13 @@ import 'package:cpe_flutter/screens/profile/terms_condition.dart';
 import 'package:cpe_flutter/screens/profile/user_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../constant.dart';
 import '../../rest_api.dart';
 import '../profile/contact_us.dart';
 import 'certificate_frag.dart';
@@ -157,12 +159,20 @@ class _ProfileFragState extends State<ProfileFrag> {
                                               ),
                                             );*/
                                           } else {
-                                            _scaffoldKey.currentState.showSnackBar(
+                                            Fluttertoast.showToast(
+                                                msg: "Oops we are getting issue while loading data.",
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.BOTTOM,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor: toastBackgroundColor,
+                                                textColor: toastTextColor,
+                                                fontSize: 16.0);
+                                            /*_scaffoldKey.currentState.showSnackBar(
                                               SnackBar(
                                                 content: Text("Oops we are getting issue while loading data."),
                                                 duration: Duration(seconds: 5),
                                               ),
-                                            );
+                                            );*/
                                           }
                                         },
                                         child: Padding(
@@ -281,12 +291,20 @@ class _ProfileFragState extends State<ProfileFrag> {
                                                       getUserData();
                                                     });
                                                   } else {
-                                                    _scaffoldKey.currentState.showSnackBar(
+                                                    Fluttertoast.showToast(
+                                                        msg: "Oops we are getting issue while loading data.",
+                                                        toastLength: Toast.LENGTH_SHORT,
+                                                        gravity: ToastGravity.BOTTOM,
+                                                        timeInSecForIosWeb: 1,
+                                                        backgroundColor: toastBackgroundColor,
+                                                        textColor: toastTextColor,
+                                                        fontSize: 16.0);
+                                                    /*_scaffoldKey.currentState.showSnackBar(
                                                       SnackBar(
                                                         content: Text("Oops we are getting issue while loading data."),
                                                         duration: Duration(seconds: 5),
                                                       ),
-                                                    );
+                                                    );*/
                                                   }
                                                 },
                                               ),
@@ -623,12 +641,20 @@ class _ProfileFragState extends State<ProfileFrag> {
         isLoaderShowing = false;
       });
     } else {
-      _scaffoldKey.currentState.showSnackBar(
+      Fluttertoast.showToast(
+          msg: "Please check your internet connectivity and try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
           content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 5),
         ),
-      );
+      );*/
       setState(() {
         isLoaderShowing = false;
       });
