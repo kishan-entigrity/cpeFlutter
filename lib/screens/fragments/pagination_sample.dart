@@ -4,7 +4,6 @@ import 'package:cpe_flutter/components/SpinKitSample1.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../rest_api.dart';
@@ -91,8 +90,8 @@ class _PaginationSampleState extends State<PaginationSample> {
                       child: Container(
                         color: Colors.tealAccent,
                         child: Expanded(
-                          // child: LoadMore(
-                          child: LazyLoadScrollView(
+                            // child: LoadMore(
+                            /*child: LazyLoadScrollView(
                             onEndOfPage: checkForSPUpdate,
                             // isFinish: !data['payload']['is_last'],
                             // isFinish: start >= 60,
@@ -121,8 +120,8 @@ class _PaginationSampleState extends State<PaginationSample> {
                                 );
                               },
                             ),
-                          ),
-                        ),
+                          ),*/
+                            ),
                       ),
                     ),
                     Positioned(

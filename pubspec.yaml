@@ -48,12 +48,12 @@ dependencies:
   sizer: ^1.1.8
   dots_indicator: ^1.2.0
   modal_bottom_sheet: ^1.0.0+1
-  lazy_load_scrollview: 1.2.0
+#  lazy_load_scrollview: 1.2.0
   advance_pdf_viewer: 1.2.2
   share: ^0.6.5+4
 #  dio: ^3.0.10
-  path_provider: ^1.6.10
-  image_gallery_saver: ^1.6.6
+#  path_provider: ^1.6.10
+#  image_gallery_saver: ^1.6.6
   permission_handler: ^5.0.1+1
   package_info: ^2.0.0
   flutter_downloader: ^1.5.2
