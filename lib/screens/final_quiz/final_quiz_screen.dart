@@ -57,7 +57,7 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
 
   Future<List<Final_quiz_questions>> getFinalQuizQuestions(String authToken, String webinar_id) async {
     // String urls = 'https://my-cpe.com/api/v3/webinar/final-quiz-questions';
-    String urls = URLs.BASE_URL + 'webinar/final-quiz-questions';
+    var urls = Uri.parse(URLs.BASE_URL + 'webinar/final-quiz-questions');
 
     final response = await http.post(
       urls,
@@ -93,7 +93,7 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
 
   Future<String> submitFinalQuizAnswers(String authToken, String questionList, String answerList) async {
     // String urls = 'https://my-cpe.com/api/v3/webinar/review-answer';
-    String urls = URLs.BASE_URL + 'webinar/final-quiz-answer';
+    var urls = Uri.parse(URLs.BASE_URL + 'webinar/final-quiz-answer');
 
     final response = await http.post(
       urls,

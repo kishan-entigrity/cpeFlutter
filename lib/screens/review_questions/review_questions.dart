@@ -55,7 +55,7 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
   Future<List<Review_questions>> getReviewQuestionList(String authToken) async {
     // String urls = URLs.BASE_URL + 'webinar/list';
     // String urls = 'https://my-cpe.com/api/v3/webinar/review-questions';
-    String urls = URLs.BASE_URL + 'webinar/review-questions';
+    var urls = Uri.parse(URLs.BASE_URL + 'webinar/review-questions');
 
     final response = await http.post(
       urls,
@@ -98,7 +98,7 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
     print('Request param answer list : $answerList');
     print('Request param webinar_id : $webinarId');
 
-    String urls = URLs.BASE_URL + 'webinar/review-answer';
+    var urls = Uri.parse(URLs.BASE_URL + 'webinar/review-answer');
 
     final response = await http.post(
       urls,

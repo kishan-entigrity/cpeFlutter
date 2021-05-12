@@ -880,7 +880,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
 
   Future<List<Country>> getCountryListAPI() async {
     // String urls = 'https://my-cpe.com/api/v3/country';
-    String urls = URLs.BASE_URL + 'country';
+    var urls = Uri.parse(URLs.BASE_URL + 'country');
 
     final response = await http.get(
       urls,
@@ -913,7 +913,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
 
   Future<List<State_Name>> getStateNameListAPI(int selectedCountryId) async {
     // String urls = 'https://my-cpe.com/api/v3/state';
-    String urls = URLs.BASE_URL + 'state';
+    var urls = Uri.parse(URLs.BASE_URL + 'state');
 
     final response = await http.post(
       urls,
@@ -949,7 +949,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
 
   Future<List<City>> getCityNameListAPI(int selectedStateId) async {
     // String urls = 'https://my-cpe.com/api/v3/city';
-    String urls = URLs.BASE_URL + 'city';
+    var urls = Uri.parse(URLs.BASE_URL + 'city');
 
     final response = await http.post(
       urls,
@@ -1271,7 +1271,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
 
   Future<String> takeAPICallRegistration() async {
     // String urls = 'https://my-cpe.com/api/v3/registration';
-    String urls = URLs.BASE_URL + 'registration';
+    var urls = Uri.parse(URLs.BASE_URL + 'registration');
 
     final response = await http.post(
       urls,

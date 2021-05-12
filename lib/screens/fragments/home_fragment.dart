@@ -105,7 +105,7 @@ class _HomeFragmentState extends State<HomeFragment> {
 
   Future<List<Webinar>> getDataWebinarList(String authToken, String start, String limit, String topic_of_interest, String subject_area,
       String webinar_key_text, String webinar_type, String date_filter, String filter_price, String hot_topics_ids, String qualification_ids) async {
-    String urls = URLs.BASE_URL + 'webinar/list';
+    var urls = Uri.parse(URLs.BASE_URL + 'webinar/list');
     // String urls = 'https://my-cpe.com/api/v3/webinar/list';
 
     print('Request Params authToken : $authToken');
@@ -212,7 +212,7 @@ class _HomeFragmentState extends State<HomeFragment> {
   }
 
   Future<List<Hot_topics>> getHotTopics() async {
-    String urls = URLs.BASE_URL + 'hot-topics';
+    var urls = Uri.parse(URLs.BASE_URL + 'hot-topics');
 
     final response = await http.get(
       urls,
@@ -245,7 +245,7 @@ class _HomeFragmentState extends State<HomeFragment> {
   }
 
   Future<List<Audiances>> getQualificationList() async {
-    String urls = URLs.BASE_URL + 'audiances';
+    var urls = Uri.parse(URLs.BASE_URL + 'audiances');
 
     final response = await http.get(
       urls,

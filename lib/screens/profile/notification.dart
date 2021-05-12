@@ -37,7 +37,7 @@ class _NotificationsState extends State<Notifications> {
 
   Future<List<Notification_list>> getMyTransactionList(String authToken, String start, String limit) async {
     // String urls = URLs.BASE_URL + 'webinar/list';
-    String urls = URLs.BASE_URL + 'notification';
+    var urls = Uri.parse(URLs.BASE_URL + 'notification');
 
     final response = await http.post(
       urls,

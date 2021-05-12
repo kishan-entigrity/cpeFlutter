@@ -74,7 +74,7 @@ class _CardFragState extends State<CardFrag> {
   TextEditingController cvvController = TextEditingController();
 
   Future<List<Saved_cards>> getCardsList(String authToken) async {
-    String urls = URLs.BASE_URL + 'user-payment/card-list';
+    var urls = Uri.parse(URLs.BASE_URL + 'user-payment/card-list');
 
     final response = await http.get(
       urls,
@@ -111,7 +111,7 @@ class _CardFragState extends State<CardFrag> {
   }
 
   Future<String> makePrimaryCard(String authToken, String cardId) async {
-    String urls = URLs.BASE_URL + 'user-payment/make-primary-card';
+    var urls = Uri.parse(URLs.BASE_URL + 'user-payment/make-primary-card');
 
     final response = await http.post(urls, headers: {
       'Accept': 'Application/json',
@@ -177,7 +177,7 @@ class _CardFragState extends State<CardFrag> {
   }
 
   Future<String> deleteUserCard(String authToken, String cardId) async {
-    String urls = URLs.BASE_URL + 'user-payment/delete-card';
+    var urls = Uri.parse(URLs.BASE_URL + 'user-payment/delete-card');
 
     final response = await http.post(urls, headers: {
       'Accept': 'Application/json',
@@ -243,7 +243,7 @@ class _CardFragState extends State<CardFrag> {
   }
 
   Future<String> addUserCardAPI(String authToken) async {
-    String urls = URLs.BASE_URL + 'user-payment/add-card';
+    var urls = Uri.parse(URLs.BASE_URL + 'user-payment/add-card');
 
     final response = await http.post(urls, headers: {
       'Accept': 'Application/json',

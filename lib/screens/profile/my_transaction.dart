@@ -51,7 +51,7 @@ class _MyTranscationState extends State<MyTranscation> {
 
   Future<List<Transaction>> getMyTransactionList(String authToken, String start, String limit) async {
     // String urls = 'https://my-cpe.com/api/v3/payment-transaction';
-    String urls = URLs.BASE_URL + 'payment-transaction';
+    var urls = Uri.parse(URLs.BASE_URL + 'payment-transaction');
 
     final response = await http.post(
       urls,

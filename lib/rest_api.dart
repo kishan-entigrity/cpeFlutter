@@ -9,7 +9,7 @@ class URLs {
 }
 
 Future loginUser(String email, String password, String device_id, String device_token, String device_type) async {
-  String urls = URLs.BASE_URL + 'login';
+  var urls = Uri.parse(URLs.BASE_URL + 'login');
   final response = await http.post(
     urls,
     headers: {'Accept': 'Application/json'},
@@ -20,7 +20,7 @@ Future loginUser(String email, String password, String device_id, String device_
 }
 
 Future emailExists(String email) async {
-  String urls = URLs.BASE_URL + 'check-email-exist';
+  var urls = Uri.parse(URLs.BASE_URL + 'check-email-exist');
   final response = await http.post(
     urls,
     headers: {'Accept': 'Application/json'},
@@ -31,7 +31,7 @@ Future emailExists(String email) async {
 }
 
 Future versionCheck(String current_version, String device_type) async {
-  String urls = URLs.BASE_URL + 'get-version';
+  var urls = Uri.parse(URLs.BASE_URL + 'get-version');
   final response = await http.post(
     urls,
     headers: {
@@ -46,7 +46,7 @@ Future versionCheck(String current_version, String device_type) async {
 }
 
 Future changePassword(String authToken, String current_password, String new_password, String confirm_password) async {
-  String urls = URLs.BASE_URL + 'change-password';
+  var urls = Uri.parse(URLs.BASE_URL + 'change-password');
   final response = await http.post(
     urls,
     headers: {
@@ -65,7 +65,7 @@ Future changePassword(String authToken, String current_password, String new_pass
 }
 
 Future video_duration(String authToken, String webinar_id, String play_time_duration, String presentation_length) async {
-  String urls = URLs.BASE_URL + 'webinar/video-duration';
+  var urls = Uri.parse(URLs.BASE_URL + 'webinar/video-duration');
   final response = await http.post(
     urls,
     headers: {
@@ -79,7 +79,7 @@ Future video_duration(String authToken, String webinar_id, String play_time_dura
 }
 
 Future contactUs(String email, String subject) async {
-  String urls = URLs.BASE_URL + 'contact-us/query';
+  var urls = Uri.parse(URLs.BASE_URL + 'contact-us/query');
   final response = await http.post(
     urls,
     headers: {
@@ -96,7 +96,7 @@ Future contactUs(String email, String subject) async {
 }
 
 Future registerWebinarAPI(String authToken, String webinar_id, String schedule_id) async {
-  String urls = URLs.BASE_URL + 'webinar/register-webinar';
+  var urls = Uri.parse(URLs.BASE_URL + 'webinar/register-webinar');
   final response = await http.post(
     urls,
     headers: {
@@ -111,7 +111,7 @@ Future registerWebinarAPI(String authToken, String webinar_id, String schedule_i
 }
 
 Future evaluationFormLink(String authToken, String webinar_id) async {
-  String urls = URLs.BASE_URL + 'webinar/evaluation-form-request';
+  var urls = Uri.parse(URLs.BASE_URL + 'webinar/evaluation-form-request');
   final response = await http.post(
     urls,
     headers: {
@@ -127,7 +127,7 @@ Future evaluationFormLink(String authToken, String webinar_id) async {
 
 Future registerPaidWebinarAPI(String authToken, String webinar_id, String schedule_id, String card_id, String is_card, String card_number,
     String exp_month, String exp_year, String cvv, String new_card, String card_holder_name) async {
-  String urls = URLs.BASE_URL + 'webinar/register-webinar';
+  var urls = Uri.parse(URLs.BASE_URL + 'webinar/register-webinar');
   final response = await http.post(
     urls,
     headers: {
@@ -154,7 +154,7 @@ Future registerPaidWebinarAPI(String authToken, String webinar_id, String schedu
 
 Future homeWebinarList(String authToken, String start, String limit, String topic_of_interest, String subject_area, String webinar_key_text,
     String webinar_type, String date_filter, String filter_price) async {
-  String urls = URLs.BASE_URL + 'webinar/list';
+  var urls = Uri.parse(URLs.BASE_URL + 'webinar/list');
 
   String updatedToken = '';
   if (authToken.length == 0) {
@@ -186,7 +186,7 @@ Future homeWebinarList(String authToken, String start, String limit, String topi
 }
 
 Future getViewProfile(String authToken) async {
-  String urls = URLs.BASE_URL + 'view-profile';
+  var urls = Uri.parse(URLs.BASE_URL + 'view-profile');
   final response = await http.get(urls, headers: {
     'Accept': 'Application/json',
     'Authorization': authToken,
@@ -210,7 +210,7 @@ Future getViewProfile(String authToken) async {
 }*/
 
 Future getIntroScreens() async {
-  String urls = URLs.BASE_URL + 'intro_screen';
+  var urls = Uri.parse(URLs.BASE_URL + 'intro_screen');
   final response = await http.get(
     urls,
     headers: {
@@ -222,7 +222,7 @@ Future getIntroScreens() async {
 }
 
 Future getFAQsAPI() async {
-  String urls = URLs.BASE_URL + 'cms/faq';
+  var urls = Uri.parse(URLs.BASE_URL + 'cms/faq');
   final response = await http.get(
     urls,
     headers: {
@@ -234,7 +234,7 @@ Future getFAQsAPI() async {
 }
 
 Future getPrivacyPolicy() async {
-  String urls = URLs.BASE_URL + 'cms/privacy_policy';
+  var urls = Uri.parse(URLs.BASE_URL + 'cms/privacy_policy');
   final response = await http.get(
     urls,
     headers: {
@@ -246,7 +246,7 @@ Future getPrivacyPolicy() async {
 }
 
 Future getTermsAndConditions() async {
-  String urls = URLs.BASE_URL + 'cms/terms_condition';
+  var urls = Uri.parse(URLs.BASE_URL + 'cms/terms_condition');
   final response = await http.get(
     urls,
     headers: {
@@ -258,14 +258,14 @@ Future getTermsAndConditions() async {
 }
 
 Future getTopicsOfInterest() async {
-  String urls = URLs.BASE_URL + 'topic-of-interest/list';
+  var urls = Uri.parse(URLs.BASE_URL + 'topic-of-interest/list');
   final response = await http.get(urls);
   var convertDataToJson = jsonDecode(response.body);
   return convertDataToJson;
 }
 
 Future getWebinarDetails(String authToken, String webinar_id) async {
-  String urls = URLs.BASE_URL + 'webinar/detail';
+  var urls = Uri.parse(URLs.BASE_URL + 'webinar/detail');
   final response = await http.post(
     urls,
     headers: {
@@ -279,14 +279,14 @@ Future getWebinarDetails(String authToken, String webinar_id) async {
 }
 
 Future getCountryList() async {
-  String urls = URLs.BASE_URL + 'country';
+  var urls = Uri.parse(URLs.BASE_URL + 'country');
   final response = await http.get(urls);
   var convertDataToJson = jsonDecode(response.body);
   return convertDataToJson;
 }
 
 Future getStateList(String country_id) async {
-  String urls = URLs.BASE_URL + 'state';
+  var urls = Uri.parse(URLs.BASE_URL + 'state');
   final response = await http.post(
     urls,
     headers: {'Accept': 'Application/json'},
@@ -297,7 +297,7 @@ Future getStateList(String country_id) async {
 }
 
 Future getCityList(String state_id) async {
-  String urls = URLs.BASE_URL + 'city';
+  var urls = Uri.parse(URLs.BASE_URL + 'city');
   final response = await http.post(
     urls,
     headers: {'Accept': 'Application/json'},
@@ -308,7 +308,7 @@ Future getCityList(String state_id) async {
 }
 
 Future getProfessionalCreds() async {
-  String urls = URLs.BASE_URL + 'user-type';
+  var urls = Uri.parse(URLs.BASE_URL + 'user-type');
   final response = await http.get(urls);
   var convertDataToJson = jsonDecode(response.body);
   return convertDataToJson;

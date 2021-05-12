@@ -58,7 +58,7 @@ class _CertificateFragState extends State<CertificateFrag> {
 
   Future<List<My_credits>> getMyTransactionList(String authToken, String start, String limit, String filterType) async {
     // String urls = 'https://my-cpe.com/api/v3/my-credits';
-    String urls = URLs.BASE_URL + 'my-credits';
+    var urls = Uri.parse(URLs.BASE_URL + 'my-credits');
 
     final response = await http.post(
       urls,

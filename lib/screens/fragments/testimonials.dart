@@ -44,7 +44,7 @@ class _TestimonialsState extends State<Testimonials> {
     // Future<String> getMyTransactionList(String authToken, String start, String limit) async {
     // String urls = URLs.BASE_URL + 'webinar/list';
     // String urls = 'https://my-cpe.com/api/v3/webinar/testimonial';
-    String urls = URLs.BASE_URL + 'webinar/testimonial';
+    var urls = Uri.parse(URLs.BASE_URL + 'webinar/testimonial');
 
     final response = await http.post(
       urls,

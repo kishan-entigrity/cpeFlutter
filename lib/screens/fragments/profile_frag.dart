@@ -1,6 +1,5 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/custom_dialog_two.dart';
-import 'package:cpe_flutter/screens/fragments/pagination/sample_pagination.dart';
 import 'package:cpe_flutter/screens/fragments/test_class_1.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:cpe_flutter/screens/profile/cards_frag.dart';
@@ -82,10 +81,10 @@ class _ProfileFragState extends State<ProfileFrag> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  // builder: (context) => PaginationSample(),
-                                  builder: (context) => SamplePagination(),
-                                  // builder: (context) => NewsListPage(),
-                                ),
+                                    // builder: (context) => PaginationSample(),
+                                    // builder: (context) => SamplePagination(),
+                                    // builder: (context) => NewsListPage(),
+                                    ),
                               );
                             },
                             child: Padding(

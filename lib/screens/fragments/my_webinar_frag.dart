@@ -95,7 +95,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
     // String urls = URLs.BASE_URL + 'webinar/list';
     print('Request params are : authToken : $authToken :: start : $start :: limit : $limit :: webinar_type : $webinar_type :: filter_type : '
         '$filter_type');
-    String urls = URLs.BASE_URL + 'webinar/mywebinars';
+    var urls = Uri.parse(URLs.BASE_URL + 'webinar/mywebinars');
     // String urls = 'https://my-cpe.com/api/v3/webinar/list';
     // String urls = 'https://my-cpe.com/api/v3/webinar/my-webinar';
 

@@ -40,7 +40,7 @@ class _SamplePaginationState extends State<SamplePagination> {
   // Future<String> getDataWebinarList(String authToken, String start, String limit, String topic_of_interest, String subject_area,
   Future<List<Webinar>> getDataWebinarList(String authToken, String start, String limit, String topic_of_interest, String subject_area,
       String webinar_key_text, String webinar_type, String date_filter, String filter_price) async {
-    String urls = URLs.BASE_URL + 'webinar/list';
+    var urls = Uri.parse(URLs.BASE_URL + 'webinar/list');
     // String urls = 'https://my-cpe.com/api/v3/webinar/list';
 
     final response = await http.post(
