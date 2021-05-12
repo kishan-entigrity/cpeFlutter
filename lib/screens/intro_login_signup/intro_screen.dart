@@ -1,6 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/custom_dialog_two.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/signup_screen_1.dart';
+import 'package:cpe_flutter/screens/intro_login_signup/slider_layout_dy.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +14,6 @@ import '../../constant.dart';
 import '../../rest_api.dart';
 import '../home_screen.dart';
 import 'login.dart';
-import 'slider_layout_1.dart';
-import 'slider_layout_2.dart';
-import 'slider_layout_3.dart';
 
 class IntroScreen extends StatefulWidget {
   // Initialize the variables here..
@@ -30,6 +28,7 @@ class _IntroScreenState extends State<IntroScreen> {
   double posPager = 0;
   bool isLoaderShowing = false;
   var resp;
+  var pagesLength = 1;
 
   @override
   void initState() {
@@ -61,15 +60,36 @@ class _IntroScreenState extends State<IntroScreen> {
                     width: double.infinity,
                     color: Color(0xF0F3F5F9),
                     padding: EdgeInsets.fromLTRB(0.0.w, 10.0.w, 0.0.w, 44.0.w),
-                    child: PageView(
+                    child: PageView.builder(
+                      physics: new AlwaysScrollableScrollPhysics(),
+                      controller: _controller,
+                      onPageChanged: _onPageViewChange,
+                      itemBuilder: (BuildContext context, int index) {
+                        // return _pages[index % _pages.length];
+                        return SliderLayoutDY(
+                          // "assets/slider_1.png",
+                          resp == "" || resp == null ? "assets/slider_1.png" : "${resp['payload']['screens'][index]['url']}",
+                          resp == "" || resp == null ? "FREE CPE/CE WEBINARS" : "${resp['payload']['screens'][index]['title']}",
+                          resp == "" || resp == null
+                              ? "Live & On-Demand courses for CPAs, Tax Pros, Auditors, Bookkeepers & Finance Pros."
+                              : "${resp['payload']['screens'][index]['description']}",
+                        );
+                      },
+                    ),
+                    /*child: PageView(
                       controller: _controller,
                       onPageChanged: _onPageViewChange,
                       children: [
-                        SliderLayout1(),
-                        SliderLayout2(),
-                        SliderLayout3(),
+                        SliderLayoutDY("assets/slider_1.png", "FREE CPE/CE WEBINARS1",
+                            "Live & On-Demand courses for CPAs, Tax Pros, Auditors, Bookkeepers & Finance Pros."),
+                        SliderLayoutDY("assets/slider_2.png", "Updated Courses & Content2",
+                            "Get latest tax updates & content via our Live & On-Demand Webinars.3"),
+                        SliderLayoutDY("assets/slider_3.png", "Manage your CPE/CE Credits", "Get your CPE/CE credits & certificates instantly."),
+                        // SliderLayout1(),
+                        // SliderLayout2(),
+                        // SliderLayout3(),
                       ],
-                    ),
+                    ),*/
                   ),
                 ),
                 // Layout for the bottom buttons Login/SignUp..
@@ -167,7 +187,9 @@ class _IntroScreenState extends State<IntroScreen> {
                   right: 0,
                   left: 0,
                   child: DotsIndicator(
-                    dotsCount: 3,
+                    // dotsCount: 3,
+                    // dotsCount: resp['payload']['screens'].length,
+                    dotsCount: pagesLength,
                     // position: _controller.page,
                     position: posPager,
                     // position: 1,
@@ -241,6 +263,7 @@ class _IntroScreenState extends State<IntroScreen> {
       resp = await getIntroScreens();
       print(resp);
       setState(() {
+        pagesLength = resp['payload']['screens'].length;
         isLoaderShowing = false;
       });
     } else {
