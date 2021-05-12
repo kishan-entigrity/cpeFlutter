@@ -1,12 +1,6 @@
-import 'dart:io';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:sizer/sizer.dart';
 
 class DownloadSample extends StatefulWidget {
@@ -15,92 +9,8 @@ class DownloadSample extends StatefulWidget {
 }
 
 class _DownloadSampleState extends State<DownloadSample> {
-  final Dio dio = Dio();
   bool loading = false;
   double progress = 0;
-
-  Future<bool> saveVideo(String url, String fileName) async {
-    Directory directory;
-    try {
-      if (Platform.isAndroid) {
-        if (await _requestPermission(Permission.storage)) {
-          directory = await getExternalStorageDirectory();
-          String newPath = "";
-          print(directory);
-          List<String> paths = directory.path.split("/");
-          for (int x = 1; x < paths.length; x++) {
-            String folder = paths[x];
-            if (folder != "Android") {
-              newPath += "/" + folder;
-            } else {
-              break;
-            }
-          }
-          newPath = newPath + "/MyCPE";
-          directory = Directory(newPath);
-        } else {
-          return false;
-        }
-      } else {
-        if (await _requestPermission(Permission.photos)) {
-          directory = await getTemporaryDirectory();
-        } else {
-          return false;
-        }
-      }
-      File saveFile = File(directory.path + "/$fileName");
-      if (!await directory.exists()) {
-        await directory.create(recursive: true);
-      }
-      if (await directory.exists()) {
-        await dio.download(url, saveFile.path, onReceiveProgress: (value1, value2) {
-          setState(() {
-            progress = value1 / value2;
-          });
-        });
-        if (Platform.isIOS) {
-          await ImageGallerySaver.saveFile(saveFile.path, isReturnPathOfIOS: true);
-        }
-        return true;
-      }
-      return false;
-    } catch (e) {
-      print(e);
-      return false;
-    }
-  }
-
-  Future<bool> _requestPermission(Permission permission) async {
-    if (await permission.isGranted) {
-      return true;
-    } else {
-      var result = await permission.request();
-      if (result == PermissionStatus.granted) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  downloadFile() async {
-    setState(() {
-      loading = true;
-      progress = 0;
-    });
-    bool downloaded = await saveVideo(
-        // "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4",
-        "https://my-cpe.com/front_side/live_paid_receipt/MyCpe-live-webinars-debt-forgiveness-and-section-108-1611776820-561252728.pdf",
-        // "video.mp4");
-        "certificate1");
-    if (downloaded) {
-      print("File Downloaded");
-    } else {
-      print("Problem Downloading File");
-    }
-    setState(() {
-      loading = false;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -175,7 +85,7 @@ class _DownloadSampleState extends State<DownloadSample> {
                           )
                         : GestureDetector(
                             onTap: () {
-                              downloadFile();
+                              // downloadFile();
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(vertical: 10.0.sp, horizontal: 20.0.sp),

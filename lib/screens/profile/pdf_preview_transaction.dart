@@ -2,7 +2,6 @@ import 'dart:isolate';
 import 'dart:ui';
 
 import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -33,7 +32,6 @@ class _TransactionPdfPreviewState extends State<TransactionPdfPreview> {
   bool _isLoading = true;
   PDFDocument document;
 
-  final Dio dio = Dio();
   bool loading = false;
   // double progress = 0;
 
@@ -247,14 +245,5 @@ class _TransactionPdfPreviewState extends State<TransactionPdfPreview> {
         ),
       ),
     );
-  }
-
-  void downloadReceipt() async {
-    try {
-      Response response = await Dio().get("$strUrl");
-      print(response);
-    } catch (e) {
-      print(e);
-    }
   }
 }

@@ -3,7 +3,6 @@ import 'dart:ui';
 
 import 'package:cpe_flutter/constant.dart';
 import 'package:cpe_flutter/screens/profile/who_should_attend.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -442,8 +441,6 @@ class _detailsRowDownloadState extends State<detailsRowDownload> {
   double progress = 0;
   var strUrl = '';
   var strTitle = '';
-
-  final Dio dio = Dio();
 
   @override
   Widget build(BuildContext context) {

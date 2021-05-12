@@ -1,19 +1,15 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/custom_dialog_two.dart';
 import 'package:cpe_flutter/constant.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:cpe_flutter/screens/webinar_details/pdf_preview_certificate.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
@@ -55,7 +51,6 @@ class _CertificateFragState extends State<CertificateFrag> {
   var strUrl = '';
   var strTitle = '';
 
-  final Dio dio = Dio();
   bool loading = false;
   double progress = 0;
 
@@ -618,58 +613,6 @@ class _CertificateFragState extends State<CertificateFrag> {
     }
   }
 
-  Future<bool> saveVideo(String url, String fileName) async {
-    Directory directory;
-    try {
-      if (Platform.isAndroid) {
-        if (await _requestPermission(Permission.storage)) {
-          directory = await getExternalStorageDirectory();
-          String newPath = "";
-          print(directory);
-          List<String> paths = directory.path.split("/");
-          for (int x = 1; x < paths.length; x++) {
-            String folder = paths[x];
-            if (folder != "Android") {
-              newPath += "/" + folder;
-            } else {
-              break;
-            }
-          }
-          newPath = newPath + "/MyCPE";
-          directory = Directory(newPath);
-        } else {
-          return false;
-        }
-      } else {
-        if (await _requestPermission(Permission.photos)) {
-          directory = await getTemporaryDirectory();
-        } else {
-          return false;
-        }
-      }
-      File saveFile = File(directory.path + "/$fileName");
-      if (!await directory.exists()) {
-        await directory.create(recursive: true);
-      }
-      if (await directory.exists()) {
-        await dio.download(url, saveFile.path, onReceiveProgress: (value1, value2) {
-          // await dio.download(){
-          setState(() {
-            progress = value1 / value2;
-          });
-        });
-        if (Platform.isIOS) {
-          await ImageGallerySaver.saveFile(saveFile.path, isReturnPathOfIOS: true);
-        }
-        return true;
-      }
-      return false;
-    } catch (e) {
-      print(e);
-      return false;
-    }
-  }
-
   Future<bool> _requestPermission(Permission permission) async {
     if (await permission.isGranted) {
       return true;
@@ -680,25 +623,6 @@ class _CertificateFragState extends State<CertificateFrag> {
       }
     }
     return false;
-  }
-
-  void downloadFile(int index, int i) async {
-    setState(() {
-      loading = true;
-      progress = 0;
-      strUrl = listCredit[index].myCertificateLinks[i].certificateLink.toString();
-      strTitle = listCredit[index].webinarTitle + '_' + listCredit[index].myCertificateLinks[i].certificateType.toString() + '.pdf';
-      print('STR URL IS : $strUrl');
-    });
-    bool downloaded = await saveVideo(strUrl, strTitle);
-    if (downloaded) {
-      print("File Downloaded");
-    } else {
-      print("Problem Downloading File");
-    }
-    setState(() {
-      loading = false;
-    });
   }
 
   void logoutUser() async {
