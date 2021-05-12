@@ -321,6 +321,7 @@ const String ctecInfoMsg = 'CTEC ID is required, if you are an California Regist
     'attendance to the California Tax Education Council.';
 const String cfpInfoMsg = 'CFP Board ID is required, if you are an Certified Financial Planner (CFP) and you want myCPE to report your attendance '
     'to the CFP Board.';
+const String ssnInfoMsg = 'Required for CFP Reporting.';
 
 const String termsConditionMsg = 'Please accept terms and conditions by accepting the checkbox.';
 

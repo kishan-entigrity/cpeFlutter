@@ -68,6 +68,7 @@ class _UserProfileState extends State<UserProfile> {
 
   // var companySizeSelectedPos = 0;
   var strOrgSize = '';
+  var ssnNumber = '';
 
   bool isLoaderShowing = false;
   String _authToken = "";
@@ -100,6 +101,7 @@ class _UserProfileState extends State<UserProfile> {
   TextEditingController ptinController = TextEditingController();
   TextEditingController ctecController = TextEditingController();
   TextEditingController cfpController = TextEditingController();
+  TextEditingController ssnController = TextEditingController();
   TextEditingController zipCodeController = TextEditingController();
 
   var strPTIN = '';
@@ -381,6 +383,8 @@ class _UserProfileState extends State<UserProfile> {
       industryName = dataIntent['industry_name'];
       industryId = dataIntent['industry_id'];
       strOrgSize = dataIntent['co_emp_size'];
+      ssnNumber = dataIntent['ssn'];
+      print("SSN number on dataIntent is : $ssnNumber");
 
       print('User profile screen profile pic is : $strProfilePic');
 
@@ -483,6 +487,7 @@ class _UserProfileState extends State<UserProfile> {
     zipCodeController.text = strZipCode;
     ptinController.text = strPTIN;
     ctecController.text = strCTEC;
+    ssnController.text = ssnNumber;
 
     checkForSP();
   }
@@ -1498,6 +1503,58 @@ class _UserProfileState extends State<UserProfile> {
                                           duration: Duration(seconds: 5),
                                         ),
                                       );*/
+                                    },
+                                    child: Icon(
+                                      FontAwesomeIcons.infoCircle,
+                                      size: 15.0.sp,
+                                      color: Color(0xFFBDBFCA),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.fromLTRB(6.0.w, 1.0.w, 6.0.w, 0),
+                              child: Divider(
+                                height: 5.0,
+                                color: Colors.black87,
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(left: 6.0.w, right: 6.0.w, top: 2.0.w),
+                              child: Text(
+                                'SSN Number',
+                                style: kLableSignUpHintLableStyle,
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 6.0.w),
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: TextField(
+                                      controller: ssnController,
+                                      enabled: isEditable,
+                                      style: kLableSignUpTextStyle,
+                                      keyboardType: TextInputType.number,
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: 'Last 4 digits',
+                                        hintStyle: kLableSignUpHintStyle,
+                                      ),
+                                      textInputAction: TextInputAction.next,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Fluttertoast.showToast(
+                                          msg: cfpInfoMsg,
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: toastBackgroundColor,
+                                          textColor: toastTextColor,
+                                          fontSize: 16.0);
                                     },
                                     child: Icon(
                                       FontAwesomeIcons.infoCircle,
