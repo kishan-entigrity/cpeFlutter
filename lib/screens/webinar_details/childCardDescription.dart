@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+// import 'package:flutter_html/style.dart';
 import 'package:sizer/sizer.dart';
 
 class childCardDescription extends StatelessWidget {
@@ -31,6 +32,13 @@ class childCardDescription extends StatelessWidget {
           ),*/
           Html(
             data: strDescription,
+            /*style: {
+              "body": Style(
+                fontFamily: 'Whitney Medium',
+                fontSize: FontSize(13.5.sp),
+                color: Color(0x701F2227),
+              ),
+            },*/
             defaultTextStyle: TextStyle(
               fontFamily: 'Whitney Medium',
               fontSize: 13.5.sp,
@@ -63,6 +71,13 @@ class childCardDescription extends StatelessWidget {
           ),*/
           Html(
             data: strLearningObjective,
+            /*style: {
+              "body": Style(
+                fontFamily: 'Whitney Medium',
+                fontSize: FontSize(13.5.sp),
+                color: Color(0x701F2227),
+              ),
+            },*/
             defaultTextStyle: TextStyle(
               fontFamily: 'Whitney Medium',
               fontSize: 13.5.sp,

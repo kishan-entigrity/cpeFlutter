@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+// import 'package:flutter_html/style.dart';
 import 'package:sizer/sizer.dart';
 
 class childCardPresenter extends StatelessWidget {
@@ -34,9 +35,7 @@ class childCardPresenter extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        presenterObj['name'] +
-                            ' ' +
-                            presenterObj['qualification'],
+                        presenterObj['name'] + ' ' + presenterObj['qualification'],
                         // 'Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world Hello world',
                         // 'Hello world Hello',
                         style: TextStyle(
@@ -50,9 +49,7 @@ class childCardPresenter extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            presenterObj['company_name'] +
-                                ' ' +
-                                presenterObj['desgnination'],
+                            presenterObj['company_name'] + ' ' + presenterObj['desgnination'],
                             style: TextStyle(
                               fontFamily: 'Whitney Medium',
                               fontSize: 13.0.sp,
@@ -69,12 +66,18 @@ class childCardPresenter extends StatelessWidget {
           ),
         ),
         Container(
-          padding:
-              EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
+          padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
           margin: EdgeInsets.only(left: 10.0, right: 10.0),
           width: double.infinity,
           child: Html(
             data: presenterObj['speaker_desc'],
+            /*style: {
+              "body": Style(
+                fontFamily: 'Whitney Medium',
+                fontSize: FontSize(18.0),
+                color: Colors.black,
+              ),
+            },*/
             defaultTextStyle: TextStyle(
               fontFamily: 'Whitney Medium',
               fontSize: 18.0,

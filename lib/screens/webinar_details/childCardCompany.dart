@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+// import 'package:flutter_html/style.dart';
 import 'package:sizer/sizer.dart';
 
 class childCardCompany extends StatelessWidget {
@@ -66,6 +67,13 @@ class childCardCompany extends StatelessWidget {
           width: double.infinity,
           child: Html(
             data: presenterObj['company_desc'],
+            /*style: {
+              "body": Style(
+                fontFamily: 'Whitney Medium',
+                fontSize: FontSize(18.0),
+                color: Colors.black,
+              )
+            },*/
             defaultTextStyle: TextStyle(
               fontFamily: 'Whitney Medium',
               fontSize: 18.0,

@@ -2,10 +2,12 @@ import 'package:cpe_flutter/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+// import 'package:flutter_html/style.dart';
 import 'package:sizer/sizer.dart';
 
 class childCardOthers extends StatefulWidget {
   childCardOthers(this.webDetailsObj);
+
   final webDetailsObj;
 
   @override
@@ -14,6 +16,7 @@ class childCardOthers extends StatefulWidget {
 
 class _childCardOthersState extends State<childCardOthers> {
   _childCardOthersState(this.webDetailsObj);
+
   final webDetailsObj;
 
   bool isIrsVisible = false;
@@ -103,8 +106,7 @@ class CtecContainer extends StatelessWidget {
                     height: 60.0,
                     width: 60.0,
                     placeholder: AssetImage('assets/webinar_placeholder.jpg'),
-                    image: NetworkImage(
-                        webDetailsObj['ctec_approved']['ctec_profile_icon']),
+                    image: NetworkImage(webDetailsObj['ctec_approved']['ctec_profile_icon']),
                     fit: BoxFit.fitWidth,
                   ),
                 ),
@@ -113,6 +115,13 @@ class CtecContainer extends StatelessWidget {
             SizedBox(height: 10.0),
             Html(
               data: webDetailsObj['ctec_approved']['ctec_desc'].toString(),
+              /*style: {
+                "body": Style(
+                  fontFamily: 'Whitney Medium',
+                  fontSize: FontSize(13.0.sp),
+                  color: black50,
+                ),
+              },*/
               defaultTextStyle: kOthersDescription,
             ),
           ],
@@ -159,8 +168,7 @@ class IrsContainer extends StatelessWidget {
                     height: 60.0,
                     width: 60.0,
                     placeholder: AssetImage('assets/webinar_placeholder.jpg'),
-                    image: NetworkImage(
-                        webDetailsObj['irs_approved']['irs_profile_icon']),
+                    image: NetworkImage(webDetailsObj['irs_approved']['irs_profile_icon']),
                     fit: BoxFit.fitWidth,
                   ),
                 ),
@@ -169,6 +177,13 @@ class IrsContainer extends StatelessWidget {
             SizedBox(height: 10.0),
             Html(
               data: webDetailsObj['irs_approved']['irs_desc'].toString(),
+              /*style: {
+                "body": Style(
+                  fontFamily: 'Whitney Medium',
+                  fontSize: FontSize(13.0.sp),
+                  color: black50,
+                ),
+              },*/
               defaultTextStyle: kOthersDescription,
             ),
           ],
@@ -180,6 +195,7 @@ class IrsContainer extends StatelessWidget {
 
 class NasbaContainer extends StatelessWidget {
   NasbaContainer(this.isNasbaVisible, this.webDetailsObj);
+
   final bool isNasbaVisible;
   final webDetailsObj;
 
@@ -214,28 +230,19 @@ class NasbaContainer extends StatelessWidget {
                       FadeInImage(
                         height: 40.0,
                         width: 40.0,
-                        placeholder:
-                            AssetImage('assets/webinar_placeholder.jpg'),
-                        image: NetworkImage(webDetailsObj['nasba_approved']
-                            ['nasba_profile_icon']),
+                        placeholder: AssetImage('assets/webinar_placeholder.jpg'),
+                        image: NetworkImage(webDetailsObj['nasba_approved']['nasba_profile_icon']),
                         fit: BoxFit.fitWidth,
                       ),
                       Visibility(
-                        visible: (webDetailsObj['nasba_approved']
-                                    ['nasba_profile_icon_qas']
-                                .toString()
-                                .isEmpty
-                            ? false
-                            : true),
+                        visible: (webDetailsObj['nasba_approved']['nasba_profile_icon_qas'].toString().isEmpty ? false : true),
                         child: Container(
                           margin: EdgeInsets.only(left: 5.0),
                           child: FadeInImage(
                             height: 50.0,
                             width: 50.0,
-                            placeholder:
-                                AssetImage('assets/webinar_placeholder.jpg'),
-                            image: NetworkImage(webDetailsObj['nasba_approved']
-                                ['nasba_profile_icon_qas']),
+                            placeholder: AssetImage('assets/webinar_placeholder.jpg'),
+                            image: NetworkImage(webDetailsObj['nasba_approved']['nasba_profile_icon_qas']),
                             fit: BoxFit.fitWidth,
                           ),
                         ),
@@ -248,6 +255,13 @@ class NasbaContainer extends StatelessWidget {
             SizedBox(height: 10.0),
             Html(
               data: webDetailsObj['nasba_approved']['nasba_desc'],
+              /*style: {
+                "body": Style(
+                  fontFamily: 'Whitney Medium',
+                  fontSize: FontSize(13.0.sp),
+                  color: black50,
+                ),
+              },*/
               defaultTextStyle: kOthersDescription,
             ),
           ],
@@ -275,6 +289,13 @@ class RefundCancelContainer extends StatelessWidget {
           SizedBox(height: 10.0.sp),
           Html(
             data: webDetailsObj['refund_and_cancelation_policy'],
+            /*style: {
+              "body": Style(
+                fontFamily: 'Whitney Medium',
+                fontSize: FontSize(13.0.sp),
+                color: black50,
+              ),
+            },*/
             defaultTextStyle: kOthersDescription,
           ),
         ],
@@ -301,6 +322,13 @@ class FaqContainer extends StatelessWidget {
           SizedBox(height: 10.0.sp),
           Html(
             data: webDetailsObj['faq'],
+            /*style: {
+              "body": Style(
+                fontFamily: 'Whitney Medium',
+                fontSize: FontSize(13.0.sp),
+                color: black50,
+              ),
+            },*/
             defaultTextStyle: kOthersDescription,
           ),
         ],
