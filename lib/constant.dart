@@ -105,6 +105,12 @@ final kDateTestimonials = TextStyle(
   color: black50,
 );
 
+final kDataBottomPicker = TextStyle(
+  fontFamily: 'Whitney Medium',
+  fontSize: 13.0.sp,
+  color: Colors.black87,
+);
+
 final kOthersTitle = TextStyle(
   fontFamily: 'Whitney Semi Bold',
   fontSize: 13.0.sp,

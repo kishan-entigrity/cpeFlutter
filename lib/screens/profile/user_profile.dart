@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
@@ -15,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
@@ -141,6 +143,10 @@ class _UserProfileState extends State<UserProfile> {
   var respEditProfMessage;
 
   SharedPreferences sharedPreferences;
+
+  File _image;
+  PickedFile _imageFile;
+  final ImagePicker _picker = ImagePicker();
 
   Future<List<Job_title>> getJobTitleList(String authToken) async {
     // String urls = 'https://my-cpe.com/api/v3/job-title/list';
@@ -598,30 +604,149 @@ class _UserProfileState extends State<UserProfile> {
                           children: <Widget>[
                             Padding(
                               padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 0.0),
-                              child: Center(
-                                child: strProfilePic == '' || strProfilePic == strDummyPic
-                                    ? Container(
-                                        height: 30.0.w,
-                                        width: 30.0.w,
-                                        decoration: BoxDecoration(
-                                          color: Colors.blueGrey,
-                                          borderRadius: BorderRadius.circular(25.0.w),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            '${strNameInitials.toUpperCase()}',
-                                            style: TextStyle(
-                                              fontSize: 25.0.sp,
-                                              color: Colors.white,
-                                              fontFamily: 'Whitney Bold',
+                              child: GestureDetector(
+                                onTap: () {
+                                  print('Clicekd on profile pic');
+                                  showModalBottomSheet(
+                                      context: context,
+                                      builder: (builder) {
+                                        return StatefulBuilder(
+                                          builder: (BuildContext context, void Function(void Function()) setState) {
+                                            return Container(
+                                              height: 100.0.sp,
+                                              child: Column(
+                                                children: <Widget>[
+                                                  Container(
+                                                    height: 50.0.sp,
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: <Widget>[
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            Navigator.pop(context);
+                                                          },
+                                                          child: Container(
+                                                            width: 20.0.w,
+                                                            child: Center(
+                                                              child: Text(
+                                                                'Cancel',
+                                                                style: kDateTestimonials,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          width: 50.0.w,
+                                                          child: Center(
+                                                            child: Text(
+                                                              'Select From',
+                                                              style: kOthersTitle,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          width: 20.0.w,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: Container(
+                                                      // color: Colors.teal,
+                                                      child: Row(
+                                                        children: <Widget>[
+                                                          Expanded(
+                                                            child: GestureDetector(
+                                                              onTap: () {
+                                                                print('Clicked on Camera');
+                                                                // _imgFromCamera();
+                                                                Navigator.pop(context);
+                                                                takePicture(ImageSource.camera);
+                                                              },
+                                                              child: Column(
+                                                                children: <Widget>[
+                                                                  Icon(
+                                                                    FontAwesomeIcons.camera,
+                                                                    size: 15.0.sp,
+                                                                    color: Colors.black87,
+                                                                  ),
+                                                                  SizedBox(height: 10.0.sp),
+                                                                  Text(
+                                                                    "Camera",
+                                                                    style: kDataBottomPicker,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            child: GestureDetector(
+                                                              onTap: () {
+                                                                print('Clicked on galary');
+                                                                // _imgFromGallery();
+                                                                Navigator.pop(context);
+                                                                takePicture(ImageSource.gallery);
+                                                              },
+                                                              child: Column(
+                                                                children: <Widget>[
+                                                                  Icon(
+                                                                    FontAwesomeIcons.photoVideo,
+                                                                    size: 15.0.sp,
+                                                                    color: Colors.black87,
+                                                                  ),
+                                                                  SizedBox(height: 10.0.sp),
+                                                                  Text(
+                                                                    "Photo Library",
+                                                                    style: kDataBottomPicker,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      });
+                                },
+                                child: Center(
+                                  child: CircleAvatar(
+                                    radius: 14.0.w,
+                                    backgroundImage: _imageFile == null
+                                        ? AssetImage("assests/angela.jpg")
+                                        : FileImage(
+                                            File(_imageFile.path),
+                                          ),
+                                  ),
+                                  /*child: strProfilePic == '' || strProfilePic == strDummyPic
+                                      ? Container(
+                                          height: 30.0.w,
+                                          width: 30.0.w,
+                                          decoration: BoxDecoration(
+                                            color: Colors.blueGrey,
+                                            borderRadius: BorderRadius.circular(25.0.w),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              '${strNameInitials.toUpperCase()}',
+                                              style: TextStyle(
+                                                fontSize: 25.0.sp,
+                                                color: Colors.white,
+                                                fontFamily: 'Whitney Bold',
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      )
-                                    : CircleAvatar(
-                                        radius: 14.0.w,
-                                        backgroundImage: NetworkImage(strProfilePic),
-                                      ),
+                                        )
+                                      : CircleAvatar(
+                                          radius: 14.0.w,
+                                          backgroundImage: NetworkImage(strProfilePic),
+                                        ),*/
+                                ),
                               ),
                             ),
                             Container(
@@ -2589,4 +2714,28 @@ class _UserProfileState extends State<UserProfile> {
     // isEditable = false;
     Navigator.pop(context);
   }
+
+  takePicture(ImageSource source) async {
+    final pickedFile = await _picker.getImage(source: source);
+    setState(() {
+      _imageFile = pickedFile;
+    });
+  }
+
+/*_imgFromCamera() async {
+    final pickedFile = await _picker.getImage(source: source);
+    */ /*File image = await ImagePicker.pickImage(source: ImageSource.camera, imageQuality: 50);
+
+    setState(() {
+      _image = image;
+    });*/ /*
+  }
+
+  _imgFromGallery() async {
+    */ /*File image = await ImagePicker.pickImage(source: ImageSource.gallery, imageQuality: 50);
+
+    setState(() {
+      _image = image;
+    });*/ /*
+  }*/
 }

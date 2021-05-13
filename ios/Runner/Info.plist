@@ -43,5 +43,7 @@
 	<false/>
 	<key>NSPhotoLibraryUsageDescription</key>
     <string>$(PRODUCT_NAME)photos description.</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Allow access to camera to capture photos</string>
 </dict>
 </plist>
