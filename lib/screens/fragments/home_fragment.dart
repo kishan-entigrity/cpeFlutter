@@ -1467,7 +1467,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                     children: <Widget>[
                                                                       ConstrainedBox(
-                                                                        constraints: BoxConstraints(minWidth: 28.0.w),
+                                                                        constraints: BoxConstraints(minWidth: 24.0.w),
                                                                         child: Container(
                                                                           margin: EdgeInsets.only(left: 15.0),
                                                                           height: 4.0.h,
@@ -1476,7 +1476,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                             color: Colors.white,
                                                                           ),
                                                                           child: Padding(
-                                                                            padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+                                                                            padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
                                                                             child: Center(
                                                                               child: Text(
                                                                                   // '${data['payload']['webinar'][index]['webinar_type']}',
@@ -1485,15 +1485,16 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                                       // kWebinarButtonLabelTextStyleGreen,
                                                                                       TextStyle(
                                                                                     fontFamily: 'Whitney Semi Bold',
-                                                                                    fontSize: 12.5.sp,
-                                                                                    color: Color(0xFF00A81B),
+                                                                                    fontSize: 10.0.sp,
+                                                                                    // color: Color(0xFF00A81B),
+                                                                                    color: Colors.black,
                                                                                   )),
                                                                             ),
                                                                           ),
                                                                         ),
                                                                       ),
                                                                       ConstrainedBox(
-                                                                        constraints: BoxConstraints(minWidth: 28.0.w),
+                                                                        constraints: BoxConstraints(minWidth: 24.0.w),
                                                                         child: Container(
                                                                           height: 4.0.h,
                                                                           decoration: BoxDecoration(
@@ -1501,7 +1502,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                             color: Colors.white,
                                                                           ),
                                                                           child: Padding(
-                                                                            padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+                                                                            padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
                                                                             child: Center(
                                                                               child: Text(
                                                                                   // '${data['payload']['webinar'][index]['cpa_credit']}',
@@ -1510,7 +1511,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                                       // kWebinarButtonLabelTextStyle,
                                                                                       TextStyle(
                                                                                     fontFamily: 'Whitney Semi Bold',
-                                                                                    fontSize: 12.5.sp,
+                                                                                    fontSize: 10.0.sp,
                                                                                     color: Colors.black,
                                                                                   )),
                                                                             ),
@@ -1518,7 +1519,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                         ),
                                                                       ),
                                                                       ConstrainedBox(
-                                                                        constraints: BoxConstraints(minWidth: 28.0.w),
+                                                                        constraints: BoxConstraints(minWidth: 24.0.w),
                                                                         child: Container(
                                                                           margin: EdgeInsets.only(right: 15.0),
                                                                           height: 4.0.h,
@@ -1527,7 +1528,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                             color: Colors.white,
                                                                           ),
                                                                           child: Padding(
-                                                                            padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+                                                                            padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
                                                                             child: Center(
                                                                               child: Text(
                                                                                   // '\$ ${data['payload']['webinar'][index]['fee']}',
@@ -1536,7 +1537,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                                       // kWebinarButtonLabelTextStyle,
                                                                                       TextStyle(
                                                                                     fontFamily: 'Whitney Semi Bold',
-                                                                                    fontSize: 12.5.sp,
+                                                                                    fontSize: 10.0.sp,
                                                                                     color: Colors.black,
                                                                                   )),
                                                                             ),
@@ -1554,10 +1555,11 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                       '${list[index].webinarTitle}',
                                                                       style: TextStyle(
                                                                         fontFamily: 'Whitney Bold',
-                                                                        fontSize: 16.0.sp,
-                                                                        color: index % 2 == 0 ? Colors.black : Colors.white,
+                                                                        fontSize: 15.0.sp,
+                                                                        // color: index % 2 == 0 ? Colors.black : Colors.white,
+                                                                        color: Colors.white,
                                                                       ),
-                                                                      maxLines: 2,
+                                                                      maxLines: 3,
                                                                       overflow: TextOverflow.ellipsis,
                                                                     ),
                                                                   ),
@@ -1573,7 +1575,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                           style: TextStyle(
                                                                             fontFamily: 'Whitney Semi Bold',
                                                                             fontSize: 13.0.sp,
-                                                                            color: index % 2 == 0 ? Colors.black : Colors.white,
+                                                                            // color: index % 2 == 0 ? Colors.black : Colors.white,
+                                                                            color: Colors.white,
                                                                           ),
                                                                           overflow: TextOverflow.ellipsis,
                                                                           maxLines: 2,
@@ -1592,7 +1595,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                         style: TextStyle(
                                                                           fontFamily: 'Whitney Semi Bold',
                                                                           fontSize: 13.0.sp,
-                                                                          color: index % 2 == 0 ? Colors.black : Colors.white,
+                                                                          // color: index % 2 == 0 ? Colors.black : Colors.white,
+                                                                          color: Colors.white,
                                                                         ),
                                                                       ),
                                                                     ],
@@ -1621,7 +1625,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                       Radius.circular(5.0),
                                                                     ),
                                                                   ),
-                                                                  height: 11.5.w,
+                                                                  height: 10.5.w,
                                                                   child: Row(
                                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                     children: <Widget>[
