@@ -327,7 +327,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                 Positioned(
                     child: Column(
                   children: <Widget>[
-                    Visibility(
+                    /*Visibility(
                       visible: !isSearch,
                       child: Container(
                         height: 60.0,
@@ -421,8 +421,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                           ],
                         ),
                       ),
-                    ),
-                    Visibility(
+                    ),*/
+                    /*Visibility(
                       visible: isSearch,
                       child: Container(
                         height: 60.0,
@@ -509,24 +509,383 @@ class _HomeFragmentState extends State<HomeFragment> {
                           ),
                         ),
                       ),
-                    ),
-                    Container(
+                    ),*/
+                    /*Container(
                       height: 1.0,
                       width: double.infinity,
                       color: Colors.blueGrey,
+                    ),*/
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Expanded(
+                          child: Container(
+                            color: Color(0xFFF3F5F9),
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+                                child: Row(
+                                  children: <Widget>[
+                                    /*selectedFilterWidget(
+                                    str: 'Test Filter',
+                                  ),*/
+                                    /*selectedFilterWidget(
+                                        str: 'Hot Topics',
+                                      ),*/
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          selectHotTopicsFilter();
+                                        });
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                        child: Container(
+                                          decoration: hotTopicsId.length > 0
+                                              ? BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(18.0),
+                                                  border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                  color: Color(0xFF607083),
+                                                )
+                                              : BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(30.0),
+                                                  border: Border.all(color: Colors.black, width: 1.0),
+                                                  color: Color(0xFFFFFFFF),
+                                                ),
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              vertical: 9.0,
+                                              horizontal: 18.0,
+                                            ),
+                                            child: Text(
+                                              'Topics',
+                                              style: TextStyle(
+                                                color: hotTopicsId.length > 0 ? Colors.white : Colors.black,
+                                                fontSize: 11.0.sp,
+                                                fontFamily: 'Whitney Medium',
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          // selectHotTopicsFilter();
+                                          selectQualificationsFilter();
+                                        });
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                        child: Container(
+                                          decoration: qualificationsId.length > 0
+                                              ? BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(18.0),
+                                                  border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                  color: Color(0xFF607083),
+                                                )
+                                              : BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(30.0),
+                                                  border: Border.all(color: Colors.black, width: 1.0),
+                                                  color: Color(0xFFFFFFFF),
+                                                ),
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              vertical: 9.0,
+                                              horizontal: 18.0,
+                                            ),
+                                            child: Text(
+                                              'Qualification',
+                                              style: TextStyle(
+                                                color: qualificationsId.length > 0 ? Colors.white : Colors.black,
+                                                fontSize: 11.0.sp,
+                                                fontFamily: 'Whitney Medium',
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    /*Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(30.0),
+                                              border: Border.all(color: Colors.black, width: 1.0),
+                                              color: Color(0xFFFFFFFF),
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: 9.0,
+                                                horizontal: 18.0,
+                                              ),
+                                              child: Text(
+                                                'Topics',
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 11.0.sp,
+                                                  fontFamily: 'Whitney Medium',
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),*/
+                                    GestureDetector(
+                                      onTap: () {
+                                        selectLiveFilter();
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                        child: Container(
+                                          decoration: isLive
+                                              ? BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(18.0),
+                                                  border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                  color: Color(0xFF607083),
+                                                )
+                                              : BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(30.0),
+                                                  border: Border.all(color: Colors.black, width: 1.0),
+                                                  color: Color(0xFFFFFFFF),
+                                                ),
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              vertical: 9.0,
+                                              horizontal: 18.0,
+                                            ),
+                                            child: Text(
+                                              // 'Live Webinars',
+                                              'Live',
+                                              style: TextStyle(
+                                                color: isLive ? Colors.white : Colors.black,
+                                                fontSize: 11.0.sp,
+                                                fontFamily: 'Whitney Medium',
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        selectSelfStudyFilter();
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                        child: Container(
+                                          decoration: isSelfStudy
+                                              ? BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(18.0),
+                                                  border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                  color: Color(0xFF607083),
+                                                )
+                                              : BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(30.0),
+                                                  border: Border.all(color: Colors.black, width: 1.0),
+                                                  color: Color(0xFFFFFFFF),
+                                                ),
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              vertical: 9.0,
+                                              horizontal: 18.0,
+                                            ),
+                                            child: Text(
+                                              'Self Study',
+                                              style: TextStyle(
+                                                color: isSelfStudy ? Colors.white : Colors.black,
+                                                fontSize: 11.0.sp,
+                                                fontFamily: 'Whitney Medium',
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        selectPremiumFilter();
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                        child: Container(
+                                          decoration: isPremium
+                                              ? BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(18.0),
+                                                  border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                  color: Color(0xFF607083),
+                                                )
+                                              : BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(30.0),
+                                                  border: Border.all(color: Colors.black, width: 1.0),
+                                                  color: Color(0xFFFFFFFF),
+                                                ),
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              vertical: 9.0,
+                                              horizontal: 18.0,
+                                            ),
+                                            child: Text(
+                                              'Premium',
+                                              style: TextStyle(
+                                                color: isPremium ? Colors.white : Colors.black,
+                                                fontSize: 11.0.sp,
+                                                fontFamily: 'Whitney Medium',
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        selectFreeFilter();
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                        child: Container(
+                                          decoration: isFree
+                                              ? BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(18.0),
+                                                  border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                  color: Color(0xFF607083),
+                                                )
+                                              : BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(30.0),
+                                                  border: Border.all(color: Colors.black, width: 1.0),
+                                                  color: Color(0xFFFFFFFF),
+                                                ),
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              vertical: 9.0,
+                                              horizontal: 18.0,
+                                            ),
+                                            child: Text(
+                                              'Free',
+                                              style: TextStyle(
+                                                color: isFree ? Colors.white : Colors.black,
+                                                fontSize: 11.0.sp,
+                                                fontFamily: 'Whitney Medium',
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible: isLive ? true : false,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          selectDateFilter();
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                          child: Container(
+                                            decoration: isDateSelected
+                                                ? BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(18.0),
+                                                    border: Border.all(color: Color(0xFF607083), width: 1.0),
+                                                    color: Color(0xFF607083),
+                                                  )
+                                                : BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(30.0),
+                                                    border: Border.all(color: Colors.black, width: 1.0),
+                                                    color: Color(0xFFFFFFFF),
+                                                  ),
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: 9.0,
+                                                horizontal: 18.0,
+                                              ),
+                                              child: Text(
+                                                'Date',
+                                                style: TextStyle(
+                                                  color: isDateSelected ? Colors.white : Colors.black,
+                                                  fontSize: 11.0.sp,
+                                                  fontFamily: 'Whitney Medium',
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          color: Color(0xFFF3F5F9),
+                          // width: 20.0.sp,
+                          height: 60.0,
+                          padding: EdgeInsets.all(10.0),
+                          child: Row(
+                            children: <Widget>[
+                              GestureDetector(
+                                onTap: () {
+                                  print('Clicked on the search icon..');
+                                  setState(() {
+                                    isSearch = true;
+                                    _focusNode.addListener(() {
+                                      if (!_focusNode.hasFocus) {
+                                        FocusScope.of(context).requestFocus(_focusNode);
+                                      }
+                                    });
+                                  });
+                                },
+                                child: Container(
+                                  width: 30.0.sp,
+                                  height: double.infinity,
+                                  color: Color(0xFFF3F5F9),
+                                  // color: Colors.white,
+                                  child: Icon(
+                                    FontAwesomeIcons.search,
+                                    size: 12.0.sp,
+                                  ),
+                                ),
+                              ),
+                              Visibility(
+                                visible: isGuestUser ? false : true,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Notifications(),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    width: 20.0.sp,
+                                    height: double.infinity,
+                                    color: Color(0xFFF3F5F9),
+                                    child: Icon(
+                                      FontAwesomeIcons.solidBell,
+                                      size: 12.0.sp,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                    SingleChildScrollView(
+                    /*SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
                         child: Row(
                           children: <Widget>[
-                            /*selectedFilterWidget(
-                                str: 'Test Filter',
-                              ),*/
-                            /*selectedFilterWidget(
-                                    str: 'Hot Topics',
-                                  ),*/
+                            selectedFilterWidget(
+                              str: 'Test Filter',
+                            ),
+                            selectedFilterWidget(
+                              str: 'Hot Topics',
+                            ),
                             GestureDetector(
                               onTap: () {
                                 setState(() {
@@ -602,30 +961,30 @@ class _HomeFragmentState extends State<HomeFragment> {
                                 ),
                               ),
                             ),
-                            /*Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(30.0),
-                                          border: Border.all(color: Colors.black, width: 1.0),
-                                          color: Color(0xFFFFFFFF),
-                                        ),
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                            vertical: 9.0,
-                                            horizontal: 18.0,
-                                          ),
-                                          child: Text(
-                                            'Topics',
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 11.0.sp,
-                                              fontFamily: 'Whitney Medium',
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),*/
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  border: Border.all(color: Colors.black, width: 1.0),
+                                  color: Color(0xFFFFFFFF),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: 9.0,
+                                    horizontal: 18.0,
+                                  ),
+                                  child: Text(
+                                    'Topics',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 11.0.sp,
+                                      fontFamily: 'Whitney Medium',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                             GestureDetector(
                               onTap: () {
                                 selectLiveFilter();
@@ -806,6 +1165,94 @@ class _HomeFragmentState extends State<HomeFragment> {
                               ),
                             ),
                           ],
+                        ),
+                      ),
+                    ),*/
+                    Visibility(
+                      visible: isSearch,
+                      child: Container(
+                        height: 50.0,
+                        // width: double.infinity,
+                        color: Color(0xFFF3F5F9),
+                        // color: Colors.tealAccent,
+                        child: Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Flexible(
+                                flex: 8,
+                                child: Container(
+                                  margin: EdgeInsets.symmetric(vertical: 7.0, horizontal: 15.0),
+                                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                  decoration: BoxDecoration(
+                                    color: searchbarColor,
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: TextField(
+                                    controller: searchController,
+                                    focusNode: _focusNode,
+                                    autofocus: true,
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: 'Search',
+                                      hintStyle: kLableSearchHomeStyle,
+                                    ),
+                                    textInputAction: TextInputAction.search,
+                                    onEditingComplete: () {
+                                      print('Search event fired');
+                                      setState(() {
+                                        searchKey = searchController.text;
+                                        if (searchController.text.isNotEmpty) {
+                                          print('Search keyword lenght is == 0');
+                                          FocusScope.of(context).requestFocus(new FocusNode());
+                                        } else {
+                                          print('Search keyword lenght is > 0');
+                                          FocusScope.of(context).requestFocus(new FocusNode());
+                                          // Now take an API call for the search tag too..
+                                          list.clear();
+                                          start = 0;
+
+                                          this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice',
+                                              '$hot_topics_ids', '$qualification_ids');
+                                        }
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ),
+                              Flexible(
+                                flex: 2,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      isSearch = false;
+                                      if (searchController.text.isNotEmpty) {
+                                        searchController.text = "";
+                                        searchKey = "";
+
+                                        list.clear();
+                                        start = 0;
+
+                                        this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice',
+                                            '$hot_topics_ids', '$qualification_ids');
+                                      }
+                                    });
+                                  },
+                                  child: Container(
+                                    height: double.infinity,
+                                    color: Color(0xFFF3F5F9),
+                                    padding: EdgeInsets.only(right: 20.0),
+                                    child: Center(
+                                      child: Text(
+                                        'Cancel',
+                                        style: kLableTextCancelStyle,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
