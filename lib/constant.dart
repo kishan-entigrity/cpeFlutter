@@ -280,6 +280,7 @@ convertCamelCase(String status) {
 const Color testColor = const Color(0xFFF3F5F9);
 const Color themeBlue = const Color(0xFF08264c);
 const Color themeYellow = const Color(0xFFFBB42C);
+const Color progressBackground = const Color(0xFFC4C4C4);
 const Color black50 = const Color(0x501F2227);
 const Color black80 = const Color(0x801F2227);
 const Color themeBlueLight = const Color(0xFF193F70);

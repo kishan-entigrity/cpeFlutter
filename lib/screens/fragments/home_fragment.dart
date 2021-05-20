@@ -522,11 +522,11 @@ class _HomeFragmentState extends State<HomeFragment> {
                         child: Row(
                           children: <Widget>[
                             /*selectedFilterWidget(
-                        str: 'Test Filter',
-                      ),*/
+                                str: 'Test Filter',
+                              ),*/
                             /*selectedFilterWidget(
-                            str: 'Hot Topics',
-                          ),*/
+                                    str: 'Hot Topics',
+                                  ),*/
                             GestureDetector(
                               onTap: () {
                                 setState(() {
@@ -603,29 +603,29 @@ class _HomeFragmentState extends State<HomeFragment> {
                               ),
                             ),
                             /*Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                  border: Border.all(color: Colors.black, width: 1.0),
-                                  color: Color(0xFFFFFFFF),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    vertical: 9.0,
-                                    horizontal: 18.0,
-                                  ),
-                                  child: Text(
-                                    'Topics',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 11.0.sp,
-                                      fontFamily: 'Whitney Medium',
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),*/
+                                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(30.0),
+                                          border: Border.all(color: Colors.black, width: 1.0),
+                                          color: Color(0xFFFFFFFF),
+                                        ),
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            vertical: 9.0,
+                                            horizontal: 18.0,
+                                          ),
+                                          child: Text(
+                                            'Topics',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 11.0.sp,
+                                              fontFamily: 'Whitney Medium',
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),*/
                             GestureDetector(
                               onTap: () {
                                 selectLiveFilter();
@@ -869,72 +869,114 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                         ),
                                                       ),
                                                       Container(
-                                                        height: 40.0.w,
+                                                        height: 44.0.w,
                                                         child: ListView.builder(
                                                           scrollDirection: Axis.horizontal,
                                                           itemCount: recentList.length,
                                                           shrinkWrap: true,
                                                           itemBuilder: (context, index) {
                                                             return Container(
+                                                              // color: Colors.blueGrey,
                                                               margin: EdgeInsets.fromLTRB(3.5.w, 1.0.h, 0.0, 2.0.h),
-                                                              height: 40.0.w,
-                                                              width: 65.0.w,
-                                                              decoration: BoxDecoration(
-                                                                borderRadius: BorderRadius.circular(10.0.sp),
-                                                                color: Colors.teal,
-                                                              ),
-                                                              child: Stack(
+                                                              child: Column(
                                                                 children: <Widget>[
-                                                                  Positioned(
-                                                                    child: Image.asset(
-                                                                      'assets/bg_image_recent.png',
-                                                                      height: 40.0.w,
-                                                                      width: 65.0.w,
-                                                                      fit: BoxFit.fill,
+                                                                  Container(
+                                                                    // margin: EdgeInsets.fromLTRB(3.5.w, 1.0.h, 0.0, 2.0.h),
+                                                                    height: 36.5.w,
+                                                                    width: 65.0.w,
+                                                                    decoration: BoxDecoration(
+                                                                      borderRadius: BorderRadius.circular(10.0.sp),
+                                                                      color: Colors.teal,
+                                                                    ),
+                                                                    child: Stack(
+                                                                      children: <Widget>[
+                                                                        Positioned(
+                                                                          child: Image.asset(
+                                                                            'assets/bg_image_recent.png',
+                                                                            height: 36.5.w,
+                                                                            width: 65.0.w,
+                                                                            fit: BoxFit.fill,
+                                                                          ),
+                                                                        ),
+                                                                        Positioned(
+                                                                          child: Container(
+                                                                            height: double.infinity,
+                                                                            child: Stack(
+                                                                              children: <Widget>[
+                                                                                Positioned(
+                                                                                  child: Text(
+                                                                                    recentList[index].webinarTitle,
+                                                                                    style: TextStyle(
+                                                                                      fontSize: 10.0.sp,
+                                                                                      color: Colors.white,
+                                                                                      fontFamily: 'Whitney Bold',
+                                                                                    ),
+                                                                                    maxLines: 3,
+                                                                                    overflow: TextOverflow.ellipsis,
+                                                                                  ),
+                                                                                ),
+                                                                                Positioned(
+                                                                                  bottom: 0.0,
+                                                                                  child: GestureDetector(
+                                                                                    onTap: () {
+                                                                                      print('Clicked on index position : $index');
+                                                                                      print('Clicked on ID : ${recentList[index].id}');
+                                                                                      getIdWebinar(index);
+                                                                                    },
+                                                                                    child: Container(
+                                                                                      height: 25.0.sp,
+                                                                                      width: 25.0.sp,
+                                                                                      decoration: BoxDecoration(
+                                                                                        borderRadius: BorderRadius.circular(25.0.sp),
+                                                                                        color: Colors.white,
+                                                                                      ),
+                                                                                      padding: EdgeInsets.all(7.0.sp),
+                                                                                      child: Image.asset(
+                                                                                        'assets/cpe_icon.png',
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                            padding: EdgeInsets.all(10.0.sp),
+                                                                          ),
+                                                                        ),
+                                                                      ],
                                                                     ),
                                                                   ),
-                                                                  Positioned(
-                                                                    child: Container(
-                                                                      height: double.infinity,
-                                                                      child: Stack(
-                                                                        children: <Widget>[
-                                                                          Positioned(
-                                                                            child: Text(
-                                                                              recentList[index].webinarTitle,
-                                                                              style: TextStyle(
-                                                                                fontSize: 10.0.sp,
-                                                                                color: Colors.white,
-                                                                                fontFamily: 'Whitney Bold',
-                                                                              ),
-                                                                              maxLines: 3,
-                                                                              overflow: TextOverflow.ellipsis,
+                                                                  // Text('Hello'),
+                                                                  Container(
+                                                                    height: 3.0.sp,
+                                                                    width: 65.0.w,
+                                                                    margin: EdgeInsets.only(top: 4.0.sp),
+                                                                    decoration: BoxDecoration(
+                                                                      color: progressBackground,
+                                                                      borderRadius: BorderRadius.circular(3.0.sp),
+                                                                    ),
+                                                                    child: Row(
+                                                                      children: <Widget>[
+                                                                        new Flexible(
+                                                                          child: Container(
+                                                                            decoration: BoxDecoration(
+                                                                              color: themeYellow,
+                                                                              borderRadius: BorderRadius.circular(3.0.sp),
                                                                             ),
                                                                           ),
-                                                                          Positioned(
-                                                                            bottom: 0.0,
-                                                                            child: GestureDetector(
-                                                                              onTap: () {
-                                                                                print('Clicked on index position : $index');
-                                                                                print('Clicked on ID : ${recentList[index].id}');
-                                                                                getIdWebinar(index);
-                                                                              },
-                                                                              child: Container(
-                                                                                height: 25.0.sp,
-                                                                                width: 25.0.sp,
-                                                                                decoration: BoxDecoration(
-                                                                                  borderRadius: BorderRadius.circular(25.0.sp),
-                                                                                  color: Colors.white,
-                                                                                ),
-                                                                                padding: EdgeInsets.all(7.0.sp),
-                                                                                child: Image.asset(
-                                                                                  'assets/cpe_icon.png',
-                                                                                ),
-                                                                              ),
+                                                                          flex: 20,
+                                                                        ),
+                                                                        new Flexible(
+                                                                          child: Container(
+                                                                            decoration: BoxDecoration(
+                                                                              color: progressBackground,
+                                                                              borderRadius: BorderRadius.only(
+                                                                                  topRight: Radius.circular(3.0.sp),
+                                                                                  bottomRight: Radius.circular(3.0.sp)),
                                                                             ),
                                                                           ),
-                                                                        ],
-                                                                      ),
-                                                                      padding: EdgeInsets.all(10.0.sp),
+                                                                          flex: 80,
+                                                                        ),
+                                                                      ],
                                                                     ),
                                                                   ),
                                                                 ],

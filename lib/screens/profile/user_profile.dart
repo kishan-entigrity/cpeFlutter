@@ -607,118 +607,14 @@ class _UserProfileState extends State<UserProfile> {
                               child: GestureDetector(
                                 onTap: () {
                                   print('Clicekd on profile pic');
-                                  showModalBottomSheet(
-                                      context: context,
-                                      builder: (builder) {
-                                        return StatefulBuilder(
-                                          builder: (BuildContext context, void Function(void Function()) setState) {
-                                            return Container(
-                                              height: 100.0.sp,
-                                              child: Column(
-                                                children: <Widget>[
-                                                  Container(
-                                                    height: 50.0.sp,
-                                                    child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: <Widget>[
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            Navigator.pop(context);
-                                                          },
-                                                          child: Container(
-                                                            width: 20.0.w,
-                                                            child: Center(
-                                                              child: Text(
-                                                                'Cancel',
-                                                                style: kDateTestimonials,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Container(
-                                                          width: 50.0.w,
-                                                          child: Center(
-                                                            child: Text(
-                                                              'Select From',
-                                                              style: kOthersTitle,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Container(
-                                                          width: 20.0.w,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    child: Container(
-                                                      // color: Colors.teal,
-                                                      child: Row(
-                                                        children: <Widget>[
-                                                          Expanded(
-                                                            child: GestureDetector(
-                                                              onTap: () {
-                                                                print('Clicked on Camera');
-                                                                // _imgFromCamera();
-                                                                Navigator.pop(context);
-                                                                takePicture(ImageSource.camera);
-                                                              },
-                                                              child: Column(
-                                                                children: <Widget>[
-                                                                  Icon(
-                                                                    FontAwesomeIcons.camera,
-                                                                    size: 15.0.sp,
-                                                                    color: Colors.black87,
-                                                                  ),
-                                                                  SizedBox(height: 10.0.sp),
-                                                                  Text(
-                                                                    "Camera",
-                                                                    style: kDataBottomPicker,
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Expanded(
-                                                            child: GestureDetector(
-                                                              onTap: () {
-                                                                print('Clicked on galary');
-                                                                // _imgFromGallery();
-                                                                Navigator.pop(context);
-                                                                takePicture(ImageSource.gallery);
-                                                              },
-                                                              child: Column(
-                                                                children: <Widget>[
-                                                                  Icon(
-                                                                    FontAwesomeIcons.photoVideo,
-                                                                    size: 15.0.sp,
-                                                                    color: Colors.black87,
-                                                                  ),
-                                                                  SizedBox(height: 10.0.sp),
-                                                                  Text(
-                                                                    "Photo Library",
-                                                                    style: kDataBottomPicker,
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                        );
-                                      });
+                                  clickEventProfilePic();
                                 },
                                 child: Center(
                                   child: CircleAvatar(
                                     radius: 14.0.w,
                                     backgroundImage: _imageFile == null
-                                        ? AssetImage("assests/angela.jpg")
+                                        // ? AssetImage("assests/angela.jpg")
+                                        ? NetworkImage(strProfilePic)
                                         : FileImage(
                                             File(_imageFile.path),
                                           ),
@@ -2720,6 +2616,115 @@ class _UserProfileState extends State<UserProfile> {
     setState(() {
       _imageFile = pickedFile;
     });
+  }
+
+  void clickEventProfilePic() {
+    showModalBottomSheet(
+        context: context,
+        builder: (builder) {
+          return StatefulBuilder(
+            builder: (BuildContext context, void Function(void Function()) setState) {
+              return Container(
+                height: 100.0.sp,
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      height: 50.0.sp,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Container(
+                              width: 20.0.w,
+                              child: Center(
+                                child: Text(
+                                  'Cancel',
+                                  style: kDateTestimonials,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 50.0.w,
+                            child: Center(
+                              child: Text(
+                                'Select From',
+                                style: kOthersTitle,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 20.0.w,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        // color: Colors.teal,
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () {
+                                  print('Clicked on Camera');
+                                  // _imgFromCamera();
+                                  Navigator.pop(context);
+                                  takePicture(ImageSource.camera);
+                                },
+                                child: Column(
+                                  children: <Widget>[
+                                    Icon(
+                                      FontAwesomeIcons.camera,
+                                      size: 15.0.sp,
+                                      color: Colors.black87,
+                                    ),
+                                    SizedBox(height: 10.0.sp),
+                                    Text(
+                                      "Camera",
+                                      style: kDataBottomPicker,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () {
+                                  print('Clicked on galary');
+                                  // _imgFromGallery();
+                                  Navigator.pop(context);
+                                  takePicture(ImageSource.gallery);
+                                },
+                                child: Column(
+                                  children: <Widget>[
+                                    Icon(
+                                      FontAwesomeIcons.photoVideo,
+                                      size: 15.0.sp,
+                                      color: Colors.black87,
+                                    ),
+                                    SizedBox(height: 10.0.sp),
+                                    Text(
+                                      "Photo Library",
+                                      style: kDataBottomPicker,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        });
   }
 
 /*_imgFromCamera() async {
