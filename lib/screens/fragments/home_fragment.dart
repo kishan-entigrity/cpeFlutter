@@ -1316,7 +1316,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                         ),
                                                       ),
                                                       Container(
-                                                        height: 44.0.w,
+                                                        height: 38.0.w,
                                                         child: ListView.builder(
                                                           scrollDirection: Axis.horizontal,
                                                           itemCount: recentList.length,
@@ -1329,8 +1329,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                 children: <Widget>[
                                                                   Container(
                                                                     // margin: EdgeInsets.fromLTRB(3.5.w, 1.0.h, 0.0, 2.0.h),
-                                                                    height: 36.5.w,
-                                                                    width: 65.0.w,
+                                                                    height: 30.5.w,
+                                                                    width: 55.0.w,
                                                                     decoration: BoxDecoration(
                                                                       borderRadius: BorderRadius.circular(10.0.sp),
                                                                       color: Colors.teal,
@@ -1340,8 +1340,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                         Positioned(
                                                                           child: Image.asset(
                                                                             'assets/bg_image_recent.png',
-                                                                            height: 36.5.w,
-                                                                            width: 65.0.w,
+                                                                            height: 30.5.w,
+                                                                            width: 55.0.w,
                                                                             fit: BoxFit.fill,
                                                                           ),
                                                                         ),
@@ -1354,7 +1354,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                                   child: Text(
                                                                                     recentList[index].webinarTitle,
                                                                                     style: TextStyle(
-                                                                                      fontSize: 10.0.sp,
+                                                                                      fontSize: 9.0.sp,
                                                                                       color: Colors.white,
                                                                                       fontFamily: 'Whitney Bold',
                                                                                     ),
@@ -1395,7 +1395,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                   // Text('Hello'),
                                                                   Container(
                                                                     height: 3.0.sp,
-                                                                    width: 65.0.w,
+                                                                    width: 55.0.w,
                                                                     margin: EdgeInsets.only(top: 4.0.sp),
                                                                     decoration: BoxDecoration(
                                                                       color: progressBackground,
