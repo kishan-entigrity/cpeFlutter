@@ -1445,7 +1445,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                       margin: EdgeInsets.fromLTRB(3.5.w, 0.0.h, 3.5.w, 2.0.h),
                                                       decoration: BoxDecoration(
                                                         // color: Color(0xFFFFC803),
-                                                        color: index % 2 == 0 ? Color(0xFFFFC803) : Color(0xFF00B1FD),
+                                                        // color: index % 2 == 0 ? Color(0xFFFFC803) : Color(0xFF00B1FD),
+                                                        color: setCardColor(index),
                                                         borderRadius: BorderRadius.all(
                                                           Radius.circular(15.0),
                                                         ),
@@ -2005,6 +2006,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                   return Container(
                     height: 150.0.w,
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Container(
                           height: 17.0.w,
@@ -2040,49 +2043,171 @@ class _HomeFragmentState extends State<HomeFragment> {
                             ],
                           ),
                         ),
-                        Expanded(
-                          child: ListView.builder(
-                            itemCount: arrCountQualifications,
-                            itemBuilder: (context, index) {
-                              return ConstrainedBox(
-                                constraints: BoxConstraints(
-                                  minHeight: 15.0.w,
-                                ),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      // clickEventDateFilter(index);
-                                      clickEventQualifications(index);
-                                    });
-                                  },
-                                  child: Container(
-                                    margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
-                                    decoration: BoxDecoration(
-                                      color: listQualifications[index].isSelected ? themeYellow : testColor,
-                                      // color: Colors.teal,
-                                      borderRadius: BorderRadius.circular(7.0),
-                                      // color: Colors.teal,
+                        Visibility(
+                          visible: qualificationsId.length > 0 ? true : false,
+                          child: SingleChildScrollView(
+                            child: Container(
+                              margin: EdgeInsets.fromLTRB(3.0.w, 0, 3.0.w, 1.5.w),
+                              child: Wrap(
+                                children: List.generate(listQualifications.length, (i) {
+                                  return Visibility(
+                                    visible: listQualifications[i].isSelected ? true : false,
+                                    child: ConstrainedBox(
+                                      constraints: BoxConstraints(
+                                        minWidth: 25.0.sp,
+                                      ),
+                                      child: Container(
+                                        margin: EdgeInsets.only(right: 8.0, bottom: 8.0),
+                                        padding: EdgeInsets.only(left: 8.0.sp, right: 8.0.sp, top: 5.0.sp),
+                                        height: 25.0.sp,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(30.0),
+                                          border: Border.all(
+                                            color: listQualifications[i].isSelected ? themeYellow : Color(0xFFB4C2D3),
+                                            width: 1.0,
+                                          ),
+                                          color: Color(0xFFFFFFFF),
+                                          // color: listQualifications[i].isSelected ? Colors.blue : Color(0xFFFFFFFF),
+                                        ),
+                                        /*child: Row(
+                                          children: <Widget>[
+                                            Icon(
+                                              FontAwesomeIcons.times,
+                                              color: themeYellow,
+                                              size: 11.0.sp,
+                                            ),
+                                            Text(
+                                              '${listQualifications[i].shortTitle}',
+                                              style: TextStyle(
+                                                fontFamily: 'Whitney Medium',
+                                                fontSize: 11.0.sp,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ],
+                                        ),*/
+                                        child: Text(
+                                          '${listQualifications[i].shortTitle}',
+                                          style: TextStyle(
+                                            fontFamily: 'Whitney Medium',
+                                            fontSize: 11.0.sp,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Expanded(
-                                            child: Text(
-                                              listQualifications[index].shortTitle,
-                                              textAlign: TextAlign.start,
-                                              style: kDataSingleSelectionBottomNav,
+                                  );
+                                }),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                          visible: qualificationsId.length > 0 ? true : false,
+                          child: Container(
+                            height: 1.0.sp,
+                            color: Colors.black,
+                            margin: EdgeInsets.fromLTRB(3.0.w, 0, 3.0.w, 3.0.w),
+                          ),
+                        ),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Container(
+                              margin: EdgeInsets.fromLTRB(3.0.w, 0, 3.0.w, 5.0.w),
+                              child: Wrap(
+                                children: List.generate(
+                                  listQualifications.length,
+                                  (i) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        print('Clicked on id: ${listQualifications[i].id} & title : ${listQualifications[i].title} & short title : '
+                                            '${listQualifications[i].shortTitle}');
+                                        setState(() {
+                                          clickEventQualifications(i);
+                                        });
+                                      },
+                                      child: Visibility(
+                                        visible: listQualifications[i].isSelected ? false : true,
+                                        child: Container(
+                                          // margin: EdgeInsets.symmetric(horizontal: 4.0, vertical: 0.0),
+                                          margin: EdgeInsets.only(right: 8.0, bottom: 8.0),
+                                          // child: FilterChip(
+                                          child: ConstrainedBox(
+                                            constraints: BoxConstraints(
+                                              minWidth: 25.0.sp,
+                                            ),
+                                            child: Container(
+                                              padding: EdgeInsets.only(left: 8.0.sp, right: 8.0.sp, top: 5.0.sp),
+                                              height: 25.0.sp,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(30.0),
+                                                border: Border.all(
+                                                  color: Color(0xFFB4C2D3),
+                                                  width: 1.0,
+                                                ),
+                                                color: Color(0xFFFFFFFF),
+                                                // color: listQualifications[i].isSelected ? Colors.blue : Color(0xFFFFFFFF),
+                                              ),
+                                              child: Text(
+                                                '${listQualifications[i].shortTitle.toString()}',
+                                                style: TextStyle(
+                                                  fontFamily: 'Whitney Medium',
+                                                  fontSize: 11.0.sp,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
                                             ),
                                           ),
-                                        ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                          /*ListView.builder(
+                              itemCount: arrCountQualifications,
+                              itemBuilder: (context, index) {
+                                return ConstrainedBox(
+                                  constraints: BoxConstraints(
+                                    minHeight: 15.0.w,
+                                  ),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        // clickEventDateFilter(index);
+                                        clickEventQualifications(index);
+                                      });
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
+                                      decoration: BoxDecoration(
+                                        color: listQualifications[index].isSelected ? themeYellow : testColor,
+                                        // color: Colors.teal,
+                                        borderRadius: BorderRadius.circular(7.0),
+                                        // color: Colors.teal,
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Expanded(
+                                              child: Text(
+                                                listQualifications[index].shortTitle,
+                                                textAlign: TextAlign.start,
+                                                style: kDataSingleSelectionBottomNav,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              );
-                            },
-                          ),
+                                );
+                              },
+                            ),*/
                         ),
                       ],
                     ),
@@ -3448,13 +3573,13 @@ class _HomeFragmentState extends State<HomeFragment> {
           }
         }
 
-        isProgressShowing = true;
+        /*isProgressShowing = true;
 
         list.clear();
         start = 0;
 
         this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice',
-            '$hot_topics_ids', '$qualification_ids');
+            '$hot_topics_ids', '$qualification_ids');*/
       });
     } else {
       setState(() {
@@ -3475,13 +3600,13 @@ class _HomeFragmentState extends State<HomeFragment> {
           }
         }
 
-        isProgressShowing = true;
+        /*isProgressShowing = true;
 
         list.clear();
         start = 0;
 
         this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice',
-            '$hot_topics_ids', '$qualification_ids');
+            '$hot_topics_ids', '$qualification_ids');*/
       });
     }
   }
@@ -3639,6 +3764,10 @@ class _HomeFragmentState extends State<HomeFragment> {
       // Call setState() here or handle this appropriately
       checkForSP();
     });
+  }
+
+  setCardColor(int index) {
+    return index % 2 == 0 ? Color(0xFFFFC803) : Color(0xFF00B1FD);
   }
 
 /*void clickEventMonth(int index) {

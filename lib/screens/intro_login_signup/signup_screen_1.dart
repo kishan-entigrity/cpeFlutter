@@ -99,14 +99,17 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.max,
                             children: <Widget>[
-                              Container(
-                                height: 200.0,
-                                width: double.infinity,
-                                child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(25.0, 50.0, 0.0, 0.0),
-                                  child: Text(
-                                    'Register\nYourself',
-                                    style: kLabelTitleTextStyle,
+                              Visibility(
+                                visible: false,
+                                child: Container(
+                                  height: 200.0,
+                                  width: double.infinity,
+                                  child: Padding(
+                                    padding: const EdgeInsets.fromLTRB(25.0, 50.0, 0.0, 0.0),
+                                    child: Text(
+                                      'Register\nYourself',
+                                      style: kLabelTitleTextStyle,
+                                    ),
                                   ),
                                 ),
                               ),
