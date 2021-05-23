@@ -2058,7 +2058,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                       ),
                                       child: Container(
                                         margin: EdgeInsets.only(right: 8.0, bottom: 8.0),
-                                        padding: EdgeInsets.only(left: 8.0.sp, right: 8.0.sp, top: 5.0.sp),
+                                        padding: EdgeInsets.only(left: 8.0.sp, right: 8.0.sp),
                                         height: 25.0.sp,
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(30.0),
@@ -2069,12 +2069,27 @@ class _HomeFragmentState extends State<HomeFragment> {
                                           color: Color(0xFFFFFFFF),
                                           // color: listQualifications[i].isSelected ? Colors.blue : Color(0xFFFFFFFF),
                                         ),
-                                        /*child: Row(
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
                                           children: <Widget>[
-                                            Icon(
-                                              FontAwesomeIcons.times,
-                                              color: themeYellow,
-                                              size: 11.0.sp,
+                                            GestureDetector(
+                                              onTap: () {
+                                                print('Clicked on UNCHECK id: ${listQualifications[i].id} & title : ${listQualifications[i].title} & '
+                                                    'short'
+                                                    ' title : '
+                                                    '${listQualifications[i].shortTitle}');
+                                                setState(() {
+                                                  clickEventQualifications(i);
+                                                });
+                                              },
+                                              child: Icon(
+                                                FontAwesomeIcons.times,
+                                                color: themeYellow,
+                                                size: 11.0.sp,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 5.0.sp,
                                             ),
                                             Text(
                                               '${listQualifications[i].shortTitle}',
@@ -2085,14 +2100,6 @@ class _HomeFragmentState extends State<HomeFragment> {
                                               ),
                                             ),
                                           ],
-                                        ),*/
-                                        child: Text(
-                                          '${listQualifications[i].shortTitle}',
-                                          style: TextStyle(
-                                            fontFamily: 'Whitney Medium',
-                                            fontSize: 11.0.sp,
-                                            color: Colors.black,
-                                          ),
                                         ),
                                       ),
                                     ),
@@ -3573,13 +3580,13 @@ class _HomeFragmentState extends State<HomeFragment> {
           }
         }
 
-        /*isProgressShowing = true;
+        isProgressShowing = true;
 
         list.clear();
         start = 0;
 
         this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice',
-            '$hot_topics_ids', '$qualification_ids');*/
+            '$hot_topics_ids', '$qualification_ids');
       });
     } else {
       setState(() {
@@ -3600,13 +3607,13 @@ class _HomeFragmentState extends State<HomeFragment> {
           }
         }
 
-        /*isProgressShowing = true;
+        isProgressShowing = true;
 
         list.clear();
         start = 0;
 
         this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice',
-            '$hot_topics_ids', '$qualification_ids');*/
+            '$hot_topics_ids', '$qualification_ids');
       });
     }
   }
