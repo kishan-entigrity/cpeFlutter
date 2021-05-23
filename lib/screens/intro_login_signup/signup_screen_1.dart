@@ -114,6 +114,14 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                 ),
                               ),
                               Container(
+                                padding: EdgeInsets.only(left: 25.0),
+                                margin: EdgeInsets.only(bottom: 25.0, top: 20.0),
+                                child: Text(
+                                  'Basic Details',
+                                  style: kLableSignUpNewTitle,
+                                ),
+                              ),
+                              Container(
                                 margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 6.0.w),
                                 child: TextField(
                                   controller: fnameController,

@@ -2112,7 +2112,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                         Visibility(
                           visible: qualificationsId.length > 0 ? true : false,
                           child: Container(
-                            height: 1.0.sp,
+                            height: 1.0,
                             color: Colors.black,
                             margin: EdgeInsets.fromLTRB(3.0.w, 0, 3.0.w, 3.0.w),
                           ),

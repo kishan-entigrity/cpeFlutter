@@ -156,7 +156,15 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: <Widget>[
                                       Container(
-                                        margin: EdgeInsets.only(left: 6.0.w, right: 6.0.w, top: 20.0.w),
+                                        padding: EdgeInsets.only(left: 25.0),
+                                        margin: EdgeInsets.only(bottom: 25.0, top: 20.0),
+                                        child: Text(
+                                          'Professional Details',
+                                          style: kLableSignUpNewTitle,
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(left: 6.0.w, right: 6.0.w, top: 5.0.w),
                                         child: TextField(
                                           controller: companyNameController,
                                           style: kLableSignUpTextStyle,
@@ -717,9 +725,9 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                           ],
                                         ),
                                       ),
-                                      SizedBox(
-                                        height: 20.0.w,
-                                      ),
+                                      /*SizedBox(
+                                        height: 5.0.w,
+                                      ),*/
                                     ],
                                   ),
                                 ),

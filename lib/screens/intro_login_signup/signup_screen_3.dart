@@ -163,11 +163,19 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
                                   Container(
+                                    padding: EdgeInsets.only(left: 25.0),
+                                    margin: EdgeInsets.only(bottom: 25.0, top: 20.0),
+                                    child: Text(
+                                      'Other Details',
+                                      style: kLableSignUpNewTitle,
+                                    ),
+                                  ),
+                                  Container(
                                     child: Text(
                                       'PTIN',
                                       style: kLableSignUpHintLableStyle,
                                     ),
-                                    margin: EdgeInsets.only(left: 6.0.w, right: 6.0.w, top: 20.0.w),
+                                    margin: EdgeInsets.only(left: 6.0.w, right: 6.0.w, top: 5.0.w),
                                   ),
                                   Container(
                                     // margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 6.0.w),
