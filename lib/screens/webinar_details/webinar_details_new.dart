@@ -813,6 +813,96 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: <Widget>[
+                            Visibility(
+                              visible: strWebinarTypeIntent == 'ON-DEMAND' ? true : false,
+                              child: Container(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      child: Row(
+                                        children: <Widget>[
+                                          Container(
+                                            margin: EdgeInsets.only(left: 10.0, top: 7.0),
+                                            width: 80.0.sp,
+                                            child: RatingBar.readOnly(
+                                              initialRating: double.parse("4.0"),
+                                              size: 16.0.sp,
+                                              filledColor: themeYellow,
+                                              halfFilledColor: Colors.white,
+                                              emptyColor: Colors.black45,
+                                              isHalfAllowed: true,
+                                              halfFilledIcon: Icons.star_half,
+                                              // halfFilledIcon: Icons.star,
+                                              filledIcon: Icons.star,
+                                              // emptyIcon: Icons.star,
+                                              emptyIcon: Icons.star_border,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 6.0,
+                                          ),
+                                          Container(
+                                            margin: EdgeInsets.only(top: 5.0),
+                                            child: Text(
+                                              '(181)',
+                                              style: TextStyle(
+                                                fontFamily: 'Whitney Semi Bold',
+                                                fontSize: 13.0.sp,
+                                                color: Color(0xFF1F2227),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 25.0.sp,
+                                      // width: 60.0.w,
+                                      margin: EdgeInsets.only(left: 10.0, top: 10.0, right: 10.0),
+                                      child: ListView.builder(
+                                        // itemCount: webDetailsObj['audiance_titles'].lenght,
+                                        itemCount: audience_title_lenght,
+                                        scrollDirection: Axis.horizontal,
+                                        itemBuilder: (context, index) {
+                                          return Container(
+                                            margin: EdgeInsets.only(right: 8.0),
+                                            child: ConstrainedBox(
+                                              constraints: BoxConstraints(
+                                                minWidth: 25.0.sp,
+                                              ),
+                                              child: Container(
+                                                padding: EdgeInsets.only(left: 8.0.sp, right: 8.0.sp, top: 5.0.sp),
+                                                height: 25.0.sp,
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(30.0),
+                                                  border: Border.all(
+                                                    // color: Color(0xFFB4C2D3),
+                                                    color: Colors.black,
+                                                    width: 1.0,
+                                                  ),
+                                                  // color: Color(0xFFFFC803),
+                                                  color: Colors.white,
+                                                ),
+                                                child: Text(
+                                                  '${webDetailsObj['audiance_titles'][index]}',
+                                                  // 'Test Data',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Whitney Medium',
+                                                    fontSize: 11.0.sp,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                             ExpandedCard(
                                 // onPress: clickEvent(),
                                 onPress: () {
