@@ -21,6 +21,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:rating_bar/rating_bar.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
@@ -82,6 +83,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       programDescription = '',
       whyShouldAttend = '',
       overviewOfTopic = '';
+
+  var audience_title_lenght = 0;
 
   var play_time_duration;
   var scheduleID;
@@ -207,6 +210,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
           play_time_duration = webDetailsObj['play_time_duration'];
           scheduleID = webDetailsObj['schedule_id'];
           fee = webDetailsObj['cost'].toString();
+          audience_title_lenght = webDetailsObj['audiance_titles'].length;
 
           if (fee == '' || fee.toString().toLowerCase() == 'free') {
             iswebinarFree = true;
@@ -706,6 +710,85 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                               ),
                                             ),
                                           ],
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Row(
+                                          children: <Widget>[
+                                            Container(
+                                              margin: EdgeInsets.only(left: 15.0, top: 7.0),
+                                              width: 80.0.sp,
+                                              child: RatingBar.readOnly(
+                                                initialRating: double.parse("4.0"),
+                                                size: 16.0.sp,
+                                                filledColor: themeBlueLight,
+                                                halfFilledColor: themeBlueLight,
+                                                emptyColor: Colors.white,
+                                                isHalfAllowed: true,
+                                                // halfFilledIcon: Icons.star_half,
+                                                halfFilledIcon: Icons.star,
+                                                filledIcon: Icons.star,
+                                                emptyIcon: Icons.star,
+                                                // emptyIcon: Icons.star_border,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 6.0,
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.only(top: 5.0),
+                                              child: Text(
+                                                '(181)',
+                                                style: TextStyle(
+                                                  fontFamily: 'Whitney Semi Bold',
+                                                  fontSize: 13.0.sp,
+                                                  color: Color(0xFF1F2227),
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        height: 25.0.sp,
+                                        width: 60.0.w,
+                                        margin: EdgeInsets.only(left: 15.0, top: 20.0),
+                                        child: ListView.builder(
+                                          // itemCount: webDetailsObj['audiance_titles'].lenght,
+                                          itemCount: audience_title_lenght,
+                                          scrollDirection: Axis.horizontal,
+                                          itemBuilder: (context, index) {
+                                            return Container(
+                                              margin: EdgeInsets.only(right: 8.0),
+                                              child: ConstrainedBox(
+                                                constraints: BoxConstraints(
+                                                  minWidth: 25.0.sp,
+                                                ),
+                                                child: Container(
+                                                  padding: EdgeInsets.only(left: 8.0.sp, right: 8.0.sp, top: 5.0.sp),
+                                                  height: 25.0.sp,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(30.0),
+                                                    border: Border.all(
+                                                      // color: Color(0xFFB4C2D3),
+                                                      color: Colors.black,
+                                                      width: 1.0,
+                                                    ),
+                                                    color: Color(0xFFFFC803),
+                                                  ),
+                                                  child: Text(
+                                                    '${webDetailsObj['audiance_titles'][index]}',
+                                                    // 'Test Data',
+                                                    style: TextStyle(
+                                                      fontFamily: 'Whitney Medium',
+                                                      fontSize: 11.0.sp,
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
                                         ),
                                       ),
                                     ],
