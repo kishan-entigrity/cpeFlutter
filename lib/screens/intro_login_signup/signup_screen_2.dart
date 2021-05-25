@@ -192,8 +192,9 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                 return StatefulBuilder(
                                                   builder: (BuildContext context, void Function(void Function()) setState) {
                                                     return Container(
-                                                      height: 150.0.w,
+                                                      // height: 80.0.w,
                                                       child: Column(
+                                                        mainAxisSize: MainAxisSize.min,
                                                         children: <Widget>[
                                                           Container(
                                                             height: 17.0.w,
@@ -229,8 +230,57 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                               ],
                                                             ),
                                                           ),
-                                                          Expanded(
-                                                            child: ListView.builder(
+                                                          SingleChildScrollView(
+                                                            child: Container(
+                                                              margin: EdgeInsets.fromLTRB(3.0.w, 0, 3.0.w, 5.0.w),
+                                                              child: Wrap(
+                                                                children: List.generate(
+                                                                  ConstSignUp.orgSizeList.length,
+                                                                  (i) {
+                                                                    return GestureDetector(
+                                                                      onTap: () {
+                                                                        setState(() {
+                                                                          clickEventOrgSize(i);
+                                                                        });
+                                                                      },
+                                                                      child: Container(
+                                                                        margin: EdgeInsets.only(right: 8.0, bottom: 8.0),
+                                                                        child: ConstrainedBox(
+                                                                          constraints: BoxConstraints(
+                                                                            minWidth: 25.0.sp,
+                                                                          ),
+                                                                          child: Container(
+                                                                            padding: EdgeInsets.only(left: 8.0.sp, right: 8.0.sp, top: 5.0.sp),
+                                                                            height: 25.0.sp,
+                                                                            decoration: BoxDecoration(
+                                                                              borderRadius: BorderRadius.circular(30.0),
+                                                                              border: Border.all(
+                                                                                color: ConstSignUp.organizationSize == ConstSignUp.orgSizeList[i]
+                                                                                    ? themeYellow
+                                                                                    : Color(0xFFB4C2D3),
+                                                                                width: 1.0,
+                                                                              ),
+                                                                              color: Color(0xFFFFFFFF),
+                                                                              // color: listQualifications[i].isSelected ? Colors.blue : Color(0xFFFFFFFF),
+                                                                            ),
+                                                                            child: Text(
+                                                                              '${ConstSignUp.orgSizeList[i]}',
+                                                                              style: TextStyle(
+                                                                                fontFamily: 'Whitney Medium',
+                                                                                fontSize: 11.0.sp,
+                                                                                color: Colors.black,
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          /*child: ListView.builder(
                                                               itemCount: ConstSignUp.orgSizeList.length,
                                                               itemBuilder: (context, index) {
                                                                 return ConstrainedBox(
@@ -270,8 +320,8 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                                   ),
                                                                 );
                                                               },
-                                                            ),
-                                                          ),
+                                                            ),*/
+                                                          // ),
                                                         ],
                                                       ),
                                                     );
@@ -352,7 +402,57 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                             ),
                                                           ),
                                                           Expanded(
-                                                            child: ListView.builder(
+                                                            child: SingleChildScrollView(
+                                                              child: Container(
+                                                                margin: EdgeInsets.fromLTRB(3.0.w, 0, 3.0.w, 5.0.w),
+                                                                child: Wrap(
+                                                                  children: List.generate(
+                                                                    ConstSignUp.listJobTitle.length,
+                                                                    (i) {
+                                                                      return GestureDetector(
+                                                                        onTap: () {
+                                                                          setState(() {
+                                                                            clickEventJobTitle(i);
+                                                                          });
+                                                                        },
+                                                                        child: Container(
+                                                                          margin: EdgeInsets.only(right: 8.0, bottom: 8.0),
+                                                                          child: ConstrainedBox(
+                                                                            constraints: BoxConstraints(
+                                                                              minWidth: 25.0.sp,
+                                                                            ),
+                                                                            child: Container(
+                                                                              padding: EdgeInsets.only(left: 8.0.sp, right: 8.0.sp, top: 5.0.sp),
+                                                                              height: 25.0.sp,
+                                                                              decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.circular(30.0),
+                                                                                border: Border.all(
+                                                                                  color: ConstSignUp.jobTitle == ConstSignUp.listJobTitle[i].name
+                                                                                      ? themeYellow
+                                                                                      : Color(0xFFB4C2D3),
+                                                                                  width: 1.0,
+                                                                                ),
+                                                                                color: Color(0xFFFFFFFF),
+                                                                                // color: listQualifications[i].isSelected ? Colors.blue : Color(0xFFFFFFFF),
+                                                                              ),
+                                                                              child: Text(
+                                                                                '${ConstSignUp.listJobTitle[i].name.toString()}',
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Whitney Medium',
+                                                                                  fontSize: 11.0.sp,
+                                                                                  color: Colors.black,
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      );
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            /*child: ListView.builder(
                                                               itemCount: ConstSignUp.listJobTitle.length,
                                                               itemBuilder: (context, index) {
                                                                 return ConstrainedBox(
@@ -392,7 +492,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                                   ),
                                                                 );
                                                               },
-                                                            ),
+                                                            ),*/
                                                           ),
                                                         ],
                                                       ),
@@ -407,12 +507,16 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                           child: Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: <Widget>[
-                                              Text(
-                                                ConstSignUp.isJobTitleSelected ? ConstSignUp.jobTitle : 'Job Title/Designation',
-                                                style: TextStyle(
-                                                  fontFamily: 'Whitney Bold',
-                                                  fontSize: 15.0.sp,
-                                                  color: ConstSignUp.isJobTitleSelected ? Colors.black : Color(0xFFBDBFCA),
+                                              Container(
+                                                child: Text(
+                                                  ConstSignUp.isJobTitleSelected ? ConstSignUp.jobTitle : 'Job Title/Designation',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Whitney Bold',
+                                                    fontSize: 15.0.sp,
+                                                    color: ConstSignUp.isJobTitleSelected ? Colors.black : Color(0xFFBDBFCA),
+                                                  ),
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
                                                 ),
                                               ),
                                               Icon(FontAwesomeIcons.caretDown),
@@ -473,7 +577,59 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                             ),
                                                           ),
                                                           Expanded(
-                                                            child: ListView.builder(
+                                                            child: SingleChildScrollView(
+                                                              child: Container(
+                                                                margin: EdgeInsets.fromLTRB(3.0.w, 0, 3.0.w, 5.0.w),
+                                                                child: Wrap(
+                                                                  children: List.generate(
+                                                                    ConstSignUp.listIndustries.length,
+                                                                    (i) {
+                                                                      return GestureDetector(
+                                                                        onTap: () {
+                                                                          /*print('Clicked on id: ${listQualifications[i].id} & title : ${listQualifications[i].title} & short title : '
+                                                                              '${listQualifications[i].shortTitle}');*/
+                                                                          setState(() {
+                                                                            clickEventIndustry(i);
+                                                                          });
+                                                                        },
+                                                                        child: Container(
+                                                                          margin: EdgeInsets.only(right: 8.0, bottom: 8.0),
+                                                                          child: ConstrainedBox(
+                                                                            constraints: BoxConstraints(
+                                                                              minWidth: 25.0.sp,
+                                                                            ),
+                                                                            child: Container(
+                                                                              padding: EdgeInsets.only(left: 8.0.sp, right: 8.0.sp, top: 5.0.sp),
+                                                                              height: 25.0.sp,
+                                                                              decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.circular(30.0),
+                                                                                border: Border.all(
+                                                                                  color: ConstSignUp.listIndustries[i].name == ConstSignUp.industry
+                                                                                      ? themeYellow
+                                                                                      : Color(0xFFB4C2D3),
+                                                                                  width: 1.0,
+                                                                                ),
+                                                                                color: Color(0xFFFFFFFF),
+                                                                                // color: listQualifications[i].isSelected ? Colors.blue : Color(0xFFFFFFFF),
+                                                                              ),
+                                                                              child: Text(
+                                                                                '${ConstSignUp.listIndustries[i].name.toString()}',
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Whitney Medium',
+                                                                                  fontSize: 11.0.sp,
+                                                                                  color: Colors.black,
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      );
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            /*child: ListView.builder(
                                                               itemCount: ConstSignUp.listIndustries.length,
                                                               itemBuilder: (context, index) {
                                                                 return ConstrainedBox(
@@ -512,7 +668,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                                   ),
                                                                 );
                                                               },
-                                                            ),
+                                                            ),*/
                                                           ),
                                                         ],
                                                       ),
@@ -557,6 +713,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                     return Container(
                                                       height: 150.0.w,
                                                       child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: <Widget>[
                                                           Container(
                                                             height: 17.0.w,
@@ -581,7 +738,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                                   width: 50.0.w,
                                                                   child: Center(
                                                                     child: Text(
-                                                                      'Prefessional Credentials',
+                                                                      'Professional Credentials',
                                                                       style: kOthersTitle,
                                                                     ),
                                                                   ),
@@ -592,8 +749,139 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                               ],
                                                             ),
                                                           ),
+                                                          Visibility(
+                                                            visible: ConstSignUp.smallTitles.length > 0 ? true : false,
+                                                            child: SingleChildScrollView(
+                                                              child: Container(
+                                                                margin: EdgeInsets.fromLTRB(3.0.w, 0, 3.0.w, 1.5.w),
+                                                                child: Wrap(
+                                                                  children: List.generate(ConstSignUp.listProfCreds.length, (i) {
+                                                                    return Visibility(
+                                                                      visible: ConstSignUp.listProfCreds[i].isSelected ? true : false,
+                                                                      child: ConstrainedBox(
+                                                                        constraints: BoxConstraints(
+                                                                          minWidth: 25.0.sp,
+                                                                        ),
+                                                                        child: Container(
+                                                                          margin: EdgeInsets.only(right: 8.0, bottom: 8.0),
+                                                                          padding: EdgeInsets.only(left: 8.0.sp, right: 8.0.sp),
+                                                                          height: 25.0.sp,
+                                                                          decoration: BoxDecoration(
+                                                                            borderRadius: BorderRadius.circular(30.0),
+                                                                            border: Border.all(
+                                                                              color: ConstSignUp.listProfCreds[i].isSelected
+                                                                                  ? themeYellow
+                                                                                  : Color(0xFFB4C2D3),
+                                                                              width: 1.0,
+                                                                            ),
+                                                                            color: Color(0xFFFFFFFF),
+                                                                            // color: listQualifications[i].isSelected ? Colors.blue : Color(0xFFFFFFFF),
+                                                                          ),
+                                                                          child: Row(
+                                                                            mainAxisSize: MainAxisSize.min,
+                                                                            children: <Widget>[
+                                                                              GestureDetector(
+                                                                                onTap: () {
+                                                                                  /*print('Clicked on UNCHECK id: ${listQualifications[i].id} & title : ${listQualifications[i].title} & '
+                                                                                      'short'
+                                                                                      ' title : '
+                                                                                      '${listQualifications[i].shortTitle}');*/
+                                                                                  setState(() {
+                                                                                    checkForClickBottom(i);
+                                                                                  });
+                                                                                },
+                                                                                child: Icon(
+                                                                                  FontAwesomeIcons.times,
+                                                                                  color: themeYellow,
+                                                                                  size: 11.0.sp,
+                                                                                ),
+                                                                              ),
+                                                                              SizedBox(
+                                                                                width: 5.0.sp,
+                                                                              ),
+                                                                              Text(
+                                                                                '${ConstSignUp.listProfCreds[i].shortTitle}',
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Whitney Medium',
+                                                                                  fontSize: 11.0.sp,
+                                                                                  color: Colors.black,
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  }),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Visibility(
+                                                            visible: ConstSignUp.smallTitles.length > 0 ? true : false,
+                                                            child: Container(
+                                                              height: 1.0,
+                                                              color: Colors.black,
+                                                              margin: EdgeInsets.fromLTRB(3.0.w, 0, 3.0.w, 3.0.w),
+                                                            ),
+                                                          ),
                                                           Expanded(
-                                                            child: ListView.builder(
+                                                            child: SingleChildScrollView(
+                                                              child: Container(
+                                                                margin: EdgeInsets.fromLTRB(3.0.w, 0, 3.0.w, 5.0.w),
+                                                                child: Wrap(
+                                                                  children: List.generate(
+                                                                    ConstSignUp.listProfCreds.length,
+                                                                    (i) {
+                                                                      return GestureDetector(
+                                                                        onTap: () {
+                                                                          /*print('Clicked on id: ${listQualifications[i].id} & title : ${listQualifications[i].title} & short title : '
+                                                                              '${listQualifications[i].shortTitle}');*/
+                                                                          setState(() {
+                                                                            checkForClickBottom(i);
+                                                                          });
+                                                                        },
+                                                                        child: Visibility(
+                                                                          visible: ConstSignUp.listProfCreds[i].isSelected ? false : true,
+                                                                          child: Container(
+                                                                            // margin: EdgeInsets.symmetric(horizontal: 4.0, vertical: 0.0),
+                                                                            margin: EdgeInsets.only(right: 8.0, bottom: 8.0),
+                                                                            // child: FilterChip(
+                                                                            child: ConstrainedBox(
+                                                                              constraints: BoxConstraints(
+                                                                                minWidth: 25.0.sp,
+                                                                              ),
+                                                                              child: Container(
+                                                                                padding: EdgeInsets.only(left: 8.0.sp, right: 8.0.sp, top: 5.0.sp),
+                                                                                height: 25.0.sp,
+                                                                                decoration: BoxDecoration(
+                                                                                  borderRadius: BorderRadius.circular(30.0),
+                                                                                  border: Border.all(
+                                                                                    color: Color(0xFFB4C2D3),
+                                                                                    width: 1.0,
+                                                                                  ),
+                                                                                  color: Color(0xFFFFFFFF),
+                                                                                  // color: listQualifications[i].isSelected ? Colors.blue : Color(0xFFFFFFFF),
+                                                                                ),
+                                                                                child: Text(
+                                                                                  '${ConstSignUp.listProfCreds[i].shortTitle.toString()}',
+                                                                                  style: TextStyle(
+                                                                                    fontFamily: 'Whitney Medium',
+                                                                                    fontSize: 11.0.sp,
+                                                                                    color: Colors.black,
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      );
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            /*child: ListView.builder(
                                                               itemCount: ConstSignUp.listProfCreds.length,
                                                               itemBuilder: (context, index) {
                                                                 return ConstrainedBox(
@@ -639,7 +927,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                                                   ),
                                                                 );
                                                               },
-                                                            ),
+                                                            ),*/
                                                           ),
                                                         ],
                                                       ),
@@ -1084,6 +1372,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
         ),
       );*/
     } else {
+      ConstSignUp.listCountry.clear();
       Navigator.push(
         context,
         MaterialPageRoute(

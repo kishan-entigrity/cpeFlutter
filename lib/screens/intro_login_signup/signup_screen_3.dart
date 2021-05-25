@@ -400,7 +400,58 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                                         ),
                                                       ),
                                                       Expanded(
-                                                        child: ListView.builder(
+                                                        child: SingleChildScrollView(
+                                                          child: Container(
+                                                            margin: EdgeInsets.fromLTRB(3.0.w, 0, 3.0.w, 5.0.w),
+                                                            child: Wrap(
+                                                              children: List.generate(
+                                                                ConstSignUp.listCountry.length,
+                                                                (i) {
+                                                                  return GestureDetector(
+                                                                    onTap: () {
+                                                                      setState(() {
+                                                                        clickEventCountry(i);
+                                                                      });
+                                                                    },
+                                                                    child: Container(
+                                                                      margin: EdgeInsets.only(right: 8.0, bottom: 8.0),
+                                                                      child: ConstrainedBox(
+                                                                        constraints: BoxConstraints(
+                                                                          minWidth: 25.0.sp,
+                                                                        ),
+                                                                        child: Container(
+                                                                          padding: EdgeInsets.only(left: 8.0.sp, right: 8.0.sp, top: 5.0.sp),
+                                                                          height: 25.0.sp,
+                                                                          decoration: BoxDecoration(
+                                                                            borderRadius: BorderRadius.circular(30.0),
+                                                                            border: Border.all(
+                                                                              color:
+                                                                                  ConstSignUp.listCountry[i].name == ConstSignUp.selectedCountryName
+                                                                                      ? themeYellow
+                                                                                      : Color(0xFFB4C2D3),
+                                                                              width: 1.0,
+                                                                            ),
+                                                                            color: Color(0xFFFFFFFF),
+                                                                            // color: listQualifications[i].isSelected ? Colors.blue : Color(0xFFFFFFFF),
+                                                                          ),
+                                                                          child: Text(
+                                                                            '${ConstSignUp.listCountry[i].name}',
+                                                                            style: TextStyle(
+                                                                              fontFamily: 'Whitney Medium',
+                                                                              fontSize: 11.0.sp,
+                                                                              color: Colors.black,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                },
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        /*child: ListView.builder(
                                                           itemCount: ConstSignUp.listCountry.length,
                                                           itemBuilder: (context, index) {
                                                             return ConstrainedBox(
@@ -439,7 +490,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                                               ),
                                                             );
                                                           },
-                                                        ),
+                                                        ),*/
                                                       ),
                                                     ],
                                                   ),
@@ -536,7 +587,57 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                                           ),
                                                         ),
                                                         Expanded(
-                                                          child: ListView.builder(
+                                                          child: SingleChildScrollView(
+                                                            child: Container(
+                                                              margin: EdgeInsets.fromLTRB(3.0.w, 0, 3.0.w, 5.0.w),
+                                                              child: Wrap(
+                                                                children: List.generate(
+                                                                  ConstSignUp.listState.length,
+                                                                  (i) {
+                                                                    return GestureDetector(
+                                                                      onTap: () {
+                                                                        setState(() {
+                                                                          clickEventState(i);
+                                                                        });
+                                                                      },
+                                                                      child: Container(
+                                                                        margin: EdgeInsets.only(right: 8.0, bottom: 8.0),
+                                                                        child: ConstrainedBox(
+                                                                          constraints: BoxConstraints(
+                                                                            minWidth: 25.0.sp,
+                                                                          ),
+                                                                          child: Container(
+                                                                            padding: EdgeInsets.only(left: 8.0.sp, right: 8.0.sp, top: 5.0.sp),
+                                                                            height: 25.0.sp,
+                                                                            decoration: BoxDecoration(
+                                                                              borderRadius: BorderRadius.circular(30.0),
+                                                                              border: Border.all(
+                                                                                color: ConstSignUp.listState[i].name == ConstSignUp.selectedStateName
+                                                                                    ? themeYellow
+                                                                                    : Color(0xFFB4C2D3),
+                                                                                width: 1.0,
+                                                                              ),
+                                                                              color: Color(0xFFFFFFFF),
+                                                                              // color: listQualifications[i].isSelected ? Colors.blue : Color(0xFFFFFFFF),
+                                                                            ),
+                                                                            child: Text(
+                                                                              '${ConstSignUp.listState[i].name}',
+                                                                              style: TextStyle(
+                                                                                fontFamily: 'Whitney Medium',
+                                                                                fontSize: 11.0.sp,
+                                                                                color: Colors.black,
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          /*child: ListView.builder(
                                                             itemCount: ConstSignUp.listState.length,
                                                             itemBuilder: (context, index) {
                                                               return ConstrainedBox(
@@ -575,7 +676,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                                                 ),
                                                               );
                                                             },
-                                                          ),
+                                                          ),*/
                                                         ),
                                                       ],
                                                     ),
@@ -635,8 +736,10 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                               return StatefulBuilder(
                                                 builder: (BuildContext context, void Function(void Function()) setState) {
                                                   return Container(
-                                                    height: 150.0.w,
+                                                    // height: 150.0.w,
                                                     child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      mainAxisSize: MainAxisSize.min,
                                                       children: <Widget>[
                                                         Container(
                                                           height: 17.0.w,
@@ -672,7 +775,57 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                                             ],
                                                           ),
                                                         ),
-                                                        Expanded(
+                                                        SingleChildScrollView(
+                                                          child: Container(
+                                                            margin: EdgeInsets.fromLTRB(3.0.w, 0, 3.0.w, 5.0.w),
+                                                            child: Wrap(
+                                                              children: List.generate(
+                                                                ConstSignUp.listCity.length,
+                                                                (i) {
+                                                                  return GestureDetector(
+                                                                    onTap: () {
+                                                                      setState(() {
+                                                                        clickEventCity(i);
+                                                                      });
+                                                                    },
+                                                                    child: Container(
+                                                                      margin: EdgeInsets.only(right: 8.0, bottom: 8.0),
+                                                                      child: ConstrainedBox(
+                                                                        constraints: BoxConstraints(
+                                                                          minWidth: 25.0.sp,
+                                                                        ),
+                                                                        child: Container(
+                                                                          padding: EdgeInsets.only(left: 8.0.sp, right: 8.0.sp, top: 5.0.sp),
+                                                                          height: 25.0.sp,
+                                                                          decoration: BoxDecoration(
+                                                                            borderRadius: BorderRadius.circular(30.0),
+                                                                            border: Border.all(
+                                                                              color: ConstSignUp.listCity[i].name == ConstSignUp.selectedCityName
+                                                                                  ? themeYellow
+                                                                                  : Color(0xFFB4C2D3),
+                                                                              width: 1.0,
+                                                                            ),
+                                                                            color: Color(0xFFFFFFFF),
+                                                                            // color: listQualifications[i].isSelected ? Colors.blue : Color(0xFFFFFFFF),
+                                                                          ),
+                                                                          child: Text(
+                                                                            '${ConstSignUp.listCity[i].name}',
+                                                                            style: TextStyle(
+                                                                              fontFamily: 'Whitney Medium',
+                                                                              fontSize: 11.0.sp,
+                                                                              color: Colors.black,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                },
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        /*Expanded(
                                                           child: ListView.builder(
                                                             itemCount: ConstSignUp.listCity.length,
                                                             itemBuilder: (context, index) {
@@ -713,7 +866,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                                               );
                                                             },
                                                           ),
-                                                        ),
+                                                        ),*/
                                                       ],
                                                     ),
                                                   );

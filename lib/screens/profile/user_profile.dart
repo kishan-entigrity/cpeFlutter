@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:io' as Io;
 
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
@@ -16,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
@@ -2614,7 +2616,21 @@ class _UserProfileState extends State<UserProfile> {
   takePicture(ImageSource source) async {
     final pickedFile = await _picker.getImage(source: source);
     setState(() {
+      print('path for Image is : ${pickedFile.path.toString()}');
       _imageFile = pickedFile;
+      if (pickedFile.path.toString() == null || pickedFile.path.toString() == "") {
+        // Do nothing as we didn't have the image over here..
+      } else {
+        // Now try to conbvert this Image to base 64 image and then decode that image on web..
+        // uploadImageAPI(pickedFile.path.toString());
+        final bytes = Io.File(pickedFile.path).readAsBytesSync();
+
+        String img64 = base64Encode(bytes);
+        print('After convertion to base64 image is : ${img64.substring(0, 100)}');
+        // print('After convertion to base64 image is : $bytes');
+        // debugPrint('Debug Print : $bytes');
+        // inspect('After convertion to base64 image is : $bytes');
+      }
     });
   }
 
@@ -2725,6 +2741,24 @@ class _UserProfileState extends State<UserProfile> {
             },
           );
         });
+  }
+
+  void uploadImageAPI(String string) async {
+    /*var uri = Uri.parse('https://example.com/create');
+    var request = http.MultipartRequest('POST', uri)
+      ..fields['user'] = 'nweiz@google.com'
+      ..files.add(await http.MultipartFile.fromPath('package', 'build/package.tar.gz', contentType: MediaType('application', 'x-tar')));
+    var response = await request.send();*/
+    var uri = Uri.parse('https://testing-website.in/api/v4/update-profile-pic');
+    var request = new MultipartRequest("POST", uri);
+
+    var multipartFile = await MultipartFile.fromPath("package", string);
+    request.files.add(multipartFile);
+
+    StreamedResponse response = await request.send();
+    response.stream.transform(utf8.decoder).listen((value) {
+      print(value);
+    });
   }
 
 /*_imgFromCamera() async {
