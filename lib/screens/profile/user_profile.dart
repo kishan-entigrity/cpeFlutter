@@ -844,8 +844,10 @@ class _UserProfileState extends State<UserProfile> {
                                         return StatefulBuilder(
                                           builder: (BuildContext context, void Function(void Function()) setState) {
                                             return Container(
-                                              height: 150.0.w,
+                                              // height: 150.0.w,
                                               child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisSize: MainAxisSize.min,
                                                 children: <Widget>[
                                                   Container(
                                                     height: 17.0.w,
@@ -881,7 +883,55 @@ class _UserProfileState extends State<UserProfile> {
                                                       ],
                                                     ),
                                                   ),
-                                                  Expanded(
+                                                  SingleChildScrollView(
+                                                    child: Container(
+                                                      margin: EdgeInsets.fromLTRB(3.0.w, 0, 3.0.w, 5.0.w),
+                                                      child: Wrap(
+                                                        children: List.generate(
+                                                          orgSizeList.length,
+                                                          (i) {
+                                                            return GestureDetector(
+                                                              onTap: () {
+                                                                setState(() {
+                                                                  clickEventOrgSize(i);
+                                                                });
+                                                              },
+                                                              child: Container(
+                                                                margin: EdgeInsets.only(right: 8.0, bottom: 8.0),
+                                                                child: ConstrainedBox(
+                                                                  constraints: BoxConstraints(
+                                                                    minWidth: 25.0.sp,
+                                                                  ),
+                                                                  child: Container(
+                                                                    padding: EdgeInsets.only(left: 8.0.sp, right: 8.0.sp, top: 5.0.sp),
+                                                                    height: 25.0.sp,
+                                                                    decoration: BoxDecoration(
+                                                                      borderRadius: BorderRadius.circular(30.0),
+                                                                      border: Border.all(
+                                                                        color: strOrgSize == orgSizeList[i] ? themeYellow : Color(0xFFB4C2D3),
+                                                                        width: 1.0,
+                                                                      ),
+                                                                      color: Color(0xFFFFFFFF),
+                                                                      // color: listQualifications[i].isSelected ? Colors.blue : Color(0xFFFFFFFF),
+                                                                    ),
+                                                                    child: Text(
+                                                                      '${orgSizeList[i]}',
+                                                                      style: TextStyle(
+                                                                        fontFamily: 'Whitney Medium',
+                                                                        fontSize: 11.0.sp,
+                                                                        color: Colors.black,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  /*Expanded(
                                                     child: ListView.builder(
                                                       itemCount: orgSizeList.length,
                                                       itemBuilder: (context, index) {
@@ -922,7 +972,7 @@ class _UserProfileState extends State<UserProfile> {
                                                         );
                                                       },
                                                     ),
-                                                  ),
+                                                  ),*/
                                                 ],
                                               ),
                                             );
@@ -1002,7 +1052,57 @@ class _UserProfileState extends State<UserProfile> {
                                                     ),
                                                   ),
                                                   Expanded(
-                                                    child: ListView.builder(
+                                                    child: SingleChildScrollView(
+                                                      child: Container(
+                                                        margin: EdgeInsets.fromLTRB(3.0.w, 0, 3.0.w, 5.0.w),
+                                                        child: Wrap(
+                                                          children: List.generate(
+                                                            list_job_title.length,
+                                                            (i) {
+                                                              return GestureDetector(
+                                                                onTap: () {
+                                                                  setState(() {
+                                                                    clickEventJobTitle(i);
+                                                                  });
+                                                                },
+                                                                child: Container(
+                                                                  margin: EdgeInsets.only(right: 8.0, bottom: 8.0),
+                                                                  child: ConstrainedBox(
+                                                                    constraints: BoxConstraints(
+                                                                      minWidth: 25.0.sp,
+                                                                    ),
+                                                                    child: Container(
+                                                                      padding: EdgeInsets.only(left: 8.0.sp, right: 8.0.sp, top: 5.0.sp),
+                                                                      height: 25.0.sp,
+                                                                      decoration: BoxDecoration(
+                                                                        borderRadius: BorderRadius.circular(30.0),
+                                                                        border: Border.all(
+                                                                          color: strJobTitleName == list_job_title[i].name
+                                                                              ? themeYellow
+                                                                              : Color(0xFFB4C2D3),
+                                                                          width: 1.0,
+                                                                        ),
+                                                                        color: Color(0xFFFFFFFF),
+                                                                        // color: listQualifications[i].isSelected ? Colors.blue : Color(0xFFFFFFFF),
+                                                                      ),
+                                                                      child: Text(
+                                                                        '${list_job_title[i].name}',
+                                                                        style: TextStyle(
+                                                                          fontFamily: 'Whitney Medium',
+                                                                          fontSize: 11.0.sp,
+                                                                          color: Colors.black,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    /*child: ListView.builder(
                                                       itemCount: list_job_title.length,
                                                       itemBuilder: (context, index) {
                                                         return ConstrainedBox(
@@ -1039,7 +1139,7 @@ class _UserProfileState extends State<UserProfile> {
                                                           ),
                                                         );
                                                       },
-                                                    ),
+                                                    ),*/
                                                   ),
                                                 ],
                                               ),
@@ -1085,8 +1185,10 @@ class _UserProfileState extends State<UserProfile> {
                                         return StatefulBuilder(
                                           builder: (BuildContext context, void Function(void Function()) setState) {
                                             return Container(
-                                              height: 150.0.w,
+                                              // height: 150.0.w,
                                               child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: <Widget>[
                                                   Container(
                                                     height: 17.0.w,
@@ -1122,8 +1224,60 @@ class _UserProfileState extends State<UserProfile> {
                                                       ],
                                                     ),
                                                   ),
-                                                  Expanded(
-                                                    child: ListView.builder(
+                                                  // Expanded(
+                                                  //   child: SingleChildScrollView(
+                                                  SingleChildScrollView(
+                                                    child: Container(
+                                                      margin: EdgeInsets.fromLTRB(3.0.w, 0, 3.0.w, 5.0.w),
+                                                      child: Wrap(
+                                                        children: List.generate(
+                                                          list_industries.length,
+                                                          (i) {
+                                                            return GestureDetector(
+                                                              onTap: () {
+                                                                /*print('Clicked on id: ${listQualifications[i].id} & title : ${listQualifications[i].title} & short title : '
+                                                                              '${listQualifications[i].shortTitle}');*/
+                                                                setState(() {
+                                                                  clickEventIndustry(i);
+                                                                });
+                                                              },
+                                                              child: Container(
+                                                                margin: EdgeInsets.only(right: 8.0, bottom: 8.0),
+                                                                child: ConstrainedBox(
+                                                                  constraints: BoxConstraints(
+                                                                    minWidth: 25.0.sp,
+                                                                  ),
+                                                                  child: Container(
+                                                                    padding: EdgeInsets.only(left: 8.0.sp, right: 8.0.sp, top: 5.0.sp),
+                                                                    height: 25.0.sp,
+                                                                    decoration: BoxDecoration(
+                                                                      borderRadius: BorderRadius.circular(30.0),
+                                                                      border: Border.all(
+                                                                        color:
+                                                                            list_industries[i].name == industryName ? themeYellow : Color(0xFFB4C2D3),
+                                                                        width: 1.0,
+                                                                      ),
+                                                                      color: Color(0xFFFFFFFF),
+                                                                      // color: listQualifications[i].isSelected ? Colors.blue : Color(0xFFFFFFFF),
+                                                                    ),
+                                                                    child: Text(
+                                                                      '${list_industries[i].name}',
+                                                                      style: TextStyle(
+                                                                        fontFamily: 'Whitney Medium',
+                                                                        fontSize: 11.0.sp,
+                                                                        color: Colors.black,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  /*child: ListView.builder(
                                                       itemCount: list_industries.length,
                                                       itemBuilder: (context, index) {
                                                         return ConstrainedBox(
@@ -1160,8 +1314,8 @@ class _UserProfileState extends State<UserProfile> {
                                                           ),
                                                         );
                                                       },
-                                                    ),
-                                                  ),
+                                                    ),*/
+                                                  // ),
                                                 ],
                                               ),
                                             );
@@ -1208,6 +1362,7 @@ class _UserProfileState extends State<UserProfile> {
                                             return Container(
                                               height: 150.0.w,
                                               child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: <Widget>[
                                                   Container(
                                                     height: 17.0.w,
@@ -1243,8 +1398,132 @@ class _UserProfileState extends State<UserProfile> {
                                                       ],
                                                     ),
                                                   ),
+                                                  Visibility(
+                                                    visible: smallTitles.length > 0 ? true : false,
+                                                    child: SingleChildScrollView(
+                                                      child: Container(
+                                                        margin: EdgeInsets.fromLTRB(3.0.w, 0, 3.0.w, 1.5.w),
+                                                        child: Wrap(
+                                                          children: List.generate(list_profcreds.length, (i) {
+                                                            return Visibility(
+                                                              visible: list_profcreds[i].isSelected ? true : false,
+                                                              child: ConstrainedBox(
+                                                                constraints: BoxConstraints(
+                                                                  minWidth: 25.0.sp,
+                                                                ),
+                                                                child: Container(
+                                                                  margin: EdgeInsets.only(right: 8.0, bottom: 8.0),
+                                                                  padding: EdgeInsets.only(left: 8.0.sp, right: 8.0.sp),
+                                                                  height: 25.0.sp,
+                                                                  decoration: BoxDecoration(
+                                                                    borderRadius: BorderRadius.circular(30.0),
+                                                                    border: Border.all(
+                                                                      color: list_profcreds[i].isSelected ? themeYellow : Color(0xFFB4C2D3),
+                                                                      width: 1.0,
+                                                                    ),
+                                                                    color: Color(0xFFFFFFFF),
+                                                                  ),
+                                                                  child: Row(
+                                                                    mainAxisSize: MainAxisSize.min,
+                                                                    children: <Widget>[
+                                                                      GestureDetector(
+                                                                        onTap: () {
+                                                                          setState(() {
+                                                                            clickForProfCreds(i);
+                                                                          });
+                                                                        },
+                                                                        child: Icon(
+                                                                          FontAwesomeIcons.times,
+                                                                          color: themeYellow,
+                                                                          size: 11.0.sp,
+                                                                        ),
+                                                                      ),
+                                                                      SizedBox(
+                                                                        width: 5.0.sp,
+                                                                      ),
+                                                                      Text(
+                                                                        '${list_profcreds[i].shortTitle}',
+                                                                        style: TextStyle(
+                                                                          fontFamily: 'Whitney Medium',
+                                                                          fontSize: 11.0.sp,
+                                                                          color: Colors.black,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            );
+                                                          }),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Visibility(
+                                                    visible: smallTitles.length > 0 ? true : false,
+                                                    child: Container(
+                                                      height: 1.0,
+                                                      color: Colors.black,
+                                                      margin: EdgeInsets.fromLTRB(3.0.w, 0, 3.0.w, 3.0.w),
+                                                    ),
+                                                  ),
                                                   Expanded(
-                                                    child: ListView.builder(
+                                                    child: SingleChildScrollView(
+                                                      child: Container(
+                                                        margin: EdgeInsets.fromLTRB(3.0.w, 0, 3.0.w, 5.0.w),
+                                                        child: Wrap(
+                                                          children: List.generate(
+                                                            list_profcreds.length,
+                                                            (i) {
+                                                              return GestureDetector(
+                                                                onTap: () {
+                                                                  /*print('Clicked on id: ${listQualifications[i].id} & title : ${listQualifications[i].title} & short title : '
+                                                                              '${listQualifications[i].shortTitle}');*/
+                                                                  setState(() {
+                                                                    clickForProfCreds(i);
+                                                                  });
+                                                                },
+                                                                child: Visibility(
+                                                                  visible: list_profcreds[i].isSelected ? false : true,
+                                                                  child: Container(
+                                                                    // margin: EdgeInsets.symmetric(horizontal: 4.0, vertical: 0.0),
+                                                                    margin: EdgeInsets.only(right: 8.0, bottom: 8.0),
+                                                                    // child: FilterChip(
+                                                                    child: ConstrainedBox(
+                                                                      constraints: BoxConstraints(
+                                                                        minWidth: 25.0.sp,
+                                                                      ),
+                                                                      child: Container(
+                                                                        padding: EdgeInsets.only(left: 8.0.sp, right: 8.0.sp, top: 5.0.sp),
+                                                                        height: 25.0.sp,
+                                                                        decoration: BoxDecoration(
+                                                                          borderRadius: BorderRadius.circular(30.0),
+                                                                          border: Border.all(
+                                                                            color: Color(0xFFB4C2D3),
+                                                                            width: 1.0,
+                                                                          ),
+                                                                          color: Color(0xFFFFFFFF),
+                                                                          // color: listQualifications[i].isSelected ? Colors.blue : Color(0xFFFFFFFF),
+                                                                        ),
+                                                                        child: Text(
+                                                                          '${list_profcreds[i].shortTitle}',
+                                                                          style: TextStyle(
+                                                                            fontFamily: 'Whitney Medium',
+                                                                            fontSize: 11.0.sp,
+                                                                            color: Colors.black,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    /*child: ListView.builder(
                                                       itemCount: list_profcreds.length,
                                                       itemBuilder: (context, index) {
                                                         return ConstrainedBox(
@@ -1290,7 +1569,7 @@ class _UserProfileState extends State<UserProfile> {
                                                           ),
                                                         );
                                                       },
-                                                    ),
+                                                    ),*/
                                                   ),
                                                 ],
                                               ),
@@ -1642,7 +1921,57 @@ class _UserProfileState extends State<UserProfile> {
                                                     ),
                                                   ),
                                                   Expanded(
-                                                    child: ListView.builder(
+                                                    child: SingleChildScrollView(
+                                                      child: Container(
+                                                        margin: EdgeInsets.fromLTRB(3.0.w, 0, 3.0.w, 5.0.w),
+                                                        child: Wrap(
+                                                          children: List.generate(
+                                                            listCountry.length,
+                                                            (i) {
+                                                              return GestureDetector(
+                                                                onTap: () {
+                                                                  setState(() {
+                                                                    clickEventCountry(i);
+                                                                  });
+                                                                },
+                                                                child: Container(
+                                                                  margin: EdgeInsets.only(right: 8.0, bottom: 8.0),
+                                                                  child: ConstrainedBox(
+                                                                    constraints: BoxConstraints(
+                                                                      minWidth: 25.0.sp,
+                                                                    ),
+                                                                    child: Container(
+                                                                      padding: EdgeInsets.only(left: 8.0.sp, right: 8.0.sp, top: 5.0.sp),
+                                                                      height: 25.0.sp,
+                                                                      decoration: BoxDecoration(
+                                                                        borderRadius: BorderRadius.circular(30.0),
+                                                                        border: Border.all(
+                                                                          color: listCountry[i].id == selectedCountryId
+                                                                              ? themeYellow
+                                                                              : Color(0xFFB4C2D3),
+                                                                          width: 1.0,
+                                                                        ),
+                                                                        color: Color(0xFFFFFFFF),
+                                                                        // color: listQualifications[i].isSelected ? Colors.blue : Color(0xFFFFFFFF),
+                                                                      ),
+                                                                      child: Text(
+                                                                        '${listCountry[i].name}',
+                                                                        style: TextStyle(
+                                                                          fontFamily: 'Whitney Medium',
+                                                                          fontSize: 11.0.sp,
+                                                                          color: Colors.black,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    /*child: ListView.builder(
                                                       itemCount: listCountry.length,
                                                       itemBuilder: (context, index) {
                                                         return ConstrainedBox(
@@ -1652,12 +1981,12 @@ class _UserProfileState extends State<UserProfile> {
                                                           child: GestureDetector(
                                                             onTap: () {
                                                               setState(() {
-                                                                /*listState.clear();
-                                                                listCity.clear();*/
+                                                                */ /*listState.clear();
+                                                                listCity.clear();*/ /*
                                                                 clickEventCountry(index);
-                                                                /*Future.delayed(const Duration(milliseconds: 100), () {
+                                                                */ /*Future.delayed(const Duration(milliseconds: 100), () {
                                                                   clickEventCountry(index);
-                                                                });*/
+                                                                });*/ /*
                                                               });
                                                             },
                                                             child: Container(
@@ -1684,7 +2013,7 @@ class _UserProfileState extends State<UserProfile> {
                                                           ),
                                                         );
                                                       },
-                                                    ),
+                                                    ),*/
                                                   ),
                                                 ],
                                               ),
@@ -1782,7 +2111,57 @@ class _UserProfileState extends State<UserProfile> {
                                                     ),
                                                   ),
                                                   Expanded(
-                                                    child: ListView.builder(
+                                                    child: SingleChildScrollView(
+                                                      child: Container(
+                                                        margin: EdgeInsets.fromLTRB(3.0.w, 0, 3.0.w, 5.0.w),
+                                                        child: Wrap(
+                                                          children: List.generate(
+                                                            listState.length,
+                                                            (i) {
+                                                              return GestureDetector(
+                                                                onTap: () {
+                                                                  setState(() {
+                                                                    clickEventState(i);
+                                                                  });
+                                                                },
+                                                                child: Container(
+                                                                  margin: EdgeInsets.only(right: 8.0, bottom: 8.0),
+                                                                  child: ConstrainedBox(
+                                                                    constraints: BoxConstraints(
+                                                                      minWidth: 25.0.sp,
+                                                                    ),
+                                                                    child: Container(
+                                                                      padding: EdgeInsets.only(left: 8.0.sp, right: 8.0.sp, top: 5.0.sp),
+                                                                      height: 25.0.sp,
+                                                                      decoration: BoxDecoration(
+                                                                        borderRadius: BorderRadius.circular(30.0),
+                                                                        border: Border.all(
+                                                                          color: listState[i].name == selectedStateName
+                                                                              ? themeYellow
+                                                                              : Color(0xFFB4C2D3),
+                                                                          width: 1.0,
+                                                                        ),
+                                                                        color: Color(0xFFFFFFFF),
+                                                                        // color: listQualifications[i].isSelected ? Colors.blue : Color(0xFFFFFFFF),
+                                                                      ),
+                                                                      child: Text(
+                                                                        '${listState[i].name}',
+                                                                        style: TextStyle(
+                                                                          fontFamily: 'Whitney Medium',
+                                                                          fontSize: 11.0.sp,
+                                                                          color: Colors.black,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    /*child: ListView.builder(
                                                       itemCount: listState.length,
                                                       itemBuilder: (context, index) {
                                                         return ConstrainedBox(
@@ -1819,7 +2198,7 @@ class _UserProfileState extends State<UserProfile> {
                                                           ),
                                                         );
                                                       },
-                                                    ),
+                                                    ),*/
                                                   ),
                                                 ],
                                               ),
@@ -1879,8 +2258,10 @@ class _UserProfileState extends State<UserProfile> {
                                         return StatefulBuilder(
                                           builder: (BuildContext context, void Function(void Function()) setState) {
                                             return Container(
-                                              height: 150.0.w,
+                                              // height: 150.0.w,
                                               child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisSize: MainAxisSize.min,
                                                 children: <Widget>[
                                                   Container(
                                                     height: 17.0.w,
@@ -1917,7 +2298,57 @@ class _UserProfileState extends State<UserProfile> {
                                                     ),
                                                   ),
                                                   Expanded(
-                                                    child: ListView.builder(
+                                                    child: SingleChildScrollView(
+                                                      // SingleChildScrollView(
+                                                      child: Container(
+                                                        margin: EdgeInsets.fromLTRB(3.0.w, 0, 3.0.w, 5.0.w),
+                                                        child: Wrap(
+                                                          children: List.generate(
+                                                            listCity.length,
+                                                            (i) {
+                                                              return GestureDetector(
+                                                                onTap: () {
+                                                                  setState(() {
+                                                                    clickEventCity(i);
+                                                                  });
+                                                                },
+                                                                child: Container(
+                                                                  margin: EdgeInsets.only(right: 8.0, bottom: 8.0),
+                                                                  child: ConstrainedBox(
+                                                                    constraints: BoxConstraints(
+                                                                      minWidth: 25.0.sp,
+                                                                    ),
+                                                                    child: Container(
+                                                                      padding: EdgeInsets.only(left: 8.0.sp, right: 8.0.sp, top: 5.0.sp),
+                                                                      height: 25.0.sp,
+                                                                      decoration: BoxDecoration(
+                                                                        borderRadius: BorderRadius.circular(30.0),
+                                                                        border: Border.all(
+                                                                          color:
+                                                                              listCity[i].name == selectedCityName ? themeYellow : Color(0xFFB4C2D3),
+                                                                          width: 1.0,
+                                                                        ),
+                                                                        color: Color(0xFFFFFFFF),
+                                                                        // color: listQualifications[i].isSelected ? Colors.blue : Color(0xFFFFFFFF),
+                                                                      ),
+                                                                      child: Text(
+                                                                        '${listCity[i].name}',
+                                                                        style: TextStyle(
+                                                                          fontFamily: 'Whitney Medium',
+                                                                          fontSize: 11.0.sp,
+                                                                          color: Colors.black,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    /*child: ListView.builder(
                                                       itemCount: listCity.length,
                                                       itemBuilder: (context, index) {
                                                         return ConstrainedBox(
@@ -1955,7 +2386,7 @@ class _UserProfileState extends State<UserProfile> {
                                                           ),
                                                         );
                                                       },
-                                                    ),
+                                                    ),*/
                                                   ),
                                                 ],
                                               ),
