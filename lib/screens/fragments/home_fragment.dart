@@ -520,6 +520,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                       children: <Widget>[
                         Expanded(
                           child: Container(
+                            height: 60.0,
                             color: Color(0xFFF3F5F9),
                             child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
@@ -1316,7 +1317,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                         ),
                                                       ),
                                                       Container(
-                                                        height: 38.0.w,
+                                                        height: 124.0.sp,
                                                         child: ListView.builder(
                                                           scrollDirection: Axis.horizontal,
                                                           itemCount: recentList.length,
@@ -1329,7 +1330,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                 children: <Widget>[
                                                                   Container(
                                                                     // margin: EdgeInsets.fromLTRB(3.5.w, 1.0.h, 0.0, 2.0.h),
-                                                                    height: 30.5.w,
+                                                                    height: 100.0.sp,
                                                                     width: 55.0.w,
                                                                     decoration: BoxDecoration(
                                                                       borderRadius: BorderRadius.circular(10.0.sp),
@@ -1340,7 +1341,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                         Positioned(
                                                                           child: Image.asset(
                                                                             'assets/bg_image_recent.png',
-                                                                            height: 30.5.w,
+                                                                            height: 100.0.sp,
                                                                             width: 55.0.w,
                                                                             fit: BoxFit.fill,
                                                                           ),
