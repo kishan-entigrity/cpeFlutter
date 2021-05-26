@@ -2257,6 +2257,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                   return Container(
                     height: 150.0.w,
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Container(
                           height: 17.0.w,
@@ -2292,8 +2293,137 @@ class _HomeFragmentState extends State<HomeFragment> {
                             ],
                           ),
                         ),
+                        Visibility(
+                          visible: hotTopicsId.length > 0 ? true : false,
+                          child: SingleChildScrollView(
+                            child: Container(
+                              margin: EdgeInsets.fromLTRB(3.0.w, 0, 3.0.w, 1.5.w),
+                              child: Wrap(
+                                children: List.generate(arrCountHotTopics, (i) {
+                                  return Visibility(
+                                    visible: listHotTopics[i].isSelected ? true : false,
+                                    child: ConstrainedBox(
+                                      constraints: BoxConstraints(
+                                        minWidth: 25.0.sp,
+                                      ),
+                                      child: Container(
+                                        margin: EdgeInsets.only(right: 8.0, bottom: 8.0),
+                                        padding: EdgeInsets.only(left: 8.0.sp, right: 8.0.sp),
+                                        height: 25.0.sp,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(30.0),
+                                          border: Border.all(
+                                            color: listHotTopics[i].isSelected ? themeYellow : Color(0xFFB4C2D3),
+                                            width: 1.0,
+                                          ),
+                                          color: Color(0xFFFFFFFF),
+                                          // color: listQualifications[i].isSelected ? Colors.blue : Color(0xFFFFFFFF),
+                                        ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                            GestureDetector(
+                                              onTap: () {
+                                                /*print('Clicked on UNCHECK id: ${listQualifications[i].id} & title : ${listQualifications[i].title} & '
+                                                    'short'
+                                                    ' title : '
+                                                    '${listHotTopics[i].name.toString()}');*/
+                                                setState(() {
+                                                  clickEventHotTopics(i);
+                                                });
+                                              },
+                                              child: Icon(
+                                                FontAwesomeIcons.times,
+                                                color: themeYellow,
+                                                size: 11.0.sp,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 5.0.sp,
+                                            ),
+                                            Text(
+                                              '${listHotTopics[i].name}',
+                                              style: TextStyle(
+                                                fontFamily: 'Whitney Medium',
+                                                fontSize: 11.0.sp,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                          visible: hotTopicsId.length > 0 ? true : false,
+                          child: Container(
+                            height: 1.0,
+                            color: Colors.black,
+                            margin: EdgeInsets.fromLTRB(3.0.w, 0, 3.0.w, 3.0.w),
+                          ),
+                        ),
                         Expanded(
-                          child: ListView.builder(
+                          child: SingleChildScrollView(
+                            child: Container(
+                              margin: EdgeInsets.fromLTRB(3.0.w, 0, 3.0.w, 5.0.w),
+                              child: Wrap(
+                                children: List.generate(
+                                  arrCountHotTopics,
+                                  (i) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        /*print('Clicked on id: ${listQualifications[i].id} & title : ${listQualifications[i].title} & short title : '
+                                            '${listQualifications[i].shortTitle}');*/
+                                        setState(() {
+                                          clickEventHotTopics(i);
+                                        });
+                                      },
+                                      child: Visibility(
+                                        visible: listHotTopics[i].isSelected ? false : true,
+                                        child: Container(
+                                          // margin: EdgeInsets.symmetric(horizontal: 4.0, vertical: 0.0),
+                                          margin: EdgeInsets.only(right: 8.0, bottom: 8.0),
+                                          // child: FilterChip(
+                                          child: ConstrainedBox(
+                                            constraints: BoxConstraints(
+                                              minWidth: 25.0.sp,
+                                            ),
+                                            child: Container(
+                                              padding: EdgeInsets.only(left: 8.0.sp, right: 8.0.sp, top: 5.0.sp),
+                                              height: 25.0.sp,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(30.0),
+                                                border: Border.all(
+                                                  color: Color(0xFFB4C2D3),
+                                                  width: 1.0,
+                                                ),
+                                                color: Color(0xFFFFFFFF),
+                                                // color: listQualifications[i].isSelected ? Colors.blue : Color(0xFFFFFFFF),
+                                              ),
+                                              child: Text(
+                                                '${listHotTopics[i].name.toString()}',
+                                                style: TextStyle(
+                                                  fontFamily: 'Whitney Medium',
+                                                  fontSize: 11.0.sp,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                          /*child: ListView.builder(
                             itemCount: arrCountHotTopics,
                             itemBuilder: (context, index) {
                               return ConstrainedBox(
@@ -2335,7 +2465,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                               width: 54.0.sp,
                                               padding: EdgeInsets.only(left: 5.0.sp, right: 5.0.sp),
                                               child: Image.asset('assets/hot_topic.png'),
-                                              /*child: Center(
+                                              */ /*child: Center(
                                                 child: Text(
                                                   'HOT TOPIC',
                                                   style: TextStyle(
@@ -2349,7 +2479,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                 borderRadius: BorderRadius.circular(2.0.sp),
                                                 border: Border.all(color: Colors.red, width: 1.0.sp),
                                                 // color: Color(0xFF607083),
-                                              ),*/
+                                              ),*/ /*
                                             ),
                                           ),
                                         ],
@@ -2359,7 +2489,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                 ),
                               );
                             },
-                          ),
+                          ),*/
                         ),
                       ],
                     ),
