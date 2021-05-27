@@ -37,7 +37,7 @@ class HomeFragment extends StatefulWidget {
 class _HomeFragmentState extends State<HomeFragment> {
   final scaffoldState = GlobalKey<ScaffoldState>();
 
-  FocusNode _focusNode = FocusNode();
+  // FocusNode _focusNode = FocusNode();
 
   List<int> tempInt = [1, 4, 5, 7];
   int arrCount = 0;
@@ -537,6 +537,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                     GestureDetector(
                                       onTap: () {
                                         setState(() {
+                                          SystemChannels.textInput.invokeMethod('TextInput.hide');
                                           selectHotTopicsFilter();
                                         });
                                       },
@@ -575,6 +576,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                       onTap: () {
                                         setState(() {
                                           // selectHotTopicsFilter();
+                                          SystemChannels.textInput.invokeMethod('TextInput.hide');
                                           selectQualificationsFilter();
                                         });
                                       },
@@ -778,6 +780,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                       visible: isLive ? true : false,
                                       child: GestureDetector(
                                         onTap: () {
+                                          SystemChannels.textInput.invokeMethod('TextInput.hide');
                                           selectDateFilter();
                                         },
                                         child: Padding(
@@ -830,11 +833,11 @@ class _HomeFragmentState extends State<HomeFragment> {
                                   print('Clicked on the search icon..');
                                   setState(() {
                                     isSearch = true;
-                                    _focusNode.addListener(() {
+                                    /*_focusNode.addListener(() {
                                       if (!_focusNode.hasFocus) {
                                         FocusScope.of(context).requestFocus(_focusNode);
                                       }
-                                    });
+                                    });*/
                                   });
                                 },
                                 child: Container(
@@ -1191,7 +1194,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                   ),
                                   child: TextField(
                                     controller: searchController,
-                                    focusNode: _focusNode,
+                                    // focusNode: _focusNode,
                                     autofocus: true,
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
@@ -1204,17 +1207,25 @@ class _HomeFragmentState extends State<HomeFragment> {
                                       setState(() {
                                         searchKey = searchController.text;
                                         if (searchController.text.isNotEmpty) {
-                                          print('Search keyword lenght is == 0');
-                                          FocusScope.of(context).requestFocus(new FocusNode());
-                                        } else {
                                           print('Search keyword lenght is > 0');
-                                          FocusScope.of(context).requestFocus(new FocusNode());
+                                          // FocusScope.of(context).requestFocus(new FocusNode());
+                                          // FocusScope.of(context).unfocus();
+                                          // _focusNode.unfocus();
+                                          // FocusManager.instance.primaryFocus?.unfocus();
+                                          /*if (!currentFocus.hasPrimaryFocus) {
+                                            currentFocus.unfocus();
+                                          }*/
+
+                                          SystemChannels.textInput.invokeMethod('TextInput.hide');
                                           // Now take an API call for the search tag too..
                                           list.clear();
                                           start = 0;
 
-                                          this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice',
-                                              '$hot_topics_ids', '$qualification_ids');
+                                          this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '',
+                                              '$strFilterPrice', '$hot_topics_ids', '$qualification_ids');
+                                        } else {
+                                          print('Search keyword lenght is == 0');
+                                          FocusScope.of(context).requestFocus(new FocusNode());
                                         }
                                       });
                                     },
@@ -1234,8 +1245,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                                         list.clear();
                                         start = 0;
 
-                                        this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice',
-                                            '$hot_topics_ids', '$qualification_ids');
+                                        this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '',
+                                            '$strFilterPrice', '$hot_topics_ids', '$qualification_ids');
                                       }
                                     });
                                   },
