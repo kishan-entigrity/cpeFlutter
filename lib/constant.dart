@@ -315,6 +315,7 @@ const String confPassEmptyMsg = 'Please enter confirm password';
 const String passLengthMsg = 'Please enter password';
 const String confPassLengthMsg = 'Please enter confirm password';
 const String passValidLengthMsg = 'Password must be 6 characters';
+const String passValidMsg = 'Please enter valid password with atleat one capital character, one number and one special character';
 const String confPassValidLengthMsg = 'Confirm password must be 6 characters';
 const String passConfPassEqualMsg = 'Password and confirm password must be same';
 const String countryMsg = 'Please select country';

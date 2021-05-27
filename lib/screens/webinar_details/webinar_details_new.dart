@@ -752,7 +752,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                       Container(
                                         height: 25.0.sp,
                                         width: 60.0.w,
-                                        margin: EdgeInsets.only(left: 15.0, top: 20.0),
+                                        margin: EdgeInsets.only(left: 15.0, top: 10.0.sp),
                                         child: ListView.builder(
                                           // itemCount: webDetailsObj['audiance_titles'].lenght,
                                           itemCount: audience_title_lenght,

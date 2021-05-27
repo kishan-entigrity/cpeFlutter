@@ -1372,7 +1372,10 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
         ),
       );*/
     } else {
-      ConstSignUp.listCountry.clear();
+      // if (ConstSignUp.listCountry != null || ConstSignUp.listCountry.length > 0) {
+      if (ConstSignUp.listCountry != null) {
+        ConstSignUp.listCountry.clear();
+      }
       Navigator.push(
         context,
         MaterialPageRoute(

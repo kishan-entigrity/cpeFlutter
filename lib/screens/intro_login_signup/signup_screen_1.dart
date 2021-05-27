@@ -64,10 +64,14 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
 
   bool isLoaderShowing = false;
 
+  Pattern pattern1 = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{6,}$';
+  RegExp regExp;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    regExp = new RegExp(pattern1);
     // getCountryListAPI();
   }
 
@@ -650,6 +654,16 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
           duration: Duration(seconds: 5),
         ),
       );*/
+    } else if (!regExp.hasMatch(ConstSignUp.strPass)) {
+      print('Regx Issue..');
+      Fluttertoast.showToast(
+          msg: passValidMsg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
     } else if (ConstSignUp.strConfPass == '' || ConstSignUp.strConfPass.length == 0) {
       Fluttertoast.showToast(
           msg: confPassLengthMsg,
