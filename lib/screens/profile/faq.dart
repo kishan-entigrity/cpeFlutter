@@ -86,7 +86,7 @@ class _FAQState extends State<FAQ> {
             Expanded(
               child: Container(
                 margin: EdgeInsets.only(top: 10.0),
-                color: Colors.tealAccent,
+                color: Colors.white,
                 height: 300.0,
                 width: double.infinity,
                 child: WebView(

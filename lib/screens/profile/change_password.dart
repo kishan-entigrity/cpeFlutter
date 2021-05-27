@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../rest_api.dart';
 
@@ -30,6 +31,10 @@ class _ChangePasswordState extends State<ChangePassword> {
 
   var respStatus;
   var respMessage;
+
+  bool obscurePass = true;
+  bool obscureNewPass = true;
+  bool obscureConfPass = true;
 
   @override
   void initState() {
@@ -110,38 +115,216 @@ class _ChangePasswordState extends State<ChangePassword> {
               ),
             ),*/
             Container(
+              // margin: EdgeInsets.symmetric(vertical: 4.0.w, horizontal: 6.0.w),
+              margin: EdgeInsets.only(top: 10.0.w, bottom: 4.0.w, right: 6.0.w, left: 6.0.w),
+              child: TextField(
+                controller: oldPassController,
+                style: kLableSignUpTextStyle,
+                obscureText: obscurePass,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'Old Password',
+                  hintStyle: kLableSignUpHintStyle,
+                  suffixIcon: IconButton(
+                    // onPressed: () => _controller.clear(),
+                    onPressed: () {
+                      setState(() {
+                        if (obscurePass) {
+                          obscurePass = false;
+                        } else {
+                          obscurePass = true;
+                        }
+                      });
+                    },
+                    icon: Icon(
+                      FontAwesomeIcons.eye,
+                      size: 15.0.sp,
+                      color: Color(0xFFBDBFCA),
+                    ),
+                  ),
+                ),
+                textInputAction: TextInputAction.done,
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+              child: Divider(
+                height: 5.0,
+                color: Colors.black87,
+              ),
+            ),
+            /*Container(
               height: 30.0,
               width: double.infinity,
               margin: EdgeInsets.fromLTRB(25.0, 80.0, 25.0, 0.0),
               child: TextField(
                 controller: oldPassController,
-                obscureText: true,
-                decoration: lTextFlieldStyleOldPass,
+                obscureText: obscurePass,
+                decoration: InputDecoration(
+                  hintText: 'Old Password',
+                  contentPadding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 0.0),
+                  border: UnderlineInputBorder(),
+                  suffixIcon: IconButton(
+                    // onPressed: () => _controller.clear(),
+                    onPressed: () {
+                      setState(() {
+                        if (obscurePass) {
+                          obscurePass = false;
+                        } else {
+                          obscurePass = true;
+                        }
+                      });
+                    },
+                    icon: Icon(
+                      FontAwesomeIcons.eye,
+                      size: 15.0.sp,
+                      color: Color(0xFFBDBFCA),
+                    ),
+                  ),
+                ),
+                textInputAction: TextInputAction.done,
+              ),
+            ),*/
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 4.0.w, horizontal: 6.0.w),
+              child: TextField(
+                controller: newPassController,
+                style: kLableSignUpTextStyle,
+                obscureText: obscureNewPass,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintStyle: kLableSignUpHintStyle,
+                  hintText: 'New Password',
+                  suffixIcon: IconButton(
+                    // onPressed: () => _controller.clear(),
+                    onPressed: () {
+                      setState(() {
+                        if (obscureNewPass) {
+                          obscureNewPass = false;
+                        } else {
+                          obscureNewPass = true;
+                        }
+                      });
+                    },
+                    icon: Icon(
+                      FontAwesomeIcons.eye,
+                      size: 15.0.sp,
+                      color: Color(0xFFBDBFCA),
+                    ),
+                  ),
+                ),
                 textInputAction: TextInputAction.done,
               ),
             ),
             Container(
+              margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+              child: Divider(
+                height: 5.0,
+                color: Colors.black87,
+              ),
+            ),
+            /*Container(
               height: 30.0,
               width: double.infinity,
               margin: EdgeInsets.fromLTRB(25.0, 50.0, 25.0, 0.0),
               child: TextField(
                 controller: newPassController,
-                obscureText: true,
-                decoration: lTextFlieldStyleNewPass,
+                obscureText: obscureNewPass,
+                decoration: InputDecoration(
+                  hintText: 'New Password',
+                  contentPadding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 0.0),
+                  border: UnderlineInputBorder(),
+                  suffixIcon: IconButton(
+                    // onPressed: () => _controller.clear(),
+                    onPressed: () {
+                      setState(() {
+                        if (obscureNewPass) {
+                          obscureNewPass = false;
+                        } else {
+                          obscureNewPass = true;
+                        }
+                      });
+                    },
+                    icon: Icon(
+                      FontAwesomeIcons.eye,
+                      size: 15.0.sp,
+                      color: Color(0xFFBDBFCA),
+                    ),
+                  ),
+                ),
+                textInputAction: TextInputAction.done,
+              ),
+            ),*/
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 4.0.w, horizontal: 6.0.w),
+              child: TextField(
+                controller: confirmPassController,
+                style: kLableSignUpTextStyle,
+                obscureText: obscureConfPass,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintStyle: kLableSignUpHintStyle,
+                  hintText: 'Confirm Password',
+                  suffixIcon: IconButton(
+                    // onPressed: () => _controller.clear(),
+                    onPressed: () {
+                      setState(() {
+                        if (obscureConfPass) {
+                          obscureConfPass = false;
+                        } else {
+                          obscureConfPass = true;
+                        }
+                      });
+                    },
+                    icon: Icon(
+                      FontAwesomeIcons.eye,
+                      size: 15.0.sp,
+                      color: Color(0xFFBDBFCA),
+                    ),
+                  ),
+                ),
                 textInputAction: TextInputAction.done,
               ),
             ),
             Container(
+              margin: EdgeInsets.fromLTRB(6.0.w, 0, 6.0.w, 0),
+              child: Divider(
+                height: 5.0,
+                color: Colors.black87,
+              ),
+            ),
+            /*Container(
               height: 30.0,
               width: double.infinity,
               margin: EdgeInsets.fromLTRB(25.0, 50.0, 25.0, 0.0),
               child: TextField(
                 controller: confirmPassController,
-                obscureText: true,
-                decoration: lTextFlieldStyleConfirmPass,
+                obscureText: obscureConfPass,
+                decoration: InputDecoration(
+                  hintText: 'Confirm Password',
+                  contentPadding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 0.0),
+                  border: UnderlineInputBorder(),
+                  suffixIcon: IconButton(
+                    // onPressed: () => _controller.clear(),
+                    onPressed: () {
+                      setState(() {
+                        if (obscureConfPass) {
+                          obscureConfPass = false;
+                        } else {
+                          obscureConfPass = true;
+                        }
+                      });
+                    },
+                    icon: Icon(
+                      FontAwesomeIcons.eye,
+                      size: 15.0.sp,
+                      color: Color(0xFFBDBFCA),
+                    ),
+                  ),
+                ),
                 textInputAction: TextInputAction.done,
               ),
-            ),
+            ),*/
             Container(
               height: 100.0,
               width: double.infinity,

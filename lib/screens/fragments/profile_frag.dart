@@ -481,7 +481,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                                             // Review US controller..
                                             profile_cell(
                                               childIcon: FontAwesomeIcons.solidStar,
-                                              strLable: "Review US",
+                                              strLable: "Review Us",
                                               onPress: () {
                                                 redirectPlayStoreURL();
                                                 /*Navigator.push(
