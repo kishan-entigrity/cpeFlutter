@@ -178,7 +178,7 @@ class _LoginState extends State<Login> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Text(
-                              'Sign In',
+                              'Log In',
                               style: kButtonLabelTextStyle,
                             ),
                             RoundIconButton(
@@ -265,7 +265,7 @@ class _LoginState extends State<Login> {
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
                       child: Text(
-                        'skip',
+                        'Skip',
                         style: kTextLableLoginUnderline,
                       ),
                     ),

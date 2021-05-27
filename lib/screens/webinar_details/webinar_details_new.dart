@@ -428,7 +428,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    'Review Question',
+                                    'Review Questions',
                                     style: kWebinarStatusSmall,
                                   ),
                                 ),

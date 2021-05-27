@@ -176,7 +176,7 @@ class _IntroScreenState extends State<IntroScreen> {
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
                       child: Text(
-                        'skip',
+                        'Skip',
                         style: kTextLableLoginUnderline,
                       ),
                     ),
