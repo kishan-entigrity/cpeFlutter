@@ -1155,12 +1155,14 @@ class _UserProfileState extends State<UserProfile> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
-                                    Text(
-                                      isJobTitleSelected ? strJobTitleName : 'Job Title/Designation',
-                                      style: TextStyle(
-                                        fontFamily: 'Whitney Bold',
-                                        fontSize: 15.0.sp,
-                                        color: isJobTitleSelected ? Colors.black : Color(0xFFBDBFCA),
+                                    Expanded(
+                                      child: Text(
+                                        isJobTitleSelected ? strJobTitleName : 'Job Title/Designation',
+                                        style: TextStyle(
+                                          fontFamily: 'Whitney Bold',
+                                          fontSize: 15.0.sp,
+                                          color: isJobTitleSelected ? Colors.black : Color(0xFFBDBFCA),
+                                        ),
                                       ),
                                     ),
                                     Icon(FontAwesomeIcons.caretDown),

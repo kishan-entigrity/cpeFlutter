@@ -507,16 +507,18 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                           child: Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: <Widget>[
-                                              Container(
-                                                child: Text(
-                                                  ConstSignUp.isJobTitleSelected ? ConstSignUp.jobTitle : 'Job Title/Designation',
-                                                  style: TextStyle(
-                                                    fontFamily: 'Whitney Bold',
-                                                    fontSize: 15.0.sp,
-                                                    color: ConstSignUp.isJobTitleSelected ? Colors.black : Color(0xFFBDBFCA),
+                                              Expanded(
+                                                child: Container(
+                                                  child: Text(
+                                                    ConstSignUp.isJobTitleSelected ? ConstSignUp.jobTitle : 'Job Title/Designation',
+                                                    style: TextStyle(
+                                                      fontFamily: 'Whitney Bold',
+                                                      fontSize: 15.0.sp,
+                                                      color: ConstSignUp.isJobTitleSelected ? Colors.black : Color(0xFFBDBFCA),
+                                                    ),
+                                                    // maxLines: 1,
+                                                    // overflow: TextOverflow.ellipsis,
                                                   ),
-                                                  maxLines: 1,
-                                                  overflow: TextOverflow.ellipsis,
                                                 ),
                                               ),
                                               Icon(FontAwesomeIcons.caretDown),
