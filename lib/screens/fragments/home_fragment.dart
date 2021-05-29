@@ -3240,12 +3240,18 @@ class _HomeFragmentState extends State<HomeFragment> {
   void logoutUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.clear();
-    Navigator.of(context).pushAndRemoveUntil(
+    /*Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
           // builder: (context) => IntroScreen(),
           builder: (context) => Login(false),
         ),
-        (Route<dynamic> route) => false);
+        (Route<dynamic> route) => false);*/
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Login(true),
+      ),
+    );
   }
 
   void loginPopup(String webinarId, String scheduleId, String strWebType, bool isWebinarFree, String webFee) {
@@ -3258,6 +3264,7 @@ class _HomeFragmentState extends State<HomeFragment> {
             "Login",
             "Cancel",
             () {
+              Navigator.pop(context);
               setState(() {
                 ConstSignUp.isGuestRegisterWebinar = true;
                 ConstSignUp.strWebinarId = webinarId.toString();
