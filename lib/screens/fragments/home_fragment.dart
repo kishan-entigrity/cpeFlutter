@@ -2671,7 +2671,7 @@ class _HomeFragmentState extends State<HomeFragment> {
         } else if (list[index].status.toLowerCase() == 'quiz pending') {
           // redirectToDetails(index);
           funRedirectQuizPending(index);
-        } else if (list[index].status.toLowerCase() == 'resume watching') {
+        } else if (list[index].status.toLowerCase() == 'resume watching' || list[index].status.toLowerCase() == 'resume now') {
           redirectToDetails(index);
         } else if (list[index].status.toLowerCase() == 'watch now') {
           redirectToDetails(index);

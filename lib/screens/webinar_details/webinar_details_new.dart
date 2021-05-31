@@ -370,7 +370,9 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                     builder: (context) => VideoPlayerFlickker(webDetailsObj),
                                   ),
                                 );*/
-                                if (status.toLowerCase() == 'resume watching' || status.toLowerCase() == 'watch now') {
+                                if (status.toLowerCase() == 'resume watching' ||
+                                    status.toLowerCase() == 'resume now' ||
+                                    status.toLowerCase() == 'watch now') {
                                   funPlayVideo();
                                 }
                               },
@@ -1328,7 +1330,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       } else {
         funRegisterWebinar();
       }
-    } else if (status.toLowerCase() == 'resume watching' || status.toLowerCase() == 'watch now') {
+    } else if (status.toLowerCase() == 'resume watching' || status.toLowerCase() == 'resume now' || status.toLowerCase() == 'watch now') {
       funPlayVideo();
     } else if (status.toLowerCase() == 'quiz pending') {
       funRedirectQuizPending();

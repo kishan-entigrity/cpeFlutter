@@ -1622,7 +1622,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       } else if (strWebinarTypeIntent.toLowerCase() == 'self_study' || strWebinarTypeIntent.toLowerCase() == 'on-demand') {
         if (list[index].status.toLowerCase() == 'quiz pending') {
           funRedirectQuizPending(index);
-        } else if (list[index].status.toLowerCase() == 'resume watching') {
+        } else if (list[index].status.toLowerCase() == 'resume watching' || list[index].status.toLowerCase() == 'resume now') {
           getIdWebinar(index);
         } else if (list[index].status.toLowerCase() == 'watch now') {
           getIdWebinar(index);

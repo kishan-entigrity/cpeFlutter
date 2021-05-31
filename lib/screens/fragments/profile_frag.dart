@@ -340,9 +340,12 @@ class _ProfileFragState extends State<ProfileFrag> {
                                                 },
                                               ),
                                             ),
-                                            Divider(
-                                              height: 1.0,
-                                              color: Colors.black,
+                                            Visibility(
+                                              visible: isGuestMode ? false : true,
+                                              child: Divider(
+                                                height: 1.0,
+                                                color: Colors.black,
+                                              ),
                                             ),
                                             // FAQ Controller..
                                             profile_cell(
