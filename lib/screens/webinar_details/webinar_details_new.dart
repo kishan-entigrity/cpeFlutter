@@ -603,9 +603,9 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                   ),
                                 ],
                               ),
-                              WebinarTitle_OnDemand(webinarTitle),
+                              /*WebinarTitle_OnDemand(webinarTitle),
                               // WebinarTitle_OnDemand('Test Title'),
-                              WebinarSpeakerName_OnDemand(presenterName),
+                              WebinarSpeakerName_OnDemand(presenterName),*/
                               // WebinarSpeakerName_OnDemand('Test Presenter'),
                             ],
                           ),
@@ -625,9 +625,9 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                 ),
                               ),
                               // WebinarTitle_OnDemand(webinar_title),
-                              WebinarTitle_OnDemand(webinarTitle),
+                              /*WebinarTitle_OnDemand(webinarTitle),
                               // WebinarSpeakerName_OnDemand(presenter_name),
-                              WebinarSpeakerName_OnDemand(presenterName),
+                              WebinarSpeakerName_OnDemand(presenterName),*/
                             ],
                           ),
                         ),
@@ -815,6 +815,19 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: <Widget>[
+                            Visibility(
+                              visible: strWebinarTypeIntent == 'ON-DEMAND' ? true : false,
+                              child: Container(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    WebinarTitle_OnDemand(webinarTitle),
+                                    // WebinarTitle_OnDemand('Test Title'),
+                                    WebinarSpeakerName_OnDemand(presenterName),
+                                  ],
+                                ),
+                              ),
+                            ),
                             Visibility(
                               visible: strWebinarTypeIntent == 'ON-DEMAND' ? true : false,
                               child: Container(

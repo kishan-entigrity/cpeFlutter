@@ -1380,7 +1380,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                                     onTap: () {
                                                                                       print('Clicked on index position : $index');
                                                                                       print('Clicked on ID : ${recentList[index].id}');
-                                                                                      getIdWebinar(index);
+                                                                                      // getIdWebinar(index);
+                                                                                      redirectToRecentDetails(index);
                                                                                     },
                                                                                     child: Container(
                                                                                       height: 25.0.sp,
@@ -3220,6 +3221,27 @@ class _HomeFragmentState extends State<HomeFragment> {
     int webinarId = list[index].id;
     String strWebinarId = webinarId.toString();
     strWebinarTypeIntent = list[index].webinarType;
+
+    /*Navigator.push(context, MaterialPageRoute(builder: (context) => WebinarDetailsNew(strWebinarTypeIntent, webinarId)));*/
+    Navigator.of(context)
+        .push(
+      MaterialPageRoute(
+        builder: (context) => WebinarDetailsNew(strWebinarTypeIntent, webinarId),
+      ),
+    )
+        .then((_) {
+      // Call setState() here or handle this appropriately
+      setState(() {
+        list.clear();
+      });
+      checkForSP();
+    });
+  }
+
+  void redirectToRecentDetails(int index) {
+    int webinarId = recentList[index].id;
+    String strWebinarId = webinarId.toString();
+    strWebinarTypeIntent = recentList[index].webinarType;
 
     /*Navigator.push(context, MaterialPageRoute(builder: (context) => WebinarDetailsNew(strWebinarTypeIntent, webinarId)));*/
     Navigator.of(context)
