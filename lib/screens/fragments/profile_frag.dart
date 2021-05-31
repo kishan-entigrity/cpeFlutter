@@ -1,4 +1,5 @@
 import 'package:connectivity/connectivity.dart';
+import 'package:cpe_flutter/components/SpinKitSample1.dart';
 import 'package:cpe_flutter/components/custom_dialog_two.dart';
 import 'package:cpe_flutter/screens/fragments/test_class_1.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
@@ -43,6 +44,7 @@ class _ProfileFragState extends State<ProfileFrag> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   bool isLoaderShowing = false;
+  bool isHoverProgress = false;
   String _authToken = "";
   var resp;
   bool isGuestMode = false;
@@ -352,12 +354,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                                               childIcon: FontAwesomeIcons.solidQuestionCircle,
                                               strLable: "FAQs",
                                               onPress: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) => FAQ(),
-                                                  ),
-                                                );
+                                                clickEventFAQ();
                                               },
                                             ),
                                             // Provacy policy controller..
@@ -365,12 +362,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                                               childIcon: FontAwesomeIcons.solidFile,
                                               strLable: "Privacy Policy",
                                               onPress: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) => PrivacyPolicy(),
-                                                  ),
-                                                );
+                                                clickEventPrivacy();
                                               },
                                             ),
                                             // Terms and condition controller..
@@ -378,12 +370,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                                               childIcon: FontAwesomeIcons.solidFile,
                                               strLable: "Terms & Condition",
                                               onPress: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) => TermsCondition(),
-                                                  ),
-                                                );
+                                                clickEventTerms();
                                               },
                                             ),
                                             // Chat with US controller..
@@ -520,6 +507,16 @@ class _ProfileFragState extends State<ProfileFrag> {
                           child: CircularProgressIndicator(),
                         ),
                       ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 0.0,
+                    right: 0.0,
+                    left: 0.0,
+                    top: 100.0,
+                    child: Visibility(
+                      visible: isHoverProgress ? true : false,
+                      child: SpinKitSample1(),
                     ),
                   ),
                 ],
@@ -665,6 +662,75 @@ class _ProfileFragState extends State<ProfileFrag> {
 
   void redirectPlayStoreURL() async {
     await canLaunch(playStoreURL) ? await launch(playStoreURL) : throw 'Could not launch $playStoreURL';
+  }
+
+  void clickEventTerms() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
+      setState(() {
+        isHoverProgress = true;
+      });
+      resp = await getTermsAndConditions();
+      print(resp);
+      setState(() {
+        // pagesLength = resp['payload']['screens'].length;
+        String terms_url = resp['payload']['link'];
+        isHoverProgress = false;
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TermsCondition(terms_url),
+          ),
+        );
+      });
+    }
+  }
+
+  void clickEventPrivacy() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
+      setState(() {
+        isHoverProgress = true;
+      });
+      resp = await getPrivacyPolicy();
+      print(resp);
+      setState(() {
+        // pagesLength = resp['payload']['screens'].length;
+        String privacy_url = resp['payload']['link'];
+        isHoverProgress = false;
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PrivacyPolicy(privacy_url),
+          ),
+        );
+      });
+    }
+  }
+
+  void clickEventFAQ() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
+      setState(() {
+        isHoverProgress = true;
+      });
+      resp = await getFAQsAPI();
+      print(resp);
+      setState(() {
+        // pagesLength = resp['payload']['screens'].length;
+        String faq_url = resp['payload']['link'];
+        isHoverProgress = false;
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => FAQ(faq_url),
+          ),
+        );
+      });
+    }
   }
 }
 

@@ -11,11 +11,15 @@ import '../../constant.dart';
 import '../../rest_api.dart';
 
 class FAQ extends StatefulWidget {
+  FAQ(this.faq_url);
+  final String faq_url;
   @override
-  _FAQState createState() => _FAQState();
+  _FAQState createState() => _FAQState(faq_url);
 }
 
 class _FAQState extends State<FAQ> {
+  _FAQState(this.faq_url);
+  final String faq_url;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   var respStatus;
@@ -93,7 +97,8 @@ class _FAQState extends State<FAQ> {
                   // initialUrl: '$respLink',
                   // initialUrl: getAPICallPrivacyPolicy(),
                   // initialUrl: 'https://my-cpe.com/api/cms/get-privacy-policy',
-                  initialUrl: 'https://my-cpe.com/api/cms/get-faq',
+                  // initialUrl: 'https://my-cpe.com/api/cms/get-faq',
+                  initialUrl: faq_url,
                   javascriptMode: JavascriptMode.unrestricted,
                   onWebViewCreated: (WebViewController webViewController) {
                     _controller.complete(webViewController);

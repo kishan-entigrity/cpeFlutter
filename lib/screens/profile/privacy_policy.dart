@@ -10,11 +10,15 @@ import '../../constant.dart';
 import '../../rest_api.dart';
 
 class PrivacyPolicy extends StatefulWidget {
+  PrivacyPolicy(this.privacy_url);
+  final String privacy_url;
   @override
-  _PrivacyPolicyState createState() => _PrivacyPolicyState();
+  _PrivacyPolicyState createState() => _PrivacyPolicyState(privacy_url);
 }
 
 class _PrivacyPolicyState extends State<PrivacyPolicy> {
+  _PrivacyPolicyState(this.privacy_url);
+  final String privacy_url;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   var respStatus;
@@ -96,7 +100,8 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                 child: WebView(
                   // initialUrl: '$respLink',
                   // initialUrl: getAPICallPrivacyPolicy(),
-                  initialUrl: 'https://my-cpe.com/api/cms/get-privacy-policy',
+                  // initialUrl: 'https://my-cpe.com/api/cms/get-privacy-policy',
+                  initialUrl: privacy_url,
                   javascriptMode: JavascriptMode.unrestricted,
                   onWebViewCreated: (WebViewController webViewController) {
                     _controller.complete(webViewController);

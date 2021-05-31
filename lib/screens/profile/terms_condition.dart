@@ -10,11 +10,15 @@ import '../../constant.dart';
 import '../../rest_api.dart';
 
 class TermsCondition extends StatefulWidget {
+  TermsCondition(this.terms_url);
+  final String terms_url;
   @override
-  _TermsConditionState createState() => _TermsConditionState();
+  _TermsConditionState createState() => _TermsConditionState(terms_url);
 }
 
 class _TermsConditionState extends State<TermsCondition> {
+  _TermsConditionState(this.terms_url);
+  final String terms_url;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   var respStatus;
@@ -89,14 +93,15 @@ class _TermsConditionState extends State<TermsCondition> {
             Expanded(
               child: Container(
                 margin: EdgeInsets.only(top: 10.0),
-                color: Colors.tealAccent,
+                color: Colors.white,
                 height: 300.0,
                 width: double.infinity,
                 child: WebView(
                   // initialUrl: '$respLink',
                   // initialUrl: getAPICallPrivacyPolicy(),
                   // initialUrl: 'https://my-cpe.com/api/cms/terms_condition',
-                  initialUrl: 'https://my-cpe.com/api/cms/get-terms-and-conditions',
+                  // initialUrl: 'https://my-cpe.com/api/cms/get-terms-and-conditions',
+                  initialUrl: terms_url,
                   javascriptMode: JavascriptMode.unrestricted,
                   onWebViewCreated: (WebViewController webViewController) {
                     _controller.complete(webViewController);
