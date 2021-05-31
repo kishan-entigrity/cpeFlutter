@@ -14,6 +14,7 @@ import 'package:cpe_flutter/screens/profile/pagination_job_titles/jobtitle_list.
 import 'package:cpe_flutter/screens/profile/pagination_profcreds/profcreds_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -3044,6 +3045,8 @@ class _UserProfileState extends State<UserProfile> {
 
     // isEditable = false;
     Navigator.pop(context);
+
+    // SystemChannels.textInput.invokeMethod('TextInput.hide');
   }
 
   takePicture(ImageSource source) async {

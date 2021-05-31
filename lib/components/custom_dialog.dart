@@ -70,7 +70,10 @@ class CustomDialog extends StatelessWidget {
                 GestureDetector(
                   onTap: onPress,
                   child: Container(
-                    height: double.infinity,
+                    height: 25.0.sp,
+                    width: 100.0.sp,
+                    // margin: EdgeInsets.only(left: 10.0.w, right: 10.0.w, bottom: 4.0.w, top: 6.0.w),
+                    margin: EdgeInsets.only(bottom: 4.0.w, top: 6.0.w),
                     padding: EdgeInsets.symmetric(horizontal: 4.0.w),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(7.0),
