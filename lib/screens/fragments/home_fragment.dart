@@ -2050,8 +2050,33 @@ class _HomeFragmentState extends State<HomeFragment> {
                                   ),
                                 ),
                               ),
-                              Container(
-                                width: 20.0.w,
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    qualificationsId.clear();
+                                    qualification_ids = "";
+                                    for (int i = 0; i < listQualifications.length; i++) {
+                                      listQualifications[i].isSelected = false;
+                                    }
+
+                                    isProgressShowing = true;
+
+                                    list.clear();
+                                    start = 0;
+
+                                    this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType',
+                                        '$strFilterPrice', '$hot_topics_ids', '$qualification_ids');
+                                  });
+                                },
+                                child: Container(
+                                  width: 20.0.w,
+                                  child: Center(
+                                    child: Text(
+                                      'Clear',
+                                      style: kDateTestimonials,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
