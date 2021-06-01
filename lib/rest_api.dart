@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 
@@ -260,6 +261,22 @@ Future getTermsAndConditions() async {
 Future getTopicsOfInterest() async {
   var urls = Uri.parse(URLs.BASE_URL + 'topic-of-interest/list');
   final response = await http.get(urls);
+  var convertDataToJson = jsonDecode(response.body);
+  return convertDataToJson;
+}
+
+Future updateProfilePic(String authToken, String strImgBase64) async {
+  log('Log message for TOKEN REQUEST is : $authToken');
+  log('Log message for base 64 ON api REQUEST is : $strImgBase64');
+  var urls = Uri.parse(URLs.BASE_URL + 'update-profile-pic');
+  final response = await http.post(
+    urls,
+    headers: {
+      'Accept': 'Application/json',
+      'Authorization': 'Bearer $authToken',
+    },
+    body: {'profile_image': strImgBase64},
+  );
   var convertDataToJson = jsonDecode(response.body);
   return convertDataToJson;
 }

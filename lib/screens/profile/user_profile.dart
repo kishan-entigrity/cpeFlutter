@@ -145,6 +145,10 @@ class _UserProfileState extends State<UserProfile> {
   var respEditProfStatus;
   var respEditProfMessage;
 
+  var respEditPic;
+  var respEditPicStatus;
+  var respEditPicMessage;
+
   SharedPreferences sharedPreferences;
 
   File _image;
@@ -3062,13 +3066,14 @@ class _UserProfileState extends State<UserProfile> {
       } else {
         // Now try to conbvert this Image to base 64 image and then decode that image on web..
         // uploadImageAPI(pickedFile.path.toString());
+        print('File path for the image is : ${pickedFile.path}');
         final bytes = Io.File(pickedFile.path).readAsBytesSync();
 
         String img64 = base64Encode(bytes);
-        print('After convertion to base64 image is : ${img64.substring(0, 100)}');
-        // print('After convertion to base64 image is : $bytes');
-        // debugPrint('Debug Print : $bytes');
-        // inspect('After convertion to base64 image is : $bytes');
+        // print('New Log for base64 is : $img64');
+        // log('Log message for base 64 is : $img64');
+        // print('After convertion to base64 image is : ${img64.substring(0, 100)}');
+        updateProfilePicAPI(img64);
       }
     });
   }
@@ -3198,6 +3203,42 @@ class _UserProfileState extends State<UserProfile> {
     response.stream.transform(utf8.decoder).listen((value) {
       print(value);
     });
+  }
+
+  void updateProfilePicAPI(String img64) async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
+      setState(() {
+        isLoaderShowing = true;
+      });
+      respEditPic = await updateProfilePic(_authToken, img64);
+      print('Response for edit profile pic is : $respEditPic');
+      respEditPicStatus = respEditPic['success'];
+      respEditPicMessage = respEditPic['message'];
+      setState(() {
+        isLoaderShowing = false;
+      });
+      Fluttertoast.showToast(
+          msg: "$respEditPicMessage",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+    } else {
+      Fluttertoast.showToast(
+          msg: "Please check your internet connectivity and try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      setState(() {
+        isLoaderShowing = false;
+      });
+    }
   }
 
 /*_imgFromCamera() async {
