@@ -3061,7 +3061,8 @@ class _UserProfileState extends State<UserProfile> {
     setState(() {
       print('path for Image is : ${pickedFile.path.toString()}');
       _imageFile = pickedFile;
-      if (pickedFile.path.toString() == null || pickedFile.path.toString() == "") {
+      // if (pickedFile.path.toString() == null || pickedFile.path.toString() == "") {
+      if (_imageFile.toString() == null || _imageFile.toString() == "") {
         // Do nothing as we didn't have the image over here..
       } else {
         // Now try to conbvert this Image to base 64 image and then decode that image on web..
@@ -3205,27 +3206,49 @@ class _UserProfileState extends State<UserProfile> {
     });
   }
 
-  void updateProfilePicAPI(String img64) async {
+  Future<String> updateProfilePicAPI(String img64) async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
       setState(() {
         isLoaderShowing = true;
       });
-      respEditPic = await updateProfilePic(_authToken, img64);
-      print('Response for edit profile pic is : $respEditPic');
-      respEditPicStatus = respEditPic['success'];
-      respEditPicMessage = respEditPic['message'];
-      setState(() {
+
+      var urls = Uri.parse(URLs.BASE_URL + 'update-profile-pic');
+
+      final response = await http.post(
+        urls,
+        headers: {
+          'Accept': 'Application/json',
+          'Authorization': '$_authToken',
+        },
+        body: {
+          'profile_image': img64.toString(),
+        },
+      );
+
+      this.setState(() {
+        respEditPic = jsonDecode(response.body);
         isLoaderShowing = false;
+
+        respEditPicStatus = respEditPic['success'];
+        respEditPicMessage = respEditPic['message'];
+
+        var strMsg = respEditPic['payload']['image_replies']['message'];
+        var newImgUrl = respEditPic['payload']['image_replies']['profile_image'];
+
+        Fluttertoast.showToast(
+            msg: "$strMsg",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: toastBackgroundColor,
+            textColor: toastTextColor,
+            fontSize: 16.0);
+
+        // pickedFile.path = "";
       });
-      Fluttertoast.showToast(
-          msg: "$respEditPicMessage",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: toastBackgroundColor,
-          textColor: toastTextColor,
-          fontSize: 16.0);
+
+      print('Response for profile pic inclass is : $respEditPic');
     } else {
       Fluttertoast.showToast(
           msg: "Please check your internet connectivity and try again",
@@ -3239,7 +3262,44 @@ class _UserProfileState extends State<UserProfile> {
         isLoaderShowing = false;
       });
     }
+    return 'Success';
   }
+
+  /*void updateProfilePicAPI(String img64) async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
+      setState(() {
+        isLoaderShowing = true;
+      });
+      respEditPic = await updateProfilePic(_authToken, img64.toString());
+      print('Response for edit profile pic is : $respEditPic');
+      // respEditPicStatus = respEditPic['success'];
+      // respEditPicMessage = respEditPic['message'];
+      setState(() {
+        isLoaderShowing = false;
+      });
+      */ /*Fluttertoast.showToast(
+          msg: "$respEditPicMessage",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);*/ /*
+    } else {
+      Fluttertoast.showToast(
+          msg: "Please check your internet connectivity and try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      setState(() {
+        isLoaderShowing = false;
+      });
+    }
+  }*/
 
 /*_imgFromCamera() async {
     final pickedFile = await _picker.getImage(source: source);
