@@ -1842,8 +1842,10 @@ class _UserProfileState extends State<UserProfile> {
                                       enabled: isEditable,
                                       style: kLableSignUpTextStyle,
                                       keyboardType: TextInputType.number,
+                                      maxLength: 4,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
+                                        counter: SizedBox.shrink(),
                                         hintText: 'Last 4 digits',
                                         hintStyle: kLableSignUpHintStyle,
                                       ),
@@ -2965,6 +2967,7 @@ class _UserProfileState extends State<UserProfile> {
         'ptin': strPTIN,
         'ctec_id': strCTEC,
         'co_emp_size': strOrgSize,
+        'ssn_number': ssnController.text.toString(),
         'jobtitle_id': jobTitleId.toString(),
         'industry_id': industryId.toString(),
         'professional_cred_cert': user_type_ids.toString(),
