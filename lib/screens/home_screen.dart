@@ -25,14 +25,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   int currentTab = 0;
   static int selectedIndexN = 0;
-  final List<Widget> screens = [
+  /*final List<Widget> screens = [
     // HomeSampleFrag(),
     HomeFragment(),
     MyWebinarFrag(false),
     CertificateFrag(false),
     // PremiumFrag(),
     ProfileFrag(),
-  ];
+  ];*/
 
   void changeTabMethod(int index) {
     print('changeTabMethod is called');
@@ -62,10 +62,12 @@ class _HomeScreenState extends State<HomeScreen> {
         return HomeFragment();
       case 1:
         // return isGuestUser ? redirectToLogin() : redirectToMyWebinar();
-        return isGuestUser ? redirectToLogin() : MyWebinarFrag(false);
+        // return isGuestUser ? redirectToLogin() : MyWebinarFrag(false, onButtonPressed: changeTabMethod);
+        return isGuestUser ? redirectToLogin() : MyWebinarFrag(false, changeTabMethod);
       case 2:
         // return isGuestUser ? redirectToSignUp() : redirectToCertificate();
-        return isGuestUser ? redirectToSignUp() : CertificateFrag(false);
+        // return isGuestUser ? redirectToSignUp() : CertificateFrag(false, onButtonPressed: changeTabMethod);
+        return isGuestUser ? redirectToSignUp() : CertificateFrag(false, changeTabMethod);
       case 3:
         return ProfileFrag(onButtonPressed: changeTabMethod);
       default:
@@ -685,11 +687,11 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  redirectToMyWebinar() {
-    /*currentScreen = MyWebinarFrag(false);
-    currentTab = 1;*/
+  /*redirectToMyWebinar() {
+    */ /*currentScreen = MyWebinarFrag(false);
+    currentTab = 1;*/ /*
     MyWebinarFrag(false);
-  }
+  }*/
 
   redirectToSignUp() {
     Future.delayed(Duration.zero, () {
@@ -706,9 +708,9 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  redirectToCertificate() {
+  /*redirectToCertificate() {
     // currentScreen = CertificateFrag(false);
     // currentTab = 2;
     CertificateFrag(false);
-  }
+  }*/
 }

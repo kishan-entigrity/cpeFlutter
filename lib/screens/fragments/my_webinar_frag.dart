@@ -3,7 +3,6 @@ import 'dart:convert';
 // import 'package:cpe_flutter/screens/fragments/pagination/webinar_list.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
-import 'package:cpe_flutter/components/custom_dialog_two.dart';
 import 'package:cpe_flutter/screens/final_quiz/final_quiz_screen.dart';
 import 'package:cpe_flutter/screens/fragments/model_mywebinar/list_mywebinar.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
@@ -12,7 +11,6 @@ import 'package:cpe_flutter/screens/webinar_details/evaluation_form.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -24,9 +22,14 @@ import '../../rest_api.dart';
 import '../webinar_details/webinar_details_new.dart';
 
 class MyWebinarFrag extends StatefulWidget {
-  MyWebinarFrag(this.isFromProfile);
-
+  // final void Function(int) onButtonPressed;
   final bool isFromProfile;
+  final void Function(int) onButtonPressed;
+  // const MyWebinarFrag({Key key, this.isFromProfile, this.onButtonPressed});
+  const MyWebinarFrag(this.isFromProfile, this.onButtonPressed);
+  // MyWebinarFrag(this.isFromProfile);
+
+  // final bool isFromProfile;
 
   @override
   _MyWebinarFragState createState() => _MyWebinarFragState(isFromProfile);
@@ -1453,9 +1456,8 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
   }
 
   Future<bool> _onWillPop() {
-    return isFromProfile
-        ? popFunction()
-        : showDialog(
+    return isFromProfile ? popFunction() : redirectToHomeTab();
+    /*showDialog(
             context: context,
             builder: (BuildContext context) {
               return CustomDialogTwo(
@@ -1470,7 +1472,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                   Navigator.pop(context);
                 },
               );
-            });
+            });*/
     /*showDialog(
               context: context,
               builder: (context) => new AlertDialog(
@@ -2160,5 +2162,9 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       // Call setState() here or handle this appropriately
       checkForSP();
     });
+  }
+
+  redirectToHomeTab() {
+    widget.onButtonPressed(0);
   }
 }

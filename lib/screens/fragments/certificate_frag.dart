@@ -1,12 +1,10 @@
 import 'dart:convert';
 
 import 'package:connectivity/connectivity.dart';
-import 'package:cpe_flutter/components/custom_dialog_two.dart';
 import 'package:cpe_flutter/constant.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:cpe_flutter/screens/webinar_details/pdf_preview_certificate.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -18,9 +16,13 @@ import '../../rest_api.dart';
 import 'model_credit/credit_model.dart';
 
 class CertificateFrag extends StatefulWidget {
-  CertificateFrag(this.isFromProfile);
-
   final bool isFromProfile;
+  final void Function(int) onButtonPressed;
+  // const CertificateFrag({Key key, this.isFromProfile, this.onButtonPressed});
+  const CertificateFrag(this.isFromProfile, this.onButtonPressed);
+  // CertificateFrag(this.isFromProfile);
+
+  // final bool isFromProfile;
 
   @override
   _CertificateFragState createState() => _CertificateFragState(isFromProfile);
@@ -465,9 +467,8 @@ class _CertificateFragState extends State<CertificateFrag> {
   }
 
   Future<bool> _onWillPop() {
-    return isFromProfile
-        ? popFunction()
-        : showDialog(
+    return isFromProfile ? popFunction() : redirectToHomeTab();
+    /*showDialog(
             context: context,
             builder: (BuildContext context) {
               return CustomDialogTwo(
@@ -482,7 +483,7 @@ class _CertificateFragState extends State<CertificateFrag> {
                   Navigator.pop(context);
                 },
               );
-            });
+            });*/
     /*showDialog(
               context: context,
               builder: (context) => new AlertDialog(
@@ -810,5 +811,9 @@ class _CertificateFragState extends State<CertificateFrag> {
         );
       }
     });
+  }
+
+  redirectToHomeTab() {
+    widget.onButtonPressed(0);
   }
 }

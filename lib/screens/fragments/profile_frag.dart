@@ -219,7 +219,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                                                     context,
                                                     MaterialPageRoute(
                                                       // builder: (context) => MyCredit(),
-                                                      builder: (context) => MyWebinarFrag(true),
+                                                      builder: (context) => MyWebinarFrag(true, clickEventDummy()),
                                                     ),
                                                   );
                                                 },
@@ -236,7 +236,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                                                     context,
                                                     MaterialPageRoute(
                                                       // builder: (context) => MyCredit(),
-                                                      builder: (context) => CertificateFrag(true),
+                                                      builder: (context) => CertificateFrag(true, clickEventDummy()),
                                                     ),
                                                   );
                                                 },
@@ -736,6 +736,8 @@ class _ProfileFragState extends State<ProfileFrag> {
       });
     }
   }
+
+  void Function(int p1) clickEventDummy() {}
 }
 
 class profilce_cell_image extends StatelessWidget {
