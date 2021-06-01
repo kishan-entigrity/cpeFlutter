@@ -1,3 +1,4 @@
+import 'package:cpe_flutter/constant.dart';
 import 'package:cpe_flutter/screens/fragments/certificate_frag.dart';
 import 'package:cpe_flutter/screens/fragments/my_webinar_frag.dart';
 import 'package:cpe_flutter/screens/fragments/profile_frag.dart';
@@ -5,7 +6,6 @@ import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/signup_screen_1.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sizer/sizer.dart';
 
 import 'fragments/home_fragment.dart';
 
@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isGuestUser = false;
 
   int currentTab = 0;
+  static int selectedIndexN = 0;
   final List<Widget> screens = [
     // HomeSampleFrag(),
     HomeFragment(),
@@ -32,6 +33,14 @@ class _HomeScreenState extends State<HomeScreen> {
     // PremiumFrag(),
     ProfileFrag(),
   ];
+
+  void changeTabMethod(int index) {
+    print('changeTabMethod is called');
+    setState(() {
+      selectedIndexN = index;
+    });
+    print('changeTabMethod is called : selectedIndexN : $selectedIndexN');
+  }
 
   // Something that stores the stack..
   final PageStorageBucket bucket = PageStorageBucket();
@@ -47,12 +56,77 @@ class _HomeScreenState extends State<HomeScreen> {
     getUserData();
   }
 
+  Widget _widgetOptions1(int index) {
+    switch (index) {
+      case 0:
+        return HomeFragment();
+      case 1:
+        // return isGuestUser ? redirectToLogin() : redirectToMyWebinar();
+        return isGuestUser ? redirectToLogin() : MyWebinarFrag(false);
+      case 2:
+        // return isGuestUser ? redirectToSignUp() : redirectToCertificate();
+        return isGuestUser ? redirectToSignUp() : CertificateFrag(false);
+      case 3:
+        return ProfileFrag(onButtonPressed: changeTabMethod);
+      default:
+        return Container();
+    }
+  }
+
   @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // return GetBuilder<DashboardController>(
+      body: Center(
+        child: _widgetOptions1(selectedIndexN),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        currentIndex: selectedIndexN,
+        onTap: changeTabMethod,
+        selectedItemColor: themeBlue,
+        selectedLabelStyle: TextStyle(fontSize: 10),
+        unselectedLabelStyle: TextStyle(fontSize: 10),
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            // icon: Icon(Icons.business),
+            icon: ImageIcon(
+              AssetImage(
+                isGuestUser ? 'assets/login_icon.png' : 'assets/my_webinar.png',
+              ),
+            ),
+            // label: 'Login',
+            // label: checkTitle2(),
+            label: isGuestUser ? 'Login' : 'My Courses',
+          ),
+          BottomNavigationBarItem(
+            // icon: Icon(Icons.school),
+            icon: ImageIcon(
+              AssetImage(
+                isGuestUser ? 'assets/signup_icon.png' : 'assets/certificate.png',
+              ),
+            ),
+            label: isGuestUser ? 'SignUp' : 'Certificate',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.school),
+            label: 'Profile',
+          ),
+        ],
+      ),
+    );
+  }
+
+  /*@override
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: Colors.blueGrey,
       backgroundColor: Color(0xFFF3F5F9),
-      /*appBar: AppBar(
+      */ /*appBar: AppBar(
         title: Text(
           'Home Screen',
         ),
@@ -66,8 +140,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 logoutUser();
               })
         ],
-      ),*/
-      /*body: SafeArea(
+      ),*/ /*
+      */ /*body: SafeArea(
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.center,v
@@ -311,7 +385,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-      ),*/
+      ),*/ /*
       body: PageStorage(
         child: currentScreen,
         bucket: bucket,
@@ -347,11 +421,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           width: 18.0.sp,
                           color: currentTab == 0 ? Color(0xFF193F70) : Color(0xFFABAAAA),
                         ),
-                        /*Icon(
+                        */ /*Icon(
                           FontAwesomeIcons.home,
                           size: 20.0,
                           color: currentTab == 0 ? Color(0xFF193F70) : Color(0xFFABAAAA),
-                        ),*/
+                        ),*/ /*
                         SizedBox(
                           height: 3.0,
                         ),
@@ -388,11 +462,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           width: 18.0.sp,
                           color: currentTab == 1 ? Color(0xFF193F70) : Color(0xFFABAAAA),
                         ),
-                        /*Icon(
+                        */ /*Icon(
                           FontAwesomeIcons.desktop,
                           size: 20.0,
                           color: currentTab == 1 ? Color(0xFF193F70) : Color(0xFFABAAAA),
-                        ),*/
+                        ),*/ /*
                         SizedBox(
                           height: 3.0,
                         ),
@@ -430,11 +504,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           width: 18.0.sp,
                           color: currentTab == 2 ? Color(0xFF193F70) : Color(0xFFABAAAA),
                         ),
-                        /*Icon(
+                        */ /*Icon(
                           FontAwesomeIcons.certificate,
                           size: 20.0,
                           color: currentTab == 2 ? Color(0xFF193F70) : Color(0xFFABAAAA),
-                        ),*/
+                        ),*/ /*
                         SizedBox(
                           height: 3.0,
                         ),
@@ -451,7 +525,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-              /*GestureDetector(
+              */ /*GestureDetector(
                 onTap: () {
                   setState(() {
                     currentScreen = PremiumFrag();
@@ -470,11 +544,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: 18.0.sp,
                         color: currentTab == 3 ? Color(0xFF193F70) : Color(0xFFABAAAA),
                       ),
-                      */ /*Icon(
+                      */ /* */ /*Icon(
                         FontAwesomeIcons.amazon,
                         size: 20.0,
                         color: currentTab == 3 ? Color(0xFF193F70) : Color(0xFFABAAAA),
-                      ),*/ /*
+                      ),*/ /* */ /*
                       SizedBox(
                         height: 3.0,
                       ),
@@ -490,7 +564,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-              ),*/
+              ),*/ /*
               GestureDetector(
                 onTap: () {
                   setState(() {
@@ -513,11 +587,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           width: 18.0.sp,
                           color: currentTab == 3 ? Color(0xFF193F70) : Color(0xFFABAAAA),
                         ),
-                        /*Icon(
+                        */ /*Icon(
                           FontAwesomeIcons.user,
                           size: 20.0,
                           color: currentTab == 4 ? Color(0xFF193F70) : Color(0xFFABAAAA),
-                        ),*/
+                        ),*/ /*
                         SizedBox(
                           height: 3.0,
                         ),
@@ -540,7 +614,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
-  }
+  }*/
 
   void logoutUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -597,30 +671,44 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   redirectToLogin() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => Login(true),
-      ),
-    );
+    Future.delayed(Duration.zero, () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Login(true),
+        ),
+      ).then((_) {
+        // Call setState() here or handle this appropriately
+        print('Callback method is called');
+        changeTabMethod(0);
+      });
+    });
   }
 
   redirectToMyWebinar() {
-    currentScreen = MyWebinarFrag(false);
-    currentTab = 1;
+    /*currentScreen = MyWebinarFrag(false);
+    currentTab = 1;*/
+    MyWebinarFrag(false);
   }
 
   redirectToSignUp() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => SignUpScreen1(),
-      ),
-    );
+    Future.delayed(Duration.zero, () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SignUpScreen1(),
+        ),
+      ).then((_) {
+        // Call setState() here or handle this appropriately
+        print('Callback method is called');
+        changeTabMethod(0);
+      });
+    });
   }
 
   redirectToCertificate() {
-    currentScreen = CertificateFrag(false);
-    currentTab = 2;
+    // currentScreen = CertificateFrag(false);
+    // currentTab = 2;
+    CertificateFrag(false);
   }
 }

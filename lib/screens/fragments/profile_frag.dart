@@ -13,7 +13,6 @@ import 'package:cpe_flutter/screens/profile/privacy_policy.dart';
 import 'package:cpe_flutter/screens/profile/terms_condition.dart';
 import 'package:cpe_flutter/screens/profile/user_profile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,6 +26,8 @@ import 'certificate_frag.dart';
 import 'my_webinar_frag.dart';
 
 class ProfileFrag extends StatefulWidget {
+  final void Function(int) onButtonPressed;
+  const ProfileFrag({Key key, this.onButtonPressed});
   @override
   _ProfileFragState createState() => _ProfileFragState();
 }
@@ -528,7 +529,10 @@ class _ProfileFragState extends State<ProfileFrag> {
   }
 
   Future<bool> _onWillPop() {
-    return showDialog(
+    setState(() {
+      widget.onButtonPressed(0);
+    });
+    /*return showDialog(
         context: context,
         builder: (BuildContext context) {
           return CustomDialogTwo(
@@ -543,7 +547,7 @@ class _ProfileFragState extends State<ProfileFrag> {
               Navigator.pop(context);
             },
           );
-        });
+        });*/
     /*return showDialog(
           context: context,
           builder: (context) => new AlertDialog(
