@@ -27,7 +27,9 @@ import 'my_webinar_frag.dart';
 
 class ProfileFrag extends StatefulWidget {
   final void Function(int) onButtonPressed;
+
   const ProfileFrag({Key key, this.onButtonPressed});
+
   @override
   _ProfileFragState createState() => _ProfileFragState();
 }
@@ -115,7 +117,35 @@ class _ProfileFragState extends State<ProfileFrag> {
                                       Padding(
                                         padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 0.0),
                                         child: Center(
-                                          child: strProfilePic == ''
+                                          child: isGuestMode
+                                              ? CircleAvatar(
+                                                  radius: 14.0.w,
+                                                  backgroundImage: NetworkImage(strDummyUserURL),
+                                                )
+                                              : strProfilePic == ''
+                                                  ? Container(
+                                                      height: 30.0.w,
+                                                      width: 30.0.w,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.blueGrey,
+                                                        borderRadius: BorderRadius.circular(25.0.w),
+                                                      ),
+                                                      child: Center(
+                                                        child: Text(
+                                                          '${strNameInitials.toUpperCase()}',
+                                                          style: TextStyle(
+                                                            fontSize: 25.0.sp,
+                                                            color: Colors.white,
+                                                            fontFamily: 'Whitney Bold',
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    )
+                                                  : CircleAvatar(
+                                                      radius: 14.0.w,
+                                                      backgroundImage: NetworkImage(strProfilePic),
+                                                    ),
+                                          /*child: strProfilePic == ''
                                               ? Container(
                                                   height: 30.0.w,
                                                   width: 30.0.w,
@@ -137,7 +167,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                                               : CircleAvatar(
                                                   radius: 14.0.w,
                                                   backgroundImage: NetworkImage(isGuestMode ? strDummyUserURL : strProfilePic),
-                                                ),
+                                                ),*/
                                         ),
                                       ),
                                       GestureDetector(
