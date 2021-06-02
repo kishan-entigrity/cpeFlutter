@@ -85,6 +85,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       overviewOfTopic = '';
 
   var audience_title_lenght = 0;
+  var rating = 0.0;
+  var rating_count = 0;
 
   var play_time_duration;
   var scheduleID;
@@ -211,6 +213,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
           scheduleID = webDetailsObj['schedule_id'];
           fee = webDetailsObj['cost'].toString();
           audience_title_lenght = webDetailsObj['audiance_titles'].length;
+          rating = webDetailsObj['rating'];
+          rating_count = webDetailsObj['rating_user_count'];
 
           if (fee == '' || fee.toString().toLowerCase() == 'free') {
             iswebinarFree = true;
@@ -668,7 +672,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                               fontSize: 16.0.sp,
                                               color: Colors.black,
                                             ),
-                                            maxLines: 4,
+                                            maxLines: 3,
                                             overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
@@ -721,7 +725,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                               margin: EdgeInsets.only(left: 15.0, top: 7.0),
                                               width: 80.0.sp,
                                               child: RatingBar.readOnly(
-                                                initialRating: double.parse("4.0"),
+                                                initialRating: double.parse('$rating'),
                                                 size: 16.0.sp,
                                                 filledColor: themeBlueLight,
                                                 halfFilledColor: themeBlueLight,
@@ -740,7 +744,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                             Container(
                                               margin: EdgeInsets.only(top: 5.0),
                                               child: Text(
-                                                '(181)',
+                                                '($rating_count)',
                                                 style: TextStyle(
                                                   fontFamily: 'Whitney Semi Bold',
                                                   fontSize: 13.0.sp,
@@ -841,7 +845,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                             margin: EdgeInsets.only(left: 10.0, top: 7.0),
                                             width: 80.0.sp,
                                             child: RatingBar.readOnly(
-                                              initialRating: double.parse("4.0"),
+                                              initialRating: double.parse("$rating"),
                                               size: 16.0.sp,
                                               filledColor: themeYellow,
                                               halfFilledColor: Colors.white,
@@ -860,7 +864,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                           Container(
                                             margin: EdgeInsets.only(top: 5.0),
                                             child: Text(
-                                              '(181)',
+                                              '($rating_count)',
                                               style: TextStyle(
                                                 fontFamily: 'Whitney Semi Bold',
                                                 fontSize: 13.0.sp,
