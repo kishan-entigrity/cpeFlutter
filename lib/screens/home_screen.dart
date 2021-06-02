@@ -53,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     super.initState();
     // Here we take call for getting user data from SharedPrefs..
+    changeTabMethod(0);
     getUserData();
   }
 
