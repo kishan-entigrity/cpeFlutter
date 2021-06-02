@@ -1426,7 +1426,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                               borderRadius: BorderRadius.circular(3.0.sp),
                                                                             ),
                                                                           ),
-                                                                          flex: 20,
+                                                                          flex: double.parse(recentList[index].watched).toInt(),
                                                                         ),
                                                                         new Flexible(
                                                                           child: Container(
@@ -1437,7 +1437,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                                   bottomRight: Radius.circular(3.0.sp)),
                                                                             ),
                                                                           ),
-                                                                          flex: 80,
+                                                                          // flex: 80,
+                                                                          flex: 100 - double.parse(recentList[index].watched).toInt(),
                                                                         ),
                                                                       ],
                                                                     ),

@@ -37,17 +37,20 @@ class RecentWebinars {
   String _webinarTitle;
   String _webinarType;
   String _webinarImage;
+  String _watched;
 
   int get id => _id;
   String get webinarTitle => _webinarTitle;
   String get webinarType => _webinarType;
   String get webinarImage => _webinarImage;
+  String get watched => _watched;
 
-  RecentWebinars({int id, String webinarTitle, String webinarType, String webinarImage}) {
+  RecentWebinars({int id, String webinarTitle, String webinarType, String webinarImage, String watched}) {
     _id = id;
     _webinarTitle = webinarTitle;
     _webinarType = webinarType;
     _webinarImage = webinarImage;
+    _watched = watched;
   }
 
   RecentWebinars.fromJson(dynamic json) {
@@ -55,6 +58,7 @@ class RecentWebinars {
     _webinarTitle = json["webinar_title"];
     _webinarType = json["webinar_type"];
     _webinarImage = json["webinar_image"];
+    _watched = json["watched"];
   }
 
   Map<String, dynamic> toJson() {
@@ -63,6 +67,7 @@ class RecentWebinars {
     map["webinar_title"] = _webinarTitle;
     map["webinar_type"] = _webinarType;
     map["webinar_image"] = _webinarImage;
+    map["watched"] = _watched;
     return map;
   }
 }
