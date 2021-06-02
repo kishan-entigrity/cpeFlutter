@@ -3996,7 +3996,52 @@ class _HomeFragmentState extends State<HomeFragment> {
   }
 
   setCardColor(int index) {
-    return index % 2 == 0 ? Color(0xFFFFC803) : Color(0xFF00B1FD);
+    if (index > 9) {
+      if (index % 10 == 0) {
+        return bgColor0;
+      } else if (index % 10 == 1) {
+        return bgColor1;
+      } else if (index % 10 == 2) {
+        return bgColor2;
+      } else if (index % 10 == 3) {
+        return bgColor3;
+      } else if (index % 10 == 4) {
+        return bgColor4;
+      } else if (index % 10 == 5) {
+        return bgColor5;
+      } else if (index % 10 == 6) {
+        return bgColor6;
+      } else if (index % 10 == 7) {
+        return bgColor7;
+      } else if (index % 10 == 8) {
+        return bgColor8;
+      } else if (index % 10 == 9) {
+        return bgColor9;
+      }
+    } else {
+      if (index == 0) {
+        return bgColor0;
+      } else if (index == 1) {
+        return bgColor1;
+      } else if (index == 2) {
+        return bgColor2;
+      } else if (index == 3) {
+        return bgColor3;
+      } else if (index == 4) {
+        return bgColor4;
+      } else if (index == 5) {
+        return bgColor5;
+      } else if (index == 6) {
+        return bgColor6;
+      } else if (index == 7) {
+        return bgColor7;
+      } else if (index == 8) {
+        return bgColor8;
+      } else if (index == 9) {
+        return bgColor9;
+      }
+    }
+    // return index % 2 == 0 ? Color(0xFFFFC803) : Color(0xFF00B1FD);
   }
 
 /*void clickEventMonth(int index) {
