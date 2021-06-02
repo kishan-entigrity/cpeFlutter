@@ -5,7 +5,9 @@ import 'package:cpe_flutter/components/SpinKitSample1.dart';
 import 'package:cpe_flutter/components/custom_dialog.dart';
 import 'package:cpe_flutter/components/round_icon_button.dart';
 import 'package:cpe_flutter/const_signup.dart';
+import 'package:cpe_flutter/screens/profile/terms_condition.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -57,6 +59,8 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
   var respStrContactNumber;
   var respStrProfilePic;
   var respToken;
+
+  var respTC;
 
   bool checkValue = false;
 
@@ -190,10 +194,10 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                         Expanded(
                                           child: TextField(
                                             controller: ptinController,
-                                            // maxLength: 8,
+                                            maxLength: 8,
                                             style: kLableSignUpTextStyle,
                                             decoration: InputDecoration(
-                                              // counter: SizedBox.shrink(),
+                                              counter: SizedBox.shrink(),
                                               border: InputBorder.none,
                                               hintText: '',
                                               hintStyle: kLableSignUpHintStyle,
@@ -253,10 +257,11 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                         Expanded(
                                           child: TextField(
                                             controller: ctecController,
-                                            // maxLength: 6,
+                                            maxLength: 6,
                                             keyboardType: TextInputType.number,
                                             style: kLableSignUpTextStyle,
                                             decoration: InputDecoration(
+                                              counter: SizedBox.shrink(),
                                               border: InputBorder.none,
                                               hintText: '',
                                               hintStyle: kLableSignUpHintStyle,
@@ -948,11 +953,17 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                               TextSpan(text: '  I accept these'),
                                               TextSpan(
                                                 text: ' Terms and Conditions',
+                                                // recognizer: new TapGestureRecognizer()..onTap = () => print('Clicked on T&C'),
                                                 style: TextStyle(
                                                   fontFamily: 'Whitney Bold',
                                                   fontSize: 13.0.sp,
                                                   color: Color(0xFF0F2138),
                                                 ),
+                                                recognizer: TapGestureRecognizer()
+                                                  ..onTap = () {
+                                                    print('Clicked on T&C');
+                                                    clickEventTerms();
+                                                  },
                                               ),
                                             ],
                                           ),
@@ -1626,5 +1637,28 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
       ),
     );
     // getCredential();
+  }
+
+  void clickEventTerms() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
+      setState(() {
+        isLoaderShowing = true;
+      });
+      respTC = await getTermsAndConditions();
+      print(respTC);
+      setState(() {
+        // pagesLength = resp['payload']['screens'].length;
+        String terms_url = respTC['payload']['link'];
+        isLoaderShowing = false;
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TermsCondition(terms_url),
+          ),
+        );
+      });
+    }
   }
 }
