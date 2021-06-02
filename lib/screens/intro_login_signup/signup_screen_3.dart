@@ -197,7 +197,8 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                             maxLength: 8,
                                             style: kLableSignUpTextStyle,
                                             decoration: InputDecoration(
-                                              counter: SizedBox.shrink(),
+                                              // counter: SizedBox.shrink(),
+                                              counterText: '',
                                               border: InputBorder.none,
                                               hintText: '',
                                               hintStyle: kLableSignUpHintStyle,
@@ -261,7 +262,8 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                             keyboardType: TextInputType.number,
                                             style: kLableSignUpTextStyle,
                                             decoration: InputDecoration(
-                                              counter: SizedBox.shrink(),
+                                              // counter: SizedBox.shrink(),
+                                              counterText: '',
                                               border: InputBorder.none,
                                               hintText: '',
                                               hintStyle: kLableSignUpHintStyle,
@@ -1160,16 +1162,13 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
   /*void getStateNameApi(int selectedCountryId) async {
     isLoaderShowing = true;
     print('Selected Country ID : $selectedCountryId');
-
     var connectivityResult = await (Connectivity().checkConnectivity());
     if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
       respState = await getStateList(selectedCountryId.toString());
       print('Response for State list api is : $respState');
-
       respStatus = respState['success'];
       respMessage = respState['message'];
       isLoaderShowing = false;
-
       if (respStatus) {
         // Do something to load data for country list from here..
         setState(() {
@@ -1199,11 +1198,9 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
     if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
       respCity = await getCityList(selectedStateId.toString());
       print('Response for City list api is : $respCity');
-
       respStatus = respCity['success'];
       respMessage = respCity['message'];
       isLoaderShowing = false;
-
       if (respStatus) {
         // Do something to load data for country list from here..
         setState(() {
@@ -1542,7 +1539,6 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                       respStrContactNumber = respRegistration['payload']['user']['contact_no'];
                       respStrProfilePic = respRegistration['payload']['user']['profile_picture'];
                       respToken = respRegistration['payload']['user']['token'];
-
                       print('Response id is : $respStrId');
                       print('Response email is : $respStrEmail');
                       print('Response FName is : $respStrFName');
@@ -1553,7 +1549,6 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                         isLoading = false;
                       });*/ /*
                       saveData();
-
                       */ /*Navigator.push(
                         context,
                         MaterialPageRoute(
