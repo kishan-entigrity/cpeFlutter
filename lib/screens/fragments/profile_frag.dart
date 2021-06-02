@@ -640,6 +640,11 @@ class _ProfileFragState extends State<ProfileFrag> {
       });
       resp = await getViewProfile(_authToken);
       print(resp);
+      if (resp['success']) {
+        setState(() {
+          strProfilePic = resp['payload']['data']['profile_picture'];
+        });
+      }
       setState(() {
         isLoaderShowing = false;
       });
