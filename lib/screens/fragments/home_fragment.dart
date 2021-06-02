@@ -11,6 +11,7 @@ import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:cpe_flutter/screens/profile/guest_cards_frag.dart';
 import 'package:cpe_flutter/screens/profile/notification.dart';
 import 'package:cpe_flutter/screens/webinar_details/evaluation_form.dart';
+import 'package:cpe_flutter/screens/webinar_details/pdf_preview_certificate.dart';
 import 'package:cpe_flutter/screens/webinar_details/webinar_details_new.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -102,6 +103,8 @@ class _HomeFragmentState extends State<HomeFragment> {
   TextEditingController expMonthController = TextEditingController();
   TextEditingController expYearController = TextEditingController();
   TextEditingController cvvController = TextEditingController();
+
+  var selectedCertificateType = '';
 
   Future<List<Webinar>> getDataWebinarList(String authToken, String start, String limit, String topic_of_interest, String subject_area,
       String webinar_key_text, String webinar_type, String date_filter, String filter_price, String hot_topics_ids, String qualification_ids) async {
@@ -2645,6 +2648,7 @@ class _HomeFragmentState extends State<HomeFragment> {
           // redirectToDetails(index);
           // First we need to check for the certificate links..
           // If the certificate links are available then have to redirect to certificate preview screen..
+          funRedirectMyCertificate(index);
         } else if (list[index].status.toLowerCase() == 'join webinar') {
           // redirectToDetails(index);
           if (list[index].zoomLinkStatus) {
@@ -2737,6 +2741,7 @@ class _HomeFragmentState extends State<HomeFragment> {
         } else if (list[index].status.toLowerCase() == 'my certificate') {
           // First we need to check for the certificate links..
           // If the certificate links are available then have to redirect to certificate preview screen..
+          funRedirectMyCertificate(index);
         } else {
           print('Couldn\'t handle the case on selfstudy webinars.');
         }
@@ -4042,6 +4047,166 @@ class _HomeFragmentState extends State<HomeFragment> {
       }
     }
     // return index % 2 == 0 ? Color(0xFFFFC803) : Color(0xFF00B1FD);
+  }
+
+  void funRedirectMyCertificate(int index) {
+    if (list[index].myCertificateLinks.length > 1) {
+      // There are multiple certificates..
+      showCertificateList(index);
+    } else {
+      // So here we have only single certificate.. Now we have to check for the certificate is available or not..
+      // If the certificate is available then redirect to certificate preview screen..
+      // if(list[index].myCertificateLinks[0].certificateLink = "") {}
+      if (list[index].myCertificateLinks[0].certificateLink == '') {
+        // Entered in empty certificate link option so need to show toast message..
+        Fluttertoast.showToast(
+            msg: strCouldntFindCertificateLink,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: toastBackgroundColor,
+            textColor: toastTextColor,
+            fontSize: 16.0);
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CertificatePdfPreview('${list[index].myCertificateLinks[0].certificateLink}', '${list[index].webinarTitle}',
+                '${list[index].myCertificateLinks[0].certificateType}'),
+          ),
+        );
+      }
+    }
+  }
+
+  void showCertificateList(int index) {
+    setState(() {
+      selectedCertificateType = '';
+    });
+
+    showModalBottomSheet(
+        context: context,
+        builder: (builder) {
+          return StatefulBuilder(
+            builder: (BuildContext context, void Function(void Function()) setState) {
+              return Container(
+                height: 60.0.w,
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      height: 17.0.w,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Container(
+                              width: 20.0.w,
+                              child: Center(
+                                child: Text(
+                                  'Cancel',
+                                  style: kDateTestimonials,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 50.0.w,
+                            child: Center(
+                              child: Text(
+                                'Certificates List',
+                                style: kOthersTitle,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 20.0.w,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        // itemCount: orgSizeList.length,
+                        itemCount: list[index].myCertificateLinks.length,
+                        itemBuilder: (context, pos) {
+                          return ConstrainedBox(
+                            constraints: BoxConstraints(
+                              minHeight: 15.0.w,
+                            ),
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  clickEventSelectCertificate(index, pos);
+                                });
+                              },
+                              child: Container(
+                                margin: EdgeInsets.fromLTRB(3.0.w, 3.0.w, 3.0.w, 0.0),
+                                decoration: BoxDecoration(
+                                  color: selectedCertificateType == list[index].myCertificateLinks[pos].certificateType ? themeYellow : testColor,
+                                  // color: themeYellow,
+                                  borderRadius: BorderRadius.circular(7.0),
+                                  // color: Colors.teal,
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 3.5.w, horizontal: 3.5.w),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Text(
+                                          // list[index].shortTitle,
+                                          // orgSizeList[index],
+                                          list[index].myCertificateLinks[pos].certificateType,
+                                          textAlign: TextAlign.start,
+                                          style: kDataSingleSelectionBottomNav,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        });
+  }
+
+  void clickEventSelectCertificate(int index, int pos) {
+    setState(() {
+      selectedCertificateType = list[index].myCertificateLinks[pos].certificateType.toString();
+      Navigator.pop(context);
+
+      if (list[index].myCertificateLinks[pos].certificateLink == '') {
+        Fluttertoast.showToast(
+            msg: strCouldntFindCertificateLink,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: toastBackgroundColor,
+            textColor: toastTextColor,
+            fontSize: 16.0);
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CertificatePdfPreview(
+              '${list[index].myCertificateLinks[pos].certificateLink}',
+              '${list[index].webinarTitle}',
+              '${list[index].myCertificateLinks[pos].certificateType}',
+            ),
+          ),
+        );
+      }
+    });
   }
 
 /*void clickEventMonth(int index) {
