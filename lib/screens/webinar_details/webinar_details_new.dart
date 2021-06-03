@@ -718,41 +718,44 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                           ],
                                         ),
                                       ),
-                                      Container(
-                                        child: Row(
-                                          children: <Widget>[
-                                            Container(
-                                              margin: EdgeInsets.only(left: 15.0, top: 7.0),
-                                              width: 80.0.sp,
-                                              child: RatingBar.readOnly(
-                                                initialRating: double.parse('$rating'),
-                                                size: 16.0.sp,
-                                                filledColor: themeBlueLight,
-                                                halfFilledColor: themeBlueLight,
-                                                emptyColor: Colors.white,
-                                                isHalfAllowed: true,
-                                                // halfFilledIcon: Icons.star_half,
-                                                halfFilledIcon: Icons.star,
-                                                filledIcon: Icons.star,
-                                                emptyIcon: Icons.star,
-                                                // emptyIcon: Icons.star_border,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 6.0,
-                                            ),
-                                            Container(
-                                              margin: EdgeInsets.only(top: 5.0),
-                                              child: Text(
-                                                '($rating_count)',
-                                                style: TextStyle(
-                                                  fontFamily: 'Whitney Semi Bold',
-                                                  fontSize: 13.0.sp,
-                                                  color: Color(0xFF1F2227),
+                                      Visibility(
+                                        visible: rating == 0 ? false : true,
+                                        child: Container(
+                                          child: Row(
+                                            children: <Widget>[
+                                              Container(
+                                                margin: EdgeInsets.only(left: 15.0, top: 7.0),
+                                                width: 80.0.sp,
+                                                child: RatingBar.readOnly(
+                                                  initialRating: double.parse('$rating'),
+                                                  size: 16.0.sp,
+                                                  filledColor: themeBlueLight,
+                                                  halfFilledColor: themeBlueLight,
+                                                  emptyColor: Colors.white,
+                                                  isHalfAllowed: true,
+                                                  // halfFilledIcon: Icons.star_half,
+                                                  halfFilledIcon: Icons.star,
+                                                  filledIcon: Icons.star,
+                                                  emptyIcon: Icons.star,
+                                                  // emptyIcon: Icons.star_border,
                                                 ),
                                               ),
-                                            )
-                                          ],
+                                              SizedBox(
+                                                width: 6.0,
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 5.0),
+                                                child: Text(
+                                                  '($rating_count)',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Whitney Semi Bold',
+                                                    fontSize: 13.0.sp,
+                                                    color: Color(0xFF1F2227),
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
                                       Container(
@@ -838,41 +841,44 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Container(
-                                      child: Row(
-                                        children: <Widget>[
-                                          Container(
-                                            margin: EdgeInsets.only(left: 10.0, top: 7.0),
-                                            width: 80.0.sp,
-                                            child: RatingBar.readOnly(
-                                              initialRating: double.parse("$rating"),
-                                              size: 16.0.sp,
-                                              filledColor: themeYellow,
-                                              halfFilledColor: Colors.white,
-                                              emptyColor: Colors.black45,
-                                              isHalfAllowed: true,
-                                              halfFilledIcon: Icons.star_half,
-                                              // halfFilledIcon: Icons.star,
-                                              filledIcon: Icons.star,
-                                              // emptyIcon: Icons.star,
-                                              emptyIcon: Icons.star_border,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 6.0,
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.only(top: 5.0),
-                                            child: Text(
-                                              '($rating_count)',
-                                              style: TextStyle(
-                                                fontFamily: 'Whitney Semi Bold',
-                                                fontSize: 13.0.sp,
-                                                color: Color(0xFF1F2227),
+                                    Visibility(
+                                      visible: rating == 0 ? false : true,
+                                      child: Container(
+                                        child: Row(
+                                          children: <Widget>[
+                                            Container(
+                                              margin: EdgeInsets.only(left: 10.0, top: 7.0),
+                                              width: 80.0.sp,
+                                              child: RatingBar.readOnly(
+                                                initialRating: double.parse("$rating"),
+                                                size: 16.0.sp,
+                                                filledColor: themeYellow,
+                                                halfFilledColor: themeBlue,
+                                                emptyColor: themeBlue,
+                                                isHalfAllowed: true,
+                                                halfFilledIcon: Icons.star_half,
+                                                // halfFilledIcon: Icons.star,
+                                                filledIcon: Icons.star,
+                                                // emptyIcon: Icons.star,
+                                                emptyIcon: Icons.star_border,
                                               ),
                                             ),
-                                          )
-                                        ],
+                                            SizedBox(
+                                              width: 6.0,
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.only(top: 5.0),
+                                              child: Text(
+                                                '($rating_count)',
+                                                style: TextStyle(
+                                                  fontFamily: 'Whitney Semi Bold',
+                                                  fontSize: 13.0.sp,
+                                                  color: Color(0xFF1F2227),
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
                                     Container(
