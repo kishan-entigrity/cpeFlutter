@@ -32,7 +32,8 @@ class SliderLayoutDY extends StatelessWidget {
                   child: FadeInImage(
                     placeholder: AssetImage('assets/slider_1.png'),
                     image: NetworkImage(imgPath),
-                    fit: BoxFit.fill,
+                    // fit: BoxFit.fill,
+                    fit: BoxFit.scaleDown,
                   ),
                 ),
               ),
