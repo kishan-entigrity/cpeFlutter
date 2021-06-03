@@ -416,6 +416,13 @@ class _UserProfileState extends State<UserProfile> {
         strPTIN = dataIntent['ptin_number'];
       }
 
+      if (selectedCountryId != 0) {
+        getStateNameListAPI(selectedCountryId);
+      }
+      if (selectedStateId != 0) {
+        getCityNameListAPI(selectedStateId);
+      }
+
       if (strPhone.contains('-')) {
         print('Yes Phone number contains - ');
         String s = strPhone;
