@@ -826,7 +826,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                           ),
                         ),
                         Container(
-                          color: Color(0xFFF3F5F9),
+                          // color: Color(0xFFF3F5F9),
+                          color: Colors.white,
                           // width: 20.0.sp,
                           height: 60.0,
                           padding: EdgeInsets.all(10.0),
@@ -847,8 +848,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                                 child: Container(
                                   width: 30.0.sp,
                                   height: double.infinity,
-                                  color: Color(0xFFF3F5F9),
-                                  // color: Colors.white,
+                                  // color: Color(0xFFF3F5F9),
+                                  color: Colors.white,
                                   child: Icon(
                                     FontAwesomeIcons.search,
                                     size: 12.0.sp,
@@ -869,7 +870,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                                   child: Container(
                                     width: 20.0.sp,
                                     height: double.infinity,
-                                    color: Color(0xFFF3F5F9),
+                                    // color: Color(0xFFF3F5F9),
+                                    color: Colors.white,
                                     child: Icon(
                                       FontAwesomeIcons.solidBell,
                                       size: 12.0.sp,
@@ -1257,7 +1259,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                                   },
                                   child: Container(
                                     height: double.infinity,
-                                    color: Color(0xFFF3F5F9),
+                                    // color: Color(0xFFF3F5F9),
+                                    color: Colors.white,
                                     padding: EdgeInsets.only(right: 20.0),
                                     child: Center(
                                       child: Text(
@@ -1275,6 +1278,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                     ),
                     Expanded(
                       child: Container(
+                        color: Colors.white,
                         child: isProgressShowing
                             ? Center(
                                 child: CircularProgressIndicator(),
@@ -1333,7 +1337,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                         ),
                                                       ),
                                                       Container(
-                                                        height: 124.0.sp,
+                                                        height: 128.0.sp,
                                                         child: ListView.builder(
                                                           scrollDirection: Axis.horizontal,
                                                           itemCount: recentList.length,
