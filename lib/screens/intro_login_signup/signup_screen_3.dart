@@ -1396,6 +1396,45 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
       setState(() {
         isLoaderShowing = true;
       });
+      //   'first_name': ConstSignUp.strFname.toString(),
+      // 'last_name': ConstSignUp.strLname.toString(),
+      // 'email': ConstSignUp.strEmail.toString(),
+      // 'password': ConstSignUp.strPass.toString(),
+      // 'confirm_password': ConstSignUp.strConfPass.toString(),
+      // 'country_id': ConstSignUp.selectedCountryId.toString(),
+      // 'state_id': ConstSignUp.selectedStateId.toString(),
+      // 'city_id': ConstSignUp.selectedCityId.toString(),
+      // 'firm_name': ConstSignUp.strCompanyName.toString(),
+      // 'contact_no': ConstSignUp.strMobile.toString(),
+      // 'phone': ConstSignUp.strPhone.toString() + '-' + ConstSignUp.strExt,
+      // 'zipcode': ConstSignUp.strZipCode.toString(),
+      // 'ptin': ConstSignUp.strPTIN.toString(),
+      // 'ctec_id': ConstSignUp.strCTEC.toString(),
+      // 'co_emp_size': ConstSignUp.organizationSize.toString(),
+      // 'jobtitle_id': ConstSignUp.jobTitleId.toString(),
+      // 'industry_id': ConstSignUp.industryId.toString(),
+      // 'professional_cred_cert': ConstSignUp.user_type_ids.toString(),
+      // 'device_id': 'aaaaaaa',
+      // 'device_token': 'asdfghjklqwertyuiooooooopzxcvbnm',
+      // 'device_type': 'A',
+      print('First Name on API call is : ${ConstSignUp.strFname.toString()}');
+      print('Last Name on API call is : ${ConstSignUp.strLname.toString()}');
+      print('Email on API call is : ${ConstSignUp.strEmail.toString()}');
+      print('Password on API call is : ${ConstSignUp.strPass.toString()}');
+      print('ConfirmPass on API call is : ${ConstSignUp.strConfPass.toString()}');
+      print('Country on API call is : ${ConstSignUp.selectedCountryId.toString()}');
+      print('State on API call is : ${ConstSignUp.selectedStateId.toString()}');
+      print('City on API call is : ${ConstSignUp.selectedCityId.toString()}');
+      print('Company Name on API call is : ${ConstSignUp.strCompanyName.toString()}');
+      print('Contact Number on API call is : ${ConstSignUp.strMobile.toString()}');
+      print('Phone on API call is : ${ConstSignUp.strPhone.toString() + '-' + ConstSignUp.strExt}');
+      print('Zip code on API call is : ${ConstSignUp.strZipCode.toString()}');
+      print('PTIN on API call is : ${ConstSignUp.strPTIN.toString()}');
+      print('CTEC on API call is : ${ConstSignUp.strCTEC.toString()}');
+      print('Company Size on API call is : ${ConstSignUp.organizationSize.toString()}');
+      print('Job title ID Size on API call is : ${ConstSignUp.jobTitleId.toString()}');
+      print('Industry on API call is : ${ConstSignUp.industryId.toString()}');
+      print('Professional Creds on API call is : ${ConstSignUp.user_type_ids.toString()}');
       takeAPICallRegistration();
       // printData();
     } else {
@@ -1617,7 +1656,8 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
     sharedPreferences.setString("spFName", respStrFName);
     sharedPreferences.setString("spLName", respStrLName);
     sharedPreferences.setString("spContact", respStrContactNumber);
-    sharedPreferences.setString("spProfilePic", respStrProfilePic);
+    // sharedPreferences.setString("spProfilePic", respStrProfilePic);
+    sharedPreferences.setString("spProfilePic", "");
     sharedPreferences.setString("spToken", respToken);
     // sharedPreferences.setString("username", _email);
     // sharedPreferences.setString("password", _password);

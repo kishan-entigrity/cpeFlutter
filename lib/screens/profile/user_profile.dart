@@ -994,7 +994,8 @@ class _UserProfileState extends State<UserProfile> {
                                   children: <Widget>[
                                     Text(
                                       // 'Company Size',
-                                      strOrgSize == '' ? 'Company Size' : strOrgSize,
+                                      // strOrgSize == '' ? 'Company Size' : strOrgSize,
+                                      strOrgSize == '' ? 'Organization Size' : strOrgSize,
                                       style: kLableSignUpTextStyle,
                                     ),
                                     Icon(FontAwesomeIcons.caretDown),
