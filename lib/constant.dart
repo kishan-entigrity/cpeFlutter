@@ -332,7 +332,9 @@ const String confPassValidLengthMsg = 'Confirm password must be 6 characters';
 const String passConfPassEqualMsg = 'Password and confirm password must be same';
 const String countryMsg = 'Please select country';
 const String stateMsg = 'Please select state';
+const String stateEmptyMsg = 'Something went wrong with state list, please try again with selecting country again.';
 const String cityMsg = 'Please select city';
+const String cityEmptyMsg = 'Something went wrong with city list, please try again with selecting country and state again.';
 const String mobileInfoMsg =
     'We encourage you provide professional email as it will help you managing in credits as all comunication related to CPE credits.';
 

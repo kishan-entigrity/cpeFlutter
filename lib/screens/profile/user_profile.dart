@@ -2083,6 +2083,15 @@ class _UserProfileState extends State<UserProfile> {
                                       duration: Duration(seconds: 5),
                                     ),
                                   );*/
+                                } else if (listState.isEmpty) {
+                                  Fluttertoast.showToast(
+                                      msg: stateEmptyMsg,
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: toastBackgroundColor,
+                                      textColor: toastTextColor,
+                                      fontSize: 16.0);
                                 } else {
                                   showModalBottomSheet(
                                       context: context,
@@ -2268,6 +2277,15 @@ class _UserProfileState extends State<UserProfile> {
                                       duration: Duration(seconds: 5),
                                     ),
                                   );*/
+                                } else if (listCity.isEmpty) {
+                                  Fluttertoast.showToast(
+                                      msg: cityEmptyMsg,
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: toastBackgroundColor,
+                                      textColor: toastTextColor,
+                                      fontSize: 16.0);
                                 } else {
                                   showModalBottomSheet(
                                       context: context,
