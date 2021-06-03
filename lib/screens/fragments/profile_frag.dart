@@ -362,7 +362,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                                               visible: isGuestMode ? false : true,
                                               child: profile_cell(
                                                 childIcon: FontAwesomeIcons.solidBell,
-                                                strLable: "Notification",
+                                                strLable: "Notifications",
                                                 onPress: () {
                                                   Navigator.push(
                                                     context,
