@@ -3021,6 +3021,7 @@ class _UserProfileState extends State<UserProfile> {
                 "$respEditProfMessage",
                 "Ok",
                 () {
+                  Navigator.pop(context);
                   updateProfile();
                 },
               );

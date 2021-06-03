@@ -398,7 +398,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                                             ),
                                             // Terms and condition controller..
                                             profile_cell(
-                                              childIcon: FontAwesomeIcons.solidFile,
+                                              childIcon: FontAwesomeIcons.solidCopy,
                                               strLable: "Terms & Condition",
                                               onPress: () {
                                                 clickEventTerms();
