@@ -524,7 +524,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                         Expanded(
                           child: Container(
                             height: 60.0,
-                            color: Color(0xFFF3F5F9),
+                            // color: Color(0xFFF3F5F9),
+                            color: Colors.white,
                             child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: Padding(
@@ -1180,7 +1181,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                       child: Container(
                         height: 50.0,
                         // width: double.infinity,
-                        color: Color(0xFFF3F5F9),
+                        // color: Color(0xFFF3F5F9),
+                        color: Colors.white,
                         // color: Colors.tealAccent,
                         child: Container(
                           child: Row(

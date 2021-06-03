@@ -305,14 +305,14 @@ const Color toastTextColor = Colors.white;
 // Colors for webinar list index..
 const Color bgColor0 = const Color(0xFFFFC803);
 const Color bgColor1 = const Color(0xFF00B1FD);
-const Color bgColor2 = const Color(0xFF009688);
-const Color bgColor3 = const Color(0xFFff5722);
-const Color bgColor4 = const Color(0xFF9e9e9e);
+const Color bgColor2 = const Color(0xFF557df9);
+const Color bgColor3 = const Color(0xFFe34f7f);
+const Color bgColor4 = const Color(0xFFa470f9);
 const Color bgColor5 = const Color(0xFF00B1FD);
 const Color bgColor6 = const Color(0xFFFFC803);
-const Color bgColor7 = const Color(0xFF009688);
-const Color bgColor8 = const Color(0xFFff5722);
-const Color bgColor9 = const Color(0xFF9e9e9e);
+const Color bgColor7 = const Color(0xFF557df9);
+const Color bgColor8 = const Color(0xFFe34f7f);
+const Color bgColor9 = const Color(0xFFa470f9);
 
 // ConstString Files from here..const
 const String fnameEmptyMsg = 'Please enter first name';
