@@ -1625,7 +1625,8 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
           // So here we need to verify the zoom link status for the perticular webinar..
           // If that is true soo then have to redirect to the zoom meetings..
         }
-      } else if (strWebinarTypeIntent.toLowerCase() == 'self_study' || strWebinarTypeIntent.toLowerCase() == 'on-demand') {
+        // } else if (strWebinarTypeIntent.toLowerCase() == 'self_study' || strWebinarTypeIntent.toLowerCase() == 'on-demand') {
+      } else if (strWebinarType.toLowerCase() == 'self_study' || strWebinarType.toLowerCase() == 'on-demand') {
         if (list[index].status.toLowerCase() == 'quiz pending') {
           funRedirectQuizPending(index);
         } else if (list[index].status.toLowerCase() == 'resume watching' || list[index].status.toLowerCase() == 'resume now') {
