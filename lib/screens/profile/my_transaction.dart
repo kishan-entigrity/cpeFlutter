@@ -322,23 +322,38 @@ class _MyTranscationState extends State<MyTranscation> {
                                                   GestureDetector(
                                                     onTap: () async {
                                                       print('Clicked on individual download button URL is : ${list[index].receipt}');
-                                                      final status = await Permission.storage.request();
+                                                      print(
+                                                          'Clicked on the webinar title : ${list[index].title} || and ID : ${list[index].webinarId}');
+                                                      // So Basically we can handle the click event for the selected tile from here..
+                                                      var strUrl = list[index].receipt;
+                                                      if (strUrl.isNotEmpty) {
+                                                        final status = await Permission.storage.request();
 
-                                                      if (status.isGranted) {
-                                                        final externalDir = await getExternalStorageDirectory();
+                                                        if (status.isGranted) {
+                                                          final externalDir = await getExternalStorageDirectory();
 
-                                                        final id = await FlutterDownloader.enqueue(
-                                                          url:
-                                                              // "https://firebasestorage.googleapis.com/v0/b/storage-3cff8.appspot.com/o/2020-05-29%2007-18-34.mp4?alt=media&token=841fffde-2b83-430c-87c3-2d2fd658fd41",
-                                                              "${list[index].receipt}",
-                                                          savedDir: externalDir.path,
-                                                          // fileName: "download",
-                                                          fileName: "receipt_${list[index].title}.pdf",
-                                                          showNotification: true,
-                                                          openFileFromNotification: true,
-                                                        );
+                                                          final id = await FlutterDownloader.enqueue(
+                                                            url:
+                                                                // "https://firebasestorage.googleapis.com/v0/b/storage-3cff8.appspot.com/o/2020-05-29%2007-18-34.mp4?alt=media&token=841fffde-2b83-430c-87c3-2d2fd658fd41",
+                                                                "${list[index].receipt}",
+                                                            savedDir: externalDir.path,
+                                                            // fileName: "download",
+                                                            fileName: "receipt_${list[index].title}.pdf",
+                                                            showNotification: true,
+                                                            openFileFromNotification: true,
+                                                          );
+                                                        } else {
+                                                          print("Permission deined");
+                                                        }
                                                       } else {
-                                                        print("Permission deined");
+                                                        Fluttertoast.showToast(
+                                                            msg: strCouldntFindReceiptLink,
+                                                            toastLength: Toast.LENGTH_SHORT,
+                                                            gravity: ToastGravity.BOTTOM,
+                                                            timeInSecForIosWeb: 1,
+                                                            backgroundColor: toastBackgroundColor,
+                                                            textColor: toastTextColor,
+                                                            fontSize: 16.0);
                                                       }
                                                     },
                                                     child: Container(
