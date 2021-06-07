@@ -133,13 +133,14 @@ class _HomeFragmentState extends State<HomeFragment> {
       body: {
         'start': start,
         'limit': limit,
-        'topic_of_interest': topic_of_interest,
+        // 'topic_of_interest': topic_of_interest,
         'subject_area': subject_area,
         'webinar_key_text': webinar_key_text,
         'webinar_type': webinar_type,
         'date_filter': date_filter,
         'filter_price': filter_price,
         'hot_topics': hot_topics_ids,
+        'qualification_ids': qualification_ids,
       },
     );
 
