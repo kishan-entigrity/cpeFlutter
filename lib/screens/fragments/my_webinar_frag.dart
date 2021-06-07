@@ -1702,7 +1702,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
     // String strFee = data['payload']['webinar'][index]['fee'];
     String strFee = list[index].fee;
     String finalFee = "";
-    if (strFee == "FREE" || strFee == '') {
+    if (strFee == "FREE" || strFee == '' || strFee == '0') {
       finalFee = 'FREE';
     } else {
       // finalFee = 'data["payload']['webinar'][index]['fee"]';
