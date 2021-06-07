@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
 import 'package:cpe_flutter/components/custom_dialog.dart';
+import 'package:cpe_flutter/components/custom_dialog_register.dart';
 import 'package:cpe_flutter/components/custom_dialog_two.dart';
 import 'package:cpe_flutter/const_signup.dart';
 import 'package:cpe_flutter/screens/final_quiz/final_quiz_screen.dart';
@@ -860,6 +861,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                 visible: isGuestUser ? false : true,
                                 child: GestureDetector(
                                   onTap: () {
+                                    print('Clicked on notification icon');
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -3169,7 +3171,34 @@ class _HomeFragmentState extends State<HomeFragment> {
     });
 
     if (respStatus) {
-      Fluttertoast.showToast(
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CustomDialogRegister(
+              "$respMessage",
+              strWebinarTypeIntent.toLowerCase() == "live"
+                  ? "Click on Join Webinar at the scheduled time"
+                  : "Registered Successfully. You can read handout material provided and complete review and final quiz",
+              "CONTINUE",
+              () {
+                Navigator.pop(context);
+                Navigator.of(context)
+                    .push(
+                  MaterialPageRoute(
+                    builder: (context) => WebinarDetailsNew(strWebinarTypeIntent, int.parse(webinarId.toString())),
+                  ),
+                )
+                    .then((_) {
+                  // Call setState() here or handle this appropriately
+                  setState(() {
+                    list.clear();
+                  });
+                  checkForSP();
+                });
+              },
+            );
+          });
+      /*Fluttertoast.showToast(
           msg: respMessage,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
@@ -3177,12 +3206,12 @@ class _HomeFragmentState extends State<HomeFragment> {
           backgroundColor: toastBackgroundColor,
           textColor: toastTextColor,
           fontSize: 16.0);
-      /*scaffoldState.currentState.showSnackBar(
+      */ /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(respMessage),
           duration: Duration(seconds: 2),
         ),
-      );*/
+      );*/ /*
       Future.delayed(const Duration(seconds: 2), () {
         Navigator.of(context)
             .push(
@@ -3197,7 +3226,7 @@ class _HomeFragmentState extends State<HomeFragment> {
           });
           checkForSP();
         });
-      });
+      });*/
     } else {
       Fluttertoast.showToast(
           msg: respMessage,
@@ -3232,7 +3261,34 @@ class _HomeFragmentState extends State<HomeFragment> {
     });
 
     if (respStatus) {
-      Fluttertoast.showToast(
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CustomDialogRegister(
+              "$respMessage",
+              strWebinarTypeIntent.toLowerCase() == "live"
+                  ? "Click on Join Webinar at the scheduled time"
+                  : "Registered Successfully. You can read handout material provided and complete review and final quiz",
+              "CONTINUE",
+              () {
+                Navigator.pop(context);
+                Navigator.of(context)
+                    .push(
+                  MaterialPageRoute(
+                    builder: (context) => WebinarDetailsNew(strWebinarTypeIntent, list[index].id),
+                  ),
+                )
+                    .then((_) {
+                  // Call setState() here or handle this appropriately
+                  setState(() {
+                    list.clear();
+                  });
+                  checkForSP();
+                });
+              },
+            );
+          });
+      /*Fluttertoast.showToast(
           msg: respMessage,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
@@ -3240,12 +3296,12 @@ class _HomeFragmentState extends State<HomeFragment> {
           backgroundColor: toastBackgroundColor,
           textColor: toastTextColor,
           fontSize: 16.0);
-      /*scaffoldState.currentState.showSnackBar(
+      */ /*scaffoldState.currentState.showSnackBar(
         SnackBar(
           content: Text(respMessage),
           duration: Duration(seconds: 2),
         ),
-      );*/
+      );*/ /*
 
       Future.delayed(const Duration(seconds: 2), () {
         Navigator.of(context)
@@ -3261,7 +3317,7 @@ class _HomeFragmentState extends State<HomeFragment> {
           });
           checkForSP();
         });
-      });
+      });*/
     } else {
       Fluttertoast.showToast(
           msg: respMessage,
