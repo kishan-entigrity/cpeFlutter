@@ -325,11 +325,9 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                       searchKey = searchController.text;
                                     });
                                     FocusScope.of(context).requestFocus(new FocusNode());
-
                                     // Now take an API call for the search tag too..
                                     list.clear();
                                     start = 0;
-
                                     this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
                                   },
                                 ),
@@ -344,10 +342,8 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                     if (searchController.text.isNotEmpty) {
                                       searchController.text = "";
                                       searchKey = "";
-
                                       list.clear();
                                       start = 0;
-
                                       this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
                                     }
                                   });
@@ -1161,7 +1157,9 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                             onRefresh: () {
                                               print('On refresh is called..');
                                               start = 0;
-                                              list.clear();
+                                              if (list != null) {
+                                                list.clear();
+                                              }
                                               return this.getDataWebinarList('$_authToken', '0', '10', '$strWebinarType', '$strFilterType');
                                             },
                                             child: ListView.builder(
@@ -1521,7 +1519,9 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       isProgressShowing = true;
       isLoaderShowing = true;
 
-      list.clear();
+      if (list != null) {
+        list.clear();
+      }
       start = 0;
 
       // this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
@@ -1550,7 +1550,9 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       isProgressShowing = true;
       isLoaderShowing = true;
 
-      list.clear();
+      if (list != null) {
+        list.clear();
+      }
       start = 0;
 
       // this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
@@ -1565,7 +1567,6 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       } else {
         isPremium = true;
       }
-
       if (isPremium && isFree) {
         strFilterPrice = "0,1";
       } else if (isPremium) {
@@ -1575,12 +1576,10 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       } else {
         strFilterPrice = "";
       }
-
       isProgressShowing = true;
       this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
     });
   }
-
   void selectFreeFilter() {
     setState(() {
       if (isFree) {
@@ -1588,7 +1587,6 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       } else {
         isFree = true;
       }
-
       if (isPremium && isFree) {
         strFilterPrice = "0,1";
       } else if (isPremium) {
@@ -1598,7 +1596,6 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       } else {
         strFilterPrice = "";
       }
-
       isProgressShowing = true;
       this.getDataWebinarList('', '0', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
     });
@@ -1732,7 +1729,9 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       isLoaderShowing = true;
 
       strFilterType = '2';
-      list.clear();
+      if (list != null) {
+        list.clear();
+      }
       start = 0;
       this.getDataWebinarList('$_authToken', '0', '10', '$strWebinarType', '$strFilterType');
     });
@@ -1754,7 +1753,9 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       isLoaderShowing = true;
 
       strFilterType = '3';
-      list.clear();
+      if (list != null) {
+        list.clear();
+      }
       start = 0;
       this.getDataWebinarList('$_authToken', '0', '10', '$strWebinarType', '$strFilterType');
     });
@@ -1776,7 +1777,9 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       isLoaderShowing = true;
 
       strFilterType = '4';
-      list.clear();
+      if (list != null) {
+        list.clear();
+      }
       start = 0;
       this.getDataWebinarList('$_authToken', '0', '10', '$strWebinarType', '$strFilterType');
     });
@@ -1798,7 +1801,9 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       isLoaderShowing = true;
 
       strFilterType = '5';
-      list.clear();
+      if (list != null) {
+        list.clear();
+      }
       start = 0;
       this.getDataWebinarList('$_authToken', '0', '10', '$strWebinarType', '$strFilterType');
     });
@@ -1820,7 +1825,9 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       isLoaderShowing = true;
 
       strFilterType = '1';
-      list.clear();
+      if (list != null) {
+        list.clear();
+      }
       start = 0;
       this.getDataWebinarList('$_authToken', '0', '10', '$strWebinarType', '$strFilterType');
     });
@@ -1842,7 +1849,9 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       isLoaderShowing = true;
 
       strFilterType = '7';
-      list.clear();
+      if (list != null) {
+        list.clear();
+      }
       start = 0;
       this.getDataWebinarList('$_authToken', '0', '10', '$strWebinarType', '$strFilterType');
     });
@@ -1864,7 +1873,9 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       isLoaderShowing = true;
 
       strFilterType = '8';
-      list.clear();
+      if (list != null) {
+        list.clear();
+      }
       start = 0;
       this.getDataWebinarList('$_authToken', '0', '10', '$strWebinarType', '$strFilterType');
     });
@@ -1886,7 +1897,9 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       isLoaderShowing = true;
 
       strFilterType = '9';
-      list.clear();
+      if (list != null) {
+        list.clear();
+      }
       start = 0;
       this.getDataWebinarList('$_authToken', '0', '10', '$strWebinarType', '$strFilterType');
     });
@@ -1908,7 +1921,9 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       isLoaderShowing = true;
 
       strFilterType = '6';
-      list.clear();
+      if (list != null) {
+        list.clear();
+      }
       start = 0;
       this.getDataWebinarList('$_authToken', '0', '10', '$strWebinarType', '$strFilterType');
     });
