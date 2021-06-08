@@ -2062,8 +2062,8 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
         });
 
         // this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
-        strWebinarType = 'live';
-        strFilterType = '2';
+        // strWebinarType = 'live';
+        // strFilterType = '2';
         this.getDataWebinarList('$_authToken', '$start', '10', '$strWebinarType', '$strFilterType');
         // print('init State isLive : $isLive');
         // print('init State isSelfStudy : $isSelfStudy');
@@ -2072,8 +2072,8 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
         setState(() {
           isUserLoggedIn = false;
         });
-        strWebinarType = 'live';
-        strFilterType = '2';
+        // strWebinarType = 'live';
+        // strFilterType = '2';
         this.getDataWebinarList('', '$start', '10', '$strWebinarType', '$strFilterType');
         // print('init State isLive : $isLive');
         // print('init State isSelfStudy : $isSelfStudy');
@@ -2106,19 +2106,19 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
         if (checkValue) {
           String token = preferences.getString("spToken");
           _authToken = 'Bearer $token';
-          print('Auth Token from SP is : $_authToken');
+          // print('Auth Token from SP is : $_authToken');
 
           // this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
-          strWebinarType = 'live';
-          strFilterType = '2';
-          this.getDataWebinarList('', '$start', '10', '$strWebinarType', '$strFilterType');
+          // strWebinarType = 'live';
+          // strFilterType = '2';
+          this.getDataWebinarList('$_authToken', '$start', '10', '$strWebinarType', '$strFilterType');
           // print('init State isLive : $isLive');
           // print('init State isSelfStudy : $isSelfStudy');
         } else {
           // this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
-          strWebinarType = 'live';
-          strFilterType = '2';
-          this.getDataWebinarList('', '$start', '10', '$strWebinarType', '$strFilterType');
+          // strWebinarType = 'live';
+          // strFilterType = '2';
+          this.getDataWebinarList('$_authToken', '$start', '10', '$strWebinarType', '$strFilterType');
           // print('init State isLive : $isLive');
           // print('init State isSelfStudy : $isSelfStudy');
           print('Check value : $checkValue');
@@ -2129,9 +2129,9 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       if (!isLast) {
         start = start + 10;
         // this.getDataWebinarList('', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice');
-        strWebinarType = 'live';
-        strFilterType = '2';
-        this.getDataWebinarList('', '$start', '10', '$strWebinarType', '$strFilterType');
+        // strWebinarType = 'live';
+        // strFilterType = '2';
+        this.getDataWebinarList('$_authToken', '$start', '10', '$strWebinarType', '$strFilterType');
         // print('init State isLive : $isLive');
         // print('init State isSelfStudy : $isSelfStudy');
         print('Check value : $checkValue');
