@@ -86,7 +86,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       overviewOfTopic = '';
 
   var audience_title_lenght = 0;
-  var rating = 0.0;
+  // var rating = 0.0;
+  var rating = "0";
   var rating_count = 0;
 
   var play_time_duration;
@@ -671,7 +672,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                             style: TextStyle(
                                               fontFamily: 'Whitney Bold',
                                               fontSize: 16.0.sp,
-                                              color: Colors.black,
+                                              color: Colors.white,
                                             ),
                                             maxLines: 3,
                                             overflow: TextOverflow.ellipsis,
@@ -691,7 +692,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                                 style: TextStyle(
                                                   fontFamily: 'Whitney Semi Bold',
                                                   fontSize: 13.0.sp,
-                                                  color: Colors.black,
+                                                  color: Colors.white,
                                                 ),
                                                 overflow: TextOverflow.ellipsis,
                                                 maxLines: 2,
@@ -713,14 +714,14 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                               style: TextStyle(
                                                 fontFamily: 'Whitney Semi Bold',
                                                 fontSize: 13.0.sp,
-                                                color: Colors.black,
+                                                color: Colors.white,
                                               ),
                                             ),
                                           ],
                                         ),
                                       ),
                                       Visibility(
-                                        visible: rating == 0 ? false : true,
+                                        visible: rating == "0" || rating == "0.0" ? false : true,
                                         child: Container(
                                           child: Row(
                                             children: <Widget>[
@@ -751,7 +752,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                                   style: TextStyle(
                                                     fontFamily: 'Whitney Semi Bold',
                                                     fontSize: 13.0.sp,
-                                                    color: Color(0xFF1F2227),
+                                                    // color: Color(0xFF1F2227),
+                                                    color: Colors.white,
                                                   ),
                                                 ),
                                               )
@@ -781,7 +783,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                                     borderRadius: BorderRadius.circular(30.0),
                                                     border: Border.all(
                                                       // color: Color(0xFFB4C2D3),
-                                                      color: Colors.black,
+                                                      color: Colors.white,
                                                       width: 1.0,
                                                     ),
                                                     color: Color(0xFFFFC803),
@@ -792,7 +794,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                                     style: TextStyle(
                                                       fontFamily: 'Whitney Medium',
                                                       fontSize: 11.0.sp,
-                                                      color: Colors.black,
+                                                      color: Colors.white,
                                                     ),
                                                   ),
                                                 ),
@@ -843,7 +845,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Visibility(
-                                      visible: rating == 0 ? false : true,
+                                      visible: rating == "0" || rating == "0.0" ? false : true,
                                       child: Container(
                                         child: Row(
                                           children: <Widget>[
