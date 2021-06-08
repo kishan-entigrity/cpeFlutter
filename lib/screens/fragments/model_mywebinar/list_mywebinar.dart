@@ -65,6 +65,9 @@ class Webinar {
   String _status;
   String _joinUrl;
   String _image;
+  String _encryptedZoomLink;
+  bool _zoomLinkStatus;
+  String _zoomLinkVerificationMessage;
   bool _isCardSave;
 
   int get id => _id;
@@ -85,6 +88,9 @@ class Webinar {
   String get status => _status;
   String get joinUrl => _joinUrl;
   String get image => _image;
+  String get encryptedZoomLink => _encryptedZoomLink;
+  bool get zoomLinkStatus => _zoomLinkStatus;
+  String get zoomLinkVerificationMessage => _zoomLinkVerificationMessage;
   bool get isCardSave => _isCardSave;
 
   Webinar(
@@ -106,6 +112,9 @@ class Webinar {
       String status,
       String joinUrl,
       String image,
+      String encryptedZoomLink,
+      bool zoomLinkStatus,
+      String zoomLinkVerificationMessage,
       bool isCardSave}) {
     _id = id;
     _webinarTitle = webinarTitle;
@@ -125,6 +134,9 @@ class Webinar {
     _status = status;
     _joinUrl = joinUrl;
     _image = image;
+    _encryptedZoomLink = encryptedZoomLink;
+    _zoomLinkStatus = zoomLinkStatus;
+    _zoomLinkVerificationMessage = zoomLinkVerificationMessage;
     _isCardSave = isCardSave;
   }
 
@@ -152,6 +164,9 @@ class Webinar {
     _status = json["status"];
     _joinUrl = json["join_url"];
     _image = json["image"];
+    _encryptedZoomLink = json["encrypted_zoom_link"];
+    _zoomLinkStatus = json["zoom_link_status"];
+    _zoomLinkVerificationMessage = json["zoom_link_verification_message"];
     _isCardSave = json["is_card_save"];
   }
 
@@ -177,6 +192,9 @@ class Webinar {
     map["status"] = _status;
     map["join_url"] = _joinUrl;
     map["image"] = _image;
+    map["zoom_link_status"] = _zoomLinkStatus;
+    map["zoom_link_verification_message"] = _zoomLinkVerificationMessage;
+    map["is_card_save"] = _isCardSave;
     map["is_card_save"] = _isCardSave;
     return map;
   }

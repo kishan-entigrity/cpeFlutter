@@ -3,6 +3,7 @@ import 'dart:convert';
 // import 'package:cpe_flutter/screens/fragments/pagination/webinar_list.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
+import 'package:cpe_flutter/components/custom_dialog.dart';
 import 'package:cpe_flutter/screens/final_quiz/final_quiz_screen.dart';
 import 'package:cpe_flutter/screens/fragments/model_mywebinar/list_mywebinar.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
@@ -17,6 +18,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../constant.dart';
 import '../../rest_api.dart';
@@ -1612,6 +1614,11 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
         } else if (list[index].status.toLowerCase() == 'in progress') {
           // So here we need to verify the zoom link status for the perticular webinar..
           // If that is true soo then have to redirect to the zoom meetings..
+          if (list[index].zoomLinkStatus) {
+            funRedirectJoinWebinar(index);
+          } else {
+            showDialogJoinWebinar(index);
+          }
         } else if (list[index].status.toLowerCase() == 'pending evaluation') {
           getEvaluationFormLinkMethod(list[index].id.toString());
         } else if (list[index].status.toLowerCase() == 'my certificate') {
@@ -1621,6 +1628,11 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
         } else if (list[index].status.toLowerCase() == 'join webinar') {
           // So here we need to verify the zoom link status for the perticular webinar..
           // If that is true soo then have to redirect to the zoom meetings..
+          if (list[index].zoomLinkStatus) {
+            funRedirectJoinWebinar(index);
+          } else {
+            showDialogJoinWebinar(index);
+          }
         }
         // } else if (strWebinarTypeIntent.toLowerCase() == 'self_study' || strWebinarTypeIntent.toLowerCase() == 'on-demand') {
       } else if (strWebinarType.toLowerCase() == 'self_study' || strWebinarType.toLowerCase() == 'on-demand') {
@@ -2395,5 +2407,33 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
         );
       }
     });
+  }
+
+  void funRedirectJoinWebinar(int index) {
+    var url =
+        // "https://zoom.us/w/92056600703?tk=xzhOVl9nDeacxlQXdHHZ4OpFYYp3tD6YhJtS3HqU2ks.DQIAAAAVbwBAfxZjVjZiamV0VlRwaVJTUm95cnJqNFFnAAAAAAAAAAAAAAAAAAAAAAAAAAAA&uuid=WN_C16AFWZcR3SwGA5Gbd0XSQ";
+        list[index].encryptedZoomLink;
+    launchURLJoinWebinar(url);
+    // can't launch url, there is some error
+    throw "Could not launch $url";
+  }
+
+  void launchURLJoinWebinar(String _url) async {
+    await canLaunch(_url) ? await launch(_url) : throw 'Could not launch $_url';
+  }
+
+  void showDialogJoinWebinar(int index) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomDialog(
+            "Join Webinar",
+            "${list[index].zoomLinkVerificationMessage}",
+            "Ok",
+            () {
+              Navigator.pop(context);
+            },
+          );
+        });
   }
 }
