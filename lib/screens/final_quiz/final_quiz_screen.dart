@@ -561,6 +561,9 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
                                                         // Show alert message that user can see popup message..
                                                         showError70();
                                                       }
+                                                    } else {
+                                                      print('Yes we are right but we forgot one case..');
+                                                      showPopupAnswerAllQuestion();
                                                     }
 
                                                     print('Size for arr count = $arrCount');
@@ -634,6 +637,7 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
 
         var connectivityResult = await (Connectivity().checkConnectivity());
         if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
+          print('Webinar ID : $webinarId');
           this.getFinalQuizQuestions('$_authToken', webinarId.toString());
         } else {
           Fluttertoast.showToast(
@@ -688,14 +692,29 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
     }
   }
 
+  void showPopupAnswerAllQuestion() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomDialog(
+            "Sorry",
+            "You have not answered 70% of the questions correctly. Please retake the quiz.",
+            "Ok",
+            () {
+              Navigator.pop(context);
+            },
+          );
+        });
+  }
+
   void showError70() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return CustomDialog(
-            "Logout?",
-            "Are you sure you want to Logout?",
-            "Yes",
+            "Sorry",
+            "You have not answered 70% of the questions correctly. Please retake the quiz.",
+            "Ok",
             () {
               Navigator.pop(context);
             },
