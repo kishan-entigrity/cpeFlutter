@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
+import 'package:cpe_flutter/components/custom_dialog_register.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:cpe_flutter/screens/webinar_details/webinar_details_new.dart';
 import 'package:flutter/cupertino.dart';
@@ -1498,8 +1499,43 @@ class _GuestCardFragState extends State<GuestCardFrag> {
         });
 
         if (resp['success']) {
-          // Then show message and redirect to webinar details screen using push replacement class..
           var respMsg = resp['message'].toString();
+          // Then show message and redirect to webinar details screen using push replacement class..
+          showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (BuildContext context) {
+                return CustomDialogRegister(
+                  "$respMsg",
+                  webinarTypeIntent.toLowerCase() == "live"
+                      ? "Click on Join Webinar at the scheduled time"
+                      : "Registered Successfully. You can read handout material provided and complete review and final quiz",
+                  "CONTINUE",
+                  () {
+                    Navigator.pop(context);
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => WebinarDetailsNew(webinarTypeIntent, webinarId),
+                      ),
+                    );
+                    /*Navigator.of(context)
+                        .push(
+                      MaterialPageRoute(
+                        builder: (context) => WebinarDetailsNew(webinarTypeIntent, int.parse(webinarId.toString())),
+                      ),
+                    )
+                        .then((_) {
+                      // Call setState() here or handle this appropriately
+                      setState(() {
+                        list.clear();
+                      });
+                      checkForSP();
+                    });*/
+                  },
+                );
+              });
+          /*var respMsg = resp['message'].toString();
           Fluttertoast.showToast(
               msg: respMsg,
               toastLength: Toast.LENGTH_SHORT,
@@ -1507,14 +1543,14 @@ class _GuestCardFragState extends State<GuestCardFrag> {
               timeInSecForIosWeb: 1,
               backgroundColor: toastBackgroundColor,
               textColor: toastTextColor,
-              fontSize: 16.0);
+              fontSize: 16.0);*/
           /*_scaffoldKey.currentState.showSnackBar(
             SnackBar(
               content: Text(respMsg),
               duration: Duration(seconds: 2),
             ),
           );*/
-          Future.delayed(const Duration(seconds: 2), () {
+          /*Future.delayed(const Duration(seconds: 2), () {
             if (ConstSignUp.isRegisterWebinarFromDetails) {
               setState(() {
                 ConstSignUp.isRegisterWebinarFromDetails = false;
@@ -1528,7 +1564,7 @@ class _GuestCardFragState extends State<GuestCardFrag> {
                 ),
               );
             }
-          });
+          });*/
         } else {
           var respMsg = resp['message'].toString();
           Fluttertoast.showToast(
