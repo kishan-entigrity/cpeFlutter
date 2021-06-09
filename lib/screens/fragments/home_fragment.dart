@@ -3013,38 +3013,16 @@ class _HomeFragmentState extends State<HomeFragment> {
         _authToken = 'Bearer $token';
         print('Auth Token from SP is : $_authToken');
 
-        this.getDataWebinarList(
-            '$_authToken',
-            '$start',
-            '10',
-            '',
-            '',
-            '$searchKey',
-            '$strWebinarType',
-            '',
-            '$strFilterPrice',
-            '$hot_topics_ids',
-            ''
-                '$qualification_ids');
+        this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice',
+            '$hot_topics_ids', '$qualification_ids');
         // print('init State isLive : $isLive');
         // print('init State isSelfStudy : $isSelfStudy');
       } else {
         setState(() {
           isGuestUser = true;
         });
-        this.getDataWebinarList(
-            '$_authToken',
-            '$start',
-            '10',
-            '',
-            '',
-            '$searchKey',
-            '$strWebinarType',
-            '',
-            '$strFilterPrice',
-            '$hot_topics_ids',
-            ''
-                '$qualification_ids');
+        this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice',
+            '$hot_topics_ids', '$qualification_ids');
         // print('init State isLive : $isLive');
         // print('init State isSelfStudy : $isSelfStudy');
         print('Check value : $checkValue');
@@ -3056,8 +3034,8 @@ class _HomeFragmentState extends State<HomeFragment> {
         isProgressShowing = true;
         isGuestUser = true;
       });
-      this.getDataWebinarList(
-          '$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice', '$hot_topics_ids', '$qualification_ids');
+      this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice',
+          '$hot_topics_ids', '$qualification_ids');
       // print('init State isLive : $isLive');
       // print('init State isSelfStudy : $isSelfStudy');
       print('Check value : $checkValue');
@@ -3077,13 +3055,13 @@ class _HomeFragmentState extends State<HomeFragment> {
           _authToken = 'Bearer $token';
           print('Auth Token from SP is : $_authToken');
 
-          this.getDataWebinarList(
-              '$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice', '$hot_topics_ids', '$qualification_ids');
+          this.getDataWebinarList('$_authToken', '$start', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice',
+              '$hot_topics_ids', '$qualification_ids');
           // print('init State isLive : $isLive');
           // print('init State isSelfStudy : $isSelfStudy');
         } else {
-          this.getDataWebinarList(
-              '', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice', '$hot_topics_ids', '$qualification_ids');
+          this.getDataWebinarList('', '$start', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice', '$hot_topics_ids',
+              '$qualification_ids');
           // print('init State isLive : $isLive');
           // print('init State isSelfStudy : $isSelfStudy');
           print('Check value : $checkValue');
@@ -3094,7 +3072,7 @@ class _HomeFragmentState extends State<HomeFragment> {
       if (!isLast) {
         start = start + 10;
         this.getDataWebinarList(
-            '', '$start', '10', '', '', '$searchKey', '$strWebinarType', '', '$strFilterPrice', '$hot_topics_ids', '$qualification_ids');
+            '', '$start', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType', '$strFilterPrice', '$hot_topics_ids', '$qualification_ids');
         // print('init State isLive : $isLive');
         // print('init State isSelfStudy : $isSelfStudy');
         print('Check value : $checkValue');
