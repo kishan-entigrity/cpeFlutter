@@ -135,6 +135,12 @@ final kOthersDescription = TextStyle(
   color: black50,
 );
 
+final kDetailsStyle = TextStyle(
+  fontFamily: 'Whitney Medium',
+  fontSize: 13.5.sp,
+  color: Color(0x701F2227),
+);
+
 const kWebinarStatusBig = TextStyle(
   fontFamily: 'Whitney Semi Bold',
   fontSize: 21.0,

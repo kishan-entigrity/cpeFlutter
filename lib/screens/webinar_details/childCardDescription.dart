@@ -4,6 +4,8 @@ import 'package:flutter_html/flutter_html.dart';
 // import 'package:flutter_html/style.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../constant.dart';
+
 class childCardDescription extends StatelessWidget {
   childCardDescription(this.strDescription, this.strLearningObjective);
 
@@ -39,11 +41,7 @@ class childCardDescription extends StatelessWidget {
                 color: Color(0x701F2227),
               ),
             },*/
-            defaultTextStyle: TextStyle(
-              fontFamily: 'Whitney Medium',
-              fontSize: 13.5.sp,
-              color: Color(0x701F2227),
-            ),
+            defaultTextStyle: kDetailsStyle,
           ),
           SizedBox(
             height: 10.0,
@@ -78,11 +76,7 @@ class childCardDescription extends StatelessWidget {
                 color: Color(0x701F2227),
               ),
             },*/
-            defaultTextStyle: TextStyle(
-              fontFamily: 'Whitney Medium',
-              fontSize: 13.5.sp,
-              color: Color(0x701F2227),
-            ),
+            defaultTextStyle: kDetailsStyle,
           ),
         ],
       ),

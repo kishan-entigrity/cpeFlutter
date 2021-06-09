@@ -122,7 +122,8 @@ class CtecContainer extends StatelessWidget {
                   color: black50,
                 ),
               },*/
-              defaultTextStyle: kOthersDescription,
+              // defaultTextStyle: kOthersDescription,
+              defaultTextStyle: kDetailsStyle,
             ),
           ],
         ),
@@ -184,7 +185,8 @@ class IrsContainer extends StatelessWidget {
                   color: black50,
                 ),
               },*/
-              defaultTextStyle: kOthersDescription,
+              // defaultTextStyle: kOthersDescription,
+              defaultTextStyle: kDetailsStyle,
             ),
           ],
         ),
@@ -262,7 +264,8 @@ class NasbaContainer extends StatelessWidget {
                   color: black50,
                 ),
               },*/
-              defaultTextStyle: kOthersDescription,
+              // defaultTextStyle: kOthersDescription,
+              defaultTextStyle: kDetailsStyle,
             ),
           ],
         ),
@@ -296,7 +299,8 @@ class RefundCancelContainer extends StatelessWidget {
                 color: black50,
               ),
             },*/
-            defaultTextStyle: kOthersDescription,
+            // defaultTextStyle: kOthersDescription,
+            defaultTextStyle: kDetailsStyle,
           ),
         ],
       ),
@@ -329,7 +333,8 @@ class FaqContainer extends StatelessWidget {
                 color: black50,
               ),
             },*/
-            defaultTextStyle: kOthersDescription,
+            // defaultTextStyle: kOthersDescription,
+            defaultTextStyle: kDetailsStyle,
           ),
         ],
       ),

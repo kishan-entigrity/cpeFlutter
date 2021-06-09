@@ -4,6 +4,8 @@ import 'package:flutter_html/flutter_html.dart';
 // import 'package:flutter_html/style.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../constant.dart';
+
 class childCardCompany extends StatelessWidget {
   childCardCompany(this.presenterObj);
 
@@ -74,11 +76,12 @@ class childCardCompany extends StatelessWidget {
                 color: Colors.black,
               )
             },*/
-            defaultTextStyle: TextStyle(
+            /*defaultTextStyle: TextStyle(
               fontFamily: 'Whitney Medium',
               fontSize: 18.0,
               color: Colors.black,
-            ),
+            ),*/
+            defaultTextStyle: kDetailsStyle,
           ),
         ),
       ],
