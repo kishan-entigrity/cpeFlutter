@@ -265,7 +265,10 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
             // Webinar type as ON-DEMAND webinar..
             if (status.toLowerCase() == 'register') {
               isSingleStatusRow = true;
-            } else if (status.toLowerCase() == 'watch now' || status.toLowerCase() == 'resume watching' || status.toLowerCase() == 'resume now') {
+            } else if (status.toLowerCase() == 'watch now' ||
+                status.toLowerCase() == 'resume watching' ||
+                status.toLowerCase() == 'resume now' ||
+                status.toLowerCase() == 'enrolled') {
               // Now here in this case we need to check for the isAnswered or not..
               // isAnswered = webDetailsObj['review_answered']
               print('Status for review answered is : $reviewAnswered');
