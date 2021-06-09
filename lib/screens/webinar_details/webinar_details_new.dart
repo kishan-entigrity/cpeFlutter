@@ -1681,6 +1681,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
     if (respStatus) {
       showDialog(
           context: context,
+          barrierDismissible: false,
           builder: (BuildContext context) {
             return CustomDialogRegister(
               "$respMessage",

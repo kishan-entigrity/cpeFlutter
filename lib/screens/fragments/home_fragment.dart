@@ -3153,6 +3153,7 @@ class _HomeFragmentState extends State<HomeFragment> {
     if (respStatus) {
       showDialog(
           context: context,
+          barrierDismissible: false,
           builder: (BuildContext context) {
             return CustomDialogRegister(
               "$respMessage",
@@ -3243,6 +3244,7 @@ class _HomeFragmentState extends State<HomeFragment> {
     if (respStatus) {
       showDialog(
           context: context,
+          barrierDismissible: false,
           builder: (BuildContext context) {
             return CustomDialogRegister(
               "$respMessage",
