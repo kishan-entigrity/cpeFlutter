@@ -126,6 +126,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   bool isGuestMode = false;
   bool iswebinarFree = false;
 
+  var isTextBasedWebinar = 0;
+
   @override
   void initState() {
     super.initState();
@@ -217,6 +219,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
           audience_title_lenght = webDetailsObj['audiance_titles'].length;
           rating = webDetailsObj['rating'];
           rating_count = webDetailsObj['rating_user_count'];
+          isTextBasedWebinar = webDetailsObj['is_text_based'];
 
           if (fee == '' || fee.toString().toLowerCase() == 'free') {
             iswebinarFree = true;
@@ -570,7 +573,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                       children: <Widget>[
                         // Container SelfStudy Thumb..
                         Visibility(
-                          visible: (strWebinarTypeIntent == 'ON-DEMAND' ? (!isPlaying ? true : false) : false),
+                          visible:
+                              (strWebinarTypeIntent == 'ON-DEMAND' && isTextBasedWebinar.compareTo(0) == 0 ? (!isPlaying ? true : false) : false),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -618,7 +622,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                         ),
                         // Container SelfStudy Video player..
                         Visibility(
-                          visible: (strWebinarTypeIntent == 'ON-DEMAND' ? (isPlaying ? true : false) : false),
+                          visible: (strWebinarTypeIntent == 'ON-DEMAND' && isTextBasedWebinar.compareTo(0) == 0 ? (isPlaying ? true : false) : false),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -639,7 +643,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                         ),
                         // Container Live Webinar
                         Visibility(
-                          visible: (strWebinarTypeIntent == 'LIVE' ? true : false),
+                          visible: (strWebinarTypeIntent == 'LIVE' || isTextBasedWebinar.compareTo(1) == 0 ? true : false),
                           child: Container(
                             // margin: EdgeInsets.only(top: 10.0),
                             // margin: EdgeInsets.fromLTRB(3.5.w, 0.0.h, 3.5.w, 2.0.h),
@@ -826,7 +830,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                         child: Column(
                           children: <Widget>[
                             Visibility(
-                              visible: strWebinarTypeIntent == 'ON-DEMAND' ? true : false,
+                              visible: strWebinarTypeIntent == 'ON-DEMAND' && isTextBasedWebinar.compareTo(0) == 0 ? true : false,
                               child: Container(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -839,7 +843,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                               ),
                             ),
                             Visibility(
-                              visible: strWebinarTypeIntent == 'ON-DEMAND' ? true : false,
+                              visible: strWebinarTypeIntent == 'ON-DEMAND' && isTextBasedWebinar.compareTo(0) == 0 ? true : false,
                               child: Container(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
