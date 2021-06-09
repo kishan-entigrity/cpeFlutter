@@ -3131,6 +3131,7 @@ class _HomeFragmentState extends State<HomeFragment> {
               '$hot_topics_ids', '$qualification_ids');
         });
       }
+      Navigator.pop(context);
     });
   }
 
