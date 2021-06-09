@@ -982,7 +982,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         Text(
-                                          'SignUp',
+                                          'Submit',
                                           style: kButtonLabelTextStyle,
                                         ),
                                         RoundIconButton(
