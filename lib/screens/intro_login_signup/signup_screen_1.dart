@@ -64,7 +64,8 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
 
   bool isLoaderShowing = false;
 
-  Pattern pattern1 = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{6,}$';
+  // Pattern pattern1 = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{6,}$';
+  Pattern pattern1 = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$';
   RegExp regExp;
 
   @override
