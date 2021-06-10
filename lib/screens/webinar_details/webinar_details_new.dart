@@ -1404,8 +1404,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => CertificatePdfPreview(
-                  '${webDetailsObj['certificate_link'][0]}', '${webDetailsObj['webinar_title']}', '${webDetailsObj['webinar_type']}'),
+              builder: (context) => CertificatePdfPreview('${webDetailsObj['my_certificate_links'][0]['certificate_link']}',
+                  '${webDetailsObj['webinar_title']}', '${webDetailsObj['webinar_type']}'),
             ),
           );
         }
