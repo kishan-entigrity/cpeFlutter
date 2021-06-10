@@ -1725,21 +1725,49 @@ class _GuestCardFragState extends State<GuestCardFrag> {
           if (resp['success']) {
             // Then show message and redirect to webinar details screen using push replacement class..
             var respMsg = resp['message'].toString();
-            Fluttertoast.showToast(
+            showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (BuildContext context) {
+                  return CustomDialogRegister(
+                    "$respMsg",
+                    webinarTypeIntent.toLowerCase() == "live"
+                        ? "Click on Join Webinar at the scheduled time"
+                        : "Registered Successfully. You can read handout material provided and complete review and final quiz",
+                    "CONTINUE",
+                    () {
+                      if (ConstSignUp.isRegisterWebinarFromDetails) {
+                        setState(() {
+                          ConstSignUp.isRegisterWebinarFromDetails = false;
+                        });
+                        Navigator.pop(context);
+                      } else {
+                        Navigator.pop(context);
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => WebinarDetailsNew(webinarTypeIntent, webinarId),
+                          ),
+                        );
+                      }
+                    },
+                  );
+                });
+            /*Fluttertoast.showToast(
                 msg: respMsg,
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.BOTTOM,
                 timeInSecForIosWeb: 1,
                 backgroundColor: toastBackgroundColor,
                 textColor: toastTextColor,
-                fontSize: 16.0);
+                fontSize: 16.0);*/
             /*_scaffoldKey.currentState.showSnackBar(
               SnackBar(
                 content: Text(respMsg),
                 duration: Duration(seconds: 3),
               ),
             );*/
-            Future.delayed(const Duration(seconds: 3), () {
+            /*Future.delayed(const Duration(seconds: 3), () {
               if (ConstSignUp.isRegisterWebinarFromDetails) {
                 setState(() {
                   ConstSignUp.isRegisterWebinarFromDetails = false;
@@ -1753,7 +1781,7 @@ class _GuestCardFragState extends State<GuestCardFrag> {
                   ),
                 );
               }
-            });
+            });*/
           } else {
             var respMsg = resp['message'].toString();
             Fluttertoast.showToast(
