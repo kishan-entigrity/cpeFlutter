@@ -1116,7 +1116,23 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
       setState(() {
         isLoaderShowing = true;
       });
-      getJobTitles();
+      if (ConstSignUp.listIndustries != null && ConstSignUp.listIndustries.isNotEmpty) {
+        if (ConstSignUp.listIndustries != null && ConstSignUp.listIndustries.isNotEmpty) {
+          if (ConstSignUp.listProfCreds != null && ConstSignUp.listProfCreds.isNotEmpty) {
+            // Do nothing here..
+            // Need to dismiss loader here..
+            setState(() {
+              isLoaderShowing = false;
+            });
+          } else {
+            getProfessionalCredsAPI();
+          }
+        } else {
+          getIndustries();
+        }
+      } else {
+        getJobTitles();
+      }
     } else {
       Fluttertoast.showToast(
           msg: "Please check your internet connectivity and try again",
