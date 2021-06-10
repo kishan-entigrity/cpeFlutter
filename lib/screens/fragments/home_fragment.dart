@@ -1292,8 +1292,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                                       print('On refresh is called..');
                                       start = 0;
                                       list.clear();
-                                      return this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '',
-                                          '$strFilterPrice', '$hot_topics_ids', '$qualification_ids');
+                                      return this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType',
+                                          '$strDateType', '$strFilterPrice', '$hot_topics_ids', '$qualification_ids');
                                     },
                                     child: ListView.builder(
                                       controller: _scrollController,
