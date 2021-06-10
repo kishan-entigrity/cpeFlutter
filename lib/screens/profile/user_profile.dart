@@ -461,6 +461,8 @@ class _UserProfileState extends State<UserProfile> {
       } else {
         strCTEC = dataIntent['ctec_id'];
       }
+
+      strCFP = dataIntent['cfp_board_id'];
       dataIntentProfCreds = dataIntent['professional_cred_cert'];
       dataIntentProfCredsSize = dataIntent['professional_cred_cert'].length;
 
@@ -507,6 +509,7 @@ class _UserProfileState extends State<UserProfile> {
     zipCodeController.text = strZipCode;
     ptinController.text = strPTIN;
     ctecController.text = strCTEC;
+    cfpController.text = strCFP;
     ssnController.text = ssnNumber;
 
     checkForSP();
