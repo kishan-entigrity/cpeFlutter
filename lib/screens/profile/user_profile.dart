@@ -2948,6 +2948,7 @@ class _UserProfileState extends State<UserProfile> {
       print('Edit Profile Company Name : ${companyNameController.text.toString()}');
       print('Edit Profile Mobile Number : ${mobileController.text.toString()}');
       print('Edit Profile Phone Number : ${phoneController.text.toString()}');
+      print('Edit Profile extention : ${extController.text.toString()}');
       print('Edit Profile ZipCode : ${zipCodeController.text.toString()}');
       print('Edit Profile PTIN : ${strPTIN}');
       print('Edit Profile CTEC : ${strCTEC}');
@@ -2993,14 +2994,16 @@ class _UserProfileState extends State<UserProfile> {
         'country_id': selectedCountryId.toString(),
         'state_id': selectedStateId.toString(),
         'city_id': selectedCityId.toString(),
-        'firm_name': companyNameController.text.toString(),
+        'company_name': companyNameController.text.toString(),
         'contact_no': mobileController.text.toString(),
-        'phone': phoneController.text.toString(),
+        'phone':
+            extController.text.isNotEmpty ? phoneController.text.toString() + '-' + extController.text.toString() : phoneController.text.toString(),
         'zipcode': zipCodeController.text.toString(),
         'ptin': strPTIN,
         'ctec_id': strCTEC,
+        'cfp_board_id': cfpController.text.toString(),
         'co_emp_size': strOrgSize,
-        'ssn_number': ssnController.text.toString(),
+        'ssn_no': ssnController.text.toString(),
         'jobtitle_id': jobTitleId.toString(),
         'industry_id': industryId.toString(),
         'professional_cred_cert': user_type_ids.toString(),
@@ -3295,7 +3298,7 @@ class _UserProfileState extends State<UserProfile> {
     return 'Success';
   }
 
-  /*void updateProfilePicAPI(String img64) async {
+/*void updateProfilePicAPI(String img64) async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
       setState(() {
