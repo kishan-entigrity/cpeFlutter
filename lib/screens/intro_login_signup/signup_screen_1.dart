@@ -133,7 +133,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                   style: kLableSignUpTextStyle,
                                   decoration: InputDecoration(
                                     border: InputBorder.none,
-                                    hintText: 'First Name',
+                                    hintText: 'First Name *',
                                     hintStyle: kLableSignUpHintStyle,
                                   ),
                                   textInputAction: TextInputAction.next,
@@ -153,7 +153,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                   style: kLableSignUpTextStyle,
                                   decoration: InputDecoration(
                                     border: InputBorder.none,
-                                    hintText: 'Last Name',
+                                    hintText: 'Last Name *',
                                     hintStyle: kLableSignUpHintStyle,
                                   ),
                                   textInputAction: TextInputAction.next,
@@ -174,7 +174,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                   keyboardType: TextInputType.emailAddress,
                                   decoration: InputDecoration(
                                     border: InputBorder.none,
-                                    hintText: 'Email ID',
+                                    hintText: 'Email ID *',
                                     hintStyle: kLableSignUpHintStyle,
                                   ),
                                   textInputAction: TextInputAction.next,
@@ -197,7 +197,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                   decoration: InputDecoration(
                                     border: InputBorder.none,
                                     counter: SizedBox.shrink(),
-                                    hintText: 'Phone Number',
+                                    hintText: 'Phone Number *',
                                     hintStyle: kLableSignUpHintStyle,
                                   ),
                                   textInputAction: TextInputAction.next,
@@ -293,7 +293,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                   obscureText: obscurePass,
                                   decoration: InputDecoration(
                                     border: InputBorder.none,
-                                    hintText: 'Password',
+                                    hintText: 'Password *',
                                     hintStyle: kLableSignUpHintStyle,
                                     suffixIcon: IconButton(
                                       // onPressed: () => _controller.clear(),
@@ -331,7 +331,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                                   obscureText: obscureConfPass,
                                   decoration: InputDecoration(
                                     border: InputBorder.none,
-                                    hintText: 'Confirm Password',
+                                    hintText: 'Confirm Password *',
                                     hintStyle: kLableSignUpHintStyle,
                                     suffixIcon: IconButton(
                                       // onPressed: () => _controller.clear(),

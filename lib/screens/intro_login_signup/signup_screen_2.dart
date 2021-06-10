@@ -170,7 +170,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                           style: kLableSignUpTextStyle,
                                           decoration: InputDecoration(
                                             border: InputBorder.none,
-                                            hintText: 'Company name',
+                                            hintText: 'Company name *',
                                             hintStyle: kLableSignUpHintStyle,
                                           ),
                                           textInputAction: TextInputAction.next,
@@ -336,7 +336,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: <Widget>[
                                               Text(
-                                                ConstSignUp.isOrganizationSizeSelected ? ConstSignUp.organizationSize : 'Organization Size',
+                                                ConstSignUp.isOrganizationSizeSelected ? ConstSignUp.organizationSize : 'Organization Size *',
                                                 style: TextStyle(
                                                   fontFamily: 'Whitney Bold',
                                                   fontSize: 15.0.sp,
@@ -510,7 +510,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                               Expanded(
                                                 child: Container(
                                                   child: Text(
-                                                    ConstSignUp.isJobTitleSelected ? ConstSignUp.jobTitle : 'Job Title/Designation',
+                                                    ConstSignUp.isJobTitleSelected ? ConstSignUp.jobTitle : 'Job Title/Designation *',
                                                     style: TextStyle(
                                                       fontFamily: 'Whitney Bold',
                                                       fontSize: 15.0.sp,
@@ -686,7 +686,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: <Widget>[
                                               Text(
-                                                ConstSignUp.isIndustrySelected ? ConstSignUp.industry : 'Industry',
+                                                ConstSignUp.isIndustrySelected ? ConstSignUp.industry : 'Industry *',
                                                 style: TextStyle(
                                                   fontFamily: 'Whitney Bold',
                                                   fontSize: 15.0.sp,
@@ -945,7 +945,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: <Widget>[
                                               Text(
-                                                'Professional Credentials',
+                                                'Professional Credentials *',
                                                 style: TextStyle(
                                                   fontFamily: 'Whitney Bold',
                                                   fontSize: 15.0.sp,

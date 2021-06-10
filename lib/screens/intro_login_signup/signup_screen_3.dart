@@ -513,7 +513,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                           Text(
-                                            ConstSignUp.selectedCountryName == '' ? 'Country' : ConstSignUp.selectedCountryName,
+                                            ConstSignUp.selectedCountryName == '' ? 'Country *' : ConstSignUp.selectedCountryName,
                                             style: TextStyle(
                                               fontFamily: 'Whitney Bold',
                                               fontSize: 15.0.sp,
@@ -700,7 +700,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                           Text(
-                                            ConstSignUp.selectedStateName == '' ? 'State' : ConstSignUp.selectedStateName,
+                                            ConstSignUp.selectedStateName == '' ? 'State *' : ConstSignUp.selectedStateName,
                                             style: TextStyle(
                                               fontFamily: 'Whitney Bold',
                                               fontSize: 15.0.sp,
@@ -891,7 +891,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                           Text(
-                                            ConstSignUp.selectedCityName == '' ? 'City' : ConstSignUp.selectedCityName,
+                                            ConstSignUp.selectedCityName == '' ? 'City *' : ConstSignUp.selectedCityName,
                                             style: TextStyle(
                                               fontFamily: 'Whitney Bold',
                                               fontSize: 15.0.sp,
