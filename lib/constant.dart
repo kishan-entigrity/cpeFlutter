@@ -137,7 +137,7 @@ final kOthersDescription = TextStyle(
 
 final kDetailsStyle = TextStyle(
   fontFamily: 'Whitney Medium',
-  fontSize: 13.5.sp,
+  fontSize: 13.0.sp,
   color: Color(0x701F2227),
 );
 

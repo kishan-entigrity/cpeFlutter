@@ -63,25 +63,28 @@ class childCardCompany extends StatelessWidget {
             ],
           ),
         ),
-        Container(
-          padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
-          margin: EdgeInsets.only(left: 10.0, right: 10.0),
-          width: double.infinity,
-          child: Html(
-            data: presenterObj['company_desc'],
-            /*style: {
-              "body": Style(
+        Visibility(
+          visible: presenterObj['company_desc'] == "" || presenterObj['company_desc'] == null ? false : true,
+          child: Container(
+            padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
+            margin: EdgeInsets.only(left: 10.0, right: 10.0),
+            width: double.infinity,
+            child: Html(
+              data: presenterObj['company_desc'].toString(),
+              /*style: {
+                "body": Style(
+                  fontFamily: 'Whitney Medium',
+                  fontSize: FontSize(18.0),
+                  color: Colors.black,
+                )
+              },*/
+              /*defaultTextStyle: TextStyle(
                 fontFamily: 'Whitney Medium',
-                fontSize: FontSize(18.0),
+                fontSize: 18.0,
                 color: Colors.black,
-              )
-            },*/
-            /*defaultTextStyle: TextStyle(
-              fontFamily: 'Whitney Medium',
-              fontSize: 18.0,
-              color: Colors.black,
-            ),*/
-            defaultTextStyle: kDetailsStyle,
+              ),*/
+              defaultTextStyle: kDetailsStyle,
+            ),
           ),
         ),
       ],
