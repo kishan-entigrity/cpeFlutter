@@ -1225,7 +1225,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                           /*if (!currentFocus.hasPrimaryFocus) {
                                             currentFocus.unfocus();
                                           }*/
-
+                                          isProgressShowing = true;
                                           SystemChannels.textInput.invokeMethod('TextInput.hide');
                                           // Now take an API call for the search tag too..
                                           list.clear();
