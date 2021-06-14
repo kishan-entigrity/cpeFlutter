@@ -78,6 +78,22 @@ Future video_duration(String authToken, String webinar_id, String play_time_dura
   return convertDataToJson;
 }
 
+Future forgetPassword(String email) async {
+  var urls = Uri.parse(URLs.BASE_URL + 'forgot-password');
+  final response = await http.post(
+    urls,
+    headers: {
+      'Accept': 'Application/json',
+      // 'Authorization': 'Bearer $authToken',
+    },
+    body: {
+      'email': email,
+    },
+  );
+  var convertDataToJson = jsonDecode(response.body);
+  return convertDataToJson;
+}
+
 Future contactUs(String email, String subject) async {
   var urls = Uri.parse(URLs.BASE_URL + 'contact-us/query');
   final response = await http.post(

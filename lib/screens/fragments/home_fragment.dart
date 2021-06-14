@@ -1253,6 +1253,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                                         searchController.text = "";
                                         searchKey = "";
 
+                                        isProgressShowing = true;
+
                                         list.clear();
                                         start = 0;
 

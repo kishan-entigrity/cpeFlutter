@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/round_icon_button.dart';
 import 'package:cpe_flutter/constant.dart';
 import 'package:email_validator/email_validator.dart';
@@ -5,6 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../rest_api.dart';
 
 class ForgetPassword extends StatefulWidget {
   @override
@@ -16,6 +19,11 @@ class _ForgetPasswordState extends State<ForgetPassword> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   String _email;
+
+  var respStatus;
+  var respMessage;
+
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -42,100 +50,116 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         ),
       ),*/
       body: SafeArea(
-        child: Column(
+        child: Stack(
           children: <Widget>[
-            Container(
-              height: 50.0,
-              width: double.infinity,
-              child: Row(
-                children: <Widget>[
-                  GestureDetector(
-                    child: Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          FontAwesomeIcons.angleLeft,
-                        ),
+            Positioned(
+              child: Container(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      height: 50.0,
+                      width: double.infinity,
+                      child: Row(
+                        children: <Widget>[
+                          GestureDetector(
+                            child: Flexible(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(
+                                  FontAwesomeIcons.angleLeft,
+                                ),
+                              ),
+                              flex: 1,
+                            ),
+                            onTap: () {
+                              print('Back button is pressed..');
+                              Navigator.pop(context);
+                            },
+                          ),
+                          Flexible(
+                            child: Center(
+                              child: Text(
+                                'Forget Password',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18.0,
+                                  fontFamily: 'Whitney Semi Bold',
+                                ),
+                              ),
+                            ),
+                            flex: 8,
+                          ),
+                          Flexible(
+                            child: Text(''),
+                            flex: 1,
+                          )
+                        ],
                       ),
-                      flex: 1,
                     ),
-                    onTap: () {
-                      print('Back button is pressed..');
-                      Navigator.pop(context);
-                    },
-                  ),
-                  Flexible(
-                    child: Center(
-                      child: Text(
-                        'Forget Password',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18.0,
-                          fontFamily: 'Whitney Semi Bold',
-                        ),
+                    SingleChildScrollView(
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            height: 300.0,
+                            width: double.infinity,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(25.0, 80.0, 0.0, 0.0),
+                              child: Text(
+                                'Enter your\nregistered email',
+                                style: kLabelTitleTextStyle,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            height: 30.0,
+                            width: double.infinity,
+                            margin: EdgeInsets.fromLTRB(25.0, 0.0, 25.0, 0.0),
+                            child: TextField(
+                              controller: emailController,
+                              obscureText: false,
+                              decoration: lTextFlieldStyleEmail,
+                              textInputAction: TextInputAction.done,
+                            ),
+                          ),
+                          Container(
+                            height: 100.0,
+                            width: double.infinity,
+                            // color: Colors.teal,
+                            margin: EdgeInsets.symmetric(vertical: 50.0, horizontal: 25.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  'Submit',
+                                  style: kButtonLabelTextStyle,
+                                ),
+                                RoundIconButton(
+                                  icon: FontAwesomeIcons.arrowRight,
+                                  onPressed: () async {
+                                    // getUserData();
+                                    getUserData();
+                                  },
+                                ),
+                                /*FloatingActionButton(
+                          onPressed: null,
+                          backgroundColor: Color(0xFFFBB42C),
+                        ),*/
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    flex: 8,
-                  ),
-                  Flexible(
-                    child: Text(''),
-                    flex: 1,
-                  )
-                ],
+                  ],
+                ),
               ),
             ),
-            SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    height: 300.0,
-                    width: double.infinity,
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(25.0, 80.0, 0.0, 0.0),
-                      child: Text(
-                        'Enter your\nregistered email',
-                        style: kLabelTitleTextStyle,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 30.0,
-                    width: double.infinity,
-                    margin: EdgeInsets.fromLTRB(25.0, 0.0, 25.0, 0.0),
-                    child: TextField(
-                      controller: emailController,
-                      obscureText: false,
-                      decoration: lTextFlieldStyleEmail,
-                      textInputAction: TextInputAction.done,
-                    ),
-                  ),
-                  Container(
-                    height: 100.0,
-                    width: double.infinity,
-                    // color: Colors.teal,
-                    margin: EdgeInsets.symmetric(vertical: 50.0, horizontal: 25.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          'Submit',
-                          style: kButtonLabelTextStyle,
-                        ),
-                        RoundIconButton(
-                          icon: FontAwesomeIcons.arrowRight,
-                          onPressed: () async {
-                            // getUserData();
-                            getUserData();
-                          },
-                        ),
-                        /*FloatingActionButton(
-                      onPressed: null,
-                      backgroundColor: Color(0xFFFBB42C),
-                    ),*/
-                      ],
-                    ),
-                  ),
-                ],
+            Positioned(
+              child: Visibility(
+                visible: isLoading ? true : false,
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
               ),
             ),
           ],
@@ -181,8 +205,89 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       print('All validations fired successfully');
       // Take and API call for submitting user data..
       // Then take a pop back stack if we get successful response..
-      Fluttertoast.showToast(
+
+      apiCallForgetPassword(_email);
+
+      /*Fluttertoast.showToast(
           msg: "Data sent successfully",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
+      */ /*_scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          content: Text('Data sent successfully'),
+          duration: Duration(seconds: 5),
+        ),
+      );*/ /*
+      Navigator.pop(context);*/
+    }
+  }
+
+  void apiCallForgetPassword(String email) async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    print('Connectivity Result is : $connectivityResult');
+    print('Connectivity Result is empty');
+
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
+      setState(() {
+        isLoading = true;
+      });
+      var resp = await forgetPassword(email);
+      print('Response is : $resp');
+
+      respStatus = resp['success'];
+      respMessage = resp['message'];
+
+      // Now we need to add these above data on shared prefs and then
+      // we can proceed for next screen.
+
+      setState(() {
+        isLoading = false;
+      });
+
+      if (respStatus) {
+        Fluttertoast.showToast(
+            msg: respMessage,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: toastBackgroundColor,
+            textColor: toastTextColor,
+            fontSize: 16.0);
+        /*_scaffoldKey.currentState.showSnackBar(
+          SnackBar(
+            content: Text('$respMessage'),
+            duration: Duration(seconds: 5),
+          ),
+        );*/
+
+        Navigator.pop(context);
+      } else {
+        Fluttertoast.showToast(
+            msg: respMessage,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: toastBackgroundColor,
+            textColor: toastTextColor,
+            fontSize: 16.0);
+        /*_scaffoldKey.currentState.showSnackBar(
+          SnackBar(
+            content: Text('$respMessage'),
+            duration: Duration(seconds: 5),
+          ),
+        );*/
+      }
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+
+      Fluttertoast.showToast(
+          msg: "Please check your internet connectivity and try again",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
@@ -191,11 +296,10 @@ class _ForgetPasswordState extends State<ForgetPassword> {
           fontSize: 16.0);
       /*_scaffoldKey.currentState.showSnackBar(
         SnackBar(
-          content: Text('Data sent successfully'),
+          content: Text("Please check your internet connectivity and try again"),
           duration: Duration(seconds: 5),
         ),
       );*/
-      Navigator.pop(context);
     }
   }
 }
