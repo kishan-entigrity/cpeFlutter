@@ -268,7 +268,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
             } else if (status.toLowerCase() == 'watch now' ||
                 status.toLowerCase() == 'resume watching' ||
                 status.toLowerCase() == 'resume now' ||
-                status.toLowerCase() == 'enrolled') {
+                status.toLowerCase() == 'enrolled' ||
+                status.toLowerCase() == 'quiz pending') {
               // Now here in this case we need to check for the isAnswered or not..
               // isAnswered = webDetailsObj['review_answered']
               print('Status for review answered is : $reviewAnswered');
