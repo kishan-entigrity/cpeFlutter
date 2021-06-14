@@ -64,6 +64,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   var resp;
   var respStatus;
   var respMessage;
+  var respSubMessage;
   var respTestimonials;
 
   String webinarThumb = '';
@@ -1682,6 +1683,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
 
     respStatus = resp['success'];
     respMessage = resp['message'];
+    respSubMessage = resp['payload']['sub_message'];
     setState(() {
       isLoaderShowing = false;
     });
@@ -1693,9 +1695,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
           builder: (BuildContext context) {
             return CustomDialogRegister(
               "$respMessage",
-              strWebinarTypeIntent.toLowerCase() == "live"
-                  ? "Click on Join Webinar at the scheduled time"
-                  : "Registered Successfully. You can read handout material provided and complete review and final quiz",
+              "$respSubMessage",
               "CONTINUE",
               () {
                 Navigator.pop(context);

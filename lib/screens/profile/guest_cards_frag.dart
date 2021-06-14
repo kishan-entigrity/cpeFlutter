@@ -1500,6 +1500,7 @@ class _GuestCardFragState extends State<GuestCardFrag> {
 
         if (resp['success']) {
           var respMsg = resp['message'].toString();
+          var respSubMsg = resp['payload']['sub_message'].toString();
           // Then show message and redirect to webinar details screen using push replacement class..
           showDialog(
               context: context,
@@ -1507,9 +1508,7 @@ class _GuestCardFragState extends State<GuestCardFrag> {
               builder: (BuildContext context) {
                 return CustomDialogRegister(
                   "$respMsg",
-                  webinarTypeIntent.toLowerCase() == "live"
-                      ? "Click on Join Webinar at the scheduled time"
-                      : "Registered Successfully. You can read handout material provided and complete review and final quiz",
+                  "$respSubMsg",
                   "CONTINUE",
                   () {
                     Navigator.pop(context);
@@ -1725,15 +1724,14 @@ class _GuestCardFragState extends State<GuestCardFrag> {
           if (resp['success']) {
             // Then show message and redirect to webinar details screen using push replacement class..
             var respMsg = resp['message'].toString();
+            var respSubMsg = resp['payload']['sub_message'].toString();
             showDialog(
                 context: context,
                 barrierDismissible: false,
                 builder: (BuildContext context) {
                   return CustomDialogRegister(
                     "$respMsg",
-                    webinarTypeIntent.toLowerCase() == "live"
-                        ? "Click on Join Webinar at the scheduled time"
-                        : "Registered Successfully. You can read handout material provided and complete review and final quiz",
+                    "$respSubMsg",
                     "CONTINUE",
                     () {
                       if (ConstSignUp.isRegisterWebinarFromDetails) {

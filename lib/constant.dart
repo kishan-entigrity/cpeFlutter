@@ -393,3 +393,6 @@ const String strExpyearEmpty = 'Please enter expire year';
 
 const String strCouldntFindCertificateLink = 'Oops, we couldn\'t getting any certificate link by now, please try after some time.';
 const String strCouldntFindReceiptLink = 'Oops, we couldn\'t getting any transaction receipt by now, please try after some time.';
+
+const String strMsgSSWebinar = "Registered Successfully. You can read handout material provided and complete review and final quiz";
+const String strMsgLiveWebinar = "Click on Join Webinar at the scheduled time";

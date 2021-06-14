@@ -98,6 +98,7 @@ class _HomeFragmentState extends State<HomeFragment> {
 
   var respStatus;
   var respMessage;
+  var respSubMessage;
 
   TextEditingController nameController = TextEditingController();
   TextEditingController cardNumberController = TextEditingController();
@@ -3144,6 +3145,7 @@ class _HomeFragmentState extends State<HomeFragment> {
 
     respStatus = resp['success'];
     respMessage = resp['message'];
+    respSubMessage = resp['payload']['sub_message'];
 
     setState(() {
       isLoaderShowing = false;
@@ -3157,9 +3159,7 @@ class _HomeFragmentState extends State<HomeFragment> {
           builder: (BuildContext context) {
             return CustomDialogRegister(
               "$respMessage",
-              strWebinarTypeIntent.toLowerCase() == "live"
-                  ? "Click on Join Webinar at the scheduled time"
-                  : "Registered Successfully. You can read handout material provided and complete review and final quiz",
+              "$respSubMessage",
               "CONTINUE",
               () {
                 Navigator.pop(context);
@@ -3235,6 +3235,7 @@ class _HomeFragmentState extends State<HomeFragment> {
 
     respStatus = resp['success'];
     respMessage = resp['message'];
+    respSubMessage = resp['payload']['sub_message'];
 
     setState(() {
       isLoaderShowing = false;
@@ -3248,9 +3249,7 @@ class _HomeFragmentState extends State<HomeFragment> {
           builder: (BuildContext context) {
             return CustomDialogRegister(
               "$respMessage",
-              strWebinarTypeIntent.toLowerCase() == "live"
-                  ? "Click on Join Webinar at the scheduled time"
-                  : "Registered Successfully. You can read handout material provided and complete review and final quiz",
+              "$respSubMessage",
               "CONTINUE",
               () {
                 Navigator.pop(context);
