@@ -95,7 +95,8 @@ Future forgetPassword(String email) async {
 }
 
 Future contactUs(String email, String subject) async {
-  var urls = Uri.parse(URLs.BASE_URL + 'contact-us/query');
+  // var urls = Uri.parse(URLs.BASE_URL + 'contact-us/query');
+  var urls = Uri.parse(URLs.BASE_URL + 'contact-us');
   final response = await http.post(
     urls,
     headers: {
@@ -103,8 +104,8 @@ Future contactUs(String email, String subject) async {
       // 'Authorization': 'Bearer $authToken',
     },
     body: {
-      'Message': email,
-      'Subject': subject,
+      'email': email,
+      'message': subject,
     },
   );
   var convertDataToJson = jsonDecode(response.body);
