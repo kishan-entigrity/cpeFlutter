@@ -669,7 +669,10 @@ class _CertificateFragState extends State<CertificateFrag> {
           context,
           MaterialPageRoute(
             builder: (context) => CertificatePdfPreview(
-                '${listCredit[index].certificateLink[0]}', '${listCredit[index].webinarTitle}', '${listCredit[index].webinarCreditType}'),
+                // '${listCredit[index].certificateLink[0]}', '${listCredit[index].webinarTitle}', '${listCredit[index].webinarCreditType}'),
+                '${listCredit[index].myCertificateLinks[0].certificateLink}',
+                '${listCredit[index].webinarTitle}',
+                '${listCredit[index].webinarCreditType}'),
           ),
         );
       }
