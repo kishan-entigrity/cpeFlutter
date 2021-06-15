@@ -797,229 +797,235 @@ class _CardFragState extends State<CardFrag> {
                           ),
                         ),
                       ),
-                      Container(
-                        margin: EdgeInsets.only(top: 30.0.sp, left: 10.0.sp),
-                        child: Text(
-                          'Saved Card',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14.5.sp,
-                            fontFamily: 'Whitney Semi Bold',
+                      Visibility(
+                        visible: listCards != null && listCards.isNotEmpty ? true : false,
+                        child: Container(
+                          margin: EdgeInsets.only(top: 30.0.sp, left: 10.0.sp),
+                          child: Text(
+                            'Saved Card',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14.5.sp,
+                              fontFamily: 'Whitney Semi Bold',
+                            ),
                           ),
                         ),
                       ),
-                      Container(
-                        height: 70.0.w,
-                        child: isLoaderShowing
-                            ? Center(
-                                child: CircularProgressIndicator(),
-                              )
-                            : (listCards != null && listCards.isNotEmpty)
-                                ? ListView.builder(
-                                    controller: _scrollController,
-                                    shrinkWrap: true,
-                                    itemCount: listCards.length + 1,
-                                    // itemCount: listCards.length,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (context, index) {
-                                      return index == listCards.length
-                                          ? SizedBox(
-                                              width: 10.0.sp,
-                                            )
-                                          : Column(
-                                              children: <Widget>[
-                                                Container(
-                                                  height: 50.0.w,
-                                                  width: 80.0.w,
-                                                  margin: EdgeInsets.only(top: 10.0.sp, left: 10.0.sp),
-                                                  decoration: BoxDecoration(
-                                                    // color: Colors.blueGrey,
-                                                    borderRadius: BorderRadius.circular(10.0.sp),
-                                                    gradient: new LinearGradient(
-                                                        colors: [
-                                                          // const Color(0xFF3366FF),
-                                                          // const Color(0xFF00EBC9),
-                                                          const Color(0xFFfdc559),
-                                                          // const Color(0xFF00CCFF),
-                                                          // const Color(0xFF00DBE8),
-                                                          const Color(0xFFfbb42c),
-                                                        ],
-                                                        begin: const FractionalOffset(0.0, 0.0),
-                                                        end: const FractionalOffset(1.0, 0.0),
-                                                        stops: [0.0, 1.0],
-                                                        tileMode: TileMode.clamp),
+                      Visibility(
+                        visible: listCards != null && listCards.isNotEmpty ? true : false,
+                        child: Container(
+                          height: 70.0.w,
+                          child: isLoaderShowing
+                              ? Center(
+                                  child: CircularProgressIndicator(),
+                                )
+                              : (listCards != null && listCards.isNotEmpty)
+                                  ? ListView.builder(
+                                      controller: _scrollController,
+                                      shrinkWrap: true,
+                                      itemCount: listCards.length + 1,
+                                      // itemCount: listCards.length,
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (context, index) {
+                                        return index == listCards.length
+                                            ? SizedBox(
+                                                width: 10.0.sp,
+                                              )
+                                            : Column(
+                                                children: <Widget>[
+                                                  Container(
+                                                    height: 50.0.w,
+                                                    width: 80.0.w,
+                                                    margin: EdgeInsets.only(top: 10.0.sp, left: 10.0.sp),
+                                                    decoration: BoxDecoration(
+                                                      // color: Colors.blueGrey,
+                                                      borderRadius: BorderRadius.circular(10.0.sp),
+                                                      gradient: new LinearGradient(
+                                                          colors: [
+                                                            // const Color(0xFF3366FF),
+                                                            // const Color(0xFF00EBC9),
+                                                            const Color(0xFFfdc559),
+                                                            // const Color(0xFF00CCFF),
+                                                            // const Color(0xFF00DBE8),
+                                                            const Color(0xFFfbb42c),
+                                                          ],
+                                                          begin: const FractionalOffset(0.0, 0.0),
+                                                          end: const FractionalOffset(1.0, 0.0),
+                                                          stops: [0.0, 1.0],
+                                                          tileMode: TileMode.clamp),
+                                                    ),
+                                                    child: Stack(
+                                                      children: <Widget>[
+                                                        Positioned(
+                                                          child: Column(
+                                                            mainAxisAlignment: MainAxisAlignment.start,
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: <Widget>[
+                                                              Container(
+                                                                margin: EdgeInsets.only(left: 15.0.sp, top: 15.0.sp),
+                                                                child: Text(
+                                                                  'Card Number',
+                                                                  style: TextStyle(
+                                                                    fontSize: 10.0.sp,
+                                                                    color: Colors.white,
+                                                                    fontFamily: 'Whitney Medium',
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Container(
+                                                                margin: EdgeInsets.only(left: 15.0.sp, top: 2.0.sp),
+                                                                child: Text(
+                                                                  // '\u00a9 XXXX XXXX XXXX ${listCards[index].cardLastNumber}',
+                                                                  '\u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022 ${listCards[index].cardLastNumber}',
+                                                                  style: TextStyle(
+                                                                    fontSize: 18.0.sp,
+                                                                    color: Colors.white,
+                                                                    fontFamily: 'Whitney Bold',
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Positioned(
+                                                          bottom: 0.0,
+                                                          left: 0.0,
+                                                          child: Column(
+                                                            mainAxisAlignment: MainAxisAlignment.start,
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: <Widget>[
+                                                              Container(
+                                                                margin: EdgeInsets.only(left: 15.0.sp),
+                                                                child: Text(
+                                                                  'Name on Card',
+                                                                  style: TextStyle(
+                                                                    fontSize: 10.0.sp,
+                                                                    color: Colors.white,
+                                                                    fontFamily: 'Whitney Medium',
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Container(
+                                                                margin: EdgeInsets.only(left: 15.0.sp, top: 2.0.sp, bottom: 15.0.sp),
+                                                                child: Text(
+                                                                  '${listCards[index].cardHolderName}',
+                                                                  style: TextStyle(
+                                                                    fontSize: 18.0.sp,
+                                                                    color: Colors.white,
+                                                                    fontFamily: 'Whitney Bold',
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Positioned(
+                                                          bottom: 0.0,
+                                                          right: 0.0,
+                                                          child: Column(
+                                                            mainAxisAlignment: MainAxisAlignment.start,
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: <Widget>[
+                                                              Container(
+                                                                margin: EdgeInsets.only(right: 15.0.sp),
+                                                                child: Text(
+                                                                  'Validity',
+                                                                  style: TextStyle(
+                                                                    fontSize: 10.0.sp,
+                                                                    color: Colors.white,
+                                                                    fontFamily: 'Whitney Medium',
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Container(
+                                                                margin: EdgeInsets.only(right: 15.0.sp, top: 0.0, bottom: 15.0.sp),
+                                                                child: Text(
+                                                                  '${listCards[index].expireMonth}/${listCards[index].expireYear}',
+                                                                  style: TextStyle(
+                                                                    fontSize: 15.0.sp,
+                                                                    color: Colors.white,
+                                                                    fontFamily: 'Whitney Bold',
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
-                                                  child: Stack(
-                                                    children: <Widget>[
-                                                      Positioned(
-                                                        child: Column(
-                                                          mainAxisAlignment: MainAxisAlignment.start,
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          children: <Widget>[
-                                                            Container(
-                                                              margin: EdgeInsets.only(left: 15.0.sp, top: 15.0.sp),
-                                                              child: Text(
-                                                                'Card Number',
-                                                                style: TextStyle(
-                                                                  fontSize: 10.0.sp,
-                                                                  color: Colors.white,
-                                                                  fontFamily: 'Whitney Medium',
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              margin: EdgeInsets.only(left: 15.0.sp, top: 2.0.sp),
-                                                              child: Text(
-                                                                // '\u00a9 XXXX XXXX XXXX ${listCards[index].cardLastNumber}',
-                                                                '\u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022 ${listCards[index].cardLastNumber}',
-                                                                style: TextStyle(
-                                                                  fontSize: 18.0.sp,
-                                                                  color: Colors.white,
-                                                                  fontFamily: 'Whitney Bold',
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      Positioned(
-                                                        bottom: 0.0,
-                                                        left: 0.0,
-                                                        child: Column(
-                                                          mainAxisAlignment: MainAxisAlignment.start,
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          children: <Widget>[
-                                                            Container(
-                                                              margin: EdgeInsets.only(left: 15.0.sp),
-                                                              child: Text(
-                                                                'Name on Card',
-                                                                style: TextStyle(
-                                                                  fontSize: 10.0.sp,
-                                                                  color: Colors.white,
-                                                                  fontFamily: 'Whitney Medium',
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              margin: EdgeInsets.only(left: 15.0.sp, top: 2.0.sp, bottom: 15.0.sp),
-                                                              child: Text(
-                                                                '${listCards[index].cardHolderName}',
-                                                                style: TextStyle(
-                                                                  fontSize: 18.0.sp,
-                                                                  color: Colors.white,
-                                                                  fontFamily: 'Whitney Bold',
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      Positioned(
-                                                        bottom: 0.0,
-                                                        right: 0.0,
-                                                        child: Column(
-                                                          mainAxisAlignment: MainAxisAlignment.start,
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          children: <Widget>[
-                                                            Container(
-                                                              margin: EdgeInsets.only(right: 15.0.sp),
-                                                              child: Text(
-                                                                'Validity',
-                                                                style: TextStyle(
-                                                                  fontSize: 10.0.sp,
-                                                                  color: Colors.white,
-                                                                  fontFamily: 'Whitney Medium',
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              margin: EdgeInsets.only(right: 15.0.sp, top: 0.0, bottom: 15.0.sp),
-                                                              child: Text(
-                                                                '${listCards[index].expireMonth}/${listCards[index].expireYear}',
-                                                                style: TextStyle(
-                                                                  fontSize: 15.0.sp,
-                                                                  color: Colors.white,
-                                                                  fontFamily: 'Whitney Bold',
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Container(
-                                                  margin: EdgeInsets.only(top: 8.0.sp, left: 10.0.sp),
-                                                  // padding: EdgeInsets.only(right: 3.0.sp),
-                                                  height: 10.0.w,
-                                                  width: 80.0.w,
-                                                  // color: Colors.red,
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: <Widget>[
-                                                      GestureDetector(
-                                                        onTap: () {
-                                                          print('Clicked on the mark as primary card ID : ${listCards[index].id}');
-                                                          primaryCardAPI(listCards[index].id);
-                                                        },
-                                                        child: Row(
-                                                          children: <Widget>[
-                                                            Icon(
-                                                              listCards[index].defaultCard.compareTo('1') == 0
-                                                                  ? FontAwesomeIcons.checkCircle
-                                                                  : FontAwesomeIcons.circle,
-                                                              size: 14.0.sp,
-                                                              color: Colors.black,
-                                                            ),
-                                                            SizedBox(
-                                                              width: 8.0.sp,
-                                                            ),
-                                                            Text(
-                                                              'Make primary',
-                                                              style: TextStyle(
-                                                                fontSize: 14.0.sp,
+                                                  Container(
+                                                    margin: EdgeInsets.only(top: 8.0.sp, left: 10.0.sp),
+                                                    // padding: EdgeInsets.only(right: 3.0.sp),
+                                                    height: 10.0.w,
+                                                    width: 80.0.w,
+                                                    // color: Colors.red,
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: <Widget>[
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            print('Clicked on the mark as primary card ID : ${listCards[index].id}');
+                                                            primaryCardAPI(listCards[index].id);
+                                                          },
+                                                          child: Row(
+                                                            children: <Widget>[
+                                                              Icon(
+                                                                listCards[index].defaultCard.compareTo('1') == 0
+                                                                    ? FontAwesomeIcons.checkCircle
+                                                                    : FontAwesomeIcons.circle,
+                                                                size: 14.0.sp,
                                                                 color: Colors.black,
-                                                                fontFamily: 'Whitney Medium',
+                                                              ),
+                                                              SizedBox(
+                                                                width: 8.0.sp,
+                                                              ),
+                                                              Text(
+                                                                'Make primary',
+                                                                style: TextStyle(
+                                                                  fontSize: 14.0.sp,
+                                                                  color: Colors.black,
+                                                                  fontFamily: 'Whitney Medium',
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            print('Clicked on the Delete card ID : ${listCards[index].id}');
+                                                            deleteCardAPI(listCards[index].id);
+                                                          },
+                                                          child: Container(
+                                                            height: 10.0.w,
+                                                            width: 10.0.w,
+                                                            decoration: BoxDecoration(
+                                                              color: themeYellow,
+                                                              borderRadius: BorderRadius.circular(10.0.w),
+                                                            ),
+                                                            child: Center(
+                                                              child: Icon(
+                                                                FontAwesomeIcons.trash,
+                                                                size: 10.0.sp,
+                                                                color: Colors.white,
                                                               ),
                                                             ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      GestureDetector(
-                                                        onTap: () {
-                                                          print('Clicked on the Delete card ID : ${listCards[index].id}');
-                                                          deleteCardAPI(listCards[index].id);
-                                                        },
-                                                        child: Container(
-                                                          height: 10.0.w,
-                                                          width: 10.0.w,
-                                                          decoration: BoxDecoration(
-                                                            color: themeYellow,
-                                                            borderRadius: BorderRadius.circular(10.0.w),
-                                                          ),
-                                                          child: Center(
-                                                            child: Icon(
-                                                              FontAwesomeIcons.trash,
-                                                              size: 10.0.sp,
-                                                              color: Colors.white,
-                                                            ),
                                                           ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
-                                            );
-                                    },
-                                  )
-                                : Center(
-                                    child: Text(
-                                      'Oops no cards found for this user..',
-                                      style: kValueLableWebinarDetailExpand,
+                                                ],
+                                              );
+                                      },
+                                    )
+                                  : Center(
+                                      child: Text(
+                                        'Oops no cards found for this user..',
+                                        style: kValueLableWebinarDetailExpand,
+                                      ),
                                     ),
-                                  ),
+                        ),
                       ),
                       SizedBox(
                         height: 20.0.sp,

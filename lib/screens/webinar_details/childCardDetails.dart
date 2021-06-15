@@ -46,6 +46,7 @@ class _childCardDetailsState extends State<childCardDetails> {
       publishedDate = '',
       presentationHandsout = '',
       keyTerms = '',
+      str_webinar_type = '',
       instructionalDocuments = '';
 
   List<String> whoShouldAttend;
@@ -102,6 +103,7 @@ class _childCardDetailsState extends State<childCardDetails> {
       advancePreparation = webDetailsObj['advance_preparation'];
       recordDate = webDetailsObj['recorded_date'];
       publishedDate = webDetailsObj['published_date'];
+      str_webinar_type = webDetailsObj['webinartype'];
 
       calculateHrs(duration);
 
@@ -201,8 +203,14 @@ class _childCardDetailsState extends State<childCardDetails> {
             visible: (isGuestMode || status.toLowerCase() == 'register webinar' || status.toLowerCase() == 'register') ? false : true,
             child: detailsRowDownload('Presentation Handouts', true, webDetailsObj),
           ),
-          detailsRowDownload('Key Terms', true, webDetailsObj),
-          detailsRowDownload('Instructional Document', true, webDetailsObj),
+          Visibility(
+            visible: str_webinar_type.toLowerCase() == 'live' ? false : true,
+            child: detailsRowDownload('Key Terms', true, webDetailsObj),
+          ),
+          Visibility(
+            visible: str_webinar_type.toLowerCase() == 'live' ? false : true,
+            child: detailsRowDownload('Instructional Document', true, webDetailsObj),
+          ),
           detailsRowTags('Qualifications', audiance_titles.length > 0 ? true : false, webDetailsObj, audiance_titles),
           // detailsRowTags('Who should attend?', true, webDetailsObj, whoShouldAttend),
           detailsRowWhoShouldAttend('Who should attend?', true, isFirst, isSecond, isThird, isFourth, strWhoTitle_1, strWhoTitle_2, strWhoTitle_3,

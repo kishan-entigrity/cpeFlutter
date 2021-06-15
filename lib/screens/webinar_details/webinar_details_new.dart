@@ -90,6 +90,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   // var rating = 0.0;
   var rating = "0";
   var rating_count = 0;
+  var respTestimonialsCount = 0;
 
   var play_time_duration;
   var scheduleID;
@@ -235,6 +236,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
           presenterName = presenterObj['name'];
 
           respTestimonials = webDetailsObj['webinar_testimonial'];
+          respTestimonialsCount = webDetailsObj['webinar_testimonial'].length;
 
           if (strWebinarTypeIntent == 'live') {
             isOverViewOfTopicsVisible = false;
@@ -991,15 +993,18 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                 strTitle: 'Company',
                                 cardChild: childCardCompany(presenterObj),
                                 flagExpand: isCompanyExpanded),
-                            ExpandedCard(
-                                onPress: () {
-                                  checkTestimonialsExpand();
-                                },
-                                strTitle: 'Testimonials',
-                                cardChild:
-                                    // childCardTestimonials('Description Data Testimonials', respTestimonials, webDetailsObj['webinar_id'].toString()),
-                                    childCardTestimonials('Description Data Testimonials', respTestimonials, webinarId.toString()),
-                                flagExpand: isTestimonialsExpanded),
+                            Visibility(
+                              visible: respTestimonialsCount.toString() == '0' ? false : true,
+                              child: ExpandedCard(
+                                  onPress: () {
+                                    checkTestimonialsExpand();
+                                  },
+                                  strTitle: 'Testimonials',
+                                  cardChild:
+                                      // childCardTestimonials('Description Data Testimonials', respTestimonials, webDetailsObj['webinar_id'].toString()),
+                                      childCardTestimonials('Description Data Testimonials', respTestimonials, webinarId.toString()),
+                                  flagExpand: isTestimonialsExpanded),
+                            ),
                             ExpandedCard(
                                 onPress: () {
                                   checkOthersExpand();

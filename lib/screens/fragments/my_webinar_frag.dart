@@ -2038,7 +2038,8 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
 
       updatedDate =
           // '$day $month $year - ${data['payload']['webinar'][index]['start_time']} - ${data['payload']['webinar'][index]['time_zone']}';
-          '$day $month $year - ${list[index].startTime} - ${list[index].timeZone}';
+          // '$day $month $year - ${list[index].startTime} - ${list[index].timeZone}';
+      '$month $day, $year | ${list[index].startTime} ${list[index].timeZone}';
     }
 
     return (updatedDate);

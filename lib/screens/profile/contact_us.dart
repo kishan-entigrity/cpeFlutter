@@ -107,7 +107,8 @@ class _ContactUsState extends State<ContactUs> {
                           ),
                           child: GestureDetector(
                             onTap: () {
-                              launch("tel://9292976311");
+                              // launch("tel://9292976311");
+                              launch("tel://6466885128");
                             },
                             child: Row(
                               children: <Widget>[
@@ -128,7 +129,7 @@ class _ContactUsState extends State<ContactUs> {
                                 Container(
                                   margin: EdgeInsets.only(left: 15.0),
                                   child: Text(
-                                    '929-297-6311',
+                                    '646-688-5128',
                                     style: TextStyle(
                                       fontSize: 17.0,
                                       fontFamily: 'Whitney Medium',
@@ -232,7 +233,7 @@ class _ContactUsState extends State<ContactUs> {
                                       controller: subjectController,
                                       obscureText: false,
                                       decoration: InputDecoration(
-                                        hintText: 'subject',
+                                        hintText: 'message',
                                         contentPadding: EdgeInsets.only(
                                           left: 10.0,
                                           bottom: 10.0,
