@@ -17,12 +17,12 @@ class TopBar extends StatelessWidget {
       child: Row(
         children: <Widget>[
           // BackIcon(),
-          GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Flexible(
-              flex: 2,
+          Flexible(
+            flex: 2,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Icon(

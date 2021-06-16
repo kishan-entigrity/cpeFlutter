@@ -18,8 +18,10 @@ import 'model_credit/credit_model.dart';
 class CertificateFrag extends StatefulWidget {
   final bool isFromProfile;
   final void Function(int) onButtonPressed;
+
   // const CertificateFrag({Key key, this.isFromProfile, this.onButtonPressed});
   const CertificateFrag(this.isFromProfile, this.onButtonPressed);
+
   // CertificateFrag(this.isFromProfile);
 
   // final bool isFromProfile;
@@ -150,20 +152,20 @@ class _CertificateFragState extends State<CertificateFrag> {
                     children: <Widget>[
                       Visibility(
                         visible: isFromProfile ? true : false,
-                        child: GestureDetector(
-                          onTap: () {
-                            print('Back button is pressed..');
-                            Navigator.pop(context);
-                          },
-                          child: Flexible(
+                        child: Flexible(
+                          child: GestureDetector(
+                            onTap: () {
+                              print('Back button is pressed..');
+                              Navigator.pop(context);
+                            },
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Icon(
                                 FontAwesomeIcons.angleLeft,
                               ),
                             ),
-                            flex: 1,
                           ),
+                          flex: 1,
                         ),
                       ),
                       Flexible(

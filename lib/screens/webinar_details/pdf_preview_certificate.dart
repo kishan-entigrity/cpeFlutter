@@ -36,6 +36,7 @@ class _CertificatePdfPreviewState extends State<CertificatePdfPreview> {
 
   // final Dio dio = Dio();
   bool loading = false;
+
   // double progress = 0;
   int progress = 0;
 
@@ -99,20 +100,20 @@ class _CertificatePdfPreviewState extends State<CertificatePdfPreview> {
                 width: double.infinity,
                 child: Row(
                   children: <Widget>[
-                    GestureDetector(
-                      child: Flexible(
+                    Flexible(
+                      child: GestureDetector(
+                        onTap: () {
+                          print('Back button is pressed..');
+                          Navigator.pop(context);
+                        },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Icon(
                             FontAwesomeIcons.angleLeft,
                           ),
                         ),
-                        flex: 1,
                       ),
-                      onTap: () {
-                        print('Back button is pressed..');
-                        Navigator.pop(context);
-                      },
+                      flex: 1,
                     ),
                     Flexible(
                       child: Center(

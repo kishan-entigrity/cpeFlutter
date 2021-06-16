@@ -148,20 +148,20 @@ class _MyTranscationState extends State<MyTranscation> {
               width: double.infinity,
               child: Row(
                 children: <Widget>[
-                  GestureDetector(
-                    child: Flexible(
+                  Flexible(
+                    child: GestureDetector(
+                      onTap: () {
+                        print('Back button is pressed..');
+                        Navigator.pop(context);
+                      },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Icon(
                           FontAwesomeIcons.angleLeft,
                         ),
                       ),
-                      flex: 1,
                     ),
-                    onTap: () {
-                      print('Back button is pressed..');
-                      Navigator.pop(context);
-                    },
+                    flex: 1,
                   ),
                   Flexible(
                     child: Center(

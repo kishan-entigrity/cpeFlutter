@@ -24,6 +24,7 @@ class Testimonials extends StatefulWidget {
 
 class _TestimonialsState extends State<Testimonials> {
   _TestimonialsState(this.webinarId);
+
   final String webinarId;
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -127,20 +128,20 @@ class _TestimonialsState extends State<Testimonials> {
               width: double.infinity,
               child: Row(
                 children: <Widget>[
-                  GestureDetector(
-                    child: Flexible(
+                  Flexible(
+                    child: GestureDetector(
+                      onTap: () {
+                        print('Back button is pressed..');
+                        Navigator.pop(context);
+                      },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Icon(
                           FontAwesomeIcons.angleLeft,
                         ),
                       ),
-                      flex: 1,
                     ),
-                    onTap: () {
-                      print('Back button is pressed..');
-                      Navigator.pop(context);
-                    },
+                    flex: 1,
                   ),
                   Flexible(
                     child: Center(

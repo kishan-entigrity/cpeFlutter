@@ -87,6 +87,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       overviewOfTopic = '';
 
   var audience_title_lenght = 0;
+
   // var rating = 0.0;
   var rating = "0";
   var rating_count = 0;
@@ -672,9 +673,9 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
-                                        child: Flexible(
+                                      Flexible(
+                                        child: Container(
+                                          padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
                                           child: Text(
                                             // '${data['payload']['webinar'][index]['webinar_title']}',
                                             // '${list[index].webinarTitle}',
@@ -690,11 +691,11 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                           ),
                                         ),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
-                                        child: Row(
-                                          children: [
-                                            Flexible(
+                                      Row(
+                                        children: [
+                                          Flexible(
+                                            child: Container(
+                                              padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
                                               child: Text(
                                                 // '${data['payload']['webinar'][index]['speaker_name']}',
                                                 // '${list[index].speakerName}',
@@ -709,8 +710,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                                 maxLines: 2,
                                               ),
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),

@@ -12,13 +12,16 @@ import '../../rest_api.dart';
 
 class FAQ extends StatefulWidget {
   FAQ(this.faq_url);
+
   final String faq_url;
+
   @override
   _FAQState createState() => _FAQState(faq_url);
 }
 
 class _FAQState extends State<FAQ> {
   _FAQState(this.faq_url);
+
   final String faq_url;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -47,20 +50,20 @@ class _FAQState extends State<FAQ> {
               width: double.infinity,
               child: Row(
                 children: <Widget>[
-                  GestureDetector(
-                    child: Flexible(
+                  Flexible(
+                    child: GestureDetector(
+                      onTap: () {
+                        print('Back button is pressed..');
+                        Navigator.pop(context);
+                      },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Icon(
                           FontAwesomeIcons.angleLeft,
                         ),
                       ),
-                      flex: 1,
                     ),
-                    onTap: () {
-                      print('Back button is pressed..');
-                      Navigator.pop(context);
-                    },
+                    flex: 1,
                   ),
                   Flexible(
                     child: Center(
