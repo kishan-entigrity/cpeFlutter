@@ -300,6 +300,8 @@ class _HomeFragmentState extends State<HomeFragment> {
       }
     });
 
+    ConstSignUp.shouldPassDetailColor = false;
+
     /*this.getDataWebinarList(
         '', '0', '10', '', '', '', '$strWebinarType', '', '$strFilterPrice');
     print('init State isLive : $isLive');
@@ -3244,6 +3246,7 @@ class _HomeFragmentState extends State<HomeFragment> {
     respStatus = resp['success'];
     respMessage = resp['message'];
     respSubMessage = resp['payload']['sub_message'];
+    ConstSignUp.detailsColorIndex = index;
 
     setState(() {
       isLoaderShowing = false;
@@ -3331,6 +3334,7 @@ class _HomeFragmentState extends State<HomeFragment> {
     strWebinarTypeIntent = list[index].webinarType;
 
     /*Navigator.push(context, MaterialPageRoute(builder: (context) => WebinarDetailsNew(strWebinarTypeIntent, webinarId)));*/
+    ConstSignUp.detailsColorIndex = index;
     Navigator.of(context)
         .push(
       MaterialPageRoute(
@@ -3352,6 +3356,8 @@ class _HomeFragmentState extends State<HomeFragment> {
     strWebinarTypeIntent = recentList[index].webinarType;
 
     /*Navigator.push(context, MaterialPageRoute(builder: (context) => WebinarDetailsNew(strWebinarTypeIntent, webinarId)));*/
+    ConstSignUp.detailsColorIndex = index;
+
     Navigator.of(context)
         .push(
       MaterialPageRoute(

@@ -657,7 +657,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                             // margin: EdgeInsets.fromLTRB(3.5.w, 0.0.h, 3.5.w, 2.0.h),
                             decoration: BoxDecoration(
                               // color: Color(0xFFFFC803),
-                              color: Color(0xFFFFC803),
+                              // color: Color(0xFFFFC803),
+                              color: setCardColor(ConstSignUp.detailsColorIndex),
                               /*borderRadius: BorderRadius.all(
                                 Radius.circular(15.0),
                               ),*/
@@ -2011,5 +2012,53 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         );
       }
     });
+  }
+
+  setCardColor(int index) {
+    if (index > 9) {
+      if (index % 10 == 0) {
+        return bgColor0;
+      } else if (index % 10 == 1) {
+        return bgColor1;
+      } else if (index % 10 == 2) {
+        return bgColor2;
+      } else if (index % 10 == 3) {
+        return bgColor3;
+      } else if (index % 10 == 4) {
+        return bgColor4;
+      } else if (index % 10 == 5) {
+        return bgColor5;
+      } else if (index % 10 == 6) {
+        return bgColor6;
+      } else if (index % 10 == 7) {
+        return bgColor7;
+      } else if (index % 10 == 8) {
+        return bgColor8;
+      } else if (index % 10 == 9) {
+        return bgColor9;
+      }
+    } else {
+      if (index == 0) {
+        return bgColor0;
+      } else if (index == 1) {
+        return bgColor1;
+      } else if (index == 2) {
+        return bgColor2;
+      } else if (index == 3) {
+        return bgColor3;
+      } else if (index == 4) {
+        return bgColor4;
+      } else if (index == 5) {
+        return bgColor5;
+      } else if (index == 6) {
+        return bgColor6;
+      } else if (index == 7) {
+        return bgColor7;
+      } else if (index == 8) {
+        return bgColor8;
+      } else if (index == 9) {
+        return bgColor9;
+      }
+    }
   }
 }

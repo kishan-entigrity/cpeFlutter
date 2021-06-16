@@ -19,6 +19,8 @@ class ConstSignUp {
   // SignUp Screen 2 Data..
   static var strCompanyName = '';
 
+  static int detailsColorIndex = 0;
+
   static List<String> orgSizeList = ['0-9', '10-15', '16-50', '51-500', '501-1000', '1000+'];
   // static var strOrgSize = '';
   static var organizationSize = '';
@@ -86,6 +88,8 @@ class ConstSignUp {
   static var strWebinarType = '';
   static var isFreeWebinar = false;
   static var strFee = '';
+
+  static bool shouldPassDetailColor = false;
 
   static void clearGuestRedirectionFlow() {
     isGuestRegisterWebinar = false;
