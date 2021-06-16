@@ -1354,70 +1354,75 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                               margin: EdgeInsets.fromLTRB(3.5.w, 1.0.h, 0.0, 2.0.h),
                                                               child: Column(
                                                                 children: <Widget>[
-                                                                  Container(
-                                                                    // margin: EdgeInsets.fromLTRB(3.5.w, 1.0.h, 0.0, 2.0.h),
-                                                                    height: 100.0.sp,
-                                                                    width: 55.0.w,
-                                                                    decoration: BoxDecoration(
-                                                                      borderRadius: BorderRadius.circular(10.0.sp),
-                                                                      color: Colors.teal,
-                                                                    ),
-                                                                    child: Stack(
-                                                                      children: <Widget>[
-                                                                        Positioned(
-                                                                          child: Image.asset(
-                                                                            'assets/bg_image_recent.png',
-                                                                            height: 100.0.sp,
-                                                                            width: 55.0.w,
-                                                                            fit: BoxFit.fill,
-                                                                          ),
-                                                                        ),
-                                                                        Positioned(
-                                                                          child: Container(
-                                                                            height: double.infinity,
-                                                                            child: Stack(
-                                                                              children: <Widget>[
-                                                                                Positioned(
-                                                                                  child: Text(
-                                                                                    recentList[index].webinarTitle,
-                                                                                    style: TextStyle(
-                                                                                      fontSize: 9.0.sp,
-                                                                                      color: Colors.white,
-                                                                                      fontFamily: 'Whitney Bold',
-                                                                                    ),
-                                                                                    maxLines: 3,
-                                                                                    overflow: TextOverflow.ellipsis,
-                                                                                  ),
-                                                                                ),
-                                                                                Positioned(
-                                                                                  bottom: 0.0,
-                                                                                  child: GestureDetector(
-                                                                                    onTap: () {
-                                                                                      print('Clicked on index position : $index');
-                                                                                      print('Clicked on ID : ${recentList[index].id}');
-                                                                                      // getIdWebinar(index);
-                                                                                      redirectToRecentDetails(index);
-                                                                                    },
-                                                                                    child: Container(
-                                                                                      height: 25.0.sp,
-                                                                                      width: 25.0.sp,
-                                                                                      decoration: BoxDecoration(
-                                                                                        borderRadius: BorderRadius.circular(25.0.sp),
-                                                                                        color: Colors.white,
-                                                                                      ),
-                                                                                      padding: EdgeInsets.all(7.0.sp),
-                                                                                      child: Image.asset(
-                                                                                        'assets/cpe_icon.png',
-                                                                                      ),
-                                                                                    ),
-                                                                                  ),
-                                                                                ),
-                                                                              ],
+                                                                  GestureDetector(
+                                                                    onTap: () {
+                                                                      redirectToRecentDetails(index);
+                                                                    },
+                                                                    child: Container(
+                                                                      // margin: EdgeInsets.fromLTRB(3.5.w, 1.0.h, 0.0, 2.0.h),
+                                                                      height: 100.0.sp,
+                                                                      width: 55.0.w,
+                                                                      decoration: BoxDecoration(
+                                                                        borderRadius: BorderRadius.circular(10.0.sp),
+                                                                        color: Colors.teal,
+                                                                      ),
+                                                                      child: Stack(
+                                                                        children: <Widget>[
+                                                                          Positioned(
+                                                                            child: Image.asset(
+                                                                              'assets/bg_image_recent.png',
+                                                                              height: 100.0.sp,
+                                                                              width: 55.0.w,
+                                                                              fit: BoxFit.fill,
                                                                             ),
-                                                                            padding: EdgeInsets.all(10.0.sp),
                                                                           ),
-                                                                        ),
-                                                                      ],
+                                                                          Positioned(
+                                                                            child: Container(
+                                                                              height: double.infinity,
+                                                                              child: Stack(
+                                                                                children: <Widget>[
+                                                                                  Positioned(
+                                                                                    child: Text(
+                                                                                      recentList[index].webinarTitle,
+                                                                                      style: TextStyle(
+                                                                                        fontSize: 9.0.sp,
+                                                                                        color: Colors.white,
+                                                                                        fontFamily: 'Whitney Bold',
+                                                                                      ),
+                                                                                      maxLines: 3,
+                                                                                      overflow: TextOverflow.ellipsis,
+                                                                                    ),
+                                                                                  ),
+                                                                                  Positioned(
+                                                                                    bottom: 0.0,
+                                                                                    child: GestureDetector(
+                                                                                      onTap: () {
+                                                                                        print('Clicked on index position : $index');
+                                                                                        print('Clicked on ID : ${recentList[index].id}');
+                                                                                        // getIdWebinar(index);
+                                                                                        redirectToRecentDetails(index);
+                                                                                      },
+                                                                                      child: Container(
+                                                                                        height: 25.0.sp,
+                                                                                        width: 25.0.sp,
+                                                                                        decoration: BoxDecoration(
+                                                                                          borderRadius: BorderRadius.circular(25.0.sp),
+                                                                                          color: Colors.white,
+                                                                                        ),
+                                                                                        padding: EdgeInsets.all(7.0.sp),
+                                                                                        child: Image.asset(
+                                                                                          'assets/cpe_icon.png',
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                              padding: EdgeInsets.all(10.0.sp),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                   // Text('Hello'),
