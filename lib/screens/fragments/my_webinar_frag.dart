@@ -28,8 +28,10 @@ class MyWebinarFrag extends StatefulWidget {
   // final void Function(int) onButtonPressed;
   final bool isFromProfile;
   final void Function(int) onButtonPressed;
+
   // const MyWebinarFrag({Key key, this.isFromProfile, this.onButtonPressed});
   const MyWebinarFrag(this.isFromProfile, this.onButtonPressed);
+
   // MyWebinarFrag(this.isFromProfile);
 
   // final bool isFromProfile;
@@ -1295,9 +1297,9 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                                                         ],
                                                                       ),
                                                                     ),
-                                                                    Padding(
-                                                                      padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
-                                                                      child: Flexible(
+                                                                    Flexible(
+                                                                      child: Container(
+                                                                        padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
                                                                         child: Text(
                                                                           // '${data['payload']['webinar'][index]['webinar_title']}',
                                                                           '${list[index].webinarTitle}',
@@ -1312,11 +1314,11 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                                                         ),
                                                                       ),
                                                                     ),
-                                                                    Padding(
-                                                                      padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
-                                                                      child: Row(
-                                                                        children: [
-                                                                          Flexible(
+                                                                    Row(
+                                                                      children: [
+                                                                        Flexible(
+                                                                          child: Container(
+                                                                            padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
                                                                             child: Text(
                                                                               // '${data['payload']['webinar'][index]['speaker_name']}',
                                                                               '${list[index].speakerName}',
@@ -1330,8 +1332,8 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                                                               maxLines: 2,
                                                                             ),
                                                                           ),
-                                                                        ],
-                                                                      ),
+                                                                        ),
+                                                                      ],
                                                                     ),
                                                                     Padding(
                                                                       padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
@@ -2039,7 +2041,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       updatedDate =
           // '$day $month $year - ${data['payload']['webinar'][index]['start_time']} - ${data['payload']['webinar'][index]['time_zone']}';
           // '$day $month $year - ${list[index].startTime} - ${list[index].timeZone}';
-      '$month $day, $year | ${list[index].startTime} ${list[index].timeZone}';
+          '$month $day, $year | ${list[index].startTime} ${list[index].timeZone}';
     }
 
     return (updatedDate);

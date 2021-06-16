@@ -344,22 +344,59 @@ class _CardFragState extends State<CardFrag> {
             Container(
               height: 70.0,
               width: double.infinity,
+              color: Colors.white,
+              /*child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: GestureDetector(
+                        onTap: () {
+                          print('Clicked on back button');
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          padding: EdgeInsets.only(left: 5.0.sp),
+                          child: Icon(
+                            FontAwesomeIcons.angleLeft,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Cards',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14.5.sp,
+                          fontFamily: 'Whitney Semi Bold',
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(''),
+                  ),
+                ],
+              ),*/
               child: Row(
                 children: <Widget>[
-                  GestureDetector(
-                    child: Flexible(
+                  Flexible(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Icon(
                           FontAwesomeIcons.angleLeft,
                         ),
                       ),
-                      flex: 1,
                     ),
-                    onTap: () {
-                      print('Back button is pressed..');
-                      Navigator.pop(context);
-                    },
+                    flex: 1,
                   ),
                   Flexible(
                     child: Center(

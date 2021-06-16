@@ -1582,9 +1582,9 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                     ],
                                                                   ),
                                                                 ),
-                                                                Padding(
-                                                                  padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
-                                                                  child: Flexible(
+                                                                Flexible(
+                                                                  child: Container(
+                                                                    padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
                                                                     child: Text(
                                                                       // '${data['payload']['webinar'][index]['webinar_title']}',
                                                                       '${list[index].webinarTitle}',
@@ -1599,11 +1599,11 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                     ),
                                                                   ),
                                                                 ),
-                                                                Padding(
-                                                                  padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
-                                                                  child: Row(
-                                                                    children: [
-                                                                      Flexible(
+                                                                Row(
+                                                                  children: [
+                                                                    Flexible(
+                                                                      child: Container(
+                                                                        padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
                                                                         child: Text(
                                                                           // '${data['payload']['webinar'][index]['speaker_name']}',
                                                                           '${list[index].speakerName}',
@@ -1617,8 +1617,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                           maxLines: 2,
                                                                         ),
                                                                       ),
-                                                                    ],
-                                                                  ),
+                                                                    ),
+                                                                  ],
                                                                 ),
                                                                 Padding(
                                                                   padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
