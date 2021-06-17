@@ -115,16 +115,16 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                       Row(
                         children: <Widget>[
                           // BackIcon(),
-                          GestureDetector(
-                            onTap: () {
-                              ConstSignUp.strPTIN = ptinController.text;
-                              ConstSignUp.strCTEC = ctecController.text;
-                              ConstSignUp.strCFP = cfpController.text;
-                              ConstSignUp.strZipCode = zipCodeController.text;
-                              Navigator.pop(context);
-                            },
-                            child: Flexible(
-                              flex: 2,
+                          Flexible(
+                            flex: 2,
+                            child: GestureDetector(
+                              onTap: () {
+                                ConstSignUp.strPTIN = ptinController.text;
+                                ConstSignUp.strCTEC = ctecController.text;
+                                ConstSignUp.strCFP = cfpController.text;
+                                ConstSignUp.strZipCode = zipCodeController.text;
+                                Navigator.pop(context);
+                              },
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Icon(

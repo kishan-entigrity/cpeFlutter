@@ -107,13 +107,13 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                           Row(
                             children: <Widget>[
                               // BackIcon(),
-                              GestureDetector(
-                                onTap: () {
-                                  ConstSignUp.strCompanyName = companyNameController.text;
-                                  Navigator.pop(context);
-                                },
-                                child: Flexible(
-                                  flex: 2,
+                              Flexible(
+                                flex: 2,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    ConstSignUp.strCompanyName = companyNameController.text;
+                                    Navigator.pop(context);
+                                  },
                                   child: Padding(
                                     padding: const EdgeInsets.all(10.0),
                                     child: Icon(
