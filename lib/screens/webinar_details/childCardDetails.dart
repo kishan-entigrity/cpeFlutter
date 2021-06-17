@@ -138,7 +138,7 @@ class _childCardDetailsState extends State<childCardDetails> {
         strWhoTitle_2 = whoShouldAttend[1];
         strWhoTitle_3 = '';
         strWhoTitle_4 = '';
-      } else if (length == 1) {
+      } else if (length == 3) {
         isFirst = true;
         isSecond = true;
         isThird = true;
@@ -161,6 +161,11 @@ class _childCardDetailsState extends State<childCardDetails> {
         strWhoTitle_3 = whoShouldAttend[2];
         strWhoTitle_4 = '+$showCount more';
       }
+
+      print('Status for isFirst : $isFirst');
+      print('Status for isSecond : $isSecond');
+      print('Status for isThird : $isThird');
+      print('Status for isForth : $isFourth');
     });
 
     IsolateNameServer.registerPortWithName(_receivePort.sendPort, "downloading");
@@ -271,9 +276,18 @@ class detailsRowWhoShouldAttend extends StatelessWidget {
                 Flexible(
                   child: Column(
                     children: <Widget>[
-                      whoShouldAttendCell('$strWhoTitle_1'),
-                      whoShouldAttendCell('$strWhoTitle_2'),
-                      whoShouldAttendCell('$strWhoTitle_3'),
+                      Visibility(
+                        child: whoShouldAttendCell('$strWhoTitle_1'),
+                        visible: isFirst ? true : false,
+                      ),
+                      Visibility(
+                        child: whoShouldAttendCell('$strWhoTitle_2'),
+                        visible: isSecond ? true : false,
+                      ),
+                      Visibility(
+                        child: whoShouldAttendCell('$strWhoTitle_3'),
+                        visible: isThird ? true : false,
+                      ),
                       GestureDetector(
                         onTap: () {
                           print('Clicked on the +more');
@@ -284,7 +298,10 @@ class detailsRowWhoShouldAttend extends StatelessWidget {
                             ),
                           );
                         },
-                        child: whoShouldAttendCell('$strWhoTitle_4'),
+                        child: Visibility(
+                          child: whoShouldAttendCell('$strWhoTitle_4'),
+                          visible: isFourth ? true : false,
+                        ),
                       ),
                       SizedBox(
                         height: 15.0,
