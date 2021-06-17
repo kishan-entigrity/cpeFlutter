@@ -1417,7 +1417,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
           );
         }
       }
-    } else if (status.toLowerCase() == 'join webinar') {
+    } else if (status.toLowerCase() == 'join webinar' || status.toLowerCase() == 'in progress') {
       if (isGuestMode) {
         showLoginPopup();
       } else {

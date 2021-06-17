@@ -1624,7 +1624,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
           // First we need to check for the certificate links..
           // If the certificate links are available then have to redirect to certificate preview screen..
           funRedirectMyCertificate(index);
-        } else if (list[index].status.toLowerCase() == 'join webinar') {
+        } else if (list[index].status.toLowerCase() == 'join webinar' || list[index].status.toLowerCase() == 'in progress') {
           // So here we need to verify the zoom link status for the perticular webinar..
           // If that is true soo then have to redirect to the zoom meetings..
           if (list[index].zoomLinkStatus) {

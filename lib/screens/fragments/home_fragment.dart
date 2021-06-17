@@ -1585,37 +1585,37 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                   ),
                                                                 ),
                                                                 Container(
-                                                                    padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
-                                                                    child: Text(
-                                                                      // '${data['payload']['webinar'][index]['webinar_title']}',
-                                                                      '${list[index].webinarTitle}',
-                                                                      style: TextStyle(
-                                                                        fontFamily: 'Whitney Bold',
-                                                                        fontSize: 15.0.sp,
-                                                                        // color: index % 2 == 0 ? Colors.black : Colors.white,
-                                                                        color: Colors.white,
-                                                                      ),
-                                                                      maxLines: 3,
-                                                                      overflow: TextOverflow.ellipsis,
+                                                                  padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
+                                                                  child: Text(
+                                                                    // '${data['payload']['webinar'][index]['webinar_title']}',
+                                                                    '${list[index].webinarTitle}',
+                                                                    style: TextStyle(
+                                                                      fontFamily: 'Whitney Bold',
+                                                                      fontSize: 15.0.sp,
+                                                                      // color: index % 2 == 0 ? Colors.black : Colors.white,
+                                                                      color: Colors.white,
                                                                     ),
+                                                                    maxLines: 3,
+                                                                    overflow: TextOverflow.ellipsis,
                                                                   ),
+                                                                ),
                                                                 Row(
                                                                   children: [
                                                                     Container(
-                                                                        padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
-                                                                        child: Text(
-                                                                          // '${data['payload']['webinar'][index]['speaker_name']}',
-                                                                          '${list[index].speakerName}',
-                                                                          style: TextStyle(
-                                                                            fontFamily: 'Whitney Semi Bold',
-                                                                            fontSize: 13.0.sp,
-                                                                            // color: index % 2 == 0 ? Colors.black : Colors.white,
-                                                                            color: Colors.white,
-                                                                          ),
-                                                                          overflow: TextOverflow.ellipsis,
-                                                                          maxLines: 2,
+                                                                      padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
+                                                                      child: Text(
+                                                                        // '${data['payload']['webinar'][index]['speaker_name']}',
+                                                                        '${list[index].speakerName}',
+                                                                        style: TextStyle(
+                                                                          fontFamily: 'Whitney Semi Bold',
+                                                                          fontSize: 13.0.sp,
+                                                                          // color: index % 2 == 0 ? Colors.black : Colors.white,
+                                                                          color: Colors.white,
                                                                         ),
+                                                                        overflow: TextOverflow.ellipsis,
+                                                                        maxLines: 2,
                                                                       ),
+                                                                    ),
                                                                   ],
                                                                 ),
                                                                 Padding(
@@ -2665,7 +2665,7 @@ class _HomeFragmentState extends State<HomeFragment> {
           // First we need to check for the certificate links..
           // If the certificate links are available then have to redirect to certificate preview screen..
           funRedirectMyCertificate(index);
-        } else if (list[index].status.toLowerCase() == 'join webinar') {
+        } else if (list[index].status.toLowerCase() == 'join webinar' || list[index].status.toLowerCase() == 'in progress') {
           // redirectToDetails(index);
           if (list[index].zoomLinkStatus) {
             funRedirectJoinWebinar(index);

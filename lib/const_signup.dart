@@ -20,6 +20,7 @@ class ConstSignUp {
   static var strCompanyName = '';
 
   static int detailsColorIndex = 0;
+  static bool isReloadWebinar = false;
 
   static List<String> orgSizeList = ['0-9', '10-15', '16-50', '51-500', '501-1000', '1000+'];
   // static var strOrgSize = '';
