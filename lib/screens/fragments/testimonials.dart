@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/model/testimonials_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:rating_bar/rating_bar.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constant.dart';
@@ -286,40 +286,18 @@ class _TestimonialsState extends State<Testimonials> {
   }
 
   void checkForSP() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    bool checkValue = preferences.getBool("check");
-
-    if (checkValue != null) {
-      setState(() {
-        isLoaderShowing = true;
-      });
-
-      if (checkValue) {
-        String token = preferences.getString("spToken");
-        _authToken = 'Bearer $token';
-        print('Auth Token from SP is : $_authToken');
-
-        // this.getDataWebinarList('$_authToken', '$start', '10');
-        this.getMyTransactionList('$_authToken', '$start', '200');
-        // print('init State isLive : $isLive');
-        // print('init State isSelfStudy : $isSelfStudy');
-      } else {
-        preferences.clear();
-        Fluttertoast.showToast(
-            msg: sharedPrefsNot,
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: toastBackgroundColor,
-            textColor: toastTextColor,
-            fontSize: 16.0);
-        /*_scaffoldKey.currentState.showSnackBar(
-          SnackBar(
-            content: Text(sharedPrefsNot),
-            duration: Duration(seconds: 3),
-          ),
-        );*/
-      }
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
+      this.getMyTransactionList('$_authToken', '$start', '200');
+    } else {
+      Fluttertoast.showToast(
+          msg: "Please check your internet connectivity and try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: toastBackgroundColor,
+          textColor: toastTextColor,
+          fontSize: 16.0);
     }
   }
 }

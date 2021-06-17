@@ -33,6 +33,7 @@ class _TransactionPdfPreviewState extends State<TransactionPdfPreview> {
   PDFDocument document;
 
   bool loading = false;
+
   // double progress = 0;
 
   // double progress = 0;
@@ -98,20 +99,20 @@ class _TransactionPdfPreviewState extends State<TransactionPdfPreview> {
                 width: double.infinity,
                 child: Row(
                   children: <Widget>[
-                    GestureDetector(
-                      child: Flexible(
+                    Flexible(
+                      child: GestureDetector(
+                        onTap: () {
+                          print('Back button is pressed..');
+                          Navigator.pop(context);
+                        },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Icon(
                             FontAwesomeIcons.angleLeft,
                           ),
                         ),
-                        flex: 1,
                       ),
-                      onTap: () {
-                        print('Back button is pressed..');
-                        Navigator.pop(context);
-                      },
+                      flex: 1,
                     ),
                     Flexible(
                       child: Center(
@@ -126,12 +127,12 @@ class _TransactionPdfPreviewState extends State<TransactionPdfPreview> {
                       ),
                       flex: 8,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        print('Click event for share receipt');
-                        Share.share('$strUrl');
-                      },
-                      child: Flexible(
+                    Flexible(
+                      child: GestureDetector(
+                        onTap: () {
+                          print('Click event for share receipt');
+                          Share.share('$strUrl');
+                        },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Icon(
@@ -139,8 +140,8 @@ class _TransactionPdfPreviewState extends State<TransactionPdfPreview> {
                             size: 12.0.sp,
                           ),
                         ),
-                        flex: 1,
                       ),
+                      flex: 1,
                     ),
                   ],
                 ),
