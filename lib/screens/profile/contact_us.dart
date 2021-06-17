@@ -205,7 +205,7 @@ class _ContactUsState extends State<ContactUs> {
                                       controller: emailController,
                                       obscureText: false,
                                       decoration: InputDecoration(
-                                        hintText: 'email',
+                                        hintText: 'Email',
                                         contentPadding: EdgeInsets.only(
                                           left: 10.0,
                                           bottom: 10.0,
@@ -214,7 +214,7 @@ class _ContactUsState extends State<ContactUs> {
                                         hintStyle: TextStyle(
                                           fontSize: 20.0,
                                           fontFamily: 'Whitney Medium',
-                                          color: Colors.black,
+                                          color: Colors.black45,
                                         ),
                                         prefixStyle: TextStyle(
                                           fontSize: 20.0,
@@ -233,7 +233,7 @@ class _ContactUsState extends State<ContactUs> {
                                       controller: subjectController,
                                       obscureText: false,
                                       decoration: InputDecoration(
-                                        hintText: 'message',
+                                        hintText: 'Message',
                                         contentPadding: EdgeInsets.only(
                                           left: 10.0,
                                           bottom: 10.0,
@@ -242,7 +242,7 @@ class _ContactUsState extends State<ContactUs> {
                                         hintStyle: TextStyle(
                                           fontSize: 20.0,
                                           fontFamily: 'Whitney Medium',
-                                          color: Colors.black,
+                                          color: Colors.black45,
                                         ),
                                       ),
                                     ),
