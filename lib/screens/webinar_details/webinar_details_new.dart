@@ -1351,7 +1351,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       }
       updatedDate =
           // '$day $month $year - ${data['payload']['webinar'][index]['start_time']} - ${data['payload']['webinar'][index]['time_zone']}';
-          '$day $month $year - $startTime - $strTimeZone';
+          // '$day $month $year - $startTime - $strTimeZone';
+          '$month $day, $year | $startTime $strTimeZone';
     }
 
     return (updatedDate);

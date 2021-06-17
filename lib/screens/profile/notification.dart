@@ -151,17 +151,17 @@ class _NotificationsState extends State<Notifications> {
                     ),
                     flex: 8,
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => NotificationSettings(),
-                          // builder: (context) => Notifications(),
-                        ),
-                      );
-                    },
-                    child: Flexible(
+                  Flexible(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => NotificationSettings(),
+                            // builder: (context) => Notifications(),
+                          ),
+                        );
+                      },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Visibility(
@@ -171,8 +171,8 @@ class _NotificationsState extends State<Notifications> {
                           ),
                         ),
                       ),
-                      flex: 1,
                     ),
+                    flex: 1,
                   ),
                 ],
               ),

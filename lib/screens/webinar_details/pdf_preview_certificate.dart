@@ -106,7 +106,7 @@ class _CertificatePdfPreviewState extends State<CertificatePdfPreview> {
                           print('Back button is pressed..');
                           Navigator.pop(context);
                         },
-                        child: Padding(
+                        child: Container(
                           padding: const EdgeInsets.all(8.0),
                           child: Icon(
                             FontAwesomeIcons.angleLeft,
