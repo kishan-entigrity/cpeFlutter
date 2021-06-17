@@ -1212,6 +1212,10 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
       respStatus = resp['success'];
       respMessage = resp['message'];
 
+      setState(() {
+        ConstSignUp.isReloadWebinar = true;
+      });
+
       if (respStatus) {
         if (resp['payload']['video_status']) {
           stopBasicTimer();
@@ -1422,6 +1426,9 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         showLoginPopup();
       } else {
         if (webDetailsObj['zoom_link_status']) {
+          setState(() {
+            ConstSignUp.isReloadWebinar = true;
+          });
           funRedirectJoinWebinar();
         } else {
           showDialogJoinWebinar();
@@ -1691,6 +1698,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
     respSubMessage = resp['payload']['sub_message'];
     setState(() {
       isLoaderShowing = false;
+      ConstSignUp.isReloadWebinar = true;
     });
 
     if (respStatus) {
@@ -1832,6 +1840,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
 
       setState(() {
         isLoaderShowing = false;
+        ConstSignUp.isReloadWebinar = true;
       });
 
       var evaluationLink = resp['payload']['link'].toString();

@@ -3002,6 +3002,7 @@ class _HomeFragmentState extends State<HomeFragment> {
   }
 
   void checkForSP() async {
+    ConstSignUp.isReloadWebinar = false;
     SharedPreferences preferences = await SharedPreferences.getInstance();
     bool checkValue = preferences.getBool("check");
     print('Check value is : $checkValue');
@@ -3177,10 +3178,13 @@ class _HomeFragmentState extends State<HomeFragment> {
                 )
                     .then((_) {
                   // Call setState() here or handle this appropriately
-                  setState(() {
-                    list.clear();
-                  });
-                  checkForSP();
+                  if (ConstSignUp.isReloadWebinar) {
+                    setState(() {
+                      start = 0;
+                      list.clear();
+                    });
+                    checkForSP();
+                  }
                 });
               },
             );
@@ -3246,6 +3250,7 @@ class _HomeFragmentState extends State<HomeFragment> {
 
     setState(() {
       isLoaderShowing = false;
+      ConstSignUp.isReloadWebinar = true;
       // isProgressShowing = false;
     });
 
@@ -3268,10 +3273,13 @@ class _HomeFragmentState extends State<HomeFragment> {
                 )
                     .then((_) {
                   // Call setState() here or handle this appropriately
-                  setState(() {
-                    list.clear();
-                  });
-                  checkForSP();
+                  if (ConstSignUp.isReloadWebinar) {
+                    setState(() {
+                      start = 0;
+                      list.clear();
+                    });
+                    checkForSP();
+                  }
                 });
               },
             );
@@ -3339,10 +3347,13 @@ class _HomeFragmentState extends State<HomeFragment> {
     )
         .then((_) {
       // Call setState() here or handle this appropriately
-      setState(() {
-        list.clear();
-      });
-      checkForSP();
+      if (ConstSignUp.isReloadWebinar) {
+        setState(() {
+          start = 0;
+          list.clear();
+        });
+        checkForSP();
+      }
     });
   }
 
@@ -3362,10 +3373,13 @@ class _HomeFragmentState extends State<HomeFragment> {
     )
         .then((_) {
       // Call setState() here or handle this appropriately
-      setState(() {
-        list.clear();
-      });
-      checkForSP();
+      if (ConstSignUp.isReloadWebinar) {
+        setState(() {
+          start = 0;
+          list.clear();
+        });
+        checkForSP();
+      }
     });
   }
 
@@ -3970,6 +3984,9 @@ class _HomeFragmentState extends State<HomeFragment> {
   }
 
   void funRedirectJoinWebinar(int index) {
+    setState(() {
+      ConstSignUp.isReloadWebinar = true;
+    });
     var url =
         // "https://zoom.us/w/92056600703?tk=xzhOVl9nDeacxlQXdHHZ4OpFYYp3tD6YhJtS3HqU2ks.DQIAAAAVbwBAfxZjVjZiamV0VlRwaVJTUm95cnJqNFFnAAAAAAAAAAAAAAAAAAAAAAAAAAAA&uuid=WN_C16AFWZcR3SwGA5Gbd0XSQ";
         list[index].encryptedZoomLink;
@@ -4025,6 +4042,7 @@ class _HomeFragmentState extends State<HomeFragment> {
 
     setState(() {
       isLoaderShowing = false;
+      ConstSignUp.isReloadWebinar = true;
     });
 
     var evaluationLink = resp['payload']['link'].toString();

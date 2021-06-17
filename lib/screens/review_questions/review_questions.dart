@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../const_signup.dart';
 import '../../constant.dart';
 import '../../rest_api.dart';
 import 'model/review_question_model.dart';
@@ -117,6 +118,7 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
       // data = JSON.decode(response.body);
       data = jsonDecode(response.body);
       isLoaderShowing = false;
+      ConstSignUp.isReloadWebinar = true;
     });
 
     // print(data[1]["title"]);

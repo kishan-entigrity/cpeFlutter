@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../const_signup.dart';
 import '../../constant.dart';
 import '../../rest_api.dart';
 import 'final_quiz_model.dart';
@@ -113,6 +114,7 @@ class _FinalQuizScreenState extends State<FinalQuizScreen> {
       // data = JSON.decode(response.body);
       data = jsonDecode(response.body);
       isLoaderShowing = false;
+      ConstSignUp.isReloadWebinar = true;
     });
 
     successFinalSubmit = data['success'];

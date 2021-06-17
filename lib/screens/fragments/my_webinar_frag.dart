@@ -1705,11 +1705,21 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
       ),
     );*/
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                // WebinarDetails('resultText Sender', webinarId)));
-                WebinarDetailsNew(strWebinarTypeIntent, webinarId)));
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            // WebinarDetails('resultText Sender', webinarId)));
+            WebinarDetailsNew(strWebinarTypeIntent, webinarId),
+      ),
+    ).then((_) {
+      // Call setState() here or handle this appropriately
+      if (ConstSignUp.isReloadWebinar) {
+        setState(() {
+          list.clear();
+        });
+        checkForSP();
+      }
+    });
   }
 
   checkForPrice(int index) {
@@ -2048,6 +2058,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
   }
 
   void checkForSP() async {
+    ConstSignUp.isReloadWebinar = false;
     SharedPreferences preferences = await SharedPreferences.getInstance();
     bool checkValue = preferences.getBool("check");
 
@@ -2177,6 +2188,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
 
     setState(() {
       isLoaderOverlay = false;
+      ConstSignUp.isReloadWebinar = true;
     });
 
     var evaluationLink = resp['payload']['link'].toString();
@@ -2419,6 +2431,9 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
   }
 
   void funRedirectJoinWebinar(int index) {
+    setState(() {
+      ConstSignUp.isReloadWebinar = true;
+    });
     var url =
         // "https://zoom.us/w/92056600703?tk=xzhOVl9nDeacxlQXdHHZ4OpFYYp3tD6YhJtS3HqU2ks.DQIAAAAVbwBAfxZjVjZiamV0VlRwaVJTUm95cnJqNFFnAAAAAAAAAAAAAAAAAAAAAAAAAAAA&uuid=WN_C16AFWZcR3SwGA5Gbd0XSQ";
         list[index].encryptedZoomLink;

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/custom_dialog_two.dart';
+import 'package:cpe_flutter/const_signup.dart';
 import 'package:cpe_flutter/constant.dart';
 import 'package:cpe_flutter/screens/home_screen.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/intro_screen.dart';
@@ -44,6 +45,9 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    setState(() {
+      ConstSignUp.isReloadWebinar = false;
+    });
     getVersion();
     // getUserData();
     /*new Future.delayed(const Duration(seconds: 5), () {
