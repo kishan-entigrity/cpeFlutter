@@ -128,12 +128,12 @@ class _CertificatePdfPreviewState extends State<CertificatePdfPreview> {
                       ),
                       flex: 8,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        print('Click event for share receipt');
-                        Share.share('$strUrl');
-                      },
-                      child: Flexible(
+                    Flexible(
+                      child: GestureDetector(
+                        onTap: () {
+                          print('Click event for share receipt');
+                          Share.share('$strUrl');
+                        },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Icon(
@@ -141,8 +141,8 @@ class _CertificatePdfPreviewState extends State<CertificatePdfPreview> {
                             size: 12.0.sp,
                           ),
                         ),
-                        flex: 1,
                       ),
+                      flex: 1,
                     ),
                   ],
                 ),
