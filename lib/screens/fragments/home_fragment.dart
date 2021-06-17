@@ -3166,7 +3166,7 @@ class _HomeFragmentState extends State<HomeFragment> {
           builder: (BuildContext context) {
             return CustomDialogRegister(
               "$respMessage",
-              "$respSubMessage",
+              (respSubMessage == null || respSubMessage == "") ? "" : "$respSubMessage",
               "CONTINUE",
               () {
                 Navigator.pop(context);
