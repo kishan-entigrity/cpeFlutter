@@ -2650,7 +2650,7 @@ class _HomeFragmentState extends State<HomeFragment> {
           }
         } else if (list[index].status.toLowerCase() == 'completed') {
           redirectToDetails(index);
-        } else if (list[index].status.toLowerCase() == 'in progress') {
+        } else if (list[index].status.toLowerCase() == 'in progress' || list[index].status.toLowerCase() == 'join webinar') {
           // redirectToDetails(index);
           if (list[index].zoomLinkStatus) {
             funRedirectJoinWebinar(index);
