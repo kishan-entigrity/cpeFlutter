@@ -721,7 +721,9 @@ class _ProfileFragState extends State<ProfileFrag> {
           MaterialPageRoute(
             builder: (context) => TermsCondition(terms_url),
           ),
-        );
+        ).then((_) {
+          getUserData();
+        });
       });
     }
   }
@@ -744,7 +746,9 @@ class _ProfileFragState extends State<ProfileFrag> {
           MaterialPageRoute(
             builder: (context) => PrivacyPolicy(privacy_url),
           ),
-        );
+        ).then((_) {
+          getUserData();
+        });
       });
     }
   }
@@ -767,7 +771,9 @@ class _ProfileFragState extends State<ProfileFrag> {
           MaterialPageRoute(
             builder: (context) => FAQ(faq_url),
           ),
-        );
+        ).then((_) {
+          getUserData();
+        });
       });
     }
   }
