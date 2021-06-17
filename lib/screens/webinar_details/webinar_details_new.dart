@@ -674,42 +674,38 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      Flexible(
-                                        child: Container(
-                                          padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
-                                          child: Text(
-                                            // '${data['payload']['webinar'][index]['webinar_title']}',
-                                            // '${list[index].webinarTitle}',
-                                            // '${webDetailsObj['webinar_title']}',
-                                            '$webinarTitle',
-                                            style: TextStyle(
-                                              fontFamily: 'Whitney Bold',
-                                              fontSize: 16.0.sp,
-                                              color: Colors.white,
-                                            ),
-                                            maxLines: 3,
-                                            overflow: TextOverflow.ellipsis,
+                                      Container(
+                                        padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
+                                        child: Text(
+                                          // '${data['payload']['webinar'][index]['webinar_title']}',
+                                          // '${list[index].webinarTitle}',
+                                          // '${webDetailsObj['webinar_title']}',
+                                          '$webinarTitle',
+                                          style: TextStyle(
+                                            fontFamily: 'Whitney Bold',
+                                            fontSize: 16.0.sp,
+                                            color: Colors.white,
                                           ),
+                                          maxLines: 3,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
                                       ),
                                       Row(
                                         children: [
-                                          Flexible(
-                                            child: Container(
-                                              padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
-                                              child: Text(
-                                                // '${data['payload']['webinar'][index]['speaker_name']}',
-                                                // '${list[index].speakerName}',
-                                                // '${webDetailsObj['about_presententer']['name']}',
-                                                '$presenterName',
-                                                style: TextStyle(
-                                                  fontFamily: 'Whitney Semi Bold',
-                                                  fontSize: 13.0.sp,
-                                                  color: Colors.white,
-                                                ),
-                                                overflow: TextOverflow.ellipsis,
-                                                maxLines: 2,
+                                          Container(
+                                            padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
+                                            child: Text(
+                                              // '${data['payload']['webinar'][index]['speaker_name']}',
+                                              // '${list[index].speakerName}',
+                                              // '${webDetailsObj['about_presententer']['name']}',
+                                              '$presenterName',
+                                              style: TextStyle(
+                                                fontFamily: 'Whitney Semi Bold',
+                                                fontSize: 13.0.sp,
+                                                color: Colors.white,
                                               ),
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 2,
                                             ),
                                           ),
                                         ],
@@ -799,7 +795,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                                       color: Colors.white,
                                                       width: 1.0,
                                                     ),
-                                                    color: Color(0xFFFFC803),
+                                                    // color: Color(0xFFFFC803),
+                                                    color: setCardColor(ConstSignUp.detailsColorIndex),
                                                   ),
                                                   child: Text(
                                                     '${webDetailsObj['audiance_titles'][index]}',

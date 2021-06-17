@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
 import 'package:cpe_flutter/components/custom_dialog.dart';
+import 'package:cpe_flutter/const_signup.dart';
 import 'package:cpe_flutter/screens/final_quiz/final_quiz_screen.dart';
 import 'package:cpe_flutter/screens/fragments/model_mywebinar/list_mywebinar.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
@@ -1297,40 +1298,36 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
                                                                         ],
                                                                       ),
                                                                     ),
-                                                                    Flexible(
-                                                                      child: Container(
-                                                                        padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
-                                                                        child: Text(
-                                                                          // '${data['payload']['webinar'][index]['webinar_title']}',
-                                                                          '${list[index].webinarTitle}',
-                                                                          style: TextStyle(
-                                                                            fontFamily: 'Whitney Bold',
-                                                                            fontSize: 15.0.sp,
-                                                                            // color: index % 2 == 0 ? Colors.black : Colors.white,
-                                                                            color: Colors.white,
-                                                                          ),
-                                                                          maxLines: 3,
-                                                                          overflow: TextOverflow.ellipsis,
+                                                                    Container(
+                                                                      padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
+                                                                      child: Text(
+                                                                        // '${data['payload']['webinar'][index]['webinar_title']}',
+                                                                        '${list[index].webinarTitle}',
+                                                                        style: TextStyle(
+                                                                          fontFamily: 'Whitney Bold',
+                                                                          fontSize: 15.0.sp,
+                                                                          // color: index % 2 == 0 ? Colors.black : Colors.white,
+                                                                          color: Colors.white,
                                                                         ),
+                                                                        maxLines: 3,
+                                                                        overflow: TextOverflow.ellipsis,
                                                                       ),
                                                                     ),
                                                                     Row(
                                                                       children: [
-                                                                        Flexible(
-                                                                          child: Container(
-                                                                            padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
-                                                                            child: Text(
-                                                                              // '${data['payload']['webinar'][index]['speaker_name']}',
-                                                                              '${list[index].speakerName}',
-                                                                              style: TextStyle(
-                                                                                fontFamily: 'Whitney Semi Bold',
-                                                                                fontSize: 13.0.sp,
-                                                                                // color: index % 2 == 0 ? Colors.black : Colors.white,
-                                                                                color: Colors.white,
-                                                                              ),
-                                                                              overflow: TextOverflow.ellipsis,
-                                                                              maxLines: 2,
+                                                                        Container(
+                                                                          padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
+                                                                          child: Text(
+                                                                            // '${data['payload']['webinar'][index]['speaker_name']}',
+                                                                            '${list[index].speakerName}',
+                                                                            style: TextStyle(
+                                                                              fontFamily: 'Whitney Semi Bold',
+                                                                              fontSize: 13.0.sp,
+                                                                              // color: index % 2 == 0 ? Colors.black : Colors.white,
+                                                                              color: Colors.white,
                                                                             ),
+                                                                            overflow: TextOverflow.ellipsis,
+                                                                            maxLines: 2,
                                                                           ),
                                                                         ),
                                                                       ],
@@ -1688,6 +1685,9 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
     print('Id for the webinar is : $webinarId');
     print('String for strWebinarID : $strWebinarId');
     String sampleIntnent = 'HelloWorld';
+
+    ConstSignUp.detailsColorIndex = index;
+
     // Now redirect to webinar details from here..
     /*Navigator.push(
       context,

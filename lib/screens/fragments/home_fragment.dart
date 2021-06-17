@@ -1584,8 +1584,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                     ],
                                                                   ),
                                                                 ),
-                                                                Flexible(
-                                                                  child: Container(
+                                                                Container(
                                                                     padding: const EdgeInsets.fromLTRB(18.0, 10.0, 30.0, 0),
                                                                     child: Text(
                                                                       // '${data['payload']['webinar'][index]['webinar_title']}',
@@ -1600,11 +1599,9 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                       overflow: TextOverflow.ellipsis,
                                                                     ),
                                                                   ),
-                                                                ),
                                                                 Row(
                                                                   children: [
-                                                                    Flexible(
-                                                                      child: Container(
+                                                                    Container(
                                                                         padding: const EdgeInsets.fromLTRB(18.0, 5.0, 30.0, 0),
                                                                         child: Text(
                                                                           // '${data['payload']['webinar'][index]['speaker_name']}',
@@ -1619,7 +1616,6 @@ class _HomeFragmentState extends State<HomeFragment> {
                                                                           maxLines: 2,
                                                                         ),
                                                                       ),
-                                                                    ),
                                                                   ],
                                                                 ),
                                                                 Padding(
