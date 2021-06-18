@@ -834,6 +834,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                     Expanded(
                       child: SingleChildScrollView(
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Visibility(
                               visible: strWebinarTypeIntent == 'ON-DEMAND' && isTextBasedWebinar.compareTo(0) == 0 ? true : false,
