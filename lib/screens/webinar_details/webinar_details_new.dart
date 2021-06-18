@@ -248,7 +248,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
             }
           }
 
-          if (strWebinarTypeIntent == 'ON-DEMAND') {
+          if (strWebinarTypeIntent == 'ON-DEMAND' || strWebinarTypeIntent.toLowerCase() == 'nano') {
             if (whyShouldAttend?.isEmpty) {
               isWhySholdAttendVisible = false;
             } else {
@@ -581,8 +581,10 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                       children: <Widget>[
                         // Container SelfStudy Thumb..
                         Visibility(
-                          visible:
-                              (strWebinarTypeIntent == 'ON-DEMAND' && isTextBasedWebinar.compareTo(0) == 0 ? (!isPlaying ? true : false) : false),
+                          visible: ((strWebinarTypeIntent == 'ON-DEMAND' || strWebinarTypeIntent.toLowerCase() == 'nano') &&
+                                  isTextBasedWebinar.compareTo(0) == 0
+                              ? (!isPlaying ? true : false)
+                              : false),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -630,7 +632,10 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                         ),
                         // Container SelfStudy Video player..
                         Visibility(
-                          visible: (strWebinarTypeIntent == 'ON-DEMAND' && isTextBasedWebinar.compareTo(0) == 0 ? (isPlaying ? true : false) : false),
+                          visible: ((strWebinarTypeIntent == 'ON-DEMAND' || strWebinarTypeIntent.toLowerCase() == 'nano') &&
+                                  isTextBasedWebinar.compareTo(0) == 0
+                              ? (isPlaying ? true : false)
+                              : false),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -837,7 +842,10 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Visibility(
-                              visible: strWebinarTypeIntent == 'ON-DEMAND' && isTextBasedWebinar.compareTo(0) == 0 ? true : false,
+                              visible: (strWebinarTypeIntent == 'ON-DEMAND' || strWebinarTypeIntent.toLowerCase() == 'nano') &&
+                                      isTextBasedWebinar.compareTo(0) == 0
+                                  ? true
+                                  : false,
                               child: Container(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -850,7 +858,10 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                               ),
                             ),
                             Visibility(
-                              visible: strWebinarTypeIntent == 'ON-DEMAND' && isTextBasedWebinar.compareTo(0) == 0 ? true : false,
+                              visible: (strWebinarTypeIntent == 'ON-DEMAND' || strWebinarTypeIntent.toLowerCase() == 'nano') &&
+                                      isTextBasedWebinar.compareTo(0) == 0
+                                  ? true
+                                  : false,
                               child: Container(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1205,6 +1216,9 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   void videoDurationAPICall(String webinarId, String finalCurrentDuration, String presentationDuration) async {
     var connectivityResult = await (Connectivity().checkConnectivity());
 
+    print("webinar_id : $webinarId");
+    print("Current Duration : $finalCurrentDuration");
+    print("Presentation Duration : $presentationDuration");
     if ((connectivityResult == ConnectivityResult.mobile) || (connectivityResult == ConnectivityResult.wifi)) {
       var resp = await video_duration(userToken, webinarId, finalCurrentDuration, presentationDuration);
 
@@ -1645,7 +1659,9 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
             checkForSP();
           });
         }
-      } else if (strWebinarTypeIntent.toLowerCase() == 'self_study' || strWebinarTypeIntent.toLowerCase() == 'on-demand') {
+      } else if (strWebinarTypeIntent.toLowerCase() == 'self_study' ||
+          strWebinarTypeIntent.toLowerCase() == 'on-demand' ||
+          strWebinarTypeIntent.toLowerCase() == 'nano') {
         // if (webDetailsObj.fee == 'FREE' || webDetailsObj.fee == '') {
         if (fee == 'FREE' || fee == '') {
           print('User token while register is : $userToken');
