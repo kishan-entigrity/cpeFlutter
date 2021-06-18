@@ -6,6 +6,7 @@ import 'package:cpe_flutter/components/custom_dialog.dart';
 import 'package:cpe_flutter/components/round_icon_button.dart';
 import 'package:cpe_flutter/const_signup.dart';
 import 'package:cpe_flutter/screens/profile/terms_condition.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -94,6 +95,7 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    FirebaseAnalytics().setCurrentScreen(screenName: 'SignUp page 3');
     checkInternetConnection();
   }
 

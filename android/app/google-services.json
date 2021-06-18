@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "993299193974",
+    "project_id": "tstcpe",
+    "storage_bucket": "tstcpe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993299193974:android:020cd52394ead2e919ff57",
+        "android_client_info": {
+          "package_name": "com.myCPE_Test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "993299193974-71cgacet68kucqhetnacvk8na1cgnaq8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuNN-_ZdpG3SCU7yyaZJ1CW09J56Vn4yo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "993299193974-71cgacet68kucqhetnacvk8na1cgnaq8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
