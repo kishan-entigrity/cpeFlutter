@@ -5,6 +5,7 @@ import 'package:cpe_flutter/components/SpinKitSample1.dart';
 import 'package:cpe_flutter/components/custom_dialog_register.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:cpe_flutter/screens/webinar_details/webinar_details_new.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -375,6 +376,7 @@ class _GuestCardFragState extends State<GuestCardFrag> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    FirebaseAnalytics().setCurrentScreen(screenName: 'Add card screen');
     ConstSignUp.clearGuestRedirectionFlow();
     checkForSP();
   }

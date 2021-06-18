@@ -12,6 +12,7 @@ import 'package:cpe_flutter/screens/intro_login_signup/model/state_list_model.da
 import 'package:cpe_flutter/screens/profile/pagination_industries/industry_list.dart';
 import 'package:cpe_flutter/screens/profile/pagination_job_titles/jobtitle_list.dart';
 import 'package:cpe_flutter/screens/profile/pagination_profcreds/profcreds_list.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -381,6 +382,7 @@ class _UserProfileState extends State<UserProfile> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    FirebaseAnalytics().setCurrentScreen(screenName: 'View Edit profile Screen');
     print('Resp: $dataIntent');
 
     setState(() {

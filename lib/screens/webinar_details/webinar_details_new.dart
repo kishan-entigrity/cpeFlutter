@@ -17,6 +17,7 @@ import 'package:cpe_flutter/screens/webinar_details/WebinarTitleOnDemand.dart';
 import 'package:cpe_flutter/screens/webinar_details/childCardDetails.dart';
 import 'package:cpe_flutter/screens/webinar_details/childCardOthers.dart';
 import 'package:cpe_flutter/screens/webinar_details/pdf_preview_certificate.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -134,6 +135,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   @override
   void initState() {
     super.initState();
+    FirebaseAnalytics().setCurrentScreen(screenName: 'Webinar details screen');
     print('strWebinarTypeIntent : $strWebinarTypeIntent');
     checkForSP();
   }

@@ -1,5 +1,6 @@
 import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:cpe_flutter/screens/profile/pagination_notification/notification_list_data.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -39,6 +40,7 @@ class _WhoShouldAttendState extends State<WhoShouldAttend> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    FirebaseAnalytics().setCurrentScreen(screenName: 'who should Screen');
     print('Enter into myTransaction screen');
     // Get API call for my transaction..
     // checkForSP();

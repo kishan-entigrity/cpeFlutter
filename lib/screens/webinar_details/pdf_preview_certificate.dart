@@ -2,6 +2,7 @@ import 'dart:isolate';
 import 'dart:ui';
 
 import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -54,6 +55,7 @@ class _CertificatePdfPreviewState extends State<CertificatePdfPreview> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    FirebaseAnalytics().setCurrentScreen(screenName: 'Certificate preview screen');
     print('Url on get intent is : $strUrl');
     loadDocument();
 
