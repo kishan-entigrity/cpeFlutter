@@ -58,33 +58,47 @@ class _childCardTestimonialsState extends State<childCardTestimonials> {
               children: <Widget>[
                 TestimonialDataCell(respTestimonials[0]['first_name'] + ' ' + respTestimonials[0]['last_name'] + respTestimonials[0]['designation'],
                     respTestimonials[0]['date'], respTestimonials[0]['rate'], respTestimonials[0]['review']),
-                Container(
-                  width: double.infinity,
-                  height: 0.5,
-                  color: Colors.black,
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                TestimonialDataCell(respTestimonials[1]['first_name'] + ' ' + respTestimonials[1]['last_name'] + respTestimonials[1]['designation'],
-                    respTestimonials[1]['date'], respTestimonials[1]['rate'], respTestimonials[1]['review']),
-                GestureDetector(
-                  // Have to put Navigator call for Testimonials screen from here..
-                  // Have to pass the data of webinar ID..
-                  onTap: () {
-                    print('Clicked on view more button');
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Testimonials(webinarId),
-                      ),
-                    );
-                  },
+                Visibility(
+                  visible: int.parse(respTestimonials.length.toString()) > 1 ? true : false,
                   child: Container(
-                    padding: EdgeInsets.all(10.0),
-                    child: Text(
-                      'View More',
-                      style: kUserDataBlueTestimonials,
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          width: double.infinity,
+                          height: 0.5,
+                          color: Colors.black,
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        TestimonialDataCell(
+                            int.parse(respTestimonials.length.toString()) > 1
+                                ? respTestimonials[1]['first_name'] + ' ' + respTestimonials[1]['last_name'] + respTestimonials[1]['designation']
+                                : "",
+                            int.parse(respTestimonials.length.toString()) > 1 ? respTestimonials[1]['date'] : "",
+                            int.parse(respTestimonials.length.toString()) > 1 ? respTestimonials[1]['rate'] : "",
+                            int.parse(respTestimonials.length.toString()) > 1 ? respTestimonials[1]['review'] : ""),
+                        GestureDetector(
+                          // Have to put Navigator call for Testimonials screen from here..
+                          // Have to pass the data of webinar ID..
+                          onTap: () {
+                            print('Clicked on view more button');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Testimonials(webinarId),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(10.0),
+                            child: Text(
+                              'View More',
+                              style: kUserDataBlueTestimonials,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
