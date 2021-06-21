@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:cpe_flutter/screens/profile/pagination_my_transaction/my_transaction_list.dart';
 import 'package:cpe_flutter/screens/profile/pdf_preview_transaction.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -99,6 +100,7 @@ class _MyTranscationState extends State<MyTranscation> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    FirebaseAnalytics().setCurrentScreen(screenName: 'Receipt list Screen');
     print('Enter into myTransaction screen');
     // Get API call for my transaction..
     checkForSP();

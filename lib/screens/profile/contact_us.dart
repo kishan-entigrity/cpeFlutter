@@ -1,6 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/round_icon_button.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -27,6 +28,13 @@ class _ContactUsState extends State<ContactUs> {
   var respMessage;
 
   bool isLoading = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FirebaseAnalytics().setCurrentScreen(screenName: 'Contact us screen');
+  }
 
   @override
   Widget build(BuildContext context) {

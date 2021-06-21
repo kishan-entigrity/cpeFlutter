@@ -4,6 +4,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/constant.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:cpe_flutter/screens/webinar_details/pdf_preview_certificate.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -112,6 +113,7 @@ class _CertificateFragState extends State<CertificateFrag> {
     // TODO: implement initState
     super.initState();
     print('Enter into myTransaction screen');
+    FirebaseAnalytics().setCurrentScreen(screenName: 'My Certificate Screen');
     checkForInternet();
 
     print('State fot the isFromProfile : $isFromProfile');

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:connectivity/connectivity.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -32,6 +33,7 @@ class _TermsConditionState extends State<TermsCondition> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    FirebaseAnalytics().setCurrentScreen(screenName: 'Terms and condition screen');
     // getTermsAndCondition();
   }
 

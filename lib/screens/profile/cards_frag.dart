@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -325,6 +326,7 @@ class _CardFragState extends State<CardFrag> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    FirebaseAnalytics().setCurrentScreen(screenName: 'Cards listing screen');
     checkForSP();
   }
 

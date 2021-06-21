@@ -12,6 +12,7 @@ import 'package:cpe_flutter/screens/profile/notification.dart';
 import 'package:cpe_flutter/screens/profile/privacy_policy.dart';
 import 'package:cpe_flutter/screens/profile/terms_condition.dart';
 import 'package:cpe_flutter/screens/profile/user_profile.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -58,6 +59,7 @@ class _ProfileFragState extends State<ProfileFrag> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    FirebaseAnalytics().setCurrentScreen(screenName: 'profile frag Screen');
     // Here we take call for getting user data from SharedPrefs..
     getUserData();
   }

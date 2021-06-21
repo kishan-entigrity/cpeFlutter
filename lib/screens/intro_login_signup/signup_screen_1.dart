@@ -5,6 +5,7 @@ import 'package:cpe_flutter/components/round_icon_button.dart';
 import 'package:cpe_flutter/const_signup.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/signup_screen_2.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -72,6 +73,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    FirebaseAnalytics().setCurrentScreen(screenName: 'SignUp page 1');
     regExp = new RegExp(pattern1);
     // getCountryListAPI();
   }

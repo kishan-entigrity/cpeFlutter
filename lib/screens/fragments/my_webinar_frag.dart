@@ -11,6 +11,7 @@ import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:cpe_flutter/screens/profile/notification.dart';
 import 'package:cpe_flutter/screens/webinar_details/evaluation_form.dart';
 import 'package:cpe_flutter/screens/webinar_details/pdf_preview_certificate.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -162,6 +163,7 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    FirebaseAnalytics().setCurrentScreen(screenName: 'My Webinar screen');
 
     checkForSP();
 

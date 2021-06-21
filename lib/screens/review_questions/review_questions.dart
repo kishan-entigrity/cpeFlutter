@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -183,6 +184,7 @@ class _ReviewQuestionsState extends State<ReviewQuestions> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    FirebaseAnalytics().setCurrentScreen(screenName: 'Review Question screen');
     print('Webinar ID on review question : $webinarId');
     // getReviewQuestion();
     checkforSp();

@@ -4,6 +4,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
 import 'package:cpe_flutter/components/round_icon_button.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/signup_screen_3.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -81,6 +82,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    FirebaseAnalytics().setCurrentScreen(screenName: 'SignUp page 2');
     // Take API calls for the JobTitle, industry, Professional creds, Additional qualifications in serial manner..
     checkForInternet();
     print('Fname from global class is : ${ConstSignUp.strFname}');

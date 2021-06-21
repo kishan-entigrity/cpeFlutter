@@ -14,6 +14,7 @@ import 'package:cpe_flutter/screens/profile/notification.dart';
 import 'package:cpe_flutter/screens/webinar_details/evaluation_form.dart';
 import 'package:cpe_flutter/screens/webinar_details/pdf_preview_certificate.dart';
 import 'package:cpe_flutter/screens/webinar_details/webinar_details_new.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -285,6 +286,7 @@ class _HomeFragmentState extends State<HomeFragment> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    FirebaseAnalytics().setCurrentScreen(screenName: 'Home Fragment screen');
     hotTopicsId.clear();
     qualificationsId.clear();
     checkForInternet();

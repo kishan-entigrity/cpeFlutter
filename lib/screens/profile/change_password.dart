@@ -2,6 +2,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/round_icon_button.dart';
 import 'package:cpe_flutter/constant.dart';
 import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -40,12 +41,8 @@ class _ChangePasswordState extends State<ChangePassword> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    void initState() {
-      // TODO: implement initState
-      super.initState();
-      // Here we take call for getting user data from SharedPrefs..
-      getUserData();
-    }
+    FirebaseAnalytics().setCurrentScreen(screenName: 'Change password screen');
+    getUserData();
   }
 
   @override
