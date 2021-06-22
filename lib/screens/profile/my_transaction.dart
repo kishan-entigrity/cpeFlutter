@@ -6,7 +6,7 @@ import 'package:cpe_flutter/screens/intro_login_signup/login.dart';
 import 'package:cpe_flutter/screens/profile/pagination_my_transaction/my_transaction_list.dart';
 import 'package:cpe_flutter/screens/profile/pdf_preview_transaction.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
+// import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -114,7 +114,7 @@ class _MyTranscationState extends State<MyTranscation> {
       print(progress);
     });
 
-    FlutterDownloader.registerCallback(downloadingCallback);
+    // FlutterDownloader.registerCallback(downloadingCallback);
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
@@ -332,7 +332,7 @@ class _MyTranscationState extends State<MyTranscation> {
                                                         if (status.isGranted) {
                                                           final externalDir = await getExternalStorageDirectory();
 
-                                                          final id = await FlutterDownloader.enqueue(
+                                                          /*final id = await FlutterDownloader.enqueue(
                                                             url:
                                                                 // "https://firebasestorage.googleapis.com/v0/b/storage-3cff8.appspot.com/o/2020-05-29%2007-18-34.mp4?alt=media&token=841fffde-2b83-430c-87c3-2d2fd658fd41",
                                                                 "${list[index].receipt}",
@@ -341,7 +341,7 @@ class _MyTranscationState extends State<MyTranscation> {
                                                             fileName: "receipt_${list[index].title}.pdf",
                                                             showNotification: true,
                                                             openFileFromNotification: true,
-                                                          );
+                                                          );*/
                                                         } else {
                                                           print("Permission deined");
                                                         }

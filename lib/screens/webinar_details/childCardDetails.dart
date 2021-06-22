@@ -5,7 +5,7 @@ import 'package:cpe_flutter/constant.dart';
 import 'package:cpe_flutter/screens/profile/who_should_attend.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
+// import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sizer/sizer.dart';
@@ -179,7 +179,7 @@ class _childCardDetailsState extends State<childCardDetails> {
       print(progress);
     });
 
-    FlutterDownloader.registerCallback(downloadingCallback);
+    // FlutterDownloader.registerCallback(downloadingCallback);
   }
 
   @override
@@ -650,7 +650,7 @@ class _detailsRowDownloadState extends State<detailsRowDownload> {
       final externalDir = await getExternalStorageDirectory();
       String handsOutUrl = webDetailsObj['presentation_handout'][pos];
       print('Just before downloading url for presentation handsout is : $handsOutUrl');
-      final id = await FlutterDownloader.enqueue(
+      /*final id = await FlutterDownloader.enqueue(
         url:
             // "https://firebasestorage.googleapis.com/v0/b/storage-3cff8.appspot.com/o/2020-05-29%2007-18-34.mp4?alt=media&token=841fffde-2b83-430c-87c3-2d2fd658fd41",
             "$handsOutUrl",
@@ -659,7 +659,7 @@ class _detailsRowDownloadState extends State<detailsRowDownload> {
         fileName: "Handsout_Material_${pos + 1}_${webDetailsObj['webinar_title']}.pdf",
         showNotification: true,
         openFileFromNotification: true,
-      );
+      );*/
     } else {
       print("Permission deined");
     }
@@ -671,14 +671,14 @@ class _detailsRowDownloadState extends State<detailsRowDownload> {
     if (status.isGranted) {
       final externalDir = await getExternalStorageDirectory();
 
-      final id = await FlutterDownloader.enqueue(
+      /*final id = await FlutterDownloader.enqueue(
         url: "${webDetailsObj['instructional_docuement']}",
         savedDir: externalDir.path,
         // fileName: "download",
         fileName: "Instructional_Documents_${webDetailsObj['webinar_title']}.pdf",
         showNotification: true,
         openFileFromNotification: true,
-      );
+      );*/
     } else {
       print("Permission deined");
     }
@@ -690,14 +690,14 @@ class _detailsRowDownloadState extends State<detailsRowDownload> {
     if (status.isGranted) {
       final externalDir = await getExternalStorageDirectory();
 
-      final id = await FlutterDownloader.enqueue(
+      /*final id = await FlutterDownloader.enqueue(
         url: "${webDetailsObj['key_terms']}",
         savedDir: externalDir.path,
         // fileName: "download",
         fileName: "Key_Terms_${webDetailsObj['webinar_title']}.pdf",
         showNotification: true,
         openFileFromNotification: true,
-      );
+      );*/
     } else {
       print("Permission deined");
     }

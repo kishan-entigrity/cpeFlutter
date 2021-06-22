@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
+// import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -68,7 +68,7 @@ class _CertificatePdfPreviewState extends State<CertificatePdfPreview> {
       print(progress);
     });
 
-    FlutterDownloader.registerCallback(downloadingCallback);
+    // FlutterDownloader.registerCallback(downloadingCallback);
   }
 
   loadDocument() async {
@@ -201,7 +201,7 @@ class _CertificatePdfPreviewState extends State<CertificatePdfPreview> {
                                       if (status.isGranted) {
                                         final externalDir = await getExternalStorageDirectory();
 
-                                        final id = await FlutterDownloader.enqueue(
+                                        /*final id = await FlutterDownloader.enqueue(
                                           url:
                                               // "https://firebasestorage.googleapis.com/v0/b/storage-3cff8.appspot.com/o/2020-05-29%2007-18-34.mp4?alt=media&token=841fffde-2b83-430c-87c3-2d2fd658fd41",
                                               "$strUrl",
@@ -210,7 +210,7 @@ class _CertificatePdfPreviewState extends State<CertificatePdfPreview> {
                                           fileName: "cert_${strWebinarType}_$strTitle.pdf",
                                           showNotification: true,
                                           openFileFromNotification: true,
-                                        );
+                                        );*/
                                       } else {
                                         print("Permission deined");
                                       }

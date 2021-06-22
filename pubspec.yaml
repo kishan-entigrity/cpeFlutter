@@ -57,7 +57,7 @@ dependencies:
 #  image_gallery_saver: ^1.6.6
   permission_handler: ^6.0.0
   package_info: ^2.0.0
-  flutter_downloader: ^1.5.2
+#  flutter_downloader: ^1.5.2
   image_picker: ^0.7.5
 
 dev_dependencies:
