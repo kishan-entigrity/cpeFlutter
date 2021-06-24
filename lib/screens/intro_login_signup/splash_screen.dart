@@ -47,6 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
     FirebaseAnalytics().setCurrentScreen(screenName: 'Splash Screen');
+
     setState(() {
       ConstSignUp.isReloadWebinar = false;
     });

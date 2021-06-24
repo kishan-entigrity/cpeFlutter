@@ -20,6 +20,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   static FirebaseAnalytics analytics = FirebaseAnalytics();
   static FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
+
+  // static FirebaseAnalytics analytics = FirebaseAnalytics();
+  // static FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -35,6 +38,9 @@ class MyApp extends StatelessWidget {
             SizerUtil().init(constraints, orientation); //initialize SizerUtil
             return MaterialApp(
               // title: 'Flutter Demo',
+              navigatorObservers: [
+                FirebaseAnalyticsObserver(analytics: analytics),
+              ],
               theme: ThemeData(
                 primarySwatch: Colors.blueGrey,
                 visualDensity: VisualDensity.adaptivePlatformDensity,
