@@ -2009,13 +2009,13 @@ class _MyWebinarFragState extends State<MyWebinarFrag> {
 
         case "06":
           {
-            month = "June";
+            month = "Jun";
           }
           break;
 
         case "07":
           {
-            month = "July";
+            month = "Jul";
           }
           break;
 

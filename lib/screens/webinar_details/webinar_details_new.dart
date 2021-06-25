@@ -1333,13 +1333,13 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
 
         case "06":
           {
-            month = "June";
+            month = "Jun";
           }
           break;
 
         case "07":
           {
-            month = "July";
+            month = "Jul";
           }
           break;
 

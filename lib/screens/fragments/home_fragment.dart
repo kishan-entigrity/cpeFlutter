@@ -1915,6 +1915,17 @@ class _HomeFragmentState extends State<HomeFragment> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.only(left: 3.0.w),
+                              // width: 50.0.w,
+                              child: Center(
+                                child: Text(
+                                  // 'Date',
+                                  'Select your preferable option',
+                                  style: kOthersTitle,
+                                ),
+                              ),
+                            ),
                             GestureDetector(
                               onTap: () {
                                 Navigator.pop(context);
@@ -1935,7 +1946,8 @@ class _HomeFragmentState extends State<HomeFragment> {
                                 });
                               },
                               child: Container(
-                                width: 20.0.w,
+                                // width: 20.0.w,
+                                padding: EdgeInsets.only(right: 3.0.w),
                                 child: Center(
                                   child: Text(
                                     'Clear',
@@ -1944,18 +1956,9 @@ class _HomeFragmentState extends State<HomeFragment> {
                                 ),
                               ),
                             ),
-                            Container(
-                              width: 50.0.w,
-                              child: Center(
-                                child: Text(
-                                  'Date',
-                                  style: kOthersTitle,
-                                ),
-                              ),
-                            ),
-                            Container(
+                            /*Container(
                               width: 20.0.w,
-                            ),
+                            ),*/
                           ],
                         ),
                       ),
@@ -2335,22 +2338,9 @@ class _HomeFragmentState extends State<HomeFragment> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Container(
-                                  width: 20.0.w,
-                                  child: Center(
-                                    child: Text(
-                                      'Cancel',
-                                      style: kDateTestimonials,
-                                    ),
-                                  ),
-                                ),
-                              ),
                               Container(
-                                width: 50.0.w,
+                                // width: 50.0.w,
+                                padding: EdgeInsets.only(left: 3.0.w),
                                 child: Center(
                                   child: Text(
                                     'Topics',
@@ -2358,33 +2348,58 @@ class _HomeFragmentState extends State<HomeFragment> {
                                   ),
                                 ),
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    hotTopicsId.clear();
-                                    for (int i = 0; i < listHotTopics.length; i++) {
-                                      listHotTopics[i].isSelected = false;
-                                    }
-
-                                    hot_topics_ids = "";
-
-                                    isProgressShowing = true;
-
-                                    list.clear();
-                                    start = 0;
-
-                                    this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType',
-                                        '$strFilterPrice', '$hot_topics_ids', '$qualification_ids');
-                                  });
-                                },
-                                child: Container(
-                                  width: 20.0.w,
-                                  child: Center(
-                                    child: Text(
-                                      'Clear',
+                              Container(
+                                padding: EdgeInsets.only(right: 3.0.w),
+                                child: Row(
+                                  children: <Widget>[
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Container(
+                                        // width: 20.0.w,
+                                        child: Center(
+                                          child: Text(
+                                            'Cancel',
+                                            style: kDateTestimonials,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      ' | ',
                                       style: kDateTestimonials,
                                     ),
-                                  ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          hotTopicsId.clear();
+                                          for (int i = 0; i < listHotTopics.length; i++) {
+                                            listHotTopics[i].isSelected = false;
+                                          }
+
+                                          hot_topics_ids = "";
+
+                                          isProgressShowing = true;
+
+                                          list.clear();
+                                          start = 0;
+
+                                          this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType',
+                                              '$strFilterPrice', '$hot_topics_ids', '$qualification_ids');
+                                        });
+                                      },
+                                      child: Container(
+                                        // width: 20.0.w,
+                                        child: Center(
+                                          child: Text(
+                                            'Clear',
+                                            style: kDateTestimonials,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
@@ -2965,13 +2980,13 @@ class _HomeFragmentState extends State<HomeFragment> {
 
         case "06":
           {
-            month = "June";
+            month = "Jun";
           }
           break;
 
         case "07":
           {
-            month = "July";
+            month = "Jul";
           }
           break;
 
