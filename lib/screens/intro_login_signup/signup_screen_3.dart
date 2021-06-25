@@ -379,12 +379,23 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                                         child: Row(
                                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                           children: <Widget>[
+                                                            Container(
+                                                              // width: 50.0.w,
+                                                              padding: EdgeInsets.only(left: 3.0.w),
+                                                              child: Center(
+                                                                child: Text(
+                                                                  'Country',
+                                                                  style: kOthersTitle,
+                                                                ),
+                                                              ),
+                                                            ),
                                                             GestureDetector(
                                                               onTap: () {
                                                                 Navigator.pop(context);
                                                               },
                                                               child: Container(
-                                                                width: 20.0.w,
+                                                                // width: 20.0.w,
+                                                                padding: EdgeInsets.only(right: 3.0.w),
                                                                 child: Center(
                                                                   child: Text(
                                                                     'Cancel',
@@ -393,18 +404,9 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                                                 ),
                                                               ),
                                                             ),
-                                                            Container(
-                                                              width: 50.0.w,
-                                                              child: Center(
-                                                                child: Text(
-                                                                  'Country',
-                                                                  style: kOthersTitle,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Container(
+                                                            /*Container(
                                                               width: 20.0.w,
-                                                            ),
+                                                            ),*/
                                                           ],
                                                         ),
                                                       ),
@@ -566,12 +568,23 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                                           child: Row(
                                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                             children: <Widget>[
+                                                              Container(
+                                                                // width: 50.0.w,
+                                                                padding: EdgeInsets.only(left: 3.0.w),
+                                                                child: Center(
+                                                                  child: Text(
+                                                                    'State',
+                                                                    style: kOthersTitle,
+                                                                  ),
+                                                                ),
+                                                              ),
                                                               GestureDetector(
                                                                 onTap: () {
                                                                   Navigator.pop(context);
                                                                 },
                                                                 child: Container(
-                                                                  width: 20.0.w,
+                                                                  // width: 20.0.w,
+                                                                  padding: EdgeInsets.only(right: 3.0.w),
                                                                   child: Center(
                                                                     child: Text(
                                                                       'Cancel',
@@ -580,18 +593,9 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                                                   ),
                                                                 ),
                                                               ),
-                                                              Container(
-                                                                width: 50.0.w,
-                                                                child: Center(
-                                                                  child: Text(
-                                                                    'State',
-                                                                    style: kOthersTitle,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Container(
+                                                              /*Container(
                                                                 width: 20.0.w,
-                                                              ),
+                                                              ),*/
                                                             ],
                                                           ),
                                                         ),
@@ -755,12 +759,23 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                                           child: Row(
                                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                             children: <Widget>[
+                                                              Container(
+                                                                // width: 50.0.w,
+                                                                padding: EdgeInsets.only(left: 3.0.w),
+                                                                child: Center(
+                                                                  child: Text(
+                                                                    'City',
+                                                                    style: kOthersTitle,
+                                                                  ),
+                                                                ),
+                                                              ),
                                                               GestureDetector(
                                                                 onTap: () {
                                                                   Navigator.pop(context);
                                                                 },
                                                                 child: Container(
-                                                                  width: 20.0.w,
+                                                                  // width: 20.0.w,
+                                                                  padding: EdgeInsets.only(right: 3.0.w),
                                                                   child: Center(
                                                                     child: Text(
                                                                       'Cancel',
@@ -769,18 +784,9 @@ class _SignUpScreen3State extends State<SignUpScreen3> {
                                                                   ),
                                                                 ),
                                                               ),
-                                                              Container(
-                                                                width: 50.0.w,
-                                                                child: Center(
-                                                                  child: Text(
-                                                                    'City',
-                                                                    style: kOthersTitle,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Container(
+                                                              /*Container(
                                                                 width: 20.0.w,
-                                                              ),
+                                                              ),*/
                                                             ],
                                                           ),
                                                         ),

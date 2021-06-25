@@ -871,12 +871,23 @@ class _UserProfileState extends State<UserProfile> {
                                                     child: Row(
                                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                       children: <Widget>[
+                                                        Container(
+                                                          // width: 50.0.w,
+                                                          padding: EdgeInsets.only(left: 3.0.w),
+                                                          child: Center(
+                                                            child: Text(
+                                                              'Organization Size',
+                                                              style: kOthersTitle,
+                                                            ),
+                                                          ),
+                                                        ),
                                                         GestureDetector(
                                                           onTap: () {
                                                             Navigator.pop(context);
                                                           },
                                                           child: Container(
-                                                            width: 20.0.w,
+                                                            // width: 20.0.w,
+                                                            padding: EdgeInsets.only(right: 3.0.w),
                                                             child: Center(
                                                               child: Text(
                                                                 'Cancel',
@@ -885,18 +896,9 @@ class _UserProfileState extends State<UserProfile> {
                                                             ),
                                                           ),
                                                         ),
-                                                        Container(
-                                                          width: 50.0.w,
-                                                          child: Center(
-                                                            child: Text(
-                                                              'Organization Size',
-                                                              style: kOthersTitle,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Container(
+                                                        /*Container(
                                                           width: 20.0.w,
-                                                        ),
+                                                        ),*/
                                                       ],
                                                     ),
                                                   ),
@@ -1040,12 +1042,23 @@ class _UserProfileState extends State<UserProfile> {
                                                     child: Row(
                                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                       children: <Widget>[
+                                                        Container(
+                                                          // width: 50.0.w,
+                                                          padding: EdgeInsets.only(left: 3.0.w),
+                                                          child: Center(
+                                                            child: Text(
+                                                              'Job Title/Designation',
+                                                              style: kOthersTitle,
+                                                            ),
+                                                          ),
+                                                        ),
                                                         GestureDetector(
                                                           onTap: () {
                                                             Navigator.pop(context);
                                                           },
                                                           child: Container(
-                                                            width: 20.0.w,
+                                                            // width: 20.0.w,
+                                                            padding: EdgeInsets.only(right: 3.0.w),
                                                             child: Center(
                                                               child: Text(
                                                                 'Cancel',
@@ -1054,18 +1067,9 @@ class _UserProfileState extends State<UserProfile> {
                                                             ),
                                                           ),
                                                         ),
-                                                        Container(
-                                                          width: 50.0.w,
-                                                          child: Center(
-                                                            child: Text(
-                                                              'Job Title/Designation',
-                                                              style: kOthersTitle,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Container(
+                                                        /*Container(
                                                           width: 20.0.w,
-                                                        ),
+                                                        ),*/
                                                       ],
                                                     ),
                                                   ),
@@ -1215,12 +1219,23 @@ class _UserProfileState extends State<UserProfile> {
                                                     child: Row(
                                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                       children: <Widget>[
+                                                        Container(
+                                                          // width: 50.0.w,
+                                                          padding: EdgeInsets.only(left: 3.0.w),
+                                                          child: Center(
+                                                            child: Text(
+                                                              'Industry',
+                                                              style: kOthersTitle,
+                                                            ),
+                                                          ),
+                                                        ),
                                                         GestureDetector(
                                                           onTap: () {
                                                             Navigator.pop(context);
                                                           },
                                                           child: Container(
-                                                            width: 20.0.w,
+                                                            // width: 20.0.w,
+                                                            padding: EdgeInsets.only(right: 3.0.w),
                                                             child: Center(
                                                               child: Text(
                                                                 'Cancel',
@@ -1229,18 +1244,9 @@ class _UserProfileState extends State<UserProfile> {
                                                             ),
                                                           ),
                                                         ),
-                                                        Container(
-                                                          width: 50.0.w,
-                                                          child: Center(
-                                                            child: Text(
-                                                              'Industry',
-                                                              style: kOthersTitle,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Container(
+                                                        /*Container(
                                                           width: 20.0.w,
-                                                        ),
+                                                        ),*/
                                                       ],
                                                     ),
                                                   ),
@@ -1389,12 +1395,23 @@ class _UserProfileState extends State<UserProfile> {
                                                     child: Row(
                                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                       children: <Widget>[
+                                                        Container(
+                                                          // width: 50.0.w,
+                                                          padding: EdgeInsets.only(left: 3.0.w),
+                                                          child: Center(
+                                                            child: Text(
+                                                              'Professional Credentials',
+                                                              style: kOthersTitle,
+                                                            ),
+                                                          ),
+                                                        ),
                                                         GestureDetector(
                                                           onTap: () {
                                                             Navigator.pop(context);
                                                           },
                                                           child: Container(
-                                                            width: 20.0.w,
+                                                            // width: 20.0.w,
+                                                            padding: EdgeInsets.only(right: 3.0.w),
                                                             child: Center(
                                                               child: Text(
                                                                 'Cancel',
@@ -1403,18 +1420,9 @@ class _UserProfileState extends State<UserProfile> {
                                                             ),
                                                           ),
                                                         ),
-                                                        Container(
-                                                          width: 50.0.w,
-                                                          child: Center(
-                                                            child: Text(
-                                                              'Prefessional Credentials',
-                                                              style: kOthersTitle,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Container(
+                                                        /*Container(
                                                           width: 20.0.w,
-                                                        ),
+                                                        ),*/
                                                       ],
                                                     ),
                                                   ),
@@ -1913,12 +1921,23 @@ class _UserProfileState extends State<UserProfile> {
                                                     child: Row(
                                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                       children: <Widget>[
+                                                        Container(
+                                                          // width: 50.0.w,
+                                                          padding: EdgeInsets.only(left: 3.0.w),
+                                                          child: Center(
+                                                            child: Text(
+                                                              'Country',
+                                                              style: kOthersTitle,
+                                                            ),
+                                                          ),
+                                                        ),
                                                         GestureDetector(
                                                           onTap: () {
                                                             Navigator.pop(context);
                                                           },
                                                           child: Container(
-                                                            width: 20.0.w,
+                                                            // width: 20.0.w,
+                                                            padding: EdgeInsets.only(right: 3.0.w),
                                                             child: Center(
                                                               child: Text(
                                                                 'Cancel',
@@ -1927,18 +1946,9 @@ class _UserProfileState extends State<UserProfile> {
                                                             ),
                                                           ),
                                                         ),
-                                                        Container(
-                                                          width: 50.0.w,
-                                                          child: Center(
-                                                            child: Text(
-                                                              'Country',
-                                                              style: kOthersTitle,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Container(
+                                                        /*Container(
                                                           width: 20.0.w,
-                                                        ),
+                                                        ),*/
                                                       ],
                                                     ),
                                                   ),
@@ -2112,12 +2122,23 @@ class _UserProfileState extends State<UserProfile> {
                                                     child: Row(
                                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                       children: <Widget>[
+                                                        Container(
+                                                          // width: 50.0.w,
+                                                          padding: EdgeInsets.only(left: 3.0.w),
+                                                          child: Center(
+                                                            child: Text(
+                                                              'State',
+                                                              style: kOthersTitle,
+                                                            ),
+                                                          ),
+                                                        ),
                                                         GestureDetector(
                                                           onTap: () {
                                                             Navigator.pop(context);
                                                           },
                                                           child: Container(
-                                                            width: 20.0.w,
+                                                            // width: 20.0.w,
+                                                            padding: EdgeInsets.only(right: 3.0.w),
                                                             child: Center(
                                                               child: Text(
                                                                 'Cancel',
@@ -2126,18 +2147,9 @@ class _UserProfileState extends State<UserProfile> {
                                                             ),
                                                           ),
                                                         ),
-                                                        Container(
-                                                          width: 50.0.w,
-                                                          child: Center(
-                                                            child: Text(
-                                                              'State',
-                                                              style: kOthersTitle,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Container(
+                                                        /*Container(
                                                           width: 20.0.w,
-                                                        ),
+                                                        ),*/
                                                       ],
                                                     ),
                                                   ),
@@ -2308,12 +2320,23 @@ class _UserProfileState extends State<UserProfile> {
                                                     child: Row(
                                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                       children: <Widget>[
+                                                        Container(
+                                                          // width: 50.0.w,
+                                                          padding: EdgeInsets.only(left: 3.0.w),
+                                                          child: Center(
+                                                            child: Text(
+                                                              'City',
+                                                              style: kOthersTitle,
+                                                            ),
+                                                          ),
+                                                        ),
                                                         GestureDetector(
                                                           onTap: () {
                                                             Navigator.pop(context);
                                                           },
                                                           child: Container(
-                                                            width: 20.0.w,
+                                                            // width: 20.0.w,
+                                                            padding: EdgeInsets.only(right: 3.0.w),
                                                             child: Center(
                                                               child: Text(
                                                                 'Cancel',
@@ -2322,18 +2345,9 @@ class _UserProfileState extends State<UserProfile> {
                                                             ),
                                                           ),
                                                         ),
-                                                        Container(
-                                                          width: 50.0.w,
-                                                          child: Center(
-                                                            child: Text(
-                                                              'City',
-                                                              style: kOthersTitle,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Container(
+                                                        /*Container(
                                                           width: 20.0.w,
-                                                        ),
+                                                        ),*/
                                                       ],
                                                     ),
                                                   ),
