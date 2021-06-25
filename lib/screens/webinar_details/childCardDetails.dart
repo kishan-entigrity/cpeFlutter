@@ -37,6 +37,7 @@ class _childCardDetailsState extends State<childCardDetails> {
       duration = 0,
       irsCourseId = '',
       ctecCourseId = '',
+      cfpCorseId = '',
       subjectArea = '',
       courseLevel = '',
       insructionalMethod = '',
@@ -95,6 +96,7 @@ class _childCardDetailsState extends State<childCardDetails> {
       cpdCredit = webDetailsObj['cpd_credit'];
       irsCourseId = webDetailsObj['course_id'];
       ctecCourseId = webDetailsObj['ctec_course_id'];
+      cfpCorseId = webDetailsObj['cfp_course_id'];
       duration = webDetailsObj['duration'];
       subjectArea = webDetailsObj['subject_area'];
       courseLevel = webDetailsObj['course_level'];
@@ -196,6 +198,7 @@ class _childCardDetailsState extends State<childCardDetails> {
           detailsRowString('CPD Credits', '$cpdCredit', cpdCredit?.isEmpty ? false : true),
           detailsRowString('IRS Course Id', '$irsCourseId', irsCourseId?.isEmpty ? false : true),
           detailsRowString('CTEC Course Id', '$ctecCourseId', ctecCourseId?.isEmpty ? false : true),
+          detailsRowString('CFP Course Id', '$cfpCorseId', cfpCorseId?.isEmpty ? false : true),
           detailsRowString('Duration', calculateHrs(duration), true),
           detailsRowString('Subject Area', '$subjectArea', true),
           detailsRowString('Course Level', '$courseLevel', true),

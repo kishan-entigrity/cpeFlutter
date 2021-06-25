@@ -252,7 +252,7 @@ class _HomeFragmentState extends State<HomeFragment> {
   }
 
   Future<List<Audiances>> getQualificationList() async {
-    var urls = Uri.parse(URLs.BASE_URL + 'audiances');
+    var urls = Uri.parse(URLs.BASE_URL + 'audiances?filter=filtered');
 
     final response = await http.get(
       urls,
@@ -2048,22 +2048,9 @@ class _HomeFragmentState extends State<HomeFragment> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Container(
-                                  width: 20.0.w,
-                                  child: Center(
-                                    child: Text(
-                                      'Cancel',
-                                      style: kDateTestimonials,
-                                    ),
-                                  ),
-                                ),
-                              ),
                               Container(
-                                width: 50.0.w,
+                                // width: 50.0.w,
+                                padding: EdgeInsets.only(left: 3.0.w),
                                 child: Center(
                                   child: Text(
                                     'Qualifications',
@@ -2071,32 +2058,57 @@ class _HomeFragmentState extends State<HomeFragment> {
                                   ),
                                 ),
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    qualificationsId.clear();
-                                    qualification_ids = "";
-                                    for (int i = 0; i < listQualifications.length; i++) {
-                                      listQualifications[i].isSelected = false;
-                                    }
-
-                                    isProgressShowing = true;
-
-                                    list.clear();
-                                    start = 0;
-
-                                    this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType',
-                                        '$strFilterPrice', '$hot_topics_ids', '$qualification_ids');
-                                  });
-                                },
-                                child: Container(
-                                  width: 20.0.w,
-                                  child: Center(
-                                    child: Text(
-                                      'Clear',
+                              Container(
+                                padding: EdgeInsets.only(right: 3.0.w),
+                                child: Row(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Container(
+                                        // width: 20.0.w,
+                                        child: Center(
+                                          child: Text(
+                                            'Cancel',
+                                            style: kDateTestimonials,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      ' | ',
                                       style: kDateTestimonials,
                                     ),
-                                  ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          qualificationsId.clear();
+                                          qualification_ids = "";
+                                          for (int i = 0; i < listQualifications.length; i++) {
+                                            listQualifications[i].isSelected = false;
+                                          }
+
+                                          isProgressShowing = true;
+
+                                          list.clear();
+                                          start = 0;
+
+                                          this.getDataWebinarList('$_authToken', '0', '10', '', '', '$searchKey', '$strWebinarType', '$strDateType',
+                                              '$strFilterPrice', '$hot_topics_ids', '$qualification_ids');
+                                        });
+                                      },
+                                      child: Container(
+                                        // width: 20.0.w,
+                                        child: Center(
+                                          child: Text(
+                                            'Clear',
+                                            style: kDateTestimonials,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
