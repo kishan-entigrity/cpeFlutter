@@ -102,6 +102,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
   var reviewAnswered = false;
 
   var presenterName = '';
+  var presenterQualification = '';
 
   bool isDetailsExpanded = false;
   bool isDescriptionExpanded = false;
@@ -237,6 +238,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
 
           // Presenter and company data..
           presenterName = presenterObj['name'];
+          presenterQualification = presenterObj['qualification'];
 
           respTestimonials = webDetailsObj['webinar_testimonial'];
           respTestimonialsCount = webDetailsObj['webinar_testimonial'].length;
@@ -705,7 +707,7 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                               // '${data['payload']['webinar'][index]['speaker_name']}',
                                               // '${list[index].speakerName}',
                                               // '${webDetailsObj['about_presententer']['name']}',
-                                              '$presenterName',
+                                              '${presenterQualification.isEmpty ? presenterName : presenterName + ', ' + presenterQualification}',
                                               style: TextStyle(
                                                 fontFamily: 'Whitney Semi Bold',
                                                 fontSize: 13.0.sp,
@@ -854,7 +856,8 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                   children: <Widget>[
                                     WebinarTitle_OnDemand(webinarTitle),
                                     // WebinarTitle_OnDemand('Test Title'),
-                                    WebinarSpeakerName_OnDemand(presenterName),
+                                    WebinarSpeakerName_OnDemand(
+                                        presenterQualification.isEmpty ? presenterName : presenterName + ', ' + presenterQualification),
                                   ],
                                 ),
                               ),

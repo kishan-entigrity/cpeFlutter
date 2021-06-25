@@ -611,7 +611,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                                               horizontal: 18.0,
                                             ),
                                             child: Text(
-                                              'Qualification',
+                                              'Qualifications',
                                               style: TextStyle(
                                                 color: qualificationsId.length > 0 ? Colors.white : Colors.black,
                                                 fontSize: 11.0.sp,
