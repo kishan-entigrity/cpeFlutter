@@ -5,7 +5,7 @@ import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -69,7 +69,7 @@ class _TransactionPdfPreviewState extends State<TransactionPdfPreview> {
       print(progress);
     });
 
-    // FlutterDownloader.registerCallback(downloadingCallback);
+    FlutterDownloader.registerCallback(downloadingCallback);
   }
 
   loadDocument() async {
@@ -207,18 +207,19 @@ class _TransactionPdfPreviewState extends State<TransactionPdfPreview> {
                                       final status = await Permission.storage.request();
 
                                       if (status.isGranted) {
-                                        final externalDir = await getExternalStorageDirectory();
+                                        // final externalDir = await getExternalStorageDirectory();
 
-                                        /*final id = await FlutterDownloader.enqueue(
+                                        final id = await FlutterDownloader.enqueue(
                                           url:
                                               // "https://firebasestorage.googleapis.com/v0/b/storage-3cff8.appspot.com/o/2020-05-29%2007-18-34.mp4?alt=media&token=841fffde-2b83-430c-87c3-2d2fd658fd41",
                                               "$strUrl",
-                                          savedDir: externalDir.path,
+                                          // savedDir: externalDir.path,
+                                          savedDir: (await getApplicationDocumentsDirectory()).path,
                                           // fileName: "download",
                                           fileName: "receipt_$strTitle.pdf",
                                           showNotification: true,
                                           openFileFromNotification: true,
-                                        );*/
+                                        );
                                       } else {
                                         print("Permission deined");
                                       }
