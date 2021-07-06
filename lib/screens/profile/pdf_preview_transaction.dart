@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
 
@@ -133,7 +134,8 @@ class _TransactionPdfPreviewState extends State<TransactionPdfPreview> {
                       child: GestureDetector(
                         onTap: () {
                           print('Click event for share receipt');
-                          Share.share('$strUrl');
+                          // Share.share('$strUrl');
+                          Share.share(strUrl);
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -207,6 +209,7 @@ class _TransactionPdfPreviewState extends State<TransactionPdfPreview> {
                                       final status = await Permission.storage.request();
 
                                       if (status.isGranted) {
+
                                         // final externalDir = await getExternalStorageDirectory();
 
                                         final id = await FlutterDownloader.enqueue(
@@ -214,12 +217,16 @@ class _TransactionPdfPreviewState extends State<TransactionPdfPreview> {
                                               // "https://firebasestorage.googleapis.com/v0/b/storage-3cff8.appspot.com/o/2020-05-29%2007-18-34.mp4?alt=media&token=841fffde-2b83-430c-87c3-2d2fd658fd41",
                                               "$strUrl",
                                           // savedDir: externalDir.path,
-                                          savedDir: (await getApplicationDocumentsDirectory()).path,
+                                          // savedDir: Platform.isAndroid ? externalDir.path : (await getApplicationDocumentsDirectory()).path,
+                                          savedDir: Platform.isAndroid ? (await getExternalStorageDirectory()).path : (await getApplicationDocumentsDirectory()).path,
                                           // fileName: "download",
                                           fileName: "receipt_$strTitle.pdf",
                                           showNotification: true,
                                           openFileFromNotification: true,
                                         );
+                                        if(Platform.isIOS) {
+                                          Share.shareFiles(['${(await getApplicationDocumentsDirectory()).path}/receipt_$strTitle.pdf'],text: 'receipt_$strTitle.pdf');
+                                        }
                                       } else {
                                         print("Permission deined");
                                       }

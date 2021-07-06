@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
 
@@ -5,9 +6,11 @@ import 'package:cpe_flutter/constant.dart';
 import 'package:cpe_flutter/screens/profile/who_should_attend.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 // import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:share/share.dart';
 import 'package:sizer/sizer.dart';
 
 class childCardDetails extends StatefulWidget {
@@ -650,19 +653,24 @@ class _detailsRowDownloadState extends State<detailsRowDownload> {
     final status = await Permission.storage.request();
 
     if (status.isGranted) {
-      final externalDir = await getExternalStorageDirectory();
+      // final externalDir = await getExternalStorageDirectory();
       String handsOutUrl = webDetailsObj['presentation_handout'][pos];
       print('Just before downloading url for presentation handsout is : $handsOutUrl');
-      /*final id = await FlutterDownloader.enqueue(
+      final id = await FlutterDownloader.enqueue(
         url:
             // "https://firebasestorage.googleapis.com/v0/b/storage-3cff8.appspot.com/o/2020-05-29%2007-18-34.mp4?alt=media&token=841fffde-2b83-430c-87c3-2d2fd658fd41",
             "$handsOutUrl",
-        savedDir: externalDir.path,
+        // savedDir: externalDir.path,
+        // savedDir: Platform.isAndroid ? externalDir.path : (await getApplicationDocumentsDirectory()).path,
+        savedDir: Platform.isAndroid ? (await getExternalStorageDirectory()).path : (await getApplicationDocumentsDirectory()).path,
         // fileName: "download",
         fileName: "Handsout_Material_${pos + 1}_${webDetailsObj['webinar_title']}.pdf",
         showNotification: true,
         openFileFromNotification: true,
-      );*/
+      );
+      if(Platform.isIOS) {
+        Share.shareFiles(['${(await getApplicationDocumentsDirectory()).path}/Handsout_Material_${pos + 1}_${webDetailsObj['webinar_title']}.pdf'],text: 'Handsout_Material_${pos + 1}_${webDetailsObj['webinar_title']}.pdf');
+      }
     } else {
       print("Permission deined");
     }
@@ -672,16 +680,21 @@ class _detailsRowDownloadState extends State<detailsRowDownload> {
     final status = await Permission.storage.request();
 
     if (status.isGranted) {
-      final externalDir = await getExternalStorageDirectory();
+      // final externalDir = await getExternalStorageDirectory();
 
-      /*final id = await FlutterDownloader.enqueue(
+      final id = await FlutterDownloader.enqueue(
         url: "${webDetailsObj['instructional_docuement']}",
-        savedDir: externalDir.path,
+        // savedDir: externalDir.path,
+        // savedDir: Platform.isAndroid ? externalDir.path : (await getApplicationDocumentsDirectory()).path,
+        savedDir: Platform.isAndroid ? (await getExternalStorageDirectory()).path : (await getApplicationDocumentsDirectory()).path,
         // fileName: "download",
         fileName: "Instructional_Documents_${webDetailsObj['webinar_title']}.pdf",
         showNotification: true,
         openFileFromNotification: true,
-      );*/
+      );
+      if(Platform.isIOS) {
+        Share.shareFiles(['${(await getApplicationDocumentsDirectory()).path}/Instructional_Documents_${webDetailsObj['webinar_title']}.pdf'],text: 'Instructional_Documents_${webDetailsObj['webinar_title']}.pdf');
+      }
     } else {
       print("Permission deined");
     }
@@ -691,16 +704,21 @@ class _detailsRowDownloadState extends State<detailsRowDownload> {
     final status = await Permission.storage.request();
 
     if (status.isGranted) {
-      final externalDir = await getExternalStorageDirectory();
+      // final externalDir = await getExternalStorageDirectory();
 
-      /*final id = await FlutterDownloader.enqueue(
+      final id = await FlutterDownloader.enqueue(
         url: "${webDetailsObj['key_terms']}",
-        savedDir: externalDir.path,
+        // savedDir: externalDir.path,
+        // savedDir: Platform.isAndroid ? externalDir.path : (await getApplicationDocumentsDirectory()).path,
+        savedDir: Platform.isAndroid ? (await getExternalStorageDirectory()).path : (await getApplicationDocumentsDirectory()).path,
         // fileName: "download",
         fileName: "Key_Terms_${webDetailsObj['webinar_title']}.pdf",
         showNotification: true,
         openFileFromNotification: true,
-      );*/
+      );
+      if(Platform.isIOS) {
+        Share.shareFiles(['${(await getApplicationDocumentsDirectory()).path}/Key_Terms_${webDetailsObj['webinar_title']}.pdf'],text: 'Key_Terms_${webDetailsObj['webinar_title']}.pdf');
+      }
     } else {
       print("Permission deined");
     }

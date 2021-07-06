@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
 
@@ -15,6 +16,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import 'package:share/share.dart';
 
 import '../../constant.dart';
 import '../../rest_api.dart';
@@ -332,18 +334,22 @@ class _MyTranscationState extends State<MyTranscation> {
                                                         final status = await Permission.storage.request();
 
                                                         if (status.isGranted) {
-                                                          final externalDir = await getExternalStorageDirectory();
+                                                          // final externalDir = await getExternalStorageDirectory();
 
                                                           final id = await FlutterDownloader.enqueue(
                                                             url:
                                                                 // "https://firebasestorage.googleapis.com/v0/b/storage-3cff8.appspot.com/o/2020-05-29%2007-18-34.mp4?alt=media&token=841fffde-2b83-430c-87c3-2d2fd658fd41",
                                                                 "${list[index].receipt}",
-                                                            savedDir: externalDir.path,
+                                                            // savedDir: Platform.isAndroid ? externalDir.path : (await getApplicationDocumentsDirectory()).path,
+                                                            savedDir: Platform.isAndroid ? (await getExternalStorageDirectory()).path : (await getApplicationDocumentsDirectory()).path,
                                                             // fileName: "download",
                                                             fileName: "receipt_${list[index].title}.pdf",
                                                             showNotification: true,
                                                             openFileFromNotification: true,
                                                           );
+                                                          if(Platform.isIOS) {
+                                                            Share.shareFiles(['${(await getApplicationDocumentsDirectory()).path}/receipt_${list[index].title}.pdf'],text: 'receipt_${list[index].title}.pdf');
+                                                          }
                                                         } else {
                                                           print("Permission deined");
                                                         }

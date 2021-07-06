@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:cpe_flutter/components/SpinKitSample1.dart';
@@ -23,6 +24,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:rating_bar/rating_bar.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -1651,6 +1653,10 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
         if (fee == 'FREE' || fee == '') {
           registerWebinarCall('Bearer $userToken', webinarId.toString(), scheduleID.toString());
         } else {
+          if(Platform.isIOS) {
+            // final ProductDetails productDetails =
+            // final PurchaseParam purchaseParam = PurchaseParam(productDetails: productDetails);
+          }
           setState(() {
             ConstSignUp.isRegisterWebinarFromDetails = true;
           });
