@@ -1,4 +1,4 @@
-package com.myCPE_Test
+package com.my_CPE
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "993299193974",
-    "project_id": "tstcpe",
-    "storage_bucket": "tstcpe.appspot.com"
+    "project_number": "681916564570",
+    "project_id": "my-cpe-5bd88",
+    "storage_bucket": "my-cpe-5bd88.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:993299193974:android:020cd52394ead2e919ff57",
+        "mobilesdk_app_id": "1:681916564570:android:cf3d0b511a10abac798463",
         "android_client_info": {
-          "package_name": "com.myCPE_Test"
+          "package_name": "com.my_CPE"
         }
       },
       "oauth_client": [
         {
-          "client_id": "993299193974-71cgacet68kucqhetnacvk8na1cgnaq8.apps.googleusercontent.com",
+          "client_id": "681916564570-j7tk0oaq9f0lojhrj5b3bsc7qaj5fn15.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBuNN-_ZdpG3SCU7yyaZJ1CW09J56Vn4yo"
+          "current_key": "AIzaSyAYb1f14yHny8iS5jpTQoRcDZKCudAmJUE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "993299193974-71cgacet68kucqhetnacvk8na1cgnaq8.apps.googleusercontent.com",
+              "client_id": "681916564570-j7tk0oaq9f0lojhrj5b3bsc7qaj5fn15.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
