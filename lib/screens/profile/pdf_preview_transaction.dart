@@ -207,13 +207,14 @@ class _TransactionPdfPreviewState extends State<TransactionPdfPreview> {
                                       final status = await Permission.storage.request();
 
                                       if (status.isGranted) {
-                                        final externalDir = await getExternalStorageDirectory();
+                                        // final externalDir = await getExternalStorageDirectory();
 
                                         final id = await FlutterDownloader.enqueue(
                                           url:
                                               // "https://firebasestorage.googleapis.com/v0/b/storage-3cff8.appspot.com/o/2020-05-29%2007-18-34.mp4?alt=media&token=841fffde-2b83-430c-87c3-2d2fd658fd41",
                                               "$strUrl",
-                                          savedDir: externalDir.path,
+                                          // savedDir: externalDir.path,
+                                          savedDir: (await getApplicationDocumentsDirectory()).path,
                                           // fileName: "download",
                                           fileName: "receipt_$strTitle.pdf",
                                           showNotification: true,

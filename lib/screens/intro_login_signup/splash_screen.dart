@@ -187,6 +187,7 @@ class _SplashScreenState extends State<SplashScreen> {
       getVersionCheckAPI(versionName, versionCode, 'A');
     } else if (Platform.isIOS) {
       print('Device Type is iOS');
+      getUserData();
     }
   }
 
