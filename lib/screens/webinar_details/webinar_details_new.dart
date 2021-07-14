@@ -31,6 +31,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
+import 'package:flutter/services.dart';
 
 import '../../constant.dart';
 import '../../rest_api.dart';
@@ -651,6 +652,11 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
                                 color: Colors.red,
                                 child: FlickVideoPlayer(
                                   flickManager: flickManager,
+                                  preferredDeviceOrientationFullscreen: [
+                                    DeviceOrientation.portraitUp,
+                                    DeviceOrientation.landscapeLeft,
+                                    DeviceOrientation.landscapeRight,
+                                  ],
                                 ),
                               ),
                               // WebinarTitle_OnDemand(webinar_title),
@@ -1170,6 +1176,13 @@ class _WebinarDetailsNewState extends State<WebinarDetailsNew> {
     print('Method checkForVideoPlayerListener is called..');
     // flickManager.flickControlManager.seekTo(Duration(seconds: webDetailsObj['play_time_duration']));
     flickManager.flickControlManager.addListener(() {
+      if(flickManager.flickControlManager.isFullscreen) {
+        print('Is on full screen mode');
+        DeviceOrientation.landscapeLeft;
+      } else {
+        print('Is not on full screen mode');
+      }
+
       if (flickManager.flickVideoManager.isVideoInitialized) {
         print('Video is initialized..');
         // From here need to start the timer with condition that is video is playing or not??
